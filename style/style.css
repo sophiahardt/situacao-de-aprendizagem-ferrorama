@@ -198,3 +198,20 @@ body {
     height: 55px;
     font-size: 24px;
 }
+
+.opcoes-localizacao input[type="radio"] {
+    display: none;
+}
+
+
+.btn-localizacao {
+    flex: 1;
+    text-align: center;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: #fff;
+    transition: 0.2s;
+    font-weight: 500;
+}
