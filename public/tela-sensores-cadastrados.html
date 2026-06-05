@@ -1,128 +1,135 @@
-<!DOCTYPE html> 
-<html lang="pt-BR"> 
-<head> 
-  <meta charset="UTF-8"> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <title>Cadastro de Funcionário</title> 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> 
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script> 
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script> 
-</head> 
-<body> 
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #003399;"> 
-    <div class="container-fluid"> 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> 
-        <span class="navbar-toggler-icon"></span> 
-      </button> 
-      <div class="collapse navbar-collapse" id="navbarNav"> 
-        <ul class="navbar-nav me-auto"> 
-          <li class="nav-item"> 
-            <a class="nav-link" href="#">Dashboard</a> 
-          </li> 
-          <li class="nav-item"> 
-            <a class="nav-link active fw-bold align-middle" href="#">Sensores</a> 
-          </li> 
-          <li class="nav-item"> 
-            <a class="nav-link" href="#">Trens</a> 
-          </li> 
-          <li class="nav-item"> 
-            <a class="nav-link" href="#">Rotas</a> 
-          </li> 
-          <li class="nav-item"> 
-            <a class="nav-link" href="#">Funcionário</a> 
-          </li> 
-          <li class="nav-item"> 
-            <a class="nav-link" href="#">Relatórios</a> 
-          </li> 
-        </ul> 
-        <ul class="navbar-nav"> 
-          <li class="nav-item dropdown"> 
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
-              Admin João 
-            </a> 
-            <ul class="dropdown-menu"> 
-              <li><a class="dropdown-item" href="#">Sair</a></li> 
-            </ul> 
-          </li> 
-        </ul> 
-      </div> 
-    </div> 
-  </nav> 
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-  <div class="container-fluid p-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h1 class="h3">Lista de sensores cadastrados</h1>
-      <button class="btn btn-primary" style="background-color: #003399;">
-        <ion-icon name="add-circle"></ion-icon> Novo sensor
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Funcionário</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
+    <div class="container-fluid">
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
       </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Sensores</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Trens</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Rotas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Funcionários</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Relatórios</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              João
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#">Sair</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
+    </nav>
 
-    <div class="card shadow-sm">
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-hover mb-0"> 
-            <thead class="table-light"> 
-              <tr> 
-                <th>ID</th> 
-                <th>Nome</th> 
-                <th>Localização</th> 
-                <th>Tipo de dado</th> 
-                <th>Ações</th>
-              </tr> 
-            </thead> 
-            <tbody> 
-              <tr> 
-                <td>SEN-001</td> 
-                <td>Sensor velocidade A1</td> 
-                <td>Estação central</td> 
-                <td><ion-icon name="speedometer"></ion-icon> Velocidade</td> 
-                <td> 
-                  <button class="btn btn-danger btn-sm"><ion-icon name="trash"></ion-icon> Excluir</button> 
-                </td> 
-              </tr> 
-              <tr> 
-                <td>SEN-002</td> 
-                <td>Sensor temperatura A1</td> 
-                <td>Pátio de Manutenção</td> 
-                <td><ion-icon name="thermometer"></ion-icon> Temperatura</td> 
-                <td> 
-                  <button class="btn btn-danger btn-sm"><ion-icon name="trash"></ion-icon> Excluir</button> 
-                </td> 
-              </tr> 
-              <tr> 
-                <td>SEN-003</td> 
-                <td>Sensor falha A1</td> 
-                <td>Linha Norte - km45</td> 
-                <td><ion-icon name="warning-outline"></ion-icon> Falha</td> 
-                <td> 
-                  <button class="btn btn-danger btn-sm"><ion-icon name="trash"></ion-icon> Excluir</button> 
-                </td> 
-              </tr> 
-              <tr> 
-                <td>SEN-004</td> 
-                <td>Sensor velocidade A2</td> 
-                <td>Linha Sul - km23</td> 
-                <td><ion-icon name="speedometer"></ion-icon> Velocidade</td> 
-                <td> 
-                  <button class="btn btn-danger btn-sm"><ion-icon name="trash"></ion-icon> Excluir</button> 
-                </td> 
-              </tr> 
-            </tbody> 
-          </table> 
-        </div>
+    <div class="container-fluid p-4">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3">Lista de sensores cadastrados</h1>
+        <button class="btn btn-primary" style="background-color: #003399;">
+          <ion-icon name="add-circle"></ion-icon> Novo sensor
+        </button>
+      </div>
 
-        <hr class="my-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th>ID</th>
+                  <th>Nome</th>
+                  <th>Localização</th>
+                  <th>Tipo de dado</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>SEN-001</td>
+                  <td>Sensor velocidade A1</td>
+                  <td>Estação central</td>
+                  <td><ion-icon name="speedometer"></ion-icon> Velocidade</td>
+                  <td>
+                    <button class="btn btn-danger btn-sm"><ion-icon name="trash"></ion-icon> Excluir</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>SEN-002</td>
+                  <td>Sensor temperatura A1</td>
+                  <td>Pátio de Manutenção</td>
+                  <td><ion-icon name="thermometer"></ion-icon> Temperatura</td>
+                  <td>
+                    <button class="btn btn-danger btn-sm"><ion-icon name="trash"></ion-icon> Excluir</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>SEN-003</td>
+                  <td>Sensor falha A1</td>
+                  <td>Linha Norte - km45</td>
+                  <td><ion-icon name="warning-outline"></ion-icon> Falha</td>
+                  <td>
+                    <button class="btn btn-danger btn-sm"><ion-icon name="trash"></ion-icon> Excluir</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>SEN-004</td>
+                  <td>Sensor velocidade A2</td>
+                  <td>Linha Sul - km23</td>
+                  <td><ion-icon name="speedometer"></ion-icon> Velocidade</td>
+                  <td>
+                    <button class="btn btn-danger btn-sm"><ion-icon name="trash"></ion-icon> Excluir</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-        <h5 class="mb-3">Legenda de Tipos de Dado</h5>
-        <div class="d-flex flex-wrap gap-4">
-          <span><ion-icon name="speedometer"></ion-icon> Velocidade: mede a velocidade do trem</span>
-          <span><ion-icon name="thermometer"></ion-icon> Temperatura: mede a temperatura do sistema</span>
-          <span><ion-icon name="warning-outline"></ion-icon> Falha: detecta falhas e anomalias</span>
+          <hr class="my-4">
+
+          <h5 class="mb-3">Legenda de Tipos de Dado</h5>
+          <div class="d-flex flex-wrap gap-4">
+            <span><ion-icon name="speedometer"></ion-icon> Velocidade: mede a velocidade do trem</span>
+            <span><ion-icon name="thermometer"></ion-icon> Temperatura: mede a temperatura do sistema</span>
+            <span><ion-icon name="warning-outline"></ion-icon> Falha: detecta falhas e anomalias</span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
-</body> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>

@@ -5,93 +5,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Funcionários</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="../style/style.css">
 </head>
 
 <body class="tela-funcionarios">
 
-    <nav class="navbar navbar-expand-lg px-4 py-3">
-
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
         <div class="container-fluid">
 
-            <div class="collapse navbar-collapse show">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <ul class="navbar-nav gap-4">
-
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="#">Dashboard</a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="#">Sensores</a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="#">Trens</a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="#">Rotas</a>
                     </li>
-
                     <li class="nav-item">
-                        <a class="nav-link fw-bold" href="#">Funcionários</a>
+                        <a class="nav-link" href="#">Funcionários</a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="#">Relatórios</a>
                     </li>
-
                 </ul>
-
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            João
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Sair</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-
         </div>
-
     </nav>
 
     <div class="container mt-5">
-
         <div class="d-flex justify-content-between align-items-center mb-4">
 
             <div>
-
-                <h1 class="titulo">
-                    Funcionários cadastrados
-                </h1>
-
-                <p class="subtitulo">
-                    Visualize, cadastre ou remova funcionários cadastrados
-                </p>
-
+                <h1 class="titulo">Funcionários cadastrados</h1>
+                <p class="subtitulo">Visualize, cadastre ou remova funcionários cadastrados</p>
             </div>
 
             <button class="btn-cadastrar">
-                +
-                Cadastrar usuário
+                + Cadastrar usuário
             </button>
-
         </div>
 
         <hr>
 
         <div class="card-funcionarios mt-4">
-
             <div class="row tabela-topo text-center">
-
                 <div class="col">Nome</div>
                 <div class="col">Cargo</div>
                 <div class="col">Email</div>
                 <div class="col">Telefone</div>
                 <div class="col"></div>
-
             </div>
 
             <div class="row linha-funcionario align-items-center text-center">
-
                 <div class="col">João da Silva</div>
                 <div class="col">Administrador</div>
                 <div class="col">joao@email.com</div>
@@ -104,7 +91,6 @@
                 </div>
 
             </div>
-
             <div class="row linha-funcionario align-items-center text-center">
 
                 <div class="col">Maria Oliveira</div>
@@ -119,7 +105,6 @@
                 </div>
 
             </div>
-
             <div class="row linha-funcionario align-items-center text-center">
 
                 <div class="col">Carlos Mendes</div>
@@ -132,13 +117,9 @@
                         🗑
                     </button>
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </body>
 
 </html>
