@@ -17,6 +17,20 @@ body {
     color: white !important;
 }
 
+.nav-link ion-icon {
+    font-size: 22px;
+}
+
+.btn ion-icon {
+    font-size: 18px;
+}
+
+.btn-outline-light {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .fundo-tela-login{
   background-image: url("../assets/img/imagemfundo.png");
   background-size: cover;
