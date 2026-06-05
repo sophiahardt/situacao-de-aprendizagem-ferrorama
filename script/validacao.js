@@ -36,3 +36,21 @@ function validarFormulario(nome, cargo, email, telefone) {
 
     return true;
 }
+
+function alterarLocalizacao() {
+    let rota = document.getElementById("rota");
+    let localizacao = document.getElementById("id_localizacao");
+
+    if(rota.checked) {
+        localizacao.innerHTML = `<option selected disabled> Selecione a rota vinculada ao sensor </option>`;
+/*Futuramente: carregar as rotas cadastradas no banco de dados.
+
+Exemplo:
+localizacao.innerHTML = `
+<option value="1">Rota Norte</option>
+<option value="2">Rota Sul</option>`;*/
+    }else{
+        localizacao.innerHTML = `<option selected disabled> Selecione o trem vinculado ao sensor </option>`;
+/*Futuramente:carregar os trens cadastrados no banco de dados.*/
+    }
+}
