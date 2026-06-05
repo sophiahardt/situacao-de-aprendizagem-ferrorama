@@ -54,53 +54,57 @@
                 <p class="text-center text-muted">
                     Preencha as informações para cadastrar um novo sensor no sistema
                 </p>
-
                 <hr>
-
                 <form>
 
-                    <div class="mb-3 col-md-5">
-                        <label class="form-label">ID do Sensor</label>
-                        <input type="text" class="form-control" placeholder="Informe o ID do sensor">
-                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">ID do Sensor</label>
+                                <input type="text" class="form-control" placeholder="Informe o ID do sensor">
+                            </div>
 
-                    <div class="mb-3 col-md-5">
-                        <label class="form-label">Nome do Sensor</label>
-                        <input type="text" class="form-control" placeholder="Informe o nome do sensor">
-                    </div>
+                            <div class="mb-3">
+                                <label class="form-label">Nome do Sensor</label>
+                                <input type="text" class="form-control" placeholder="Informe o nome do sensor">
+                            </div>
 
-                    <div class="mb-3 col-md-5">
-                        <label class="form-label">Tipo de Sensor</label>
-                        <select class="form-select">
-                            <option selected disabled>Selecione o tipo de dado coletado</option>
-                            <option>Temperatura</option>
-                            <option>Velocidade</option>
-                            <option>Presença</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3 col-md-5 localizacao-sensor">
-                        <label class="form-label">Localização do Sensor</label>
-
-                        <div class="opcoes-localizacao">
-                            <input type="radio" id="rota" name="localizacao" value="rota" checked
-                                onchange="alterarLocalizacao()">
-                            <label for="rota" class="btn-localizacao">Rota</label>
-
-                            <input type="radio" id="trem" name="localizacao" value="trem"
-                                onchange="alterarLocalizacao()">
-                            <label for="trem" class="btn-localizacao">Trem</label>
+                            <div class="mb-3">
+                                <label class="form-label">Tipo de Sensor</label>
+                                <select class="form-select">
+                                    <option selected disabled>Selecione o tipo de dado coletado</option>
+                                    <option>Temperatura</option>
+                                    <option>Velocidade</option>
+                                    <option>Presença</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <select name="id_localizacao" id="id_localizacao" class="form-select">
-                            <option selected disabled>
-                                Selecione a rota vinculada ao sensor
-                            </option>
+                        <div class="col-md-6">
+                            <div class="localizacao-sensor">
+                                <label class="form-label">Localização do Sensor</label>
 
-                            <!--Futuramente este select será preenchido com dados do banco/php.
+                                <div class="opcoes-localizacao">
+                                    <input type="radio" id="rota" name="localizacao" value="rota" checked
+                                        onchange="alterarLocalizacao()">
+                                    <label for="rota" class="btn-localizacao">Rota</label>
+
+                                    <input type="radio" id="trem" name="localizacao" value="trem"
+                                        onchange="alterarLocalizacao()">
+                                    <label for="trem" class="btn-localizacao">Trem</label>
+                                </div>
+
+                                <select name="id_localizacao" id="id_localizacao" class="form-select">
+                                    <option selected disabled>
+                                        Selecione a rota vinculada ao sensor
+                                    </option>
+
+                                    <!--Futuramente este select será preenchido com dados do banco/php.
                             Se "Rota" estiver selecionado: carregar registros da tabela rota.
                             Se "Trem" estiver selecionado: carregar registros da tabela trem.-->
-                        </select>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                 </form>
