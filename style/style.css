@@ -15,15 +15,6 @@ body {
 
 .navbar-sistema .nav-link {
     color: white !important;
-    font-weight: 500;
-}
-
-.navbar-sistema .nav-link:hover {
-    opacity: 0.8;
-}
-
-.navbar-sistema .nav-link.active {
-    font-weight: 700;
 }
 
 .fundo-tela-login{
