@@ -132,72 +132,7 @@ body {
   height: auto;
 }
 
-.tela-funcionarios {
-    background-color: #e9e9e9;
-    font-family: Arial, sans-serif;
-}
 
-.tela-funcionarios .navbar {
-    background-color: #003399;
-}
-
-.tela-funcionarios .navbar a {
-    color: white !important;
-    font-weight: 500;
-    font-size: 20px;
-}
-
-.tela-funcionarios .titulo {
-    color: #1f4fff;
-    font-size: 38px;
-    font-weight: 500;
-}
-
-.tela-funcionarios .subtitulo {
-    font-size: 28px;
-}
-
-.tela-funcionarios .btn-cadastrar {
-    background-color: #1f4fff;
-    color: white;
-    border: none;
-    border-radius: 16px;
-    padding: 12px 24px;
-    font-size: 22px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.tela-funcionarios .card-funcionarios {
-    background-color: #f3f3f3;
-    border-radius: 12px;
-    padding: 30px;
-}
-
-.tela-funcionarios .tabela-topo {
-    background-color: #ececec;
-    border-radius: 10px;
-    padding: 15px;
-    font-weight: bold;
-    font-size: 22px;
-}
-
-.tela-funcionarios .linha-funcionario {
-    padding: 18px 10px;
-    border-bottom: 1px solid #999;
-    font-size: 20px;
-}
-
-.tela-funcionarios .btn-excluir {
-    border: 3px solid red;
-    color: red;
-    border-radius: 14px;
-    background-color: white;
-    width: 55px;
-    height: 55px;
-    font-size: 24px;
-}
 
 .opcoes-localizacao {
     display: flex;
