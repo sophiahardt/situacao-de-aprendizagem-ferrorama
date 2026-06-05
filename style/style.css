@@ -6,14 +6,24 @@
 
 html,
 body {
-  height: 100%;
   font-family: Arial, sans-serif;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+.navbar-sistema {
+    background-color: #003399;
+}
+
+.navbar-sistema .nav-link {
+    color: white !important;
+    font-weight: 500;
+}
+
+.navbar-sistema .nav-link:hover {
+    opacity: 0.8;
+}
+
+.navbar-sistema .nav-link.active {
+    font-weight: 700;
 }
 
 .fundo-tela-login{
@@ -45,14 +55,12 @@ body {
   justify-content: center;
 }
 
-.form-control {
+.painel .form-control {
   border-radius: 0;
-  padding: 12px;
 }
 
-.btn {
+.painel .btn {
   border-radius: 0;
-  min-width: 120px;
 }
 
 #mensagem {
@@ -131,8 +139,6 @@ body {
   max-width: 800px;
   height: auto;
 }
-
-
 
 .opcoes-localizacao {
     display: flex;
