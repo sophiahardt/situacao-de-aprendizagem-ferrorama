@@ -64,12 +64,12 @@
                         <input type="text" class="form-control" placeholder="Informe o ID do sensor">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3 col-md-5">
                         <label class="form-label">Nome do Sensor</label>
                         <input type="text" class="form-control" placeholder="Informe o nome do sensor">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3 col-md-5">
                         <label class="form-label">Tipo de Sensor</label>
                         <select class="form-select">
                             <option selected disabled>Selecione o tipo de dado coletado</option>
@@ -79,8 +79,8 @@
                         </select>
                     </div>
 
-                    <div class="localizacao-sensor">
-                        <label>Localização do Sensor</label>
+                    <div class="mb-3 col-md-5 localizacao-sensor">
+                        <label class="form-label">Localização do Sensor</label>
 
                         <div class="opcoes-localizacao">
                             <input type="radio" id="rota" name="localizacao" value="rota" checked
@@ -92,7 +92,7 @@
                             <label for="trem" class="btn-localizacao">Trem</label>
                         </div>
 
-                        <select name="id_localizacao" id="id_localizacao">
+                        <select name="id_localizacao" id="id_localizacao" class="form-select">
                             <option selected disabled>
                                 Selecione a rota vinculada ao sensor
                             </option>

@@ -203,12 +203,6 @@ body {
     width: 50%;
 }
 
-.localizacao-sensor label:first-child {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
 .opcoes-localizacao {
     display: flex;
     gap: 10px;
@@ -225,18 +219,6 @@ body {
     padding: 12px;
     border: 1px solid #d1d5db;
     border-radius: 12px;
-    cursor: pointer;
-    background-color: #fff;
-    transition: 0.2s;
-    font-weight: 500;
-}
-
-#id_localizacao {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 12px;
-    font-size: 14px;
     background-color: #fff;
 }
 
