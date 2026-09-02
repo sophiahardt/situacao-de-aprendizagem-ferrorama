@@ -13,3 +13,11 @@ velocidade_maxima DECIMAL(5,2) NOT NULL,
 capacidade INT NOT NULL, 
 dt_trem_registro DATETIME DEFAULT CURRENT_TIMESTAMP 
 );
+
+CREATE TABLE rota (
+id_rota INT AUTO_INCREMENT PRIMARY KEY,
+nome_rota VARCHAR(45),
+extensao DECIMAL(8,2),
+tempo_estimado_minutos  INT,
+dt_rota DATETIME DEFAULT CURRENT_TIMESTAMP 
+);
