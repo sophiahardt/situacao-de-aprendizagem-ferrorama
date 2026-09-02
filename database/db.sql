@@ -31,3 +31,11 @@ telefone VARCHAR(45),
 senha_hash VARCHAR(255) NOT NULL,
 FOREIGN KEY (id_cargo) REFERENCES cargo(id_cargo)
 );
+
+CREATE TABLE log_acesso (
+id_log INT AUTO_INCREMENT PRIMARY KEY,
+id_usuario INT NOT NULL,
+acao VARCHAR(45) NOT NULL,
+dt_acesso DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
+);
