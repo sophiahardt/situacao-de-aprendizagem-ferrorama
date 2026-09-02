@@ -39,3 +39,18 @@ acao VARCHAR(45) NOT NULL,
 dt_acesso DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
+
+CREATE TABLE sensor (
+id_sensor INT AUTO_INCREMENT PRIMARY KEY,
+nome_sensor VARCHAR(45) NOT NULL,
+tipo_sensor ENUM(
+'Velocidade',
+'Temperatura',
+'Presença'
+),
+localizacao VARCHAR(45),
+id_trem INT NULL,
+id_rota INT NULL,
+FOREIGN KEY (id_trem) REFERENCES trem(id_trem),
+FOREIGN KEY (id_rota) REFERENCES rota(id_rota)
+); 
