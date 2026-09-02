@@ -1,2 +1,7 @@
 CREATE DATABASE IF NOT EXISTS db_ferrovia;
 USE db_ferrovia;
+
+CREATE TABLE cargo (
+id_cargo INT AUTO_INCREMENT PRIMARY KEY,
+nome_cargo VARCHAR(45) NOT NULL
+);
