@@ -21,3 +21,13 @@ extensao DECIMAL(8,2),
 tempo_estimado_minutos  INT,
 dt_rota DATETIME DEFAULT CURRENT_TIMESTAMP 
 );
+
+CREATE TABLE usuario (
+id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+id_cargo INT NOT NULL,
+nome VARCHAR(45) NOT NULL,
+email VARCHAR(45) NOT NULL UNIQUE,
+telefone VARCHAR(45),
+senha_hash VARCHAR(255) NOT NULL,
+FOREIGN KEY (id_cargo) REFERENCES cargo(id_cargo)
+);
