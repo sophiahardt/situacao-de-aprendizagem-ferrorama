@@ -1,30 +1,146 @@
-# Sistema Web para Gerenciamento de Operações Ferroviárias em Tempo Real
+# Ferroramas — Sistema Web para Gerenciamento de Operações Ferroviárias em Tempo Real
 
-## Descrição do Projeto
+## Sobre o projeto
 
-- Criar um sistema web simples e eficiente para gerenciar e monitorar operações ferroviárias em tempo real.
-- Integrar sensores, trens e relatórios analíticos em uma única plataforma.
-- Permitir que administradores e usuários já cadastrados façam login e acessem um painel com todos os sensores, trens e relatórios gerados.
-- Permitir que apenas o administrador possa atualizar ou excluir sensores.
-- Possibilitar o acompanhamento de informações como velocidade, localização e status dos trens de forma clara e visual.
-- Realizar a identificação de falhas e auxiliar na tomada de decisões baseada em dados.
-- Garantir maior controle operacional e segurança nas operações ferroviárias.
+O **Ferroramas** é um sistema web desenvolvido para auxiliar no gerenciamento e monitoramento de operações ferroviárias em tempo real.
 
-## Responsabilidades da Equipe
+A proposta do sistema é centralizar informações relacionadas a trens, sensores, rotas, usuários, alertas, histórico de dados e relatórios em uma única plataforma, facilitando o acompanhamento das operações e a visualização das informações.
 
-### Isabella Balas Rech
-- Responsável por fazer tela de login (tela-login-user.html)
-- Ajudar a fazer as validações em JS
+O sistema possui diferentes níveis de acesso, permitindo que as funcionalidades sejam disponibilizadas de acordo com o tipo de usuário, como **administrador** e **funcionário**.
 
-### André De Quadros Goudinho
-- Criar pastas e arquivos
-- Realizar as validações do código em JS
+O projeto está sendo desenvolvido como parte da Situação de Aprendizagem Ferroramas, utilizando tecnologias voltadas ao desenvolvimento web e banco de dados.
 
-### Brayan Anzini
-- Fazer a tela de cadastro (tela-cadastro-user.html)
-- README.md
-- Pesquisa de identidade visual do projeto
+---
 
-### Sophia Lara Hardt
-- Responsável por fazer a pesquisa (pesquisa-crud.md)
-- Ajudar a fazer algumas telas
+## Objetivo do sistema
+
+O objetivo do Ferroramas é desenvolver um sistema web simples, organizado e eficiente para auxiliar no gerenciamento das operações ferroviárias.
+
+O sistema busca:
+
+- Centralizar informações sobre trens, sensores e rotas;
+- Permitir o cadastro, visualização, edição e exclusão de informações;
+- Monitorar dados relacionados aos trens e sensores;
+- Apresentar informações como velocidade, localização e status dos trens;
+- Permitir a consulta de alertas e do histórico de dados coletados;
+- Possibilitar a geração e visualização de relatórios;
+- Controlar o acesso às funcionalidades de acordo com o tipo de usuário;
+- Auxiliar na identificação de falhas e ocorrências;
+- Facilitar a tomada de decisões baseada em dados;
+- Contribuir para maior controle e segurança das operações ferroviárias.
+
+---
+
+##  Requisitos Funcionais
+
+|Código | Descrição| 
+
+| RF1  | Fazer Login — o sistema deve permitir que usuários cadastrados realizem login utilizando suas credenciais de acesso. |
+| RF2  | Cadastrar Sensores — o sistema deve permitir o cadastro de sensores, registrando suas informações de identificação e características. |
+| RF3  | Cadastrar Trens — o sistema deve permitir o cadastro de trens, registrando suas informações de identificação e características. |
+| RF4  | Cadastrar Usuários — o sistema deve permitir o cadastro de usuários, registrando suas informações pessoais e credenciais de acesso. |
+| RF5  | Cadastrar Rotas — o sistema deve permitir o cadastro de rotas, registrando origem, destino e demais dados necessários. |
+| RF6  | Gerar Relatório — o sistema deve permitir a geração de relatórios com base nos dados registrados e coletados. |
+| RF7  | Editar Sensores — o sistema deve permitir a edição das informações dos sensores cadastrados. |
+| RF8  | Editar Trens — o sistema deve permitir a edição das informações dos trens cadastrados. |
+| RF9  | Editar Usuários — o sistema deve permitir a edição das informações dos usuários cadastrados. |
+| RF10 | Editar Rotas — o sistema deve permitir a edição das informações das rotas cadastradas. |
+| RF11 | Excluir Sensores — desde que não existam registros associados que impeçam sua remoção. |
+| RF12 | Excluir Trens — desde que não existam registros associados que impeçam sua remoção. |
+| RF13 | Excluir Usuários — de acordo com suas permissões de acesso. |
+| RF14 | Excluir Rotas — desde que não existam registros associados que impeçam sua remoção. |
+| RF15 | Visualizar Sensores — informações cadastradas e dados de monitoramento. |
+| RF16 | Visualizar Trens — informações cadastradas e dados de monitoramento. |
+| RF17 | Visualizar Usuários — de acordo com suas permissões de acesso. |
+| RF18 | Visualizar Rotas — rotas cadastradas e suas respectivas informações. |
+| RF19 | Visualizar Relatórios — relatórios gerados a partir dos dados registrados. |
+| RF20 | Consultar Histórico — dados coletados pelos sensores (data, horário, sensor e trem associado). |
+| RF21 | Encerrar Sessão — permitir que o usuário encerre sua sessão de acesso. |
+| RF22 | Visualizar Dashboard — trens ativos, sensores ativos, alertas, rotas, localização dos trens e demais indicadores. |
+| RF23 | Vincular Sensores — vínculo de sensores aos trens e rotas correspondentes. |
+| RF24 | Consultar Alertas — visualização dos alertas registrados pelo sistema. |
+| RF25 | Controlar Acesso por Tipo de Usuário — diferenciando permissões entre funcionário e administrador. |
+| RF26 | Validar Dados dos Formulários — impedindo o envio de informações inválidas ou incompletas. |
+| RF27 | Visualizar Localização dos Trens — no sistema de monitoramento. |
+| RF28 | Visualizar Dados de Monitoramento dos Trens — velocidade e demais dados coletados pelos sensores. |
+
+---
+
+## Tecnologias utilizadas
+
+- **HTML5** — estruturação das páginas
+- **CSS3** — estilização e identidade visual
+- **JavaScript** — validações e interações da interface
+- **PHP** — desenvolvimento da lógica e integração com o banco de dados
+- **MySQL** — armazenamento e gerenciamento dos dados
+- **Apache** — servidor utilizado para execução do projeto localmente
+- **XAMPP** — ambiente utilizado para execução do Apache e MySQL
+- **Visual Studio Code** — editor de código utilizado pela equipe
+- **GitHub** — versionamento e armazenamento do código-fonte
+- **GitHub Projects** — organização e acompanhamento das tarefas (Kanban)
+
+---
+
+## Integrantes da equipe
+
+ Integrante / Função 
+
+**Sophia Lara Hardt** Líder do projeto — responsável pela organização e acompanhamento do projeto, pesquisa e auxílio no desenvolvimento das telas e demais atividades da equipe. 
+
+**Isabella Balas Rech** 
+
+ Responsável pelo desenvolvimento da tela de login e auxílio nas validações utilizando JavaScript. |
+ **Brayan Anzini**  Responsável pelo desenvolvimento da tela de cadastro de usuários, documentação do README e pesquisa relacionada à identidade visual do projeto. 
+
+**André De Quadros Goudinho** Responsável pela criação e organização de pastas e arquivos e pela realização das validações do código utilizando JavaScript. 
+
+## Metodologia de Desenvolvimento
+
+Para a organização do desenvolvimento do **Ferroramas**, a equipe utiliza uma abordagem baseada em **Scrum** e **Kanban**:
+
+* **Scrum:** Utilizado como referência para organizar o desenvolvimento em etapas, definir prioridades e acompanhar a evolução das atividades.
+* **Kanban:** Por meio do **GitHub Projects**, é utilizado para visualizar e controlar o andamento das tarefas. Os cards são organizados de acordo com o status de desenvolvimento, permitindo identificar o que já foi concluído, o que está em andamento, o que está em revisão e o que ainda precisa ser desenvolvido.
+
+### Estrutura das Tarefas no Kanban
+Cada tarefa do Kanban deve apresentar, sempre que aplicável:
+
+- **Descrição da ação**
+- **Responsável pela execução**
+- **Requisito Funcional relacionado**
+- **Status da atividade**
+- **Prioridade da tarefa**
+
+---
+
+## Pesquisa Visual e Identidade do Projeto
+
+### Identidade Visual do Projeto
+A identidade visual do **Sistema Ferroviário** foi desenvolvida de forma colaborativa pela equipe, com o objetivo de transmitir **modernidade e eficiência** aos usuários.
+
+Buscamos adotar um design prático, simples e intuitivo, priorizando a experiência do usuário (UX):
+* **Telas de Login e Cadastro:** Apresentam fundo branco com texto em preto, garantindo a clareza na escrita e fácil leitura.
+* **Elemento Visual Temático:** Na tela de login, utilizamos a imagem de um trem para representar visualmente o sistema e reforçar sua temática.
+* **Navegação:** Aplicamos botões que combinam textos em negrito e ícones, facilitando a navegação e tornando a interface mais simples.
+
+### Paleta de Cores
+
+| Cor /Aplicação e Significado |
+| :--- | :--- |
+| **Branco** | Se destaca sobre o azul, proporcionando melhor legibilidade. |
+| **Azul & Branco** | Transmitem segurança e confiabilidade ao usuário. |
+| **Vermelho** | Utilizado para alertas, avisos e ações críticas. |
+| **Verde** | Indica elementos ativos ou em funcionamento, contribuindo para uma comunicação visual clara e eficiente. |
+
+---
+
+## Outras Informações
+
+O **Ferroramas** está sendo desenvolvido de forma colaborativa utilizando **GitHub** para versionamento de código e **GitHub Projects** para gerenciamento das atividades.
+
+* **Qualidade de Código:** Durante o desenvolvimento, a equipe realiza revisões do código, testes das funcionalidades e organização contínua da estrutura do projeto, buscando manter os padrões definidos e garantir a integração entre as diferentes partes do sistema.
+* **Desenvolvimento Incremental:** O projeto será desenvolvido em etapas progressivas:
+  1. Desenvolvimento das interfaces (Front-end);
+  2. Criação e integração do banco de dados;
+  3. Implementação das funcionalidades em **PHP**;
+  4. Validações e testes do sistema;
+  5. Integração dos dados de monitoramento.
