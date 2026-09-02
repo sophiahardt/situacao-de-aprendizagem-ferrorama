@@ -96,19 +96,25 @@
                             </div>
                         </div>
 
-                        
+                        <select name="" id="" class="form-select">
+                            <option selected disabled>
+                                Selecione a rota em que o trem opera
+                            </option>
 
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="submit" class="btn btn-primary">
-                            <ion-icon name="save-outline"></ion-icon>
-                            Salvar
-                        </button>
+                            <!-- adicionar as rotas cadastradas no banco de dados aqui -->
+                        </select>
 
-                        <button type="button" class="btn btn-light">
-                            <ion-icon name="close-outline"></ion-icon>
-                            Cancelar
-                        </button>
-                    </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-primary">
+                                <ion-icon name="save-outline"></ion-icon>
+                                Salvar
+                            </button>
+
+                            <button type="button" class="btn btn-light">
+                                <ion-icon name="close-outline"></ion-icon>
+                                Cancelar
+                            </button>
+                        </div>
 
                 </form>
             </div>
