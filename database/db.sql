@@ -63,3 +63,13 @@ unidade_medida VARCHAR(45),
 dt_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY (id_sensor) REFERENCES sensor(id_sensor)
 );
+
+CREATE TABLE trem_rota (
+id_trem_rota INT AUTO_INCREMENT PRIMARY KEY,
+id_trem INT NOT NULL,
+id_rota INT NOT NULL,
+dt_inicio DATETIME,
+dt_fim DATETIME,
+FOREIGN KEY (id_trem) REFERENCES trem(id_trem),
+FOREIGN KEY (id_rota) REFERENCES rota(id_rota)
+); 
