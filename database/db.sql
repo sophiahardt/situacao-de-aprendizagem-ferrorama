@@ -5,3 +5,11 @@ CREATE TABLE cargo (
 id_cargo INT AUTO_INCREMENT PRIMARY KEY,
 nome_cargo VARCHAR(45) NOT NULL
 );
+
+CREATE TABLE trem (
+id_trem INT AUTO_INCREMENT PRIMARY KEY,
+nome_trem VARCHAR(100) NOT NULL, 
+velocidade_maxima DECIMAL(5,2) NOT NULL,
+capacidade INT NOT NULL, 
+dt_trem_registro DATETIME DEFAULT CURRENT_TIMESTAMP 
+);
