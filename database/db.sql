@@ -54,3 +54,12 @@ id_rota INT NULL,
 FOREIGN KEY (id_trem) REFERENCES trem(id_trem),
 FOREIGN KEY (id_rota) REFERENCES rota(id_rota)
 ); 
+
+CREATE TABLE leitura_sensor (
+id_leitura INT AUTO_INCREMENT PRIMARY KEY,
+id_sensor INT NOT NULL,
+valor_leitura DECIMAL(10,2),
+unidade_medida VARCHAR(45),
+dt_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (id_sensor) REFERENCES sensor(id_sensor)
+);
