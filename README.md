@@ -148,8 +148,11 @@ Buscamos adotar um design prático, simples e intuitivo, priorizando a experiên
 ### Paleta de Cores
 
  **Branco** - Se destaca sobre o azul, proporcionando melhor legibilidade. 
+ <br>
  **Azul & Branco** - Transmitem segurança e confiabilidade ao usuário. 
+ <br>
  **Vermelho** - Utilizado para alertas, avisos e ações críticas. 
+ <br>
  **Verde** - Indica elementos ativos ou em funcionamento, contribuindo para uma comunicação visual clara e eficiente. 
 
 ---
