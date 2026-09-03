@@ -111,8 +111,11 @@ O sistema busca:
 ## Integrantes da equipe
 
 **Sophia Lara Hardt** Líder do projeto 
+<br>
 **Isabella Balas Rech** 
+<br>
 **Brayan Anzini**  
+<br>
 **André De Quadros Goudinho** 
 
 ---
