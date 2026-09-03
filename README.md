@@ -33,36 +33,63 @@ O sistema busca:
 
 ##  Requisitos Funcionais
 
-|Código | Descrição| 
+ RF1   Fazer Login — o sistema deve permitir que usuários cadastrados realizem login utilizando suas credenciais de acesso. 
+ <br>
+ RF2   Cadastrar Sensores — o sistema deve permitir o cadastro de sensores, registrando suas informações de identificação e características.
+ <br> 
+ RF3 
+   Cadastrar Trens — o sistema deve permitir o cadastro de trens, registrando suas informações de identificação e características. 
+<br>
+ RF4   Cadastrar Usuários — o sistema deve permitir o cadastro de usuários, registrando suas informações pessoais e credenciais de acesso.
+ <br>
+ RF5   Cadastrar Rotas — o sistema deve permitir o cadastro de rotas, registrando origem, destino e demais dados necessários.
+ <br>
+ RF6   Gerar Relatório — o sistema deve permitir a geração de relatórios com base nos dados registrados e coletados.
+ <br>
+ RF7   Editar Sensores — o sistema deve permitir a edição das informações dos sensores cadastrados.
+ <br>
+ RF8   Editar Trens — o sistema deve permitir a edição das informações dos trens cadastrados.
+ <br>
+ RF9   Editar Usuários — o sistema deve permitir a edição das informações dos usuários cadastrados.
+ <br>
+ RF10  Editar Rotas — o sistema deve permitir a edição das informações das rotas cadastradas.
+ <br>
+ RF11  Excluir Sensores — desde que não existam registros associados que impeçam sua remoção.
+ <br>
+ RF12  Excluir Trens — desde que não existam registros associados que impeçam sua remoção.
+ <br>
+ RF13  Excluir Usuários — de acordo com suas permissões de acesso.
+ <br>
+ RF14  Excluir Rotas — desde que não existam registros associados que impeçam sua remoção.
+ <br>
+ RF15  Visualizar Sensores — informações cadastradas e dados de monitoramento.
+ <br>
+ RF16  Visualizar Trens — informações cadastradas e dados de monitoramento.
+ <br>
+ RF17  Visualizar Usuários — de acordo com suas permissões de acesso.
+ <br>
+ RF18  Visualizar Rotas — rotas cadastradas e suas respectivas informações.
+ <br>
+ RF19  Visualizar Relatórios — relatórios gerados a partir dos dados registrados.
+ <br>
+ RF20  Consultar Histórico — dados coletados pelos sensores (data, horário, sensor e trem associado).
+ <br>
+ RF21  Encerrar Sessão — permitir que o usuário encerre sua sessão de acesso.
+ <br>
+ RF22  Visualizar Dashboard — trens ativos, sensores ativos, alertas, rotas, localização dos trens e demais indicadores.
+ <br>
+ RF23  Vincular Sensores — vínculo de sensores aos trens e rotas correspondentes.
+ <br>
+ RF24  Consultar Alertas — visualização dos alertas registrados pelo sistema.
+ <br>
+ RF25  Controlar Acesso por Tipo de Usuário — diferenciando permissões entre funcionário e administrador.
+ <br>
+ RF26  Validar Dados dos Formulários — impedindo o envio de informações inválidas ou incompletas.
+ <br>
+ RF27  Visualizar Localização dos Trens — no sistema de monitoramento.
+ <br>
+ RF28  Visualizar Dados de Monitoramento dos Trens — velocidade e demais dados coletados pelos sensores.
 
-| RF1  | Fazer Login — o sistema deve permitir que usuários cadastrados realizem login utilizando suas credenciais de acesso. |
-| RF2  | Cadastrar Sensores — o sistema deve permitir o cadastro de sensores, registrando suas informações de identificação e características. |
-| RF3  | Cadastrar Trens — o sistema deve permitir o cadastro de trens, registrando suas informações de identificação e características. |
-| RF4  | Cadastrar Usuários — o sistema deve permitir o cadastro de usuários, registrando suas informações pessoais e credenciais de acesso. |
-| RF5  | Cadastrar Rotas — o sistema deve permitir o cadastro de rotas, registrando origem, destino e demais dados necessários. |
-| RF6  | Gerar Relatório — o sistema deve permitir a geração de relatórios com base nos dados registrados e coletados. |
-| RF7  | Editar Sensores — o sistema deve permitir a edição das informações dos sensores cadastrados. |
-| RF8  | Editar Trens — o sistema deve permitir a edição das informações dos trens cadastrados. |
-| RF9  | Editar Usuários — o sistema deve permitir a edição das informações dos usuários cadastrados. |
-| RF10 | Editar Rotas — o sistema deve permitir a edição das informações das rotas cadastradas. |
-| RF11 | Excluir Sensores — desde que não existam registros associados que impeçam sua remoção. |
-| RF12 | Excluir Trens — desde que não existam registros associados que impeçam sua remoção. |
-| RF13 | Excluir Usuários — de acordo com suas permissões de acesso. |
-| RF14 | Excluir Rotas — desde que não existam registros associados que impeçam sua remoção. |
-| RF15 | Visualizar Sensores — informações cadastradas e dados de monitoramento. |
-| RF16 | Visualizar Trens — informações cadastradas e dados de monitoramento. |
-| RF17 | Visualizar Usuários — de acordo com suas permissões de acesso. |
-| RF18 | Visualizar Rotas — rotas cadastradas e suas respectivas informações. |
-| RF19 | Visualizar Relatórios — relatórios gerados a partir dos dados registrados. |
-| RF20 | Consultar Histórico — dados coletados pelos sensores (data, horário, sensor e trem associado). |
-| RF21 | Encerrar Sessão — permitir que o usuário encerre sua sessão de acesso. |
-| RF22 | Visualizar Dashboard — trens ativos, sensores ativos, alertas, rotas, localização dos trens e demais indicadores. |
-| RF23 | Vincular Sensores — vínculo de sensores aos trens e rotas correspondentes. |
-| RF24 | Consultar Alertas — visualização dos alertas registrados pelo sistema. |
-| RF25 | Controlar Acesso por Tipo de Usuário — diferenciando permissões entre funcionário e administrador. |
-| RF26 | Validar Dados dos Formulários — impedindo o envio de informações inválidas ou incompletas. |
-| RF27 | Visualizar Localização dos Trens — no sistema de monitoramento. |
-| RF28 | Visualizar Dados de Monitoramento dos Trens — velocidade e demais dados coletados pelos sensores. |
 
 ---
 
@@ -83,16 +110,12 @@ O sistema busca:
 
 ## Integrantes da equipe
 
- Integrante / Função 
-
-**Sophia Lara Hardt** Líder do projeto — responsável pela organização e acompanhamento do projeto, pesquisa e auxílio no desenvolvimento das telas e demais atividades da equipe. 
-
+**Sophia Lara Hardt** Líder do projeto 
 **Isabella Balas Rech** 
+**Brayan Anzini**  
+**André De Quadros Goudinho** 
 
- Responsável pelo desenvolvimento da tela de login e auxílio nas validações utilizando JavaScript. |
- **Brayan Anzini**  Responsável pelo desenvolvimento da tela de cadastro de usuários, documentação do README e pesquisa relacionada à identidade visual do projeto. 
-
-**André De Quadros Goudinho** Responsável pela criação e organização de pastas e arquivos e pela realização das validações do código utilizando JavaScript. 
+---
 
 ## Metodologia de Desenvolvimento
 
@@ -124,12 +147,10 @@ Buscamos adotar um design prático, simples e intuitivo, priorizando a experiên
 
 ### Paleta de Cores
 
-| Cor /Aplicação e Significado |
-| :--- | :--- |
-| **Branco** | Se destaca sobre o azul, proporcionando melhor legibilidade. |
-| **Azul & Branco** | Transmitem segurança e confiabilidade ao usuário. |
-| **Vermelho** | Utilizado para alertas, avisos e ações críticas. |
-| **Verde** | Indica elementos ativos ou em funcionamento, contribuindo para uma comunicação visual clara e eficiente. |
+ **Branco** - Se destaca sobre o azul, proporcionando melhor legibilidade. 
+ **Azul & Branco** - Transmitem segurança e confiabilidade ao usuário. 
+ **Vermelho** - Utilizado para alertas, avisos e ações críticas. 
+ **Verde** - Indica elementos ativos ou em funcionamento, contribuindo para uma comunicação visual clara e eficiente. 
 
 ---
 
