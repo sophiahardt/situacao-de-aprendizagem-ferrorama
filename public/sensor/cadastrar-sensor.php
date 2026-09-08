@@ -4,6 +4,9 @@ require_once "../../infra/conexao.php";
 
 $mensagem = "";
 
+$rotas = $conexao->query("SELECT id_rota, nome_rota FROM rota");
+$trens = $conexao->query("SELECT id_trem, nome_trem FROM trem");
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $nome_sensor = $_POST["nome_sensor"] ?? "";
@@ -30,8 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $sql = "INSERT INTO sensor
-                (nome_sensor, tipo_sensor, localizacao, id_trem, id_rota)
-                VALUES (?, ?, ?, ?, ?)";
+                (id_sensor, nome_sensor, tipo_sensor, localizacao, id_trem, id_rota)
+                VALUES (NULL, ?, ?, ?, ?, ?)";
 
         $stmt = $conexao->prepare($sql);
 
@@ -297,14 +300,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         Selecione a rota vinculada ao sensor
                                     </option>
 
+                                    <?php while ($rota = $rotas->fetch_assoc()) { ?>
+
+                                        <option value="<?= $rota["id_rota"] ?>"
+                                            data-tipo="rota">
+
+                                            <?= $rota["nome_rota"] ?>
+                                        </option>
+
+                                    <?php } ?>
+
+                                    <?php while ($trem = $trens->fetch_assoc()) { ?>
+
+                                        <option
+                                            value="<?= $trem["id_trem"] ?>"
+                                            data-tipo="trem">
+
+                                            <?= $trem["nome_trem"] ?>
+                                        </option>
+
+                                    <?php } ?>
+
                                 </select>
 
                             </div>
 
                         </div>
-
-
-                        <!-- LADO DIREITO -->
 
                         <div class="col-md-6">
 
@@ -347,7 +368,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 
                         <button
-                            type="button"
+                            type="button" 
                             class="btn btn-light"
                             onclick="window.location.href='../tela-geral-home.php'">
 
