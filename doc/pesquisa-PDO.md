@@ -101,3 +101,11 @@ As principais vantagens de utilizar PDO são:
 * Suporte a transações;
 * Código organizado e padronizado;
 * Facilidade para trabalhar com diferentes bancos de dados.
+
+## Desvantagens do PDO
+
+Apesar de suas vantagens, o PDO também possui algumas limitações:
+
+* É necessário possuir o driver correspondente ao banco de dados;
+* Alguns recursos específicos do MySQL podem ser mais facilmente utilizados com MySQLi;
+* Para projetos exclusivamente voltados ao MySQL, o MySQLi pode oferecer recursos específicos que não estão disponíveis da mesma forma no PDO.
