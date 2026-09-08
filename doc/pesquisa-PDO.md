@@ -30,7 +30,7 @@ Exemplo:
 <?php
 
 $host = "localhost";
-$banco = "db_ferrorama";
+$banco = "db_ferrovia";
 $usuario = "root";
 $senha = "";
 
@@ -55,3 +55,20 @@ O **DSN (Data Source Name)** informa ao PDO qual driver deve ser utilizado, qual
 Nesse exemplo, mysql indica o driver, localhost indica o servidor e db_ferrorama representa o banco de dados.
 
 O bloco try...catch é utilizado para tratar possíveis erros durante a conexão. Quando configurado para trabalhar com exceções, o PDO pode lançar uma PDOException caso ocorra algum problema.
+
+# Principais características  do PDO:
+
+Entre as principais características do PDO estão:
+
+* Interface padronizada para acesso a banco de dados;
+* Suporte a diferentes bancos por meio de drivers;
+* Suporte a Prepared Statements;
+* Tratamento de erros por meio de exceções;
+* Suporte a transações;
+* Diferentes modos para recuperar resultados;
+* API orientada a objetos;
+* Maior portabilidade entre diferentes sistemas de banco de dados.
+
+O PDO utiliza métodos como prepare(), execute() e query() para executar comandos SQL.
+
+Também é possível utilizar métodos como fetch() e fetchAll() para recuperar os resultados das consultas.
