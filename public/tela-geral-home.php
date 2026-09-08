@@ -25,7 +25,7 @@
                         <a class="nav-link" href="#">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sensores</a>
+                        <a class="nav-link" href="#" onclick="window.location.href='sensor/visualizar-sensor.php'">Sensores</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Trens</a>
