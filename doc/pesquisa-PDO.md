@@ -160,8 +160,8 @@ Para o projeto Ferroramas, a escolha nesta etapa é o **MySQLi**, mantendo o **P
 
 ## Fontes utilizadas:
 
-* PHP Documentation. PDO — PHP Data Objects. Disponível em: https://www.php.net/manual/en/book.pdo.php
-* PHP Documentation. Connections and Connection management. Disponível em: https://www.php.net/manual/en/pdo.connections.php
-* PHP Documentation. MySQLi — Overview. Disponível em: https://www.php.net/manual/en/mysqli.overview.php
+* PHP Documentation. **PDO — PHP Data Objects**. Disponível em: https://www.php.net/manual/en/book.pdo.php
+* PHP Documentation. **Connections and Connection management**. Disponível em: https://www.php.net/manual/en/pdo.connections.php
+* PHP Documentation. **MySQLi — Overview**. Disponível em: https://www.php.net/manual/en/mysqli.overview.php
 * PHP Documentation. **MySQLi Prepared Statements**. Disponível em: https://www.php.net/manual/en/mysqli.quickstart.prepared-statements.php
 * Locaweb. **Tudo sobre o PHP Data Object (PDO)**. Disponível em: https://www.locaweb.com.br/ajuda/wiki/tudo-sobre-o-php-data-object-pdo-hospedagem-de-sites/
