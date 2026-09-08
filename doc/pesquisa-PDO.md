@@ -72,3 +72,20 @@ Entre as principais características do PDO estão:
 O PDO utiliza métodos como prepare(), execute() e query() para executar comandos SQL.
 
 Também é possível utilizar métodos como fetch() e fetchAll() para recuperar os resultados das consultas.
+
+## PDO x MySQLi
+
+| Característica                | PDO                      | MySQLi        |
+| ----------------------------- | ------------------------ | ------------- |
+| Suporte ao MySQL              | Sim                      | Sim           |
+| Suporte a outros bancos       | Sim, por meio de drivers | Não           |
+| Prepared Statements           | Sim                      | Sim           |
+| Orientação a objetos          | Sim                      | Sim           |
+| Interface procedural          | Não                      | Sim           |
+| Transações                    | Sim                      | Sim           |
+| Portabilidade                 | Maior                    | Menor         |
+| Recursos específicos do MySQL | Mais limitado            | Maior suporte |
+
+O **MySQLi** foi desenvolvido especificamente para trabalhar com bancos de dados MySQL. Já o **PDO** possui uma interface que pode ser utilizada com diferentes bancos, desde que exista um driver compatível.
+
+Por isso, o PDO pode ser mais interessante em projetos que precisam de maior portabilidade, enquanto o MySQLi pode ser uma escolha adequada quando o projeto utiliza exclusivamente MySQL e necessita de recursos específicos desse banco.
