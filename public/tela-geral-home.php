@@ -79,7 +79,7 @@
         <div class="painel-esquerdo">
             <div class="botaos-home">
                 <div class="p-3">
-                    <button type="button" class="btn btn-primary btn-lg">
+                    <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='sensor/cadastrar-sensor.php'">
                         <ion-icon name="add-outline"></ion-icon>
                         <div class="texto-botao">
                             <div class="titulo-botao-home">
