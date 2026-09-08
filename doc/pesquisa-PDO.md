@@ -109,3 +109,27 @@ Apesar de suas vantagens, o PDO também possui algumas limitações:
 * É necessário possuir o driver correspondente ao banco de dados;
 * Alguns recursos específicos do MySQL podem ser mais facilmente utilizados com MySQLi;
 * Para projetos exclusivamente voltados ao MySQL, o MySQLi pode oferecer recursos específicos que não estão disponíveis da mesma forma no PDO.
+
+## O que são Prepared Statements?
+
+**Prepared Statements** são instruções SQL preparadas previamente que utilizam parâmetros para receber valores fornecidos pela aplicação.
+
+Exemplo:
+
+```php
+$sql = "SELECT * FROM usuario WHERE email = :email";
+
+$stmt = $pdo->prepare($sql);
+
+$stmt->execute([
+    ":email" => $email
+]);
+```
+
+Nesse caso, o valor de `$email` é enviado como um parâmetro separado da instrução SQL, em vez de ser inserido diretamente na string do comando.
+
+Essa prática é importante principalmente para aumentar a segurança da aplicação e ajudar a prevenir ataques de **SQL Injection**.
+
+Além disso, Prepared Statements podem ser úteis quando a mesma instrução SQL precisa ser executada várias vezes utilizando valores diferentes.
+
+Tanto o **PDO** quanto o **MySQLi** oferecem suporte a Prepared Statements.
