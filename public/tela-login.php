@@ -5,11 +5,10 @@ session_start();
 require_once "../infra/conexao.php";
 
 $mensagem = "";
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $email = $_POST["email"];
-    $senha = $_POST["senha"];
+    $email = $_POST["email"] ?? "";
+    $senha = $_POST["senha"] ?? "";
 
     if ($email == "" || $senha == "") {
 
