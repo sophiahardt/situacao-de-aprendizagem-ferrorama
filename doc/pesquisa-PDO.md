@@ -158,3 +158,8 @@ Além disso, ambos oferecem suporte a Prepared Statements, que são importantes 
 
 Para o projeto Ferroramas, a escolha nesta etapa é o **MySQLi**, mantendo o **PDO** como uma alternativa estudada pela equipe.
 
+## Fontes utilizadas:
+
+* PHP Documentation. PDO — PHP Data Objects. Disponível em: https://www.php.net/manual/en/book.pdo.php
+* PHP Documentation. Connections and Connection management. Disponível em: https://www.php.net/manual/en/pdo.connections.php
+* PHP Documentation. MySQLi — Overview. Disponível em: https://www.php.net/manual/en/mysqli.overview.php
