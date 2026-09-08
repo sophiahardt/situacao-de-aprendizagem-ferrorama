@@ -2,7 +2,12 @@
 
 require_once "../../infra/conexao.php";
 
-$sql = "SELECT * FROM sensor";
+$sql = "SELECT sensor.*,
+               rota.nome_rota,
+               trem.nome_trem
+        FROM sensor
+        LEFT JOIN rota ON sensor.id_rota = rota.id_rota
+        LEFT JOIN trem ON sensor.id_trem = trem.id_trem";
 
 $resultado = $conexao->query($sql);
 
@@ -15,7 +20,9 @@ $resultado = $conexao->query($sql);
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>Lista sensores cadastrados</title>
 
@@ -33,7 +40,9 @@ $resultado = $conexao->query($sql);
         src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js">
     </script>
 
-    <link rel="stylesheet" href="../../style/style.css">
+    <link
+        rel="stylesheet"
+        href="../../style/style.css">
 
 </head>
 
@@ -57,7 +66,9 @@ $resultado = $conexao->query($sql);
             </button>
 
 
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div
+                class="collapse navbar-collapse"
+                id="navbarNav">
 
                 <ul class="navbar-nav me-auto">
 
@@ -73,42 +84,67 @@ $resultado = $conexao->query($sql);
 
                     </li>
 
+
                     <li class="nav-item">
 
-                        <a class="nav-link" href="visualizar-sensor.php">
+                        <a
+                            class="nav-link"
+                            href="visualizar-sensor.php">
+
                             Sensores
+
                         </a>
 
                     </li>
 
+
                     <li class="nav-item">
 
-                        <a class="nav-link" href="#">
+                        <a
+                            class="nav-link"
+                            href="#">
+
                             Trens
+
                         </a>
 
                     </li>
 
+
                     <li class="nav-item">
 
-                        <a class="nav-link" href="#">
+                        <a
+                            class="nav-link"
+                            href="#">
+
                             Rotas
+
                         </a>
 
                     </li>
 
+
                     <li class="nav-item">
 
-                        <a class="nav-link" href="#">
+                        <a
+                            class="nav-link"
+                            href="#">
+
                             Funcionários
+
                         </a>
 
                     </li>
 
+
                     <li class="nav-item">
 
-                        <a class="nav-link" href="#">
+                        <a
+                            class="nav-link"
+                            href="#">
+
                             Relatórios
+
                         </a>
 
                     </li>
@@ -120,9 +156,12 @@ $resultado = $conexao->query($sql);
 
                     <li class="nav-item me-3">
 
-                        <span class="nav-link d-flex align-items-center gap-2">
+                        <span
+                            class="nav-link d-flex align-items-center gap-2">
 
-                            <ion-icon name="person-circle-outline"></ion-icon>
+                            <ion-icon
+                                name="person-circle-outline">
+                            </ion-icon>
 
                             João
 
@@ -137,9 +176,15 @@ $resultado = $conexao->query($sql);
                             class="btn btn-outline-light btn-sm d-flex align-items-center gap-2"
                             href="#">
 
-                            <ion-icon name="log-out-outline"></ion-icon>
+                            <ion-icon
+                                name="log-out-outline">
+                            </ion-icon>
 
-                            <span>Sair</span>
+                            <span>
+
+                                Sair
+
+                            </span>
 
                         </a>
 
@@ -156,10 +201,13 @@ $resultado = $conexao->query($sql);
 
     <div class="container-fluid p-4">
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div
+            class="d-flex justify-content-between align-items-center mb-4">
 
             <h1 class="h3">
+
                 Lista de sensores cadastrados
+
             </h1>
 
 
@@ -211,31 +259,58 @@ $resultado = $conexao->query($sql);
                                 <tr>
 
                                     <td>
+
                                         <?= $sensor["id_sensor"] ?>
+
                                     </td>
 
+
                                     <td>
+
                                         <?= $sensor["nome_sensor"] ?>
+
                                     </td>
 
+
                                     <td>
-                                        <?= $sensor["localizacao"] ?>
+
+                                        <?php
+
+                                        if ($sensor["localizacao"] == "rota") {
+
+                                            echo $sensor["nome_rota"];
+
+                                        } elseif ($sensor["localizacao"] == "trem") {
+
+                                            echo $sensor["nome_trem"];
+
+                                        }
+
+                                        ?>
+
                                     </td>
+
 
                                     <td>
 
                                         <?php
 
                                         if ($sensor["tipo_sensor"] == "Velocidade") {
+
                                             echo '<ion-icon name="speedometer"></ion-icon>';
+
                                         }
 
                                         if ($sensor["tipo_sensor"] == "Temperatura") {
+
                                             echo '<ion-icon name="thermometer"></ion-icon>';
+
                                         }
 
                                         if ($sensor["tipo_sensor"] == "Presença") {
+
                                             echo '<ion-icon name="person"></ion-icon>';
+
                                         }
 
                                         ?>
@@ -248,7 +323,7 @@ $resultado = $conexao->query($sql);
                                     <td>
 
                                         <a
-                                            href="visualizar.php?id=<?= $sensor["id_sensor"] ?>"
+                                            href="visualizar-sensor.php?id=<?= $sensor["id_sensor"] ?>"
                                             class="btn btn-info btn-sm text-white">
 
                                             <ion-icon name="eye"></ion-icon>
@@ -259,8 +334,8 @@ $resultado = $conexao->query($sql);
 
 
                                         <a
-                                            href="editar.php?id=<?= $sensor["id_sensor"] ?>"
-                                            class="btn btn-primary btn-sm">
+                                            href="editar-sensor.php?id=<?= $sensor["id_sensor"] ?>"
+                                            class="btn btn-warning btn-sm">
 
                                             <ion-icon name="pencil"></ion-icon>
 
@@ -270,8 +345,9 @@ $resultado = $conexao->query($sql);
 
 
                                         <a
-                                            href="excluir.php?id=<?= $sensor["id_sensor"] ?>"
-                                            class="btn btn-danger btn-sm">
+                                            href="excluir-sensor.php?id=<?= $sensor["id_sensor"] ?>"
+                                            class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Tem certeza que deseja excluir este sensor?');">
 
                                             <ion-icon name="trash"></ion-icon>
 
