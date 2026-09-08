@@ -6,10 +6,10 @@ $mensagem = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $nome_sensor = $_POST["nome_sensor"];
-    $tipo_sensor = $_POST["tipo_sensor"];
-    $localizacao = $_POST["localizacao"];
-    $id_localizacao = $_POST["id_localizacao"];
+    $nome_sensor = $_POST["nome_sensor"] ?? "";
+    $tipo_sensor = $_POST["tipo_sensor"] ?? "";
+    $localizacao = $_POST["localizacao"] ?? "";
+    $id_localizacao = $_POST["id_localizacao"] ?? "";
 
     if ($nome_sensor == "" || $tipo_sensor == "" || $id_localizacao == "") {
 
@@ -46,7 +46,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stmt->execute()) {
 
-            $mensagem = "Sensor cadastrado com sucesso!";
+            header("Location: visualizar-sensor.php");
+            exit;
 
         } else {
 
@@ -111,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="visualizar-sensor.php">
                             Sensores
                         </a>
                     </li>
