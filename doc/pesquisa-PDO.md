@@ -19,3 +19,39 @@ O PDO é utilizado para conectar aplicações desenvolvidas em PHP a banco de da
 * Tratar erros durante a comunicação com o banco;
 
 Antes do PDO, era comum utilizar extensões específicas para cada banco de dados. O PDO surgiu como uma alternativa que padroniza a forma de acesso aos dados.
+
+## Como funciona uma onexão utilizando PDO?
+
+Uma conexão com PDO é realizada por mrio da classe PDO. PAra conectar ao MySQL, é necessário informar o servidor, o banco de dados, o usuário e a senha.
+
+Exemplo:
+
+```php
+<?php
+
+$host = "localhost";
+$banco = "db_ferrorama";
+$usuario = "root";
+$senha = "";
+
+try {
+    $pdo = new PDO(
+        "mysql:host=$host;dbname=$banco;charset=utf8mb4",
+        $usuario,
+        $senha
+    );
+
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    echo "Conexão realizada com sucesso!";
+} catch (PDOException $e) {
+    echo "Erro na conexão: " . $e->getMessage();
+}
+?>
+```
+
+O **DSN (Data Source Name)** informa ao PDO qual driver deve ser utilizado, qual servidor será acessado e qual banco de dados será utilizado.
+
+Nesse exemplo, mysql indica o driver, localhost indica o servidor e db_ferrorama representa o banco de dados.
+
+O bloco try...catch é utilizado para tratar possíveis erros durante a conexão. Quando configurado para trabalhar com exceções, o PDO pode lançar uma PDOException caso ocorra algum problema.
