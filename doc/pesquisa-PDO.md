@@ -147,3 +147,13 @@ O PDO pode ser uma boa escolha quando:
 * A equipe deseja utilizar uma estrutura organizada para acesso aos dados.
 
 No caso do projeto **Ferroramas**, a equipe utilizará o **MySQLi** nesta etapa, conforme definido nos requisitos da implementação. O PDO foi estudado como uma alternativa para conexão e manipulação de bancos de dados em PHP.
+
+## Conclusão
+
+O PDO e o MySQLi são alternativas utilizadas para conectar aplicações PHP a bancos de dados.
+
+O MySQLi é específico para o MySQL e oferece suporte a recursos próprios desse banco. Já o PDO fornece uma interface padronizada e permite trabalhar com diferentes sistemas de banco de dados por meio de drivers.
+
+Além disso, ambos oferecem suporte a Prepared Statements, que são importantes para aumentar a segurança das aplicações contra ataques de SQL Injection.
+
+Para o projeto Ferroramas, a escolha nesta etapa é o **MySQLi**, mantendo o **PDO** como uma alternativa estudada pela equipe.
