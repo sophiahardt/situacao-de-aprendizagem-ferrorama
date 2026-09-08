@@ -89,3 +89,15 @@ Também é possível utilizar métodos como fetch() e fetchAll() para recuperar 
 O **MySQLi** foi desenvolvido especificamente para trabalhar com bancos de dados MySQL. Já o **PDO** possui uma interface que pode ser utilizada com diferentes bancos, desde que exista um driver compatível.
 
 Por isso, o PDO pode ser mais interessante em projetos que precisam de maior portabilidade, enquanto o MySQLi pode ser uma escolha adequada quando o projeto utiliza exclusivamente MySQL e necessita de recursos específicos desse banco.
+
+## Vantagens do PDO
+
+As principais vantagens de utilizar PDO são:
+
+* Maior portabilidade entre diferentes bancos de dados;
+* Interface orientada a objetos;
+* Suporte a Prepared Statements;
+* Tratamento de erros por meio de exceções;
+* Suporte a transações;
+* Código organizado e padronizado;
+* Facilidade para trabalhar com diferentes bancos de dados.
