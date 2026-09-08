@@ -133,3 +133,17 @@ Essa prática é importante principalmente para aumentar a segurança da aplica�
 Além disso, Prepared Statements podem ser úteis quando a mesma instrução SQL precisa ser executada várias vezes utilizando valores diferentes.
 
 Tanto o **PDO** quanto o **MySQLi** oferecem suporte a Prepared Statements.
+
+## Quando o PDO pode ser uma boa escolha?
+
+O PDO pode ser uma boa escolha quando:
+
+* O projeto pode utilizar diferentes tipos de banco de dados;
+* A equipe deseja uma interface padronizada;
+* É necessário utilizar Prepared Statements;
+* O sistema precisa trabalhar com transações;
+* A aplicação utiliza uma arquitetura orientada a objetos;
+* A portabilidade entre bancos de dados é importante;
+* A equipe deseja utilizar uma estrutura organizada para acesso aos dados.
+
+No caso do projeto **Ferroramas**, a equipe utilizará o **MySQLi** nesta etapa, conforme definido nos requisitos da implementação. O PDO foi estudado como uma alternativa para conexão e manipulação de bancos de dados em PHP.
