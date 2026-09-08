@@ -157,3 +157,7 @@ O MySQLi é específico para o MySQL e oferece suporte a recursos próprios dess
 Além disso, ambos oferecem suporte a Prepared Statements, que são importantes para aumentar a segurança das aplicações contra ataques de SQL Injection.
 
 Para o projeto Ferroramas, a escolha nesta etapa é o **MySQLi**, mantendo o **PDO** como uma alternativa estudada pela equipe.
+
+## Fontes Utilizadas
+
+PHP Documentation. **PDO — PHP Data Objects**. Disponível em: https://www.php.net/manual/en/book.pdo.php
