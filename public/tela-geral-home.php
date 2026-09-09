@@ -28,26 +28,28 @@
                         <a class="nav-link" href="#" onclick="window.location.href='sensor/visualizar-sensor.php'">Sensores</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Trens</a>
+                        <a class="nav-link" href="#" onclick="window.location.href='trem/visualizar-trem.php'">Trens</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Rotas</a>
+                        <a class="nav-link" href="#" onclick="window.location.href='rota/visualizar-rota.php'">Rotas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Funcionários</a>
+                        <a class="nav-link" href="#" onclick="window.location.href='funcionario/visualizar-funcionario.php'">Funcionários</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Relatórios</a>
+                        <a class="nav-link" href="#" onclick="window.location.href='relatorio/visualizar-relatorio.php'">Relatórios</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            João
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item me-3">
+                        <span class="nav-link d-flex align-items-center gap-2">
+                            <ion-icon name="person-circle-outline"></ion-icon>João</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="#">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                            <span>Sair</span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">Sair</a></li>
-                        </ul>
                     </li>
                 </ul>
             </div>
