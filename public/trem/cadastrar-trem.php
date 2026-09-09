@@ -1,3 +1,21 @@
+<?php
+
+require_once "../../infra/conexao.php";
+$mensagem = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nome_trem = $_POST["nome_trem"] ?? "";
+    $velocidade_maxima = $_POST["velocidade_maxima"] ?? "";
+    $tipo_trem = $_POST["tipo_trem"] ?? "";
+
+    if ($nome_trem == "" || $velocidade_maxima == "" || $tipo_trem == "") {
+
+        $mensagem = "Preencha todos os campos.";
+    } 
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
