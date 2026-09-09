@@ -3,22 +3,26 @@
 require_once "../../infra/conexao.php";
 $mensagem = "";
 
+$rotas = $conexao->query("SELECT id_rota, nome_rota FROM rota");
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome_trem = $_POST["nome_trem"] ?? "";
     $velocidade_maxima = $_POST["velocidade_maxima"] ?? "";
     $tipo_trem = $_POST["tipo_trem"] ?? "";
+    $id_rota = $_POST["id_rota"] ?? "";
 
-    if ($nome_trem == "" || $velocidade_maxima == "" || $tipo_trem == "") {
+    if ($nome_trem == "" || $velocidade_maxima == "" || $tipo_trem == "" || $id_rota == "") {
 
         $mensagem = "Preencha todos os campos.";
     } else {
-        $sql = "INSERT INTO trem (id_trem, nome_trem, velocidade_maxima, tipo_trem) VALUES (NULL, ?, ?, ?)";
+        $sql = "INSERT INTO trem (id_trem, nome_trem, velocidade_maxima, tipo_trem, id_rota) VALUES (NULL, ?, ?, ?, ?)";
         $stmt = $conexao->prepare($sql);
         $stmt->bind_param(
-            "sis",
+            "isisi",
             $nome_trem,
             $velocidade_maxima,
-            $tipo_trem
+            $tipo_trem,
+            $id_rota
         );
 
         if ($stmt->execute()) {
@@ -41,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../../style/style.css">
 </head>
 
 <body>
@@ -79,11 +83,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item me-3">
                         <span class="nav-link d-flex align-items-center gap-2">
-                            <ion-icon name="person-circle-outline"></ion-icon>
-                            João
-                        </span>
+                        <ion-icon name="person-circle-outline"></ion-icon>João</span>
                     </li>
-
                     <li class="nav-item">
                         <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="#">
                             <ion-icon name="log-out-outline"></ion-icon>
@@ -105,6 +106,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     Preencha as informações para cadastrar um novo trem no sistema
                 </p>
                 <hr>
+
+                <?php if ($mensagem != "") { ?>
+                    <p class="text-center text-success">
+                        <?= $mensagem ?>
+                    </p>
+                <?php } ?>
+
                 <form>
                     <div class="row">
                         <div class="col-md-6">
@@ -129,12 +137,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                         </div>
 
-                        <select name="" id="" class="form-select">
+                        <select name="id_rota" id="id_rota" class="form-select">
                             <option selected disabled>
                                 Selecione a rota em que o trem opera
                             </option>
 
-                            <!-- adicionar as rotas cadastradas no banco de dados aqui -->
+                            <?php while ($rota = $rotas->fetch_assoc()) { ?>
+                                <option value="<?= $rota['id_rota'] ?>">
+                                    <?= $rota['nome_rota'] ?>
+                                </option>
+                            <?php } ?>
                         </select>
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
