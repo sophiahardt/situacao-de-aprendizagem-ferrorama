@@ -11,7 +11,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($nome_trem == "" || $velocidade_maxima == "" || $tipo_trem == "") {
 
         $mensagem = "Preencha todos os campos.";
-    } 
+    } else {
+        $sql = "INSERT INTO trem (id_trem, nome_trem, velocidade_maxima, tipo_trem) VALUES (NULL, ?, ?, ?)";
+        $stmt = $conexao->prepare($sql);
+        $stmt->bind_param(
+            "sis",
+            $nome_trem,
+            $velocidade_maxima,
+            $tipo_trem
+        );
+
+        if ($stmt->execute()) {
+            $mensagem = "Trem cadastrado com sucesso!";
+        } else {
+            $mensagem = "Erro ao cadastrar o trem.";
+        }
+    }
 }
 
 ?>
