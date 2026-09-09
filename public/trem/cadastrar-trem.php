@@ -1,3 +1,36 @@
+<?php
+
+require_once "../../infra/conexao.php";
+$mensagem = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nome_trem = $_POST["nome_trem"] ?? "";
+    $velocidade_maxima = $_POST["velocidade_maxima"] ?? "";
+    $tipo_trem = $_POST["tipo_trem"] ?? "";
+
+    if ($nome_trem == "" || $velocidade_maxima == "" || $tipo_trem == "") {
+
+        $mensagem = "Preencha todos os campos.";
+    } else {
+        $sql = "INSERT INTO trem (id_trem, nome_trem, velocidade_maxima, tipo_trem) VALUES (NULL, ?, ?, ?)";
+        $stmt = $conexao->prepare($sql);
+        $stmt->bind_param(
+            "sis",
+            $nome_trem,
+            $velocidade_maxima,
+            $tipo_trem
+        );
+
+        if ($stmt->execute()) {
+            $mensagem = "Trem cadastrado com sucesso!";
+        } else {
+            $mensagem = "Erro ao cadastrar o trem.";
+        }
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
