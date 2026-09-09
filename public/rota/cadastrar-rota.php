@@ -28,3 +28,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $extensao_km,
             $tempo_estimado_min
         );
+
+        if ($stmt->execute()) {
+
+            header("Location: visualizar-rota.php");
+            exit;
+
+        } else {
+
+            $mensagem = "Erro ao cadastrar a rota.";
+        }
+    }
+}
+
+?>
