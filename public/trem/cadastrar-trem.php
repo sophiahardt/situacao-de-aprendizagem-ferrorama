@@ -1,5 +1,4 @@
 <?php
-
 require_once "../../infra/conexao.php";
 $mensagem = "";
 
@@ -15,14 +14,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $mensagem = "Preencha todos os campos.";
     } else {
-        $sql = "INSERT INTO trem (id_trem, nome_trem, velocidade_maxima, tipo_trem, id_rota) VALUES (NULL, ?, ?, ?, ?)";
+        $sql = "INSERT INTO trem (nome_trem, velocidade_maxima, tipo_trem) VALUES (?, ?, ?)";
         $stmt = $conexao->prepare($sql);
         $stmt->bind_param(
-            "isisi",
+            "sds",
             $nome_trem,
             $velocidade_maxima,
             $tipo_trem,
-            $id_rota
         );
 
         if ($stmt->execute()) {
@@ -49,10 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
         <div class="container-fluid">
-
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -61,29 +57,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard</a>
+                        <a class="nav-link" href="../tela-geral-home.php">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sensores</a>
+                        <a class="nav-link" href="../sensor/visualizar-sensor.php">Sensores</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Trens</a>
+                        <a class="nav-link" href="visualizar-trem.php">Trens</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Rotas</a>
+                        <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Funcionários</a>
+                        <a class="nav-link" href="../funcionario/visualizar-funcionario.php">Funcionários</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Relatórios</a>
+                        <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
                     </li>
                 </ul>
-
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item me-3">
                         <span class="nav-link d-flex align-items-center gap-2">
-                        <ion-icon name="person-circle-outline"></ion-icon>João</span>
+                            <ion-icon name="person-circle-outline"></ion-icon>João</span>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="#">
@@ -97,10 +96,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
 
     <div class="container mt-5">
-
         <div class="card">
             <div class="card-body">
-
                 <h2 class="text-center mb-3">Cadastrar novo trem</h2>
                 <p class="text-center text-muted">
                     Preencha as informações para cadastrar um novo trem no sistema
@@ -113,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </p>
                 <?php } ?>
 
-                <form>
+                <form method="POST">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -130,43 +127,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <label class="form-label">Tipo de Trem</label>
                                 <select class="form-select">
                                     <option selected disabled>Selecione o tipo de trem</option>
-                                    <option>Passageiro</option>
-                                    <option>Carga</option>
-                                    <option>Expresso</option>
+                                    <option value="Passageiro">Passageiro</option>
+                                    <option value="Carga">Carga</option>
+                                    <option value="Expresso">Expresso</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Rota</label>
+                                <select name="id_rota" id="id_rota" class="form-select">
+                                    <option selected disabled>
+                                        Selecione a rota em que o trem opera
+                                    </option>
+
+                                    <?php while ($rota = $rotas->fetch_assoc()) { ?>
+                                        <option value="<?= $rota['id_rota'] ?>">
+                                            <?= $rota['nome_rota'] ?>
+                                        </option>
+                                    <?php } ?>
                                 </select>
                             </div>
                         </div>
+                    </div>
 
-                        <select name="id_rota" id="id_rota" class="form-select">
-                            <option selected disabled>
-                                Selecione a rota em que o trem opera
-                            </option>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-primary">
+                            <ion-icon name="save-outline"></ion-icon>
+                            Salvar
+                        </button>
 
-                            <?php while ($rota = $rotas->fetch_assoc()) { ?>
-                                <option value="<?= $rota['id_rota'] ?>">
-                                    <?= $rota['nome_rota'] ?>
-                                </option>
-                            <?php } ?>
-                        </select>
-
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button type="submit" class="btn btn-primary">
-                                <ion-icon name="save-outline"></ion-icon>
-                                Salvar
-                            </button>
-
-                            <button type="button" class="btn btn-light">
-                                <ion-icon name="close-outline"></ion-icon>
-                                Cancelar
-                            </button>
-                        </div>
+                        <button type="button" class="btn btn-light">
+                            <ion-icon name="close-outline"></ion-icon>
+                            Cancelar
+                        </button>
+                    </div>
 
                 </form>
             </div>
         </div>
     </div>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
