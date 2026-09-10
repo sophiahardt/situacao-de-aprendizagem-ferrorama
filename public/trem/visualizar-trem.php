@@ -12,10 +12,11 @@ $resultado = $conexao->query($sql);
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista trens cadastrados</title>
+    <title>Visualização de Trens</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -106,30 +107,6 @@ $resultado = $conexao->query($sql);
                                     <td><?= $trem["nome_rota"] ?></td>
 
                                     <td>
-                                        <?php
-                                        if ($trem["tipo_trem"] == "Velocidade") {
-                                            echo '<ion-icon name="speedometer"></ion-icon>';
-                                        }
-
-                                        if ($trem["tipo_trem"] == "Temperatura") {
-                                            echo '<ion-icon name="thermometer"></ion-icon>';
-                                        }
-
-                                        if ($trem["tipo_trem"] == "Presença") {
-                                            echo '<ion-icon name="person"></ion-icon>';
-                                        }
-                                        ?>
-
-                                        <?= $trem["tipo_trem"] ?>
-                                    </td>
-
-                                    <td>
-                                        <a href="visualizar-trem.php?id=<?= $trem["id_trem"] ?>"
-                                            class="btn btn-info btn-sm text-white">
-                                            <ion-icon name="eye"></ion-icon>
-                                            Visualizar
-                                        </a>
-
                                         <a href="editar-trem.php?id=<?= $trem["id_trem"] ?>"
                                             class="btn btn-warning btn-sm">
                                             <ion-icon name="pencil"></ion-icon>
@@ -155,4 +132,5 @@ $resultado = $conexao->query($sql);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

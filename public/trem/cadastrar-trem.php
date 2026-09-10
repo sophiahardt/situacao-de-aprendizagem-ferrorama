@@ -1,7 +1,7 @@
-<?php
+<?php 
 require_once "../../infra/conexao.php";
-$mensagem = "";
 
+$mensagem = "";
 $rotas = $conexao->query("SELECT id_rota, nome_rota FROM rota");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -11,26 +11,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_rota = $_POST["id_rota"] ?? "";
 
     if ($nome_trem == "" || $velocidade_maxima == "" || $tipo_trem == "" || $id_rota == "") {
-
         $mensagem = "Preencha todos os campos.";
+
     } else {
         $sql = "INSERT INTO trem (nome_trem, velocidade_maxima, tipo_trem) VALUES (?, ?, ?)";
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param(
-            "sds",
-            $nome_trem,
-            $velocidade_maxima,
-            $tipo_trem,
-        );
+        $stmt->bind_param("sds", $nome_trem, $velocidade_maxima, $tipo_trem);
 
         if ($stmt->execute()) {
-            $mensagem = "Trem cadastrado com sucesso!";
+            $id_trem = $conexao->insert_id;
+            $sql_rota = "INSERT INTO trem_rota (id_trem, id_rota) VALUES (?, ?)";
+            $stmt_rota = $conexao->prepare($sql_rota);
+            $stmt_rota->bind_param("ii", $id_trem, $id_rota);
+
+            if ($stmt_rota->execute()) {
+                $mensagem = "Trem cadastrado com sucesso!";
+            }
         } else {
             $mensagem = "Erro ao cadastrar o trem.";
         }
     }
-}
-
+} 
 ?>
 
 <!DOCTYPE html>
@@ -115,17 +116,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Nome do Trem</label>
-                                <input type="text" class="form-control" placeholder="Informe o nome do trem">
+                                <input type="text" name="nome_trem" class="form-control" placeholder="Informe o nome do trem">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Velocidade Máxima</label>
-                                <input type="text" class="form-control" placeholder="Informe a velocidade máxima do trem">
+                                <input type="text" name="velocidade_maxima" class="form-control" placeholder="Informe a velocidade máxima do trem">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Tipo de Trem</label>
-                                <select class="form-select">
+                                <select name="tipo_trem" class="form-select">
                                     <option selected disabled>Selecione o tipo de trem</option>
                                     <option value="Passageiro">Passageiro</option>
                                     <option value="Carga">Carga</option>
