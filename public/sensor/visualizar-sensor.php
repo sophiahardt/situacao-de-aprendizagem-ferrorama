@@ -105,7 +105,7 @@ $resultado = $conexao->query($sql);
 
                     <li class="nav-item">
 
-                        <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="#">
+                        <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="../tela-login.php">
 
                             <ion-icon name="log-out-outline"></ion-icon>
 
