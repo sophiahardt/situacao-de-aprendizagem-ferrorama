@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $usuario = "root";
-$senha = "";
+$senha = "root";
 $banco = "db_ferrovia";
 
 $conexao = mysqli_connect($host, $usuario, $senha, $banco);
