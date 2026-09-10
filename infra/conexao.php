@@ -3,9 +3,8 @@ $host = "localhost";
 $usuario = "root";
 $senha = "";
 $banco = "db_ferrovia";
-$porta = 3311;
 
-$conexao = mysqli_connect($host, $usuario, $senha, $banco, $porta);
+$conexao = mysqli_connect($host, $usuario, $senha, $banco);
 if ($conexao->connect_error) {
     die("Falha na conexão: " . ($conexao->connect_error));
 }

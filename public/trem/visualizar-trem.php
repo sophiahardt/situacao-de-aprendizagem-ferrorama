@@ -92,6 +92,7 @@ $resultado = $conexao->query($sql);
                                 <th>Velocidade Máxima</th>
                                 <th>Tipo</th>
                                 <th>Rotas</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
 
@@ -123,19 +124,19 @@ $resultado = $conexao->query($sql);
                                     </td>
 
                                     <td>
-                                        <a href="visualizar-sensor.php?id=<?= $trem["id_trem"] ?>"
+                                        <a href="visualizar-trem.php?id=<?= $trem["id_trem"] ?>"
                                             class="btn btn-info btn-sm text-white">
                                             <ion-icon name="eye"></ion-icon>
                                             Visualizar
                                         </a>
 
-                                        <a href="editar-sensor.php?id=<?= $trem["id_trem"] ?>"
+                                        <a href="editar-trem.php?id=<?= $trem["id_trem"] ?>"
                                             class="btn btn-warning btn-sm">
                                             <ion-icon name="pencil"></ion-icon>
                                             Editar
                                         </a>
 
-                                        <a href="excluir-sensor.php?id=<?= $trem["id_trem"] ?>"
+                                        <a href="excluir-trem.php?id=<?= $trem["id_trem"] ?>"
                                             class="btn btn-danger btn-sm"
                                             onclick="return confirm('Tem certeza que deseja excluir este trem?');">
                                             <ion-icon name="trash"></ion-icon>

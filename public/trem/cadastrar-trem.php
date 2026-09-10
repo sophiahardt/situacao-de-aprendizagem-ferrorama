@@ -151,17 +151,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="button" class="btn btn-light" onclick="window.location.href='visualizar-trem.php'">
+                            <ion-icon name="close-outline"></ion-icon>
+                            Cancelar
+                        </button>
+
                         <button type="submit" class="btn btn-primary">
                             <ion-icon name="save-outline"></ion-icon>
                             Salvar
                         </button>
-
-                        <button type="button" class="btn btn-light">
-                            <ion-icon name="close-outline"></ion-icon>
-                            Cancelar
-                        </button>
                     </div>
-
                 </form>
             </div>
         </div>

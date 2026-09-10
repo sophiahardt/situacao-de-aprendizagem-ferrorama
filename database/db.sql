@@ -10,14 +10,14 @@ CREATE TABLE trem (
 id_trem INT AUTO_INCREMENT PRIMARY KEY,
 nome_trem VARCHAR(100) NOT NULL, 
 velocidade_maxima DECIMAL(5,2) NOT NULL,
-tipo_trem VARCHAR(45) NOT NULL, 
+tipo_trem VARCHAR(45) NOT NULL 
 );
 
 CREATE TABLE rota (
 id_rota INT AUTO_INCREMENT PRIMARY KEY,
 nome_rota VARCHAR(45),
 extensao DECIMAL(8,2),
-tempo_estimado_minutos INT,
+tempo_estimado_minutos INT
 );
 
 CREATE TABLE usuario (
