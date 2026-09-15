@@ -127,3 +127,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </li>
 
                 </ul>
+                  <ul class="navbar-nav ms-auto align-items-center">
+
+                    <li class="nav-item me-3">
+
+                        <span class="nav-link d-flex align-items-center gap-2">
+
+                            <ion-icon name="person-circle-outline"></ion-icon>
+
+                            João
+
+                        </span>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        
+                            class="btn btn-outline-light btn-sm d-flex align-items-center gap-2"
+                            href="#">
+
+                            <ion-icon name="log-out-outline"></ion-icon>
+
+                            <span>Sair</span>
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
