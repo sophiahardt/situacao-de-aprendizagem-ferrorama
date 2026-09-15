@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once "../../infra/conexao.php";
 
 $mensagem = "";
@@ -12,7 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($nome_trem == "" || $velocidade_maxima == "" || $tipo_trem == "" || $id_rota == "") {
         $mensagem = "Preencha todos os campos.";
-
     } else {
         $sql = "INSERT INTO trem (nome_trem, velocidade_maxima, tipo_trem) VALUES (?, ?, ?)";
         $stmt = $conexao->prepare($sql);
@@ -31,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mensagem = "Erro ao cadastrar o trem.";
         }
     }
-} 
+}
 ?>
 
 <!DOCTYPE html>
@@ -116,18 +115,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Nome do Trem</label>
-                                <input type="text" name="nome_trem" class="form-control" placeholder="Informe o nome do trem">
+                                <input type="text" name="nome_trem" class="form-control" placeholder="Informe o nome do trem" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Velocidade Máxima</label>
-                                <input type="text" name="velocidade_maxima" class="form-control" placeholder="Informe a velocidade máxima do trem">
+                                <input type="text" name="velocidade_maxima" class="form-control" placeholder="Informe a velocidade máxima do trem" required>
                             </div>
+                        </div>
 
+                        <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Tipo de Trem</label>
-                                <select name="tipo_trem" class="form-select">
-                                    <option selected disabled>Selecione o tipo de trem</option>
+                                <select name="tipo_trem" class="form-select" required>
+                                    <option selected disabled value="">Selecione o tipo de trem</option>
                                     <option value="Passageiro">Passageiro</option>
                                     <option value="Carga">Carga</option>
                                     <option value="Expresso">Expresso</option>
@@ -136,8 +137,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                             <div class="mb-3">
                                 <label class="form-label">Rota</label>
-                                <select name="id_rota" id="id_rota" class="form-select">
-                                    <option selected disabled>
+                                <select name="id_rota" id="id_rota" class="form-select" required>
+                                    <option selected disabled value="">
                                         Selecione a rota em que o trem opera
                                     </option>
 
@@ -150,22 +151,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                         </div>
                     </div>
+          
 
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="button" class="btn btn-light" onclick="window.location.href='visualizar-trem.php'">
-                            <ion-icon name="close-outline"></ion-icon>
-                            Cancelar
-                        </button>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-light" onclick="window.location.href='visualizar-trem.php'">
+                    <ion-icon name="close-outline"></ion-icon>
+                    Cancelar
+                </button>
 
-                        <button type="submit" class="btn btn-primary">
-                            <ion-icon name="save-outline"></ion-icon>
-                            Salvar
-                        </button>
-                    </div>
-                </form>
+                <button type="submit" class="btn btn-primary">
+                    <ion-icon name="save-outline"></ion-icon>
+                    Salvar
+                </button>
             </div>
+            </form>
         </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
