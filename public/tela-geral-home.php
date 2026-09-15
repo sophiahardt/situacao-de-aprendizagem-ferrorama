@@ -34,7 +34,7 @@
                         <a class="nav-link" href="#" onclick="window.location.href='rota/visualizar-rota.php'">Rotas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="window.location.href='funcionario/visualizar-funcionario.php'">Funcionários</a>
+                        <a class="nav-link" href="#" onclick="window.location.href='user/visualizar-user.php'">Funcionários</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="window.location.href='relatorio/visualizar-relatorio.php'">Relatórios</a>
