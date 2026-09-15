@@ -174,28 +174,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <div class="mb-3">
 
-                            <label class="form-label">Tipo de Dado</label>
-
-                            <select name="tipo_sensor" class="form-select" required>
-
-                                <option selected disabled>
-                                    Selecione o tipo de dado coletado
-                                </option>
-
-                                <option value="Temperatura">Temperatura</option>
-                                <option value="Velocidade">Velocidade</option>
-                                <option value="Presença">Presença</option>
-
-                            </select>
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <div class="mb-3">
-
                             <label class="form-label">Localização</label>
 
                             <select name="localizacao" id="localizacao" class="form-select"
@@ -210,29 +188,63 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <div class="mb-3">
 
-                            <label class="form-label">Rota ou Trem</label>
+                            <label class="form-label">Localização do Sensor</label>
+                                <div class="d-flex gap-5">
+                                    <button type="button" class="btn btn-outline-dark"
+                                        onclick="selecionarLocalizacao('rota')">
+                                        Rota
+                                    </button>
+
+                                    <button type="button" class="btn btn-outline-dark"
+                                        onclick="selecionarLocalizacao('trem')">
+                                        Trem
+                                    </button>
+                                </div> 
+                                <input type="hidden" name="localizacao" id="localizacao">
+                            </div>
+
+                        <div class="mb-3">
 
                             <select name="id_localizacao" id="id_localizacao" class="form-select" required>
 
-                                <option selected disabled>
+                                <option value="" selected disabled>
                                     Selecione a rota vinculada ao sensor
                                 </option>
+                               <!-- Fiz conforme o layout, a parte de frontend, falta fazer a parte de backend -->
 
                                 <?php while ($rota = $rotas->fetch_assoc()) { ?>
 
-                                    <option value="<?= $rota['id_rota'] ?>" data-tipo="rota">
-                                        <?= $rota['nome_rota'] ?>
-                                    </option>
+                                <option value="<?= $rota['id_rota'] ?>" data-tipo="rota">
+                                    <?= $rota['nome_rota'] ?>
+                                </option>
 
                                 <?php } ?>
 
                                 <?php while ($trem = $trens->fetch_assoc()) { ?>
 
-                                    <option value="<?= $trem['id_trem'] ?>" data-tipo="trem">
-                                        <?= $trem['nome_trem'] ?>
-                                    </option>
-
+                                <option value="<?= $trem['id_trem'] ?>" data-tipo="trem">
+                                    <?= $trem['nome_trem'] ?>
+                                </option>
                                 <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="mb-3">
+
+                            <label class="form-label">Tipo de Dado</label>
+
+                            <select name="tipo_sensor" class="form-select" required>
+
+                                <option selected disabled>
+                                    Selecione o tipo de dado coletado
+                                </option>
+
+                                <option value="Temperatura">Temperatura</option>
+                                <option value="Velocidade">Velocidade</option>
+                                <option value="Presença">Presença</option>
 
                             </select>
 
