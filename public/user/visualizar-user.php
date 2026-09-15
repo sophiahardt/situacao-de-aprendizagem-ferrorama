@@ -4,146 +4,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de funcionários cadastrados</title>
+
+    <title>Funcionários cadastrados</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
     <link rel="stylesheet" href="../../style/style.css">
 </head>
 
-<body class="tela-funcionarios">
+<body>
 
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
+
         <div class="container-fluid">
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
                 <span class="navbar-toggler-icon"></span>
+
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
+
                 <ul class="navbar-nav me-auto">
+
                     <li class="nav-item">
-                        <a class="nav-link" href="../tela-geral-home.php">Dashboard</a>
+                        <a class="nav-link" href="../tela-geral-home.php">
+                            Dashboard
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="../sensor/visualizar-sensor.php">Sensores</a>
+                        <a class="nav-link" href="../sensor/visualizar-sensor.php">
+                            Sensores
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="../trem/visualizar-trem.php">Trens</a>
+                        <a class="nav-link" href="../trem/visualizar-trem.php">
+                            Trens
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
+                        <a class="nav-link" href="../rota/visualizar-rota.php">
+                            Rotas
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link active" href="visualizar-user.php">Funcionários</a>
+                        <a class="nav-link active" href="visualizar-user.html">
+                            Funcionários
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Relatórios</a>
+                        <a class="nav-link" href="../relatorio/visualizar-relatorio.php">
+                            Relatórios
+                        </a>
                     </li>
+
                 </ul>
 
                 <ul class="navbar-nav ms-auto align-items-center">
+
                     <li class="nav-item me-3">
+
                         <span class="nav-link d-flex align-items-center gap-2">
+
                             <ion-icon name="person-circle-outline"></ion-icon>
+
                             João
+
                         </span>
+
                     </li>
 
                     <li class="nav-item">
+
                         <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="#">
+
                             <ion-icon name="log-out-outline"></ion-icon>
+
                             <span>Sair</span>
+
                         </a>
+
                     </li>
+
                 </ul>
+
             </div>
+
         </div>
+
     </nav>
 
-    <div class="container mt-5">
+
+    <div class="container-fluid p-4">
+
         <div class="d-flex justify-content-between align-items-center mb-4">
 
-            <div>
-                <h1 class="titulo">Funcionários cadastrados</h1>
-                <p class="subtitulo">Visualize, cadastre ou remova funcionários cadastrados</p>
-            </div>
+            <h1 class="h3">
+                Funcionários cadastrados
+            </h1>
 
-            <a href="cadastrar-user.php" class="btn btn-primary" style="background-color: #003399;">
+            <a href="cadastrar-user.html"
+                class="btn btn-primary d-flex align-items-center gap-2"
+                style="background-color: #003399;">
+
                 <ion-icon name="add-circle"></ion-icon>
-                Cadastrar usuário
+
+                Novo funcionário
+
             </a>
+
         </div>
 
-        <hr>
 
-        <div class="card-funcionarios mt-4">
-            <div class="row tabela-topo text-center">
-                <div class="col">Nome</div>
-                <div class="col">Cargo</div>
-                <div class="col">Email</div>
-                <div class="col">Telefone</div>
-                <div class="col"></div>
-            </div>
+        <div class="card shadow-sm">
 
-            <div class="row linha-funcionario align-items-center text-center">
-                <div class="col">João da Silva</div>
-                <div class="col">Administrador</div>
-                <div class="col">joao@email.com</div>
-                <div class="col">(11) 98765-4321</div>
+            <div class="card-body">
 
-                <div class="col d-flex justify-content-center gap-2">
-                    <a href="editar-user.php?id=1" class="btn btn-warning btn-sm">
-                        <ion-icon name="pencil"></ion-icon>
-                        Editar
-                    </a>
-                    <a href="excluir-user.php?id=1" class="btn btn-danger btn-sm">
-                        <ion-icon name="trash"></ion-icon>
-                        Excluir
-                    </a>
+                <div class="table-responsive">
+
+                    <table class="table table-hover mb-0">
+
+                        <thead class="table-light">
+
+                            <tr>
+
+                                <th>Nome</th>
+
+                                <th>Cargo</th>
+
+                                <th>Email</th>
+
+                                <th>Telefone</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        </tbody>
+
+                    </table>
+
                 </div>
 
             </div>
-            <div class="row linha-funcionario align-items-center text-center">
 
-                <div class="col">Maria Oliveira</div>
-                <div class="col">Funcionário</div>
-                <div class="col">maria@email.com</div>
-                <div class="col">(11) 97654-3210</div>
-
-                <div class="col d-flex justify-content-center gap-2">
-                    <a href="editar-user.php?id=2" class="btn btn-warning btn-sm">
-                        <ion-icon name="pencil"></ion-icon>
-                        Editar
-                    </a>
-                    <a href="excluir-user.php?id=2" class="btn btn-danger btn-sm">
-                        <ion-icon name="trash"></ion-icon>
-                        Excluir
-                    </a>
-                </div>
-
-            </div>
-            <div class="row linha-funcionario align-items-center text-center">
-
-                <div class="col">Carlos Mendes</div>
-                <div class="col">Funcionário</div>
-                <div class="col">carlos@email.com</div>
-                <div class="col">(11) 99876-1234</div>
-
-                <div class="col d-flex justify-content-center gap-2">
-                    <a href="editar-user.php?id=3" class="btn btn-warning btn-sm">
-                        <ion-icon name="pencil"></ion-icon>
-                        Editar
-                    </a>
-                    <a href="excluir-user.php?id=3" class="btn btn-danger btn-sm">
-                        <ion-icon name="trash"></ion-icon>
-                        Excluir
-                    </a>
-                </div>
-            </div>
         </div>
+
     </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
