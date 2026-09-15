@@ -9,7 +9,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../../style/style.css">
 </head>
 
 <body>
@@ -105,7 +105,7 @@
                             Salvar
                         </button>
 
-                        <button type="button" class="btn btn-light">
+                        <a href="visualizar-user.php" class="btn btn-light">
                             <ion-icon name="close-outline"></ion-icon>
                             Cancelar
                         </button>

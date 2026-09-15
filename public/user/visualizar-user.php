@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../../style/style.css">
 </head>
 
 <body class="tela-funcionarios">
@@ -24,19 +24,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard</a>
+                        <a class="nav-link" href="../tela-geral-home.php">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sensores</a>
+                        <a class="nav-link" href="../sensor/visualizar-sensor.php">Sensores</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Trens</a>
+                        <a class="nav-link" href="../trem/visualizar-trem.php">Trens</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Rotas</a>
+                        <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Funcionários</a>
+                        <a class="nav-link active" href="visualizar-user.php">Funcionários</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Relatórios</a>
@@ -70,9 +70,10 @@
                 <p class="subtitulo">Visualize, cadastre ou remova funcionários cadastrados</p>
             </div>
 
-            <button class="btn-cadastrar">
-                + Cadastrar usuário
-            </button>
+            <a href="cadastrar-user.php" class="btn btn-primary" style="background-color: #003399;">
+                <ion-icon name="add-circle"></ion-icon>
+                Cadastrar usuário
+            </a>
         </div>
 
         <hr>
@@ -92,10 +93,15 @@
                 <div class="col">joao@email.com</div>
                 <div class="col">(11) 98765-4321</div>
 
-                <div class="col">
-                    <button class="btn-excluir">
-                        🗑
-                    </button>
+                <div class="col d-flex justify-content-center gap-2">
+                    <a href="editar-user.php?id=1" class="btn btn-warning btn-sm">
+                        <ion-icon name="pencil"></ion-icon>
+                        Editar
+                    </a>
+                    <a href="excluir-user.php?id=1" class="btn btn-danger btn-sm">
+                        <ion-icon name="trash"></ion-icon>
+                        Excluir
+                    </a>
                 </div>
 
             </div>
@@ -106,10 +112,15 @@
                 <div class="col">maria@email.com</div>
                 <div class="col">(11) 97654-3210</div>
 
-                <div class="col">
-                    <button class="btn-excluir">
-                        🗑
-                    </button>
+                <div class="col d-flex justify-content-center gap-2">
+                    <a href="editar-user.php?id=2" class="btn btn-warning btn-sm">
+                        <ion-icon name="pencil"></ion-icon>
+                        Editar
+                    </a>
+                    <a href="excluir-user.php?id=2" class="btn btn-danger btn-sm">
+                        <ion-icon name="trash"></ion-icon>
+                        Excluir
+                    </a>
                 </div>
 
             </div>
@@ -120,10 +131,15 @@
                 <div class="col">carlos@email.com</div>
                 <div class="col">(11) 99876-1234</div>
 
-                <div class="col">
-                    <button class="btn-excluir">
-                        🗑
-                    </button>
+                <div class="col d-flex justify-content-center gap-2">
+                    <a href="editar-user.php?id=3" class="btn btn-warning btn-sm">
+                        <ion-icon name="pencil"></ion-icon>
+                        Editar
+                    </a>
+                    <a href="excluir-user.php?id=3" class="btn btn-danger btn-sm">
+                        <ion-icon name="trash"></ion-icon>
+                        Excluir
+                    </a>
                 </div>
             </div>
         </div>
