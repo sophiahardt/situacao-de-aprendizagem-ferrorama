@@ -162,3 +162,73 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
     </nav>
+
+     <div class="container mt-5">
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <h2 class="text-center mb-3">
+                    Cadastrar nova rota
+                </h2>
+
+                <p class="text-center text-muted">
+                    Preencha as informações para cadastrar uma nova rota no sistema
+                </p>
+
+                <hr>
+
+
+                <?php if ($mensagem != "") { ?>
+
+                    <p class="text-center text-success">
+                        <?= $mensagem ?>
+                    </p>
+
+                <?php } ?>
+
+
+                <form method="POST">
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Nome da Rota
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="nome_rota"
+                                    class="form-control"
+                                    placeholder="Digite o nome"
+                                    required>
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Extensão (Km)
+                                </label>
+
+                                <input
+                                    type="number"
+                                    step="0.01"
+                                    name="extensao_km"
+                                    class="form-control"
+                                    placeholder="Ex: 45"
+                                    required>
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Tempo estimado (Min)
+                                </label>
+                                <input
