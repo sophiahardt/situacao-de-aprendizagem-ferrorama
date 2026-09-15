@@ -68,99 +68,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
-
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
         <div class="container-fluid">
-
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-
                 <ul class="navbar-nav me-auto">
-
                     <li class="nav-item">
-                        <a class="nav-link" href="../tela-geral-home.php">
-                            Dashboard
-                        </a>
+                        <a class="nav-link" href="../tela-geral-home.php">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../sensor/visualizar-sensor.php">Sensores</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            Sensores
-                        </a>
+                        <a class="nav-link" href="../visualizar-trem.php">Trens</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            Trens
-                        </a>
+                        <a class="nav-link" href="rota/visualizar-rota.php">Rotas</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="visualizar-rota.php">
-                            Rotas
-                        </a>
+                        <a class="nav-link" href="../funcionario/visualizar-funcionario.php">Funcionários</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            Funcionários
-                        </a>
+                        <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
                     </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            Relatórios
-                        </a>
-                    </li>
-
                 </ul>
-                  <ul class="navbar-nav ms-auto align-items-center">
-
+                <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item me-3">
-
                         <span class="nav-link d-flex align-items-center gap-2">
-
-                            <ion-icon name="person-circle-outline"></ion-icon>
-
-                            João
-
-                        </span>
-
+                            <ion-icon name="person-circle-outline"></ion-icon>João</span>
                     </li>
-
                     <li class="nav-item">
-
-                        
-                            class="btn btn-outline-light btn-sm d-flex align-items-center gap-2"
-                            href="#">
-
+                        <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="#">
                             <ion-icon name="log-out-outline"></ion-icon>
-
                             <span>Sair</span>
-
                         </a>
-
                     </li>
-
                 </ul>
-
             </div>
-
         </div>
-
     </nav>
 
      <div class="container mt-5">
