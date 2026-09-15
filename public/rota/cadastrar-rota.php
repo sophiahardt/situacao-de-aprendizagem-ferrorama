@@ -231,4 +231,63 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <label class="form-label">
                                     Tempo estimado (Min)
                                 </label>
+
                                 <input
+                                    type="number"
+                                    step="1"
+                                    name="tempo_estimado_min"
+                                    class="form-control"
+                                    placeholder="Ex: 45"
+                                    required>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+                        <button
+                            type="button"
+                            class="btn btn-light"
+                            onclick="window.location.href='../tela-geral-home.php'">
+
+                            <ion-icon name="close-outline"></ion-icon>
+
+                            Cancelar
+
+                        </button>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary">
+
+                            <ion-icon name="save-outline"></ion-icon>
+
+                            Salvar
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <script src="../../script/validacao.js">
+    </script>
+
+</body>
+
+</html>
