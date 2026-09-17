@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="../funcionario/visualizar-funcionario.php">Funcionários</a>
+                        <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
                     </li>
 
                     <li class="nav-item">
@@ -128,10 +128,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form method="POST">
         <div class="row">
             <div class="col-md-6">
-                <div class="mb-3">
-                    <label class="form-label"> ID do Trem </label>
-                    <input type="text" class="form-control" value="<?= $trem["id_trem"] ?>" disabled>
-                </div>
                 <div class="mb-3">
                     <label class="form-label"> Nome do Trem </label>
                     <input type="text" name="nome_trem" class="form-control" value="<?= $trem["nome_trem"] ?>" required>
