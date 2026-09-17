@@ -46,7 +46,7 @@ $resultado = $conexao->query($sql);
                         <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../funcionario/visualizar-funcionario.php">Funcionários</a>
+                        <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
