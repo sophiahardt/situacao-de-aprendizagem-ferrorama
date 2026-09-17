@@ -82,3 +82,43 @@ $rotas = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
             </div>
         </div>
     </nav>
+     <div class="container mt-5">
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+
+                    <h2 class="mb-0">
+                        Lista de rotas cadastradas
+                    </h2>
+
+                    <a href="cadastrar-rota.php" class="btn btn-primary d-flex align-items-center gap-2">
+                        <ion-icon name="add-outline"></ion-icon>
+                        Nova rota
+                    </a>
+
+                </div>
+
+                <hr>
+
+                <div class="row">
+
+                    <div class="col-lg-8">
+
+                        <div class="table-responsive">
+
+                            <table class="table align-middle">
+
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nome</th>
+                                        <th>Extensão</th>
+                                        <th>Tempo estimado</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
