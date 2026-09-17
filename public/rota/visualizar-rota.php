@@ -185,3 +185,56 @@ $rotas = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
                                         </option>
 
                                     <?php } ?>
+                                    
+                                     <!--
+                                Mapa estático (placeholder).
+                                A tabela "rota" ainda não possui dados de geolocalização
+                                (estações, trens, coordenadas), então este SVG é apenas
+                                ilustrativo. Quando existir uma tabela de geolocalização,
+                                trocar este bloco por uma integração real (ex: Leaflet).
+                            -->
+                            <svg viewBox="0 0 260 220" class="w-100 border rounded bg-white mb-2">
+                                <path d="M 130 15 L 130 60 L 90 100 L 90 150 L 60 195"
+                                    fill="none" stroke="#0d6efd" stroke-width="3" />
+
+                                <circle cx="130" cy="15" r="5" fill="#212529" />
+                                <circle cx="90" cy="100" r="5" fill="#212529" />
+                                <circle cx="60" cy="195" r="5" fill="#212529" />
+
+                                <circle cx="130" cy="60" r="6" fill="#198754" />
+                                <circle cx="90" cy="150" r="6" fill="#198754" />
+                            </svg>
+
+                            <div class="d-flex gap-3 small text-muted mb-2">
+                                <span><span class="badge rounded-pill bg-primary">&nbsp;</span> Rota</span>
+                                <span><span class="badge rounded-pill bg-dark">&nbsp;</span> Estações</span>
+                                <span><span class="badge rounded-pill bg-success">&nbsp;</span> Trens</span>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-1 small text-muted">
+                                <ion-icon name="sync-outline"></ion-icon>
+                                Atualizado agora há pouco
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <script src="../../script/validacao.js">
+    </script>
+
+</body>
+
+</html>
