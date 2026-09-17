@@ -83,7 +83,7 @@
                             <select class="form-select" id="cargo" required>
                                 <option value="" disabled selected>Selecione o cargo</option>
                                 <option value="administrador">Administrador</option>
-                                <option value="funcionario">Usuário</option>
+                                <option value="usuario">Usuário</option>
                             </select>
 
                         </div>
