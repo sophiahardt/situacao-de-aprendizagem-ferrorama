@@ -77,7 +77,7 @@ $resultado = $conexao->query($sql);
 
                     <li class="nav-item">
                         <a class="nav-link" href="../user/visualizar-user.php">
-                            Funcionários
+                            Usuários
                         </a>
                     </li>
 

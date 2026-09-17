@@ -18,14 +18,10 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
-
         <div class="container-fluid">
-
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-
                 <span class="navbar-toggler-icon"></span>
-
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -67,46 +63,28 @@
                             Relatórios
                         </a>
                     </li>
-
                 </ul>
 
                 <ul class="navbar-nav ms-auto align-items-center">
-
                     <li class="nav-item me-3">
-
                         <span class="nav-link d-flex align-items-center gap-2">
-
                             <ion-icon name="person-circle-outline"></ion-icon>
-
                             João
-
                         </span>
-
                     </li>
 
                     <li class="nav-item">
-
                         <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="#">
-
                             <ion-icon name="log-out-outline"></ion-icon>
-
                             <span>Sair</span>
-
                         </a>
-
                     </li>
-
                 </ul>
-
             </div>
-
         </div>
-
     </nav>
 
-
     <div class="container-fluid p-4">
-
         <div class="d-flex justify-content-between align-items-center mb-4">
 
             <h1 class="h3">
@@ -116,52 +94,29 @@
             <a href="cadastrar-user.php"
                 class="btn btn-primary d-flex align-items-center gap-2"
                 style="background-color: #003399;">
-
                 <ion-icon name="add-circle"></ion-icon>
-
                 Novo usuário
-
             </a>
 
         </div>
-
-
         <div class="card shadow-sm">
-
             <div class="card-body">
-
                 <div class="table-responsive">
-
                     <table class="table table-hover mb-0">
-
                         <thead class="table-light">
-
                             <tr>
-
                                 <th>Nome</th>
-
                                 <th>Cargo</th>
-
                                 <th>Email</th>
-
                                 <th>Telefone</th>
-
                             </tr>
-
                         </thead>
-
                         <tbody>
-
                         </tbody>
-
                     </table>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
