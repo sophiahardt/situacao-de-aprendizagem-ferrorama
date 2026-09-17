@@ -1,5 +1,6 @@
-
 <?php
+session_start();
+
 require_once "../../infra/conexao.php";
 
 $mensagem = "";
@@ -108,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li class="nav-item me-3">
                         <span class="nav-link d-flex align-items-center gap-2">
                             <ion-icon name="person-circle-outline"></ion-icon>
-                            João
+                            <?= htmlspecialchars($_SESSION["nome_usuario"] ?? "Usuário") ?>
                         </span>
                     </li>
 
@@ -245,4 +246,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>
