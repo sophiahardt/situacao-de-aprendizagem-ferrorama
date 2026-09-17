@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -19,8 +20,10 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -53,7 +56,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" href="visualizar-user.html">
+                        <a class="nav-link active" href="visualizar-user.php">
                             Usuários
                         </a>
                     </li>
@@ -63,9 +66,11 @@
                             Relatórios
                         </a>
                     </li>
+
                 </ul>
 
                 <ul class="navbar-nav ms-auto align-items-center">
+
                     <li class="nav-item me-3">
                         <span class="nav-link d-flex align-items-center gap-2">
                             <ion-icon name="person-circle-outline"></ion-icon>
@@ -74,21 +79,25 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="#">
+                        <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2"
+                            href="../tela-login.php">
                             <ion-icon name="log-out-outline"></ion-icon>
                             <span>Sair</span>
                         </a>
                     </li>
+
                 </ul>
+
             </div>
         </div>
     </nav>
 
     <div class="container-fluid p-4">
+
         <div class="d-flex justify-content-between align-items-center mb-4">
 
             <h1 class="h3">
-                Usuários cadastrados
+                Lista de usuários cadastrados
             </h1>
 
             <a href="cadastrar-user.php"
@@ -99,10 +108,14 @@
             </a>
 
         </div>
+
         <div class="card shadow-sm">
             <div class="card-body">
+
                 <div class="table-responsive">
+
                     <table class="table table-hover mb-0">
+
                         <thead class="table-light">
                             <tr>
                                 <th>Nome</th>
@@ -111,12 +124,16 @@
                                 <th>Telefone</th>
                             </tr>
                         </thead>
+
                         <tbody>
                         </tbody>
+
                     </table>
+
                 </div>
             </div>
         </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
