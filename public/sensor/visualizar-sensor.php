@@ -129,7 +129,7 @@ $resultado = $conexao->query($sql);
         <div class="d-flex justify-content-between align-items-center mb-4">
 
             <h1 class="h3">
-                Visualização dos dados dos sensores
+                Lista de sensores cadastrados
             </h1>
 
             <button class="btn btn-primary"
