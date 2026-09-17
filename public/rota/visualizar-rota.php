@@ -129,9 +129,9 @@ $rotas = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
 
                                             <tr>
                                                 <td><?= sprintf("RTA-%03d", $rota["id_rota"]) ?></td>
-                                                <td><?= $rota["nome_rota"] ?></td>
-                                                <td><?= $rota["extensao_km"] ?> Km</td>
-                                                <td><?= $rota["tempo_estimado_min"] ?> min</td>
+                                                <td><?= htmlspecialchars($rota["nome_rota"]) ?></td>
+                                                <td><?= htmlspecialchars($rota["extensao_km"]) ?> Km</td>
+                                                <td><?= htmlspecialchars($rota["tempo_estimado_min"]) ?> min</td>
                                                 <td class="text-nowrap">
 
                                                     <a href="excluir-rota.php?id=<?= $rota["id_rota"] ?>"
@@ -181,40 +181,41 @@ $rotas = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
                                     <?php foreach ($rotas as $rota) { ?>
 
                                         <option>
-                                            <?= sprintf("RTA-%03d", $rota["id_rota"]) ?> - <?= $rota["nome_rota"] ?>
+                                            <?= sprintf("RTA-%03d", $rota["id_rota"]) ?> - <?= htmlspecialchars($rota["nome_rota"]) ?>
                                         </option>
 
                                     <?php } ?>
-                                    
-                                     <!--
-                                Mapa estático (placeholder).
-                                A tabela "rota" ainda não possui dados de geolocalização
-                                (estações, trens, coordenadas), então este SVG é apenas
-                                ilustrativo. Quando existir uma tabela de geolocalização,
-                                trocar este bloco por uma integração real (ex: Leaflet).
-                            -->
-                            <svg viewBox="0 0 260 220" class="w-100 border rounded bg-white mb-2">
-                                <path d="M 130 15 L 130 60 L 90 100 L 90 150 L 60 195"
-                                    fill="none" stroke="#0d6efd" stroke-width="3" />
 
-                                <circle cx="130" cy="15" r="5" fill="#212529" />
-                                <circle cx="90" cy="100" r="5" fill="#212529" />
-                                <circle cx="60" cy="195" r="5" fill="#212529" />
+                                </select>
 
-                                <circle cx="130" cy="60" r="6" fill="#198754" />
-                                <circle cx="90" cy="150" r="6" fill="#198754" />
-                            </svg>
+                                <svg viewBox="0 0 260 220" class="w-100 border rounded bg-white mb-2">
+                                    <path d="M 130 15 L 130 60 L 90 100 L 90 150 L 60 195"
+                                        fill="none" stroke="#0d6efd" stroke-width="3" />
 
-                            <div class="d-flex gap-3 small text-muted mb-2">
-                                <span><span class="badge rounded-pill bg-primary">&nbsp;</span> Rota</span>
-                                <span><span class="badge rounded-pill bg-dark">&nbsp;</span> Estações</span>
-                                <span><span class="badge rounded-pill bg-success">&nbsp;</span> Trens</span>
-                            </div>
+                                    <circle cx="130" cy="15" r="5" fill="#212529" />
+                                    <circle cx="90" cy="100" r="5" fill="#212529" />
+                                    <circle cx="60" cy="195" r="5" fill="#212529" />
 
-                            <div class="d-flex align-items-center gap-1 small text-muted">
-                                <ion-icon name="sync-outline"></ion-icon>
-                                Atualizado agora há pouco
-                            </div>
+                                    <circle cx="130" cy="60" r="6" fill="#198754" />
+                                    <circle cx="90" cy="150" r="6" fill="#198754" />
+                                </svg>
+
+                                <div class="d-flex gap-3 small text-muted mb-2">
+                                    <span><span class="badge rounded-pill bg-primary">&nbsp;</span> Rota</span>
+                                    <span><span class="badge rounded-pill bg-dark">&nbsp;</span> Estações</span>
+                                    <span><span class="badge rounded-pill bg-success">&nbsp;</span> Trens</span>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-1 small text-muted">
+                                    <ion-icon name="sync-outline"></ion-icon>
+                                    Atualizado agora há pouco
+                                </div>
+
+                            <?php } else { ?>
+
+                                <p class="text-muted mb-0">Nenhuma rota cadastrada ainda.</p>
+
+                            <?php } ?>
 
                         </div>
 
