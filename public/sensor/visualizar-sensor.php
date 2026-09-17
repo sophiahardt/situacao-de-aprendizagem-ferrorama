@@ -129,7 +129,7 @@ $resultado = $conexao->query($sql);
         <div class="d-flex justify-content-between align-items-center mb-4">
 
             <h1 class="h3">
-                Lista de sensores cadastrados
+                Visualização dos dados dos sensores
             </h1>
 
             <button class="btn btn-primary"
@@ -192,11 +192,11 @@ $resultado = $conexao->query($sql);
 
                                         if ($sensor["localizacao"] == "rota") {
 
-                                            echo $sensor["nome_rota"];
+                                            echo "Rotas: " . $sensor["nome_rota"];
 
                                         } else {
 
-                                            echo $sensor["nome_trem"];
+                                            echo "Trens: " . $sensor["nome_trem"];
 
                                         }
 
