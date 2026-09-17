@@ -132,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../funcionario/visualizar-funcionario.php">
+                        <a class="nav-link" href="../user/visualizar-user.php">
                             Funcionários
                         </a>
                     </li>
