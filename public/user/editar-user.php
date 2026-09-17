@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
@@ -77,8 +78,8 @@
                         <span class="nav-link d-flex align-items-center gap-2">
 
                             <ion-icon name="person-circle-outline"></ion-icon>
-
-                            João
+                            
+                            <?= htmlspecialchars($_SESSION["nome_usuario"] ?? "Usuário") ?>
 
                         </span>
 
