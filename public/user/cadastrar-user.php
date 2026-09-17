@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Funcionário</title>
+    <title>Cadastro de Usuário</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -37,7 +37,7 @@
                         <a class="nav-link" href="#">Rotas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Funcionários</a>
+                        <a class="nav-link" href="#">Usuários</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Relatórios</a>
@@ -67,9 +67,9 @@
         <div class="card">
             <div class="card-body">
 
-                <h2 class="text-center mb-3">Cadastrar novo funcionário</h2>
+                <h2 class="text-center mb-3">Cadastrar novo usuário</h2>
                 <p class="text-center text-muted">Preencha os dados abaixo para cadastrar um novo
-                    funcionário.</p>
+                    usuário.</p>
                 <hr>
                 <form>
                     <div class="row">
@@ -83,7 +83,7 @@
                             <select class="form-select" id="cargo" required>
                                 <option value="" disabled selected>Selecione o cargo</option>
                                 <option value="administrador">Administrador</option>
-                                <option value="funcionario">Funcionário</option>
+                                <option value="usuario">Usuário</option>
                             </select>
 
                         </div>

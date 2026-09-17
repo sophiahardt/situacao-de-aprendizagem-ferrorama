@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Funcionários cadastrados</title>
+    <title>Usuários cadastrados</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -58,7 +58,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link active" href="visualizar-user.html">
-                            Funcionários
+                            Usuários
                         </a>
                     </li>
 
@@ -110,16 +110,16 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
 
             <h1 class="h3">
-                Funcionários cadastrados
+                Usuários cadastrados
             </h1>
 
-            <a href="cadastrar-user.html"
+            <a href="cadastrar-user.php"
                 class="btn btn-primary d-flex align-items-center gap-2"
                 style="background-color: #003399;">
 
                 <ion-icon name="add-circle"></ion-icon>
 
-                Novo funcionário
+                Novo usuário
 
             </a>
 
@@ -164,9 +164,7 @@
 
     </div>
 
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-
 </html>
