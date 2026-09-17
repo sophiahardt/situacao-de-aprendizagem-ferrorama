@@ -97,7 +97,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
 
             <h1 class="h3">
-                Usuários cadastrados
+                Lista de usuários cadastrados
             </h1>
 
             <a href="cadastrar-user.php"
