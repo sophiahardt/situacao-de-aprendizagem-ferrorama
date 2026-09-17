@@ -1,4 +1,20 @@
 
+<?php
+session_start();
+
+require_once "../../infra/conexao.php";
+
+$sql = "SELECT usuario.id_usuario,
+               usuario.nome,
+               cargo.nome_cargo,
+               usuario.email,
+               usuario.telefone
+        FROM usuario
+        INNER JOIN cargo ON usuario.id_cargo = cargo.id_cargo";
+
+$resultado = $conexao->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -32,39 +48,27 @@
                 <ul class="navbar-nav me-auto">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="../tela-geral-home.php">
-                            Dashboard
-                        </a>
+                        <a class="nav-link" href="../tela-geral-home.php">Dashboard</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="../sensor/visualizar-sensor.php">
-                            Sensores
-                        </a>
+                        <a class="nav-link" href="../sensor/visualizar-sensor.php">Sensores</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="../trem/visualizar-trem.php">
-                            Trens
-                        </a>
+                        <a class="nav-link" href="../trem/visualizar-trem.php">Trens</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="../rota/visualizar-rota.php">
-                            Rotas
-                        </a>
+                        <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" href="visualizar-user.php">
-                            Usuários
-                        </a>
+                        <a class="nav-link active" href="visualizar-user.php">Usuários</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="../relatorio/visualizar-relatorio.php">
-                            Relatórios
-                        </a>
+                        <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
                     </li>
 
                 </ul>
@@ -74,7 +78,7 @@
                     <li class="nav-item me-3">
                         <span class="nav-link d-flex align-items-center gap-2">
                             <ion-icon name="person-circle-outline"></ion-icon>
-                            João
+                            <?= htmlspecialchars($_SESSION["nome_usuario"] ?? "Usuário") ?>
                         </span>
                     </li>
 
@@ -101,8 +105,7 @@
             </h1>
 
             <a href="cadastrar-user.php"
-                class="btn btn-primary d-flex align-items-center gap-2"
-                style="background-color: #003399;">
+                class="btn btn-primary d-flex align-items-center gap-2">
                 <ion-icon name="add-circle"></ion-icon>
                 Novo usuário
             </a>
@@ -126,6 +129,41 @@
                         </thead>
 
                         <tbody>
+
+                            <?php if ($resultado && $resultado->num_rows > 0) { ?>
+
+                                <?php while ($usuario = $resultado->fetch_assoc()) { ?>
+
+                                    <tr>
+                                        <td>
+                                            <?= htmlspecialchars($usuario["nome"]) ?>
+                                        </td>
+
+                                        <td>
+                                            <?= htmlspecialchars($usuario["nome_cargo"]) ?>
+                                        </td>
+
+                                        <td>
+                                            <?= htmlspecialchars($usuario["email"]) ?>
+                                        </td>
+
+                                        <td>
+                                            <?= htmlspecialchars($usuario["telefone"]) ?>
+                                        </td>
+                                    </tr>
+
+                                <?php } ?>
+
+                            <?php } else { ?>
+
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted">
+                                        Nenhum usuário cadastrado.
+                                    </td>
+                                </tr>
+
+                            <?php } ?>
+
                         </tbody>
 
                     </table>
