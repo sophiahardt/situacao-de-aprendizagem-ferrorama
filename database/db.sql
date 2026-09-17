@@ -20,6 +20,12 @@ extensao DECIMAL(8,2),
 tempo_estimado_minutos INT
 );
 
+CREATE TABLE relatorio (
+id_relatorio INT AUTO_INCREMENT PRIMARY KEY,
+nome_relatorio VARCHAR(100) NOT NULL,
+data_relatorio DATE NOT NULL
+);
+
 CREATE TABLE usuario (
 id_usuario INT AUTO_INCREMENT PRIMARY KEY,
 id_cargo INT NOT NULL,
