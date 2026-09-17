@@ -129,7 +129,7 @@ $resultado = $conexao->query($sql);
         <div class="d-flex justify-content-between align-items-center mb-4">
 
             <h1 class="h3">
-                Visualização dos dados dos sensores
+                Lista de sensores cadastrados
             </h1>
 
             <button class="btn btn-primary"
@@ -221,35 +221,47 @@ $resultado = $conexao->query($sql);
 
                                         </a>
 
-
-                                        <a href="excluir-sensor.php?id=<?= $sensor["id_sensor"] ?>"
+                                        <button type="button"
                                             class="btn btn-danger btn-sm"
-                                            onclick="return confirm('Tem certeza que deseja excluir este sensor?');">
-
+                                            onclick="abrirAviso(<?= $trem['id_trem'] ?>)">
                                             <ion-icon name="trash"></ion-icon>
-
                                             Excluir
-
-                                        </a>
-
+                                        </button>
                                     </td>
-
                                 </tr>
-
                             <?php } ?>
-
                         </tbody>
-
                     </table>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
+    <div class="modal" id="modalExclusao" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center">
+                <div class="modal-body p-4">
+                    <div style="font-size: 40px;">⚠️</div>
+                    <h4 class="fw-bold mt-2">
+                        Deseja continuar?
+                    </h4>
+                    <p class="fw-bold mb-4">
+                        Após a confirmação, não será possível reverter esta ação.
+                    </p>
+                    <div class="d-flex justify-content-center gap-5">
+                        <button type="button" class="btn btn-secondary px-5" data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
+                        <a id="btnConfirmarExclusao" href="#" class="btn btn-danger px-5">
+                            Excluir
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- fazer código em java script para abrir o aviso -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
