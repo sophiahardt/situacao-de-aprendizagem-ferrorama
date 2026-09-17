@@ -25,22 +25,22 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard</a>
+                        <a class="nav-link" href="../tela-geral-home.php">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sensores</a>
+                        <a class="nav-link" href="../sensor/visualizar-sensor.php">Sensores</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Trens</a>
+                        <a class="nav-link" href="../trem/visualizar-trem.php">Trens</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Rotas</a>
+                        <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Usuários</a>
+                        <a class="nav-link" href="visualizar-user.php">Usuários</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Relatórios</a>
+                        <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
                     </li>
                 </ul>
 
@@ -100,14 +100,15 @@
                     </div>
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="button" class="btn btn-light"
+                            onclick="window.location.href='visualizar-sensor.php'">
+                            <ion-icon name="close-outline"></ion-icon>
+                            Cancelar
+                        </button>
+
                         <button type="submit" class="btn btn-primary">
                             <ion-icon name="save-outline"></ion-icon>
                             Salvar
-                        </button>
-
-                        <a href="visualizar-user.php" class="btn btn-light">
-                            <ion-icon name="close-outline"></ion-icon>
-                            Cancelar
                         </button>
                     </div>
 
