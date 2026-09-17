@@ -1,9 +1,8 @@
-```php
 <?php
 
 require_once "../../infra/conexao.php";
 
-$sql = "SELECT id_rota, nome_rota, extensao_km, tempo_estimado_min
+$sql = "SELECT id_rota, nome_rota
         FROM rota
         ORDER BY id_rota ASC";
 
@@ -138,7 +137,6 @@ if ($resultado) {
 
                 <div class="row">
 
-
                     <div class="col-lg-8">
 
                         <div class="table-responsive">
@@ -151,14 +149,11 @@ if ($resultado) {
 
                                         <th>ID</th>
                                         <th>Nome</th>
-                                        <th>Extensão</th>
-                                        <th>Tempo estimado</th>
                                         <th></th>
 
                                     </tr>
 
                                 </thead>
-
 
                                 <tbody>
 
@@ -177,26 +172,17 @@ if ($resultado) {
                                                 </td>
 
                                                 <td>
-                                                    <?= htmlspecialchars($rota["extensao_km"]) ?> Km
-                                                </td>
-
-                                                <td>
-                                                    <?= htmlspecialchars($rota["tempo_estimado_min"]) ?> min
-                                                </td>
-
-                                                <td>
 
                                                     <a href="excluir-rota.php?id=<?= $rota["id_rota"] ?>"
-                                                        class="btn btn-outline-danger btn-sm rounded-circle"
+                                                        class="btn btn-outline-danger btn-sm"
                                                         onclick="return confirm('Deseja realmente excluir esta rota?');">
 
                                                         <ion-icon name="trash-outline"></ion-icon>
 
                                                     </a>
 
-
                                                     <a href="editar-rota.php?id=<?= $rota["id_rota"] ?>"
-                                                        class="btn btn-outline-primary btn-sm rounded-circle">
+                                                        class="btn btn-outline-primary btn-sm">
 
                                                         <ion-icon name="create-outline"></ion-icon>
 
@@ -212,7 +198,7 @@ if ($resultado) {
 
                                         <tr>
 
-                                            <td colspan="5" class="text-center text-muted">
+                                            <td colspan="3" class="text-center text-muted">
 
                                                 Nenhuma rota cadastrada.
 
@@ -241,7 +227,6 @@ if ($resultado) {
 
 
                             <?php if (count($rotas) > 0) { ?>
-
 
                                 <select class="form-select form-select-sm mb-3">
 
@@ -295,11 +280,9 @@ if ($resultado) {
 
                             <?php } ?>
 
-
                         </div>
 
                     </div>
-
 
                 </div>
 
@@ -319,4 +302,3 @@ if ($resultado) {
 </body>
 
 </html>
-```
