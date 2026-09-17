@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once "../../infra/conexao.php";
 
@@ -146,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li class="nav-item me-3">
                         <span class="nav-link d-flex align-items-center gap-2">
                             <ion-icon name="person-circle-outline"></ion-icon>
-                            João
+                            <?= htmlspecialchars($_SESSION["nome_usuario"] ?? "Usuário") ?>
                         </span>
                     </li>
                     <li class="nav-item">
