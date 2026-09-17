@@ -122,3 +122,66 @@ $rotas = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
                                 </thead>
 
                                 <tbody>
+
+                                     <?php if (count($rotas) > 0) { ?>
+
+                                        <?php foreach ($rotas as $rota) { ?>
+
+                                            <tr>
+                                                <td><?= sprintf("RTA-%03d", $rota["id_rota"]) ?></td>
+                                                <td><?= $rota["nome_rota"] ?></td>
+                                                <td><?= $rota["extensao_km"] ?> Km</td>
+                                                <td><?= $rota["tempo_estimado_min"] ?> min</td>
+                                                <td class="text-nowrap">
+
+                                                    <a href="excluir-rota.php?id=<?= $rota["id_rota"] ?>"
+                                                        class="btn btn-outline-danger btn-sm rounded-circle"
+                                                        onclick="return confirm('Deseja realmente excluir esta rota?');">
+                                                        <ion-icon name="trash-outline"></ion-icon>
+                                                    </a>
+
+                                                    <a href="editar-rota.php?id=<?= $rota["id_rota"] ?>"
+                                                        class="btn btn-outline-primary btn-sm rounded-circle">
+                                                        <ion-icon name="create-outline"></ion-icon>
+                                                    </a>
+
+                                                </td>
+                                            </tr>
+
+                                        <?php } ?>
+
+                                    <?php } else { ?>
+
+                                        <tr>
+                                            <td colspan="5" class="text-center text-muted">
+                                                Nenhuma rota cadastrada.
+                                            </td>
+                                        </tr>
+
+                                    <?php } ?>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-4">
+
+                        <div class="bg-light border rounded p-3">
+
+                            <h5 class="mb-1">Mapa da Rota</h5>
+
+                            <?php if (count($rotas) > 0) { ?>
+
+                                <select class="form-select form-select-sm border-0 bg-light text-muted mb-3 px-0">
+
+                                    <?php foreach ($rotas as $rota) { ?>
+
+                                        <option>
+                                            <?= sprintf("RTA-%03d", $rota["id_rota"]) ?> - <?= $rota["nome_rota"] ?>
+                                        </option>
+
+                                    <?php } ?>
