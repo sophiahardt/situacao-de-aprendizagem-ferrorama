@@ -129,41 +129,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </nav>
 
-    <form method="POST">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label class="form-label"> Nome do Trem </label>
-                    <input type="text" name="nome_trem" class="form-control" value="<?= $trem["nome_trem"] ?>" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label"> Velocidade Máxima </label>
-                    <input type="text" name="velocidade_maxima" class="form-control" value="<?= $trem["velocidade_maxima"] ?>" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label"> Tipo do Trem </label>
-                    <input type="text" name="tipo_trem" class="form-control" value="<?= $trem["tipo_trem"] ?>" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label"> Rota </label>
-                    <select name="id_rota" class="form-select" required>
-                        <option selected disabled value=""> Selecione a rota em que o trem opera </option>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="text-center mb-3">Editar trem</h2>
+                <p class="text-center text-muted">
+                    Preencha as informações para editar o trem no sistema
+                </p>
+                <hr>
 
-                        <?php while ($rota = $rotas->fetch_assoc()) { ?>
-                            <option value="<?= $rota['id_rota'] ?>"
-                                <?= $rota['id_rota'] == $id_rota_trem ? "selected" : "" ?>>
-                                <?= $rota['nome_rota'] ?>
-                            </option>
-                        <?php } ?>
+                <form method="POST">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label"> Nome do Trem </label>
+                                <input type="text" name="nome_trem" class="form-control" value="<?= $trem["nome_trem"] ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label"> Velocidade Máxima </label>
+                                <input type="text" name="velocidade_maxima" class="form-control" value="<?= $trem["velocidade_maxima"] ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label"> Tipo do Trem </label>
+                                <input type="text" name="tipo_trem" class="form-control" value="<?= $trem["tipo_trem"] ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label"> Rota </label>
+                                <select name="id_rota" class="form-select" required>
+                                    <option selected disabled value=""> Selecione a rota em que o trem opera </option>
 
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary"> Salvar alterações </button>
-            </div>
-        </div>
-    </form>
+                                    <?php while ($rota = $rotas->fetch_assoc()) { ?>
+                                        <option value="<?= $rota['id_rota'] ?>"
+                                            <?= $rota['id_rota'] == $id_rota_trem ? "selected" : "" ?>>
+                                            <?= $rota['nome_rota'] ?>
+                                        </option>
+                                    <?php } ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+                                </select>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="submit" class="btn btn-primary"> Salvar alterações </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
