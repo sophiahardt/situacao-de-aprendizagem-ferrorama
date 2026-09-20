@@ -43,7 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($nome_sensor == "" || $tipo_sensor == "" || $localizacao == "" || $id_localizacao == "") {
 
         $mensagem = "Preencha todos os campos.";
-
     } else {
 
         $id_rota = null;
@@ -79,11 +78,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             header("Location: visualizar-sensor.php");
             exit;
-
         } else {
 
             $mensagem = "Erro ao editar o sensor.";
-
         }
     }
 }
@@ -102,6 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="../../style/style.css">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
         <div class="container-fluid">
@@ -161,123 +159,120 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </nav>
 
-    <form method="POST">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label class="form-label">
-                        ID do Sensor
-                    </label>
-                    <input type="text"
-                        class="form-control"
-                        value="<?= $sensor["id_sensor"] ?>"
-                        disabled>
-                </div>
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="text-center mb-3">Editar sensor</h2>
+                <p class="text-center text-muted">
+                    Preencha as informações para editar o sensor no sistema
+                </p>
+                <hr>
 
-                <div class="mb-3">
-                    <label class="form-label">
-                        Nome do Sensor
-                    </label>
-                    <input type="text"
-                        name="nome_sensor"
-                        class="form-control"
-                        value="<?= $sensor["nome_sensor"] ?>"
-                        required>
-                </div>
+                <form method="POST">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Nome do Sensor</label>
+                                <input type="text" name="nome_sensor" class="form-control" value="<?= $sensor["nome_sensor"] ?>" required>
+                            </div>
 
+                            <div class="mb-3">
+                                <label class="form-label">Tipo de Dado</label>
+                                <select name="tipo_sensor" class="form-select" required>
+                                    <option selected disabled value="">Selecione o tipo de dado</option>
 
-                <div class="mb-3">
-                    <label class="form-label">
-                        Tipo de Dado
-                    </label>
+                                    <option value="Temperatura"
+                                        <?= $sensor["tipo_sensor"] == "Temperatura" ? "selected" : "" ?>>
+                                        Temperatura
+                                    </option>
 
-                    <select name="tipo_sensor" class="form-select" required>
-                        <option selected disabled value="">
-                            Selecione o tipo de dado
-                        </option>
-                        <option value="Temperatura"
-                            <?= $sensor["tipo_sensor"] == "Temperatura" ? "selected" : "" ?>>
-                            Temperatura
-                        </option>
-                        <option value="Velocidade"
-                            <?= $sensor["tipo_sensor"] == "Velocidade" ? "selected" : "" ?>>
-                            Velocidade
-                        </option>
-                        <option value="Presença"
-                            <?= $sensor["tipo_sensor"] == "Presença" ? "selected" : "" ?>>
-                            Presença
-                        </option>
-                    </select>
-                </div>
+                                    <option value="Velocidade"
+                                        <?= $sensor["tipo_sensor"] == "Velocidade" ? "selected" : "" ?>>
+                                        Velocidade
+                                    </option>
 
-                <div class="mb-3">
-                    <label class="form-label">
-                        Localização
-                    </label>
-                    <select name="localizacao" id="localizacao" class="form-select" required>
+                                    <option value="Presença"
+                                        <?= $sensor["tipo_sensor"] == "Presença" ? "selected" : "" ?>>
+                                        Presença
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
 
-                        <option selected disabled value="">
-                            Selecione a localização
-                        </option>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Localização</label>
 
-                        <option value="rota"
-                            <?= $sensor["localizacao"] == "rota" ? "selected" : "" ?>>
-                            Rota
-                        </option>
+                                <select name="localizacao" id="localizacao" class="form-select" required>
+                                    <option selected disabled value="">Selecione a localização</option>
 
-                        <option value="trem"
-                            <?= $sensor["localizacao"] == "trem" ? "selected" : "" ?>>
-                            Trem
-                        </option>
-                    </select>
-                </div>
+                                    <option value="rota"
+                                        <?= $sensor["localizacao"] == "rota" ? "selected" : "" ?>>
+                                        Rota
+                                    </option>
 
-                <div class="mb-3">
-                    <label class="form-label">
-                        Rota ou Trem
-                    </label>
-                    <select name="id_localizacao" class="form-select" required>
-
-                        <option selected disabled value="">
-                            Selecione
-                        </option>
-
-                        <?php while ($rota = $rotas->fetch_assoc()) { ?>
-
-                            <option value="<?= $rota["id_rota"] ?>"
-                                <?= $rota["id_rota"] == $id_rota_sensor ? "selected" : "" ?>>
-
-                                <?= $rota["nome_rota"] ?>
-
-                            </option>
-
-                        <?php } ?>
-
-                        <?php while ($trem = $trens->fetch_assoc()) { ?>
-
-                            <option value="<?= $trem["id_trem"] ?>"
-                                <?= $trem["id_trem"] == $id_trem_sensor ? "selected" : "" ?>>
-
-                                <?= $trem["nome_trem"] ?>
-
-                            </option>
-
-                        <?php } ?>
-                    </select>
-                </div>
+                                    <option value="trem"
+                                        <?= $sensor["localizacao"] == "trem" ? "selected" : "" ?>>
+                                        Trem
+                                    </option>
+                                </select>
+                            </div>
 
 
-                <button type="submit" class="btn btn-primary">
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Rota ou Trem
+                                </label>
 
-                    Salvar alterações
+                                <select name="id_localizacao"
+                                    class="form-select"
+                                    required>
 
-                </button>
+                                    <option selected disabled value="">
+                                        Selecione
+                                    </option>
 
+                                    <?php while ($rota = $rotas->fetch_assoc()) { ?>
+
+                                        <option value="<?= $rota["id_rota"] ?>"
+                                            <?= $rota["id_rota"] == $id_rota_sensor ? "selected" : "" ?>>
+                                            <?= $rota["nome_rota"] ?>
+                                        </option>
+                                    <?php } ?>
+
+                                    <?php while ($trem = $trens->fetch_assoc()) { ?>
+
+                                        <option value="<?= $trem["id_trem"] ?>"
+                                            <?= $trem["id_trem"] == $id_trem_sensor ? "selected" : "" ?>>
+
+                                            <?= $trem["nome_trem"] ?>
+
+                                        </option>
+
+                                    <?php } ?>
+
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-light" onclick="window.location.href='visualizar-sensor.php'">
+                            <ion-icon name="close-outline"></ion-icon>
+                            Cancelar
+                        </button>
+
+                        <button type="submit" class="btn btn-primary">
+                            <ion-icon name="save-outline"></ion-icon>
+                            Salvar alterações
+                        </button>
+                    </div>
+                </form>
             </div>
-
         </div>
-
-    </form>
+    </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
