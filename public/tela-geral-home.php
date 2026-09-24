@@ -1,3 +1,10 @@
+<?php
+
+require_once "../infra/protecao.php";
+
+verificarLogin();
+
+?>
 <html lang="en">
 
 <head>
