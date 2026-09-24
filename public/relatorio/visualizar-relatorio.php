@@ -1,5 +1,8 @@
 <?php
-session_start();
+
+require_once "../../infra/protecao.php";
+
+verificarLogin();
 
 require_once "../../infra/conexao.php";
 
@@ -41,9 +44,11 @@ $resultado = $conexao->query($sql);
                     <li class="nav-item">
                         <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
+<?php if (ehAdministrador()) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
                     </li>
+<?php } ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
                     </li>
@@ -98,7 +103,8 @@ $resultado = $conexao->query($sql);
                                         <?= $relatorio["data_relatorio"] ?>
                                     </td>
                                     <td>
-                                        <a href="visualizar-relatorio-detalhes.php?id=<?= $relatorio["id_relatorio"] ?>"
+                                        <?php if (ehAdministrador()) { ?>
+<a href="visualizar-relatorio-detalhes.php?id=<?= $relatorio["id_relatorio"] ?>"
                                             class="btn btn-primary btn-sm">
                                             <ion-icon name="eye"></ion-icon>
                                             Visualizar
@@ -107,6 +113,7 @@ $resultado = $conexao->query($sql);
                                             <ion-icon name="trash"></ion-icon>
                                             Excluir
                                         </button>
+<?php } ?>
                                     </td>
                                 </tr>
                             <?php } ?>
