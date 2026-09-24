@@ -1,5 +1,8 @@
 <?php
-session_start();
+
+require_once "../../infra/protecao.php";
+
+verificarLogin();
 
 require_once "../../infra/conexao.php";
 
@@ -44,9 +47,11 @@ $resultado = $conexao->query($sql);
                     <li class="nav-item">
                         <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
+<?php if (ehAdministrador()) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
                     </li>
+<?php } ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
                     </li>
@@ -73,12 +78,14 @@ $resultado = $conexao->query($sql);
             <h1 class="h3">
                 Lista de sensores cadastrados
             </h1>
-            <button class="btn btn-primary"
+            <?php if (ehAdministrador()) { ?>
+<button class="btn btn-primary"
                 style="background-color: #003399;"
                 onclick="window.location.href='cadastrar-sensor.php'">
                 <ion-icon name="add-circle"></ion-icon>
                 Novo sensor
             </button>
+<?php } ?>
         </div>
         <div class="card shadow-sm">
             <div class="card-body">
@@ -115,7 +122,8 @@ $resultado = $conexao->query($sql);
                                         <?= $sensor["tipo_sensor"] ?>
                                     </td>
                                     <td>
-                                        <a href="editar-sensor.php?id=<?= $sensor["id_sensor"] ?>"
+                                        <?php if (ehAdministrador()) { ?>
+<a href="editar-sensor.php?id=<?= $sensor["id_sensor"] ?>"
                                             class="btn btn-warning btn-sm">
                                             <ion-icon name="pencil"></ion-icon>
                                             Editar
@@ -126,6 +134,7 @@ $resultado = $conexao->query($sql);
                                             <ion-icon name="trash"></ion-icon>
                                             Excluir
                                         </button>
+<?php } ?>
                                     </td>
                                 </tr>
                             <?php } ?>
