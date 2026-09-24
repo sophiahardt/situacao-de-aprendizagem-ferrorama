@@ -1,12 +1,9 @@
-
 <?php
 session_start();
-
 require_once "../../infra/conexao.php";
 
 $mensagem = "";
 $tipo_mensagem = "";
-
 $id_usuario = $_GET["id"] ?? "";
 
 if ($id_usuario == "" || !is_numeric($id_usuario)) {
@@ -35,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_cargo = $_POST["id_cargo"] ?? "";
     $email = trim($_POST["email"] ?? "");
     $telefone = trim($_POST["telefone"] ?? "");
+    $nova_senha = $_POST["nova_senha"] ?? "";
 
     if ($nome == "" || $id_cargo == "" || $email == "" || $telefone == "") {
         $mensagem = "Preencha todos os campos.";
@@ -43,13 +41,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mensagem = "Informe um e-mail válido.";
         $tipo_mensagem = "danger";
     } else {
-        $sql = "UPDATE usuario
+        if ($nova_senha != "") {
+            $senha_hash = password_hash($nova_senha, PASSWORD_DEFAULT);
+            $sql = "UPDATE usuario
+                SET nome = ?, id_cargo = ?, email = ?, telefone = ?, senha_hash = ?
+                WHERE id_usuario = ?";
+
+            $stmt = $conexao->prepare($sql);
+            $stmt->bind_param("sisssi", $nome, $id_cargo, $email, $telefone, $senha_hash, $id_usuario);
+        } else {
+            $sql = "UPDATE usuario
                 SET nome = ?, id_cargo = ?, email = ?, telefone = ?
                 WHERE id_usuario = ?";
 
-        $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("sissi", $nome, $id_cargo, $email, $telefone, $id_usuario);
-
+            $stmt = $conexao->prepare($sql);
+            $stmt->bind_param(
+                "sissi",
+                $nome,
+                $id_cargo,
+                $email,
+                $telefone,
+                $id_usuario
+            );
+        }
         if ($stmt->execute()) {
             header("Location: visualizar-user.php");
             exit;
@@ -59,7 +73,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 $mensagem = "Erro ao atualizar o usuário.";
             }
-
             $tipo_mensagem = "danger";
         }
     }
@@ -101,9 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-
                 <ul class="navbar-nav me-auto">
-
                     <li class="nav-item">
                         <a class="nav-link" href="../tela-geral-home.php">Dashboard</a>
                     </li>
@@ -129,9 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </li>
 
                 </ul>
-
                 <ul class="navbar-nav ms-auto align-items-center">
-
                     <li class="nav-item me-3">
                         <span class="nav-link d-flex align-items-center gap-2">
                             <ion-icon name="person-circle-outline"></ion-icon>
@@ -146,26 +155,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <span>Sair</span>
                         </a>
                     </li>
-
                 </ul>
-
             </div>
         </div>
     </nav>
 
     <div class="container mt-5">
-
         <div class="card shadow-sm">
             <div class="card-body">
-
                 <h2 class="text-center mb-3">Editar Usuário</h2>
-
                 <p class="text-center text-muted">
                     Altere os dados do usuário cadastrado.
                 </p>
 
                 <hr>
-
                 <?php if ($mensagem != "") { ?>
                     <div class="alert alert-<?= $tipo_mensagem ?> text-center">
                         <?= htmlspecialchars($mensagem) ?>
@@ -173,13 +176,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <?php } ?>
 
                 <form method="POST" action="editar-user.php?id=<?= $id_usuario ?>" autocomplete="off">
-
                     <div class="row">
-
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="nome" class="form-label">Nome</label>
-
                                 <input type="text"
                                     id="nome"
                                     name="nome"
@@ -231,6 +231,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <div class="col-md-6">
                             <div class="mb-3">
+                                <label for="nova_senha" class="form-label">Nova senha</label>
+                                <input type="password"
+                                    id="nova_senha"
+                                    name="nova_senha"
+                                    class="form-control"
+                                    placeholder="Digite uma nova senha"
+                                    autocomplete="new-password">
+
+                                <small class="text-muted">
+                                    Deixe em branco para manter a senha atual.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
                                 <label for="telefone" class="form-label">Telefone</label>
 
                                 <input type="tel"
@@ -243,7 +259,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     required>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="d-flex justify-content-end">
@@ -259,17 +274,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <ion-icon name="save-outline"></ion-icon>
                             Salvar alterações
                         </button>
-
                     </div>
-
                 </form>
-
             </div>
         </div>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>
