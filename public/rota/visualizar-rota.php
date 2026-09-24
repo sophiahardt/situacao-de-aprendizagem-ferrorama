@@ -65,3 +65,43 @@ $rotas = $conexao->query("SELECT id_rota, nome_rota, extensao, tempo_estimado FR
         </div>
     </div>
 </nav>
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="text-primary">Lista de rotas cadastradas</h2>
+
+                <a href="cadastro-rota.php" class="btn btn-primary d-flex align-items-center gap-2">
+                    <ion-icon name="add-outline"></ion-icon>
+                    Nova rota
+                </a>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-md-7">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Extensão</th>
+                                <th>Tempo estimado</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($rota = $rotas->fetch_assoc()) { ?>
+                                <tr>
+                                    <td>RTA-<?= str_pad($rota["id_rota"], 3, "0", STR_PAD_LEFT) ?></td>
+                                    <td><?= htmlspecialchars($rota["nome_rota"]) ?></td>
+                                    <td><?= htmlspecialchars($rota["extensao"]) ?> Km</td>
+                                    <td><?= htmlspecialchars($rota["tempo_estimado"]) ?> min</td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <a href="excluir-rota.php?id=<?= $rota["id_rota"] ?>" class="btn btn-outline-danger btn-sm"
+                                                onclick="return confirm('Deseja realmente excluir esta rota?')">
+                                                <ion-icon name="trash-outline"></ion-icon>
+                                            </a>
