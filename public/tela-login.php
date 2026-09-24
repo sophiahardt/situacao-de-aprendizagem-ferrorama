@@ -5,6 +5,7 @@ session_start();
 require_once "../infra/conexao.php";
 
 $mensagem = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = $_POST["email"] ?? "";
@@ -31,6 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $usuario = $resultado->fetch_assoc();
 
             if (password_verify($senha, $usuario["senha_hash"])) {
+
+                session_regenerate_id(true);
 
                 $_SESSION["id_usuario"] = $usuario["id_usuario"];
                 $_SESSION["nome_usuario"] = $usuario["nome"];
@@ -164,5 +167,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
 </body>
-
 </html>
