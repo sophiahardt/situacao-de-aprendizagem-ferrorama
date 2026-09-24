@@ -130,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
 
     <div class="container mt-5">
-        <div class="card">
+        <div class="card shadow-sm">
             <div class="card-body">
                 <h2 class="text-center mb-3">Editar trem</h2>
                 <p class="text-center text-muted">
@@ -149,6 +149,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <label class="form-label"> Velocidade Máxima </label>
                                 <input type="text" name="velocidade_maxima" class="form-control" value="<?= $trem["velocidade_maxima"] ?>" required>
                             </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label"> Tipo do Trem </label>
                                 <input type="text" name="tipo_trem" class="form-control" value="<?= $trem["tipo_trem"] ?>" required>
@@ -167,14 +169,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 </select>
                             </div>
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button type="submit" class="btn btn-primary"> Salvar alterações </button>
-                            </div>
                         </div>
                     </div>
-                </form>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-light" onclick="window.location.href='visualizar-trem.php'">
+                            <ion-icon name="close-outline"></ion-icon>
+                            Cancelar
+                        </button>
 
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+                        <button type="submit" class="btn btn-primary">
+                            <ion-icon name="save-outline"></ion-icon>
+                            Salvar alterações
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

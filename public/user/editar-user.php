@@ -246,7 +246,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     </div>
 
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <div class="d-flex justify-content-end">
 
                         <button type="button"
                             class="btn btn-light"
