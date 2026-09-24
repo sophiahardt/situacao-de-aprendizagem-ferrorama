@@ -1,5 +1,8 @@
 <?php
-session_start();
+
+require_once "../../infra/protecao.php";
+
+verificarLogin();
 
 require_once "../../infra/conexao.php";
 
@@ -47,9 +50,11 @@ $resultado = $conexao->query($sql);
                     <li class="nav-item">
                         <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
+<?php if (ehAdministrador()) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
                     </li>
+<?php } ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
                     </li>
@@ -78,10 +83,12 @@ $resultado = $conexao->query($sql);
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="h3">Lista de trens cadastrados</h1>
 
-            <button class="btn btn-primary" style="background-color: #003399;" onclick="window.location.href='cadastrar-trem.php'">
+            <?php if (ehAdministrador()) { ?>
+<button class="btn btn-primary" style="background-color: #003399;" onclick="window.location.href='cadastrar-trem.php'">
                 <ion-icon name="add-circle"></ion-icon>
                 Novo trem
             </button>
+<?php } ?>
         </div>
 
         <div class="card shadow-sm">
@@ -109,7 +116,8 @@ $resultado = $conexao->query($sql);
                                     <td><?= $trem["nome_rota"] ?></td>
 
                                     <td>
-                                        <a href="editar-trem.php?id=<?= $trem["id_trem"] ?>"
+                                        <?php if (ehAdministrador()) { ?>
+<a href="editar-trem.php?id=<?= $trem["id_trem"] ?>"
                                             class="btn btn-warning btn-sm">
                                             <ion-icon name="pencil"></ion-icon>
                                             Editar
@@ -121,6 +129,7 @@ $resultado = $conexao->query($sql);
                                             <ion-icon name="trash"></ion-icon>
                                             Excluir
                                         </button>
+<?php } ?>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -154,8 +163,6 @@ $resultado = $conexao->query($sql);
             </div>
         </div>
     </div>
-
-    <!-- fazer código em java script para abrir o aviso -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
