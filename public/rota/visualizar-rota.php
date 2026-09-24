@@ -105,3 +105,66 @@ $rotas = $conexao->query("SELECT id_rota, nome_rota, extensao, tempo_estimado FR
                                                 onclick="return confirm('Deseja realmente excluir esta rota?')">
                                                 <ion-icon name="trash-outline"></ion-icon>
                                             </a>
+
+                                             <a href="editar-rota.php?id=<?= $rota["id_rota"] ?>" class="btn btn-outline-primary btn-sm">
+                                                <ion-icon name="create-outline"></ion-icon>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="bg-light rounded p-3">
+                        <h5 class="mb-3">Mapa da Rota</h5>
+
+                        <select class="form-select mb-3">
+                            <?php
+                            $rotas->data_seek(0);
+                            while ($rota = $rotas->fetch_assoc()) {
+                            ?>
+                                <option value="<?= $rota["id_rota"] ?>">
+                                    RTA-<?= str_pad($rota["id_rota"], 3, "0", STR_PAD_LEFT) ?> - <?= htmlspecialchars($rota["nome_rota"]) ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+
+                        <!-- Espaço reservado para a imagem do mapa da rota -->
+                        <img src="" alt="Mapa da Rota" class="img-fluid rounded border">
+
+                        <div class="d-flex justify-content-around mt-3">
+                            <span class="d-flex align-items-center gap-1">
+                                <ion-icon name="ellipse" style="color: blue;"></ion-icon>
+                                Rota
+                            </span>
+                            <span class="d-flex align-items-center gap-1">
+                                <ion-icon name="ellipse" style="color: black;"></ion-icon>
+                                Estações
+                            </span>
+                            <span class="d-flex align-items-center gap-1">
+                                <ion-icon name="ellipse" style="color: green;"></ion-icon>
+                                Trens
+                            </span>
+                        </div>
+
+                        <p class="text-muted text-center mt-2 mb-0">
+                            <ion-icon name="refresh-outline"></ion-icon>
+                            Atualizado agora há pouco
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../script/validacao.js"></script>
+
+</body>
+</html>
+
+
