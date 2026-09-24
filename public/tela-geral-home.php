@@ -53,7 +53,7 @@ verificarLogin();
                             <ion-icon name="person-circle-outline"></ion-icon>João</span>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="#">
+                        <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="tela-login.php">
                             <ion-icon name="log-out-outline"></ion-icon>
                             <span>Sair</span>
                         </a>
@@ -102,7 +102,7 @@ verificarLogin();
                 </div>
 
                 <div class="p-3">
-                    <button type="button" class="btn btn-success btn-lg">
+                    <button type="button" class="btn btn-success btn-lg"onclick="window.location.href='trem/cadastrar-trem.php'">
                         <ion-icon name="train-outline"></ion-icon>
                         <div class="texto-botao">
                             <div class="titulo-botao-home">
@@ -116,7 +116,7 @@ verificarLogin();
                 </div>
 
                 <div class="p-3">
-                    <button type="button" class="btn btn-lg text-white" style="background-color: purple;">
+                    <button type="button" class="btn btn-lg text-white" style="background-color: purple;" onclick="window.location.href='relatorio/visualizar-relatorio.php'">
                         <ion-icon name="document-text-outline"></ion-icon>
                         <div class="texto-botao">
                             <div class="titulo-botao-home">
@@ -130,7 +130,7 @@ verificarLogin();
                 </div>
 
                 <div class="p-3">
-                    <button type="button" class="btn btn-warning btn-lg text-white">
+                    <button type="button" class="btn btn-warning btn-lg text-white" onclick="window.location.href='user/cadastrar-user.php'">
                         <ion-icon name="person-add-outline"></ion-icon>
                         <div class="texto-botao">
                             <div class="titulo-botao-home">
