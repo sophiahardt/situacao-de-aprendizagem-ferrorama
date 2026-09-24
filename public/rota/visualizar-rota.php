@@ -138,7 +138,7 @@ $rotas = $conexao->query($sql);
 
             <div class="d-flex justify-content-between align-items-center mb-3">
 
-                <h2 class="text-primary">
+                <h2 class="h3">
                     Lista de rotas cadastradas
                 </h2>
 
