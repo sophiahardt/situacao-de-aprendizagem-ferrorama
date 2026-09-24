@@ -102,3 +102,68 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </nav>
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="mb-3">Editar Rota</h2>
+
+            <p class="text-muted">
+                Altere as informações da rota cadastrada no sistema.
+            </p>
+
+            <hr>
+
+            <?php if ($mensagem != "") { ?>
+                <p class="text-center text-success">
+                    <?= $mensagem ?>
+                </p>
+            <?php } ?>
+
+            <form method="POST">
+                <div class="mb-3">
+                    <label class="form-label">Nome</label>
+                    <input type="text" name="nome_rota" class="form-control"
+                        value="<?= htmlspecialchars($rota["nome_rota"]) ?>" required>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Extensão (km)</label>
+                            <input type="number" name="extensao" class="form-control"
+                                value="<?= htmlspecialchars($rota["extensao"]) ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Tempo estimado (min)</label>
+                            <input type="number" name="tempo_estimado" class="form-control"
+                                value="<?= htmlspecialchars($rota["tempo_estimado"]) ?>" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="button" class="btn btn-light"
+                        onclick="window.location.href='visualizar-rota.php'">
+                        <ion-icon name="close-outline"></ion-icon>
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="btn btn-primary">
+                        <ion-icon name="save-outline"></ion-icon>
+                        Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../script/validacao.js"></script>
+
+</body>
+</html>
