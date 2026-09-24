@@ -1,18 +1,16 @@
 <?php
 
+require_once "../../infra/protecao.php";
+
+verificarLogin();
+
 require_once "../../infra/conexao.php";
 
-$sql = "SELECT id_rota, nome_rota
+$sql = "SELECT id_rota, nome_rota, extensao, tempo_estimado_minutos
         FROM rota
         ORDER BY id_rota ASC";
 
-$resultado = $conexao->query($sql);
-
-$rotas = [];
-
-if ($resultado) {
-    $rotas = $resultado->fetch_all(MYSQLI_ASSOC);
-}
+$rotas = $conexao->query($sql);
 
 ?>
 
@@ -22,19 +20,16 @@ if ($resultado) {
 <head>
 
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Rotas Cadastradas</title>
+    <title>Rotas</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <script type="module"
-        src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js">
-    </script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 
-    <script nomodule
-        src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js">
-    </script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
     <link rel="stylesheet" href="../../style/style.css">
 
@@ -42,245 +37,305 @@ if ($resultado) {
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
+<nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
 
-        <div class="container-fluid">
+    <div class="container-fluid">
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
 
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <span class="navbar-toggler-icon"></span>
 
-                <ul class="navbar-nav me-auto">
+        </button>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="../tela-geral-home.php">Dashboard</a>
-                    </li>
+        <div class="collapse navbar-collapse" id="navbarNav">
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="../sensor/visualizar-sensor.php">Sensores</a>
-                    </li>
+            <ul class="navbar-nav me-auto">
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="../visualizar-trem.php">Trens</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../tela-geral-home.php">
+                        Dashboard
+                    </a>
+                </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link active" href="visualizar-rota.php">Rotas</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../sensor/visualizar-sensor.php">
+                        Sensores
+                    </a>
+                </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="../funcionario/visualizar-funcionario.php">Funcionários</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../trem/visualizar-trem.php">
+                        Trens
+                    </a>
+                </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="visualizar-rota.php">
+                        Rotas
+                    </a>
+                </li>
 
-                </ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="../user/visualizar-user.php">
+                        Usuários
+                    </a>
+                </li>
 
-                <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="../relatorio/visualizar-relatorio.php">
+                        Relatórios
+                    </a>
+                </li>
 
-                    <li class="nav-item me-3">
+            </ul>
 
-                        <span class="nav-link">
-                            <ion-icon name="person-circle-outline"></ion-icon>
-                            João
-                        </span>
+            <ul class="navbar-nav ms-auto align-items-center">
 
-                    </li>
+                <li class="nav-item me-3">
 
-                    <li class="nav-item">
+                    <span class="nav-link d-flex align-items-center gap-2">
 
-                        <a class="btn btn-outline-light btn-sm" href="#">
+                        <ion-icon name="person-circle-outline"></ion-icon>
 
-                            <ion-icon name="log-out-outline"></ion-icon>
-                            Sair
+                        <?= htmlspecialchars($_SESSION["nome_usuario"] ?? "Usuário") ?>
 
-                        </a>
+                    </span>
 
-                    </li>
+                </li>
 
-                </ul>
+                <li class="nav-item">
 
-            </div>
+                    <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2"
+                        href="../tela-login.php">
 
-        </div>
+                        <ion-icon name="log-out-outline"></ion-icon>
 
-    </nav>
-
-
-    <div class="container mt-5">
-
-        <div class="card">
-
-            <div class="card-body">
-
-                <div class="d-flex justify-content-between align-items-center mb-3">
-
-                    <h2 class="mb-0">
-                        Lista de rotas cadastradas
-                    </h2>
-
-                    <a href="cadastrar-rota.php" class="btn btn-primary">
-
-                        <ion-icon name="add-outline"></ion-icon>
-                        Nova rota
+                        <span>Sair</span>
 
                     </a>
 
-                </div>
+                </li>
 
-                <hr>
+            </ul>
 
+        </div>
 
-                <div class="row">
+    </div>
 
-                    <div class="col-lg-8">
+</nav>
 
-                        <div class="table-responsive">
+<div class="container mt-5">
 
-                            <table class="table align-middle">
+    <div class="card">
 
-                                <thead>
+        <div class="card-body">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <h2 class="text-primary">
+                    Lista de rotas cadastradas
+                </h2>
+
+                <a href="cadastro-rota.php"
+                    class="btn btn-primary d-flex align-items-center gap-2">
+
+                    <ion-icon name="add-outline"></ion-icon>
+
+                    Nova rota
+
+                </a>
+
+            </div>
+
+            <hr>
+
+            <div class="row">
+
+                <div class="col-md-7">
+
+                    <table class="table align-middle">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>Nome</th>
+
+                                <th>Extensão</th>
+
+                                <th>Tempo estimado</th>
+
+                                <th></th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <?php if ($rotas && $rotas->num_rows > 0): ?>
+
+                                <?php while ($rota = $rotas->fetch_assoc()): ?>
 
                                     <tr>
 
-                                        <th>ID</th>
-                                        <th>Nome</th>
-                                        <th></th>
+                                        <td>
+                                            RTA-<?= str_pad($rota["id_rota"], 3, "0", STR_PAD_LEFT) ?>
+                                        </td>
+
+                                        <td>
+                                            <?= htmlspecialchars($rota["nome_rota"]) ?>
+                                        </td>
+
+                                        <td>
+                                            <?= htmlspecialchars($rota["extensao"]) ?> Km
+                                        </td>
+
+                                        <td>
+                                            <?= htmlspecialchars($rota["tempo_estimado_minutos"]) ?> min
+                                        </td>
+
+                                        <td>
+
+                                            <div class="d-flex gap-2">
+
+                                                <a href="excluir-rota.php?id=<?= $rota["id_rota"] ?>"
+                                                    class="btn btn-outline-danger btn-sm"
+                                                    onclick="return confirm('Deseja realmente excluir esta rota?')">
+
+                                                    <ion-icon name="trash-outline"></ion-icon>
+
+                                                </a>
+
+                                                <a href="editar-rota.php?id=<?= $rota["id_rota"] ?>"
+                                                    class="btn btn-outline-primary btn-sm">
+
+                                                    <ion-icon name="create-outline"></ion-icon>
+
+                                                </a>
+
+                                            </div>
+
+                                        </td>
 
                                     </tr>
 
-                                </thead>
+                                <?php endwhile; ?>
 
-                                <tbody>
+                            <?php else: ?>
 
-                                    <?php if (count($rotas) > 0) { ?>
+                                <tr>
 
-                                        <?php foreach ($rotas as $rota) { ?>
+                                    <td colspan="5"
+                                        class="text-center text-muted py-4">
 
-                                            <tr>
+                                        Nenhuma rota cadastrada.
 
-                                                <td>
-                                                    <?= sprintf("RTA-%03d", $rota["id_rota"]) ?>
-                                                </td>
+                                    </td>
 
-                                                <td>
-                                                    <?= htmlspecialchars($rota["nome_rota"]) ?>
-                                                </td>
+                                </tr>
 
-                                                <td>
+                            <?php endif; ?>
 
-                                                    <a href="excluir-rota.php?id=<?= $rota["id_rota"] ?>"
-                                                        class="btn btn-outline-danger btn-sm"
-                                                        onclick="return confirm('Deseja realmente excluir esta rota?');">
+                        </tbody>
 
-                                                        <ion-icon name="trash-outline"></ion-icon>
+                    </table>
 
-                                                    </a>
+                </div>
 
-                                                    <a href="editar-rota.php?id=<?= $rota["id_rota"] ?>"
-                                                        class="btn btn-outline-primary btn-sm">
+                <div class="col-md-5">
 
-                                                        <ion-icon name="create-outline"></ion-icon>
+                    <div class="bg-light rounded p-3">
 
-                                                    </a>
+                        <h5 class="mb-3">
+                            Mapa da Rota
+                        </h5>
 
-                                                </td>
+                        <select class="form-select mb-3">
 
-                                            </tr>
+                            <?php
 
-                                        <?php } ?>
+                            if ($rotas) {
 
-                                    <?php } else { ?>
+                                $rotas->data_seek(0);
 
-                                        <tr>
+                                while ($rota = $rotas->fetch_assoc()) {
 
-                                            <td colspan="3" class="text-center text-muted">
+                            ?>
 
-                                                Nenhuma rota cadastrada.
+                                    <option value="<?= $rota["id_rota"] ?>">
 
-                                            </td>
+                                        RTA-<?= str_pad($rota["id_rota"], 3, "0", STR_PAD_LEFT) ?>
 
-                                        </tr>
+                                        -
 
-                                    <?php } ?>
+                                        <?= htmlspecialchars($rota["nome_rota"]) ?>
 
-                                </tbody>
+                                    </option>
 
-                            </table>
+                            <?php
 
-                        </div>
+                                }
 
-                    </div>
+                            }
 
+                            ?>
 
-                    <div class="col-lg-4">
+                        </select>
 
-                        <div class="bg-light border rounded p-3">
+                        <img src=""
+                            alt="Mapa da Rota"
+                            class="img-fluid rounded border">
 
-                            <h5 class="mb-1">
-                                Mapa da Rota
-                            </h5>
+                        <div class="d-flex justify-content-around mt-3">
 
+                            <span class="d-flex align-items-center gap-1">
 
-                            <?php if (count($rotas) > 0) { ?>
+                                <ion-icon name="ellipse"
+                                    style="color: blue;">
+                                </ion-icon>
 
-                                <select class="form-select form-select-sm mb-3">
+                                Rota
 
-                                    <?php foreach ($rotas as $rota) { ?>
+                            </span>
 
-                                        <option>
+                            <span class="d-flex align-items-center gap-1">
 
-                                            <?= sprintf("RTA-%03d", $rota["id_rota"]) ?>
+                                <ion-icon name="ellipse"
+                                    style="color: black;">
+                                </ion-icon>
 
-                                            -
+                                Estações
 
-                                            <?= htmlspecialchars($rota["nome_rota"]) ?>
+                            </span>
 
-                                        </option>
+                            <span class="d-flex align-items-center gap-1">
 
-                                    <?php } ?>
+                                <ion-icon name="ellipse"
+                                    style="color: green;">
+                                </ion-icon>
 
-                                </select>
+                                Trens
 
-
-                                <div class="border rounded bg-white p-4 text-center mb-2">
-
-                                    <p class="mb-2">
-                                        Início
-                                    </p>
-
-                                    <div class="border-start border-primary border-3 mx-auto"
-                                        style="height: 50px;">
-                                    </div>
-
-                                    <p class="mb-2 mt-2">
-                                        Estação
-                                    </p>
-
-                                    <div class="border-start border-primary border-3 mx-auto"
-                                        style="height: 50px;">
-                                    </div>
-
-                                    <p class="mb-0">
-                                        Destino
-                                    </p>
-
-                                </div>
-
-
-                            <?php } else { ?>
-
-                                <p class="text-muted">
-                                    Nenhuma rota cadastrada ainda.
-                                </p>
-
-                            <?php } ?>
+                            </span>
 
                         </div>
+
+                        <p class="text-muted text-center mt-2 mb-0">
+
+                            <ion-icon name="refresh-outline"></ion-icon>
+
+                            Atualizado agora há pouco
+
+                        </p>
 
                     </div>
 
@@ -292,12 +347,11 @@ if ($resultado) {
 
     </div>
 
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-    </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="../../script/validacao.js">
-    </script>
+<script src="../../script/validacao.js"></script>
 
 </body>
 

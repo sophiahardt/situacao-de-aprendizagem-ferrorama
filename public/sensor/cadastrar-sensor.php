@@ -1,112 +1,230 @@
 <?php
-session_start();
+
+require_once "../../infra/protecao.php";
+
+verificarAdministrador();
 
 require_once "../../infra/conexao.php";
 
 $mensagem = "";
 
-$rotas = $conexao->query("SELECT id_rota, nome_rota FROM rota");
-$trens = $conexao->query("SELECT id_trem, nome_trem FROM trem");
+$rotas = $conexao->query("SELECT id_rota, nome_rota FROM rota ORDER BY nome_rota");
+$trens = $conexao->query("SELECT id_trem, nome_trem FROM trem ORDER BY nome_trem");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $nome_sensor = $_POST["nome_sensor"] ?? "";
     $tipo_sensor = $_POST["tipo_sensor"] ?? "";
     $localizacao = $_POST["localizacao"] ?? "";
     $id_localizacao = $_POST["id_localizacao"] ?? "";
 
     if ($nome_sensor == "" || $tipo_sensor == "" || $localizacao == "" || $id_localizacao == "") {
+
         $mensagem = "Preencha todos os campos.";
+
     } else {
+
         $id_rota = null;
         $id_trem = null;
 
         if ($localizacao == "rota") {
+
             $id_rota = $id_localizacao;
+
         } else {
+
             $id_trem = $id_localizacao;
         }
 
-        $sql = "INSERT INTO sensor (nome_sensor, tipo_sensor, localizacao, id_trem, id_rota) 
+        $sql = "INSERT INTO sensor 
+                (nome_sensor, tipo_sensor, localizacao, id_trem, id_rota)
                 VALUES (?, ?, ?, ?, ?)";
 
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("sssii", $nome_sensor, $tipo_sensor, $localizacao, $id_trem, $id_rota);
+
+        $stmt->bind_param(
+            "sssii",
+            $nome_sensor,
+            $tipo_sensor,
+            $localizacao,
+            $id_trem,
+            $id_rota
+        );
 
         if ($stmt->execute()) {
+
             header("Location: visualizar-sensor.php");
             exit;
+
         } else {
+
             $mensagem = "Erro ao cadastrar o sensor.";
         }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Cadastro de Sensores</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <script type="module"
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js">
+    </script>
+
+    <script nomodule
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js">
+    </script>
+
     <link rel="stylesheet" href="../../style/style.css">
+
 </head>
 
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
+
     <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+
             <span class="navbar-toggler-icon"></span>
+
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
+
             <ul class="navbar-nav me-auto">
+
                 <li class="nav-item">
-                    <a class="nav-link" href="../tela-geral-home.php">Dashboard</a>
+
+                    <a class="nav-link"
+                       href="../tela-geral-home.php">
+
+                        Dashboard
+
+                    </a>
+
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="visualizar-sensor.php">Sensores</a>
+
+                    <a class="nav-link"
+                       href="visualizar-sensor.php">
+
+                        Sensores
+
+                    </a>
+
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="../trem/visualizar-trem.php">Trens</a>
+
+                    <a class="nav-link"
+                       href="../trem/visualizar-trem.php">
+
+                        Trens
+
+                    </a>
+
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
+
+                    <a class="nav-link"
+                       href="../rota/visualizar-rota.php">
+
+                        Rotas
+
+                    </a>
+
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
+
+                    <a class="nav-link"
+                       href="../user/visualizar-user.php">
+
+                        Usuários
+
+                    </a>
+
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
+
+                    <a class="nav-link"
+                       href="../relatorio/visualizar-relatorio.php">
+
+                        Relatórios
+
+                    </a>
+
                 </li>
+
             </ul>
 
             <ul class="navbar-nav ms-auto align-items-center">
+
                 <li class="nav-item me-3">
+
                     <span class="nav-link d-flex align-items-center gap-2">
+
                         <ion-icon name="person-circle-outline"></ion-icon>
+
                         <?= htmlspecialchars($_SESSION["nome_usuario"] ?? "Usuário") ?>
+
                     </span>
+
                 </li>
+
                 <li class="nav-item">
-                    <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="../tela-login.php">
+
+                    <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2"
+                       href="../tela-login.php">
+
                         <ion-icon name="log-out-outline"></ion-icon>
+
                         <span>Sair</span>
+
                     </a>
+
                 </li>
+
             </ul>
+
         </div>
+
     </div>
+
 </nav>
 
 <div class="container mt-5">
+
     <div class="card">
+
         <div class="card-body">
-            <h2 class="text-center mb-3">Cadastrar novo sensor</h2>
+
+            <h2 class="text-center mb-3">
+                Cadastrar novo sensor
+            </h2>
 
             <p class="text-center text-muted">
                 Preencha as informações para cadastrar um novo sensor no sistema
@@ -115,96 +233,187 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <hr>
 
             <?php if ($mensagem != "") { ?>
-                <p class="text-center text-success">
-                    <?= $mensagem ?>
+
+                <p class="text-center text-danger">
+
+                    <?= htmlspecialchars($mensagem) ?>
+
                 </p>
+
             <?php } ?>
 
             <form method="POST">
+
                 <div class="row">
+
                     <div class="col-md-6">
+
                         <div class="mb-3">
-                            <label class="form-label">Nome do Sensor</label>
-                            <input type="text" name="nome_sensor" class="form-control"
-                                placeholder="Informe o nome do sensor" required>
+
+                            <label class="form-label">
+                                Nome do Sensor
+                            </label>
+
+                            <input type="text"
+                                   name="nome_sensor"
+                                   class="form-control"
+                                   placeholder="Informe o nome do sensor"
+                                   required>
+
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Localização do Sensor</label>
+
+                            <label class="form-label">
+                                Localização do Sensor
+                            </label>
 
                             <div class="d-flex gap-5">
-                                <button type="button" class="btn btn-outline-dark"
-                                    onclick="selecionarLocalizacao('rota')">
+
+                                <button type="button"
+                                        class="btn btn-outline-dark"
+                                        onclick="selecionarLocalizacao('rota')">
+
                                     Rota
+
                                 </button>
 
-                                <button type="button" class="btn btn-outline-dark"
-                                    onclick="selecionarLocalizacao('trem')">
+                                <button type="button"
+                                        class="btn btn-outline-dark"
+                                        onclick="selecionarLocalizacao('trem')">
+
                                     Trem
+
                                 </button>
+
                             </div>
 
-                            <input type="hidden" name="localizacao" id="localizacao">
+                            <input type="hidden"
+                                   name="localizacao"
+                                   id="localizacao">
+
                         </div>
 
                         <div class="mb-3">
-                            <select name="id_localizacao" id="id_localizacao" class="form-select" required>
-                                <option value="" selected disabled>
+
+                            <select name="id_localizacao"
+                                    id="id_localizacao"
+                                    class="form-select"
+                                    required>
+
+                                <option value=""
+                                        selected
+                                        disabled>
+
                                     Selecione a localização vinculada ao sensor
+
                                 </option>
 
-                                <!-- Fiz conforme o layout, a parte de frontend, falta fazer a parte de backend -->
-
                                 <?php while ($rota = $rotas->fetch_assoc()) { ?>
-                                    <option value="<?= $rota['id_rota'] ?>" data-tipo="rota">
-                                        <?= $rota['nome_rota'] ?>
+
+                                    <option value="<?= $rota["id_rota"] ?>"
+                                            data-tipo="rota">
+
+                                        <?= htmlspecialchars($rota["nome_rota"]) ?>
+
                                     </option>
+
                                 <?php } ?>
 
                                 <?php while ($trem = $trens->fetch_assoc()) { ?>
-                                    <option value="<?= $trem['id_trem'] ?>" data-tipo="trem">
-                                        <?= $trem['nome_trem'] ?>
+
+                                    <option value="<?= $trem["id_trem"] ?>"
+                                            data-tipo="trem">
+
+                                        <?= htmlspecialchars($trem["nome_trem"]) ?>
+
                                     </option>
+
                                 <?php } ?>
+
                             </select>
+
                         </div>
+
                     </div>
 
                     <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label">Tipo de Dado</label>
 
-                            <select name="tipo_sensor" class="form-select" required>
-                                <option selected disabled>
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Tipo de Dado
+                            </label>
+
+                            <select name="tipo_sensor"
+                                    class="form-select"
+                                    required>
+
+                                <option value=""
+                                        selected
+                                        disabled>
+
                                     Selecione o tipo de dado coletado
+
                                 </option>
-                                <option value="Temperatura">Temperatura</option>
-                                <option value="Velocidade">Velocidade</option>
-                                <option value="Presença">Presença</option>
+
+                                <option value="Temperatura">
+                                    Temperatura
+                                </option>
+
+                                <option value="Velocidade">
+                                    Velocidade
+                                </option>
+
+                                <option value="Presença">
+                                    Presença
+                                </option>
+
                             </select>
+
                         </div>
+
                     </div>
+
                 </div>
 
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button type="button" class="btn btn-light"
-                        onclick="window.location.href='visualizar-sensor.php'">
+
+                    <button type="button"
+                            class="btn btn-light"
+                            onclick="window.location.href='visualizar-sensor.php'">
+
                         <ion-icon name="close-outline"></ion-icon>
+
                         Cancelar
+
                     </button>
 
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit"
+                            class="btn btn-primary">
+
                         <ion-icon name="save-outline"></ion-icon>
+
                         Salvar
+
                     </button>
+
                 </div>
+
             </form>
+
         </div>
+
     </div>
+
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../../script/validacao.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+<script src="../../script/validacao.js">
+</script>
 
 </body>
+
 </html>

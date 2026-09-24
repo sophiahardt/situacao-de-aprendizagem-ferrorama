@@ -1,3 +1,9 @@
+function abrirAviso(id) {
+    document.getElementById("btnConfirmarExclusao").href = "excluir-user.php?id=" + id;
+    let modal = new bootstrap.Modal(document.getElementById("modalExclusao"));
+    modal.show();
+}
+
 function cancelarFormulario() {
     form?.reset();
     redirecionar("tela-geral-home.html");
