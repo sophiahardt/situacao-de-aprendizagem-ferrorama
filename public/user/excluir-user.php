@@ -12,7 +12,7 @@ $sql = "DELETE FROM usuario WHERE id_usuario = ?";
 $stmt = $conexao->prepare($sql);
 $stmt->bind_param("i", $id);
 if ($stmt->execute()) {
-    header("Location: visualizar-user.php");
+    header("Location: visualizar-user.php?sucesso=1");
     exit;
 }
 echo "Erro ao excluir usuário: " . $stmt->error;
