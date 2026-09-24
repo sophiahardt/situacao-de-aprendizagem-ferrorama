@@ -1,4 +1,9 @@
 <?php
+
+require_once "../../infra/protecao.php";
+
+verificarAdministrador();
+
 require_once "../../infra/conexao.php";
 
 $id_sensor = $_GET["id"] ?? "";
