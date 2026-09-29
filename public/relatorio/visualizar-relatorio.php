@@ -104,16 +104,16 @@ $resultado = $conexao->query($sql);
                                     </td>
                                     <td>
                                         <?php if (ehAdministrador()) { ?>
-<a href="visualizar-relatorio-detalhes.php?id=<?= $relatorio["id_relatorio"] ?>"
+                                            <a href="visualizar-relatorio.php?id=<?= $relatorio["id_relatorio"] ?>"
                                             class="btn btn-primary btn-sm">
                                             <ion-icon name="eye"></ion-icon>
                                             Visualizar
-                                        </a>
-                                        <button type="button" class="btn btn-danger btn-sm">
-                                            <ion-icon name="trash"></ion-icon>
-                                            Excluir
-                                        </button>
-<?php } ?>
+                                            </a>
+                                            <button type="button" class="btn btn-danger btn-sm">
+                                                <ion-icon name="trash"></ion-icon>
+                                                Excluir
+                                            </button>
+                                        <?php } ?>
                                     </td>
                                 </tr>
                             <?php } ?>
