@@ -22,3 +22,10 @@ if ($resultado) {
 $total_sensores = $sensores_ativos + $sensores_inativos;
 $porcentagem_ativos = ($sensores_ativos / $total_sensores) * 100;
 $porcentagem_inativos = 100 - $porcentagem_ativos;
+
+$velocidades = [
+    ["trem" => "Trem Alpha", "valor" => 88],
+    ["trem" => "Trem Beta", "valor" => 75],
+    ["trem" => "Trem Gama", "valor" => 60],
+    ["trem" => "Trem Delta", "valor" => 67]
+];
