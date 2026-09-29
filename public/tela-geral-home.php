@@ -29,3 +29,10 @@ $velocidades = [
     ["trem" => "Trem Gama", "valor" => 60],
     ["trem" => "Trem Delta", "valor" => 67]
 ];
+
+$alertas = [
+    ["hora" => "10:30", "localizacao" => "Trem Alpha", "tipo" => "Excesso de velocidade"],
+    ["hora" => "10:12", "localizacao" => "Trem Beta", "tipo" => "Sensor offline"],
+    ["hora" => "9:45", "localizacao" => "Linha verde", "tipo" => "Presença detectada"]
+];
+?>
