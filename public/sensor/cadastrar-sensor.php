@@ -263,35 +263,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
 
                         <div class="mb-3">
-
-                            <label class="form-label">
+                            <label for="localizacao" class="form-label">
                                 Localização do Sensor
                             </label>
-
-                            <div class="d-flex gap-5">
-
-                                <button type="button"
-                                        class="btn btn-outline-dark"
-                                        onclick="selecionarLocalizacao('rota')">
-
-                                    Rota
-
-                                </button>
-
-                                <button type="button"
-                                        class="btn btn-outline-dark"
-                                        onclick="selecionarLocalizacao('trem')">
-
-                                    Trem
-
-                                </button>
-
-                            </div>
-
-                            <input type="hidden"
-                                   name="localizacao"
-                                   id="localizacao">
-
+                            
+                            <select class="form-select" name="localizacao" id="localizacao" required>
+                                <option value="">Selecione a localização</option>
+                                <option value="rota">Rota</option>
+                                <option value="trem">Trem</option>
+                            </select>
                         </div>
 
                         <div class="mb-3">
