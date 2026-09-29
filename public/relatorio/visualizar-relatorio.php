@@ -1,10 +1,13 @@
 <?php
+session_start();
+require_once "../../infra/conexao.php";
 require_once "../../infra/protecao.php";
 verificarLogin();
-require_once "../../infra/conexao.php";
-$sql = "SELECT *
-        FROM relatorio
-        ORDER BY id_relatorio ASC";
+$mensagem = "";
+if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
+    $mensagem = "Relatório excluído com sucesso!";
+}
+$sql = "SELECT * FROM relatorio ORDER BY id_relatorio ASC";
 $resultado = $conexao->query($sql);
 ?>
 <!DOCTYPE html>
@@ -12,7 +15,7 @@ $resultado = $conexao->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualização de Relatórios</title>
+    <title>Relatórios cadastrados</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -21,8 +24,7 @@ $resultado = $conexao->query($sql);
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -39,13 +41,13 @@ $resultado = $conexao->query($sql);
                     <li class="nav-item">
                         <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
-<?php if (ehAdministrador()) { ?>
+                    <?php if (ehAdministrador()) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
                     </li>
-<?php } ?>
+                    <?php } ?>
                     <li class="nav-item">
-                        <a class="nav-link active" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
+                        <a class="nav-link active" href="visualizar-relatorio.php">Relatórios</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto align-items-center">
@@ -67,18 +69,13 @@ $resultado = $conexao->query($sql);
     </nav>
     <div class="container-fluid p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h1 class="h3">Relatórios gerados</h1>
-                <p>Visualize relatórios gerados anteriormente</p>
-            </div>
-<?php if (ehAdministrador()) { ?>
-            <button class="btn btn-primary"
-                style="background-color: #003399;"
-                onclick="window.location.href='cadastrar-relatorio.php'">
+            <h1 class="h3">Lista de relatórios cadastrados</h1>
+            <?php if (ehAdministrador()) { ?>
+            <a href="cadastrar-relatorio.php" class="btn d-flex align-items-center gap-2" style="background-color: #003399; border-color: #003399; color: white;">
                 <ion-icon name="add-circle"></ion-icon>
-                Gerar novo relatório
-            </button>
-<?php } ?>
+                Novo relatório
+            </a>
+            <?php } ?>
         </div>
         <div class="card shadow-sm">
             <div class="card-body">
@@ -87,34 +84,35 @@ $resultado = $conexao->query($sql);
                         <thead class="table-light">
                             <tr>
                                 <th>Nome do Relatório</th>
+                                <th>Tipo</th>
                                 <th>Data</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while ($relatorio = $resultado->fetch_assoc()) { ?>
-                                <tr>
-                                    <td>
-                                        <?= htmlspecialchars($relatorio["nome_relatorio"]) ?>
-                                    </td>
-                                    <td>
-                                        <?= htmlspecialchars($relatorio["data_relatorio"]) ?>
-                                    </td>
-                                    <td>
-                                        <?php if (ehAdministrador()) { ?>
-                                            <a href="editar-relatorio.php?id=<?= $relatorio["id_relatorio"] ?>"
-                                                class="btn btn-primary btn-sm">
+                            <?php if ($resultado && $resultado->num_rows > 0) { ?>
+                                <?php while ($relatorio = $resultado->fetch_assoc()) { ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($relatorio["nome_relatorio"]) ?></td>
+                                        <td><?= htmlspecialchars($relatorio["tipo_relatorio"]) ?></td>
+                                        <td><?= htmlspecialchars($relatorio["data_relatorio"]) ?></td>
+                                        <td>
+                                            <?php if (ehAdministrador()) { ?>
+                                            <a href="editar-relatorio.php?id=<?= $relatorio["id_relatorio"] ?>" class="btn btn-primary btn-sm">
                                                 <ion-icon name="pencil"></ion-icon>
                                                 Editar
                                             </a>
-                                            <button type="button"
-                                                class="btn btn-danger btn-sm"
-                                                onclick="abrirAviso(<?= $relatorio['id_relatorio'] ?>)">
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="abrirAviso(<?= $relatorio['id_relatorio'] ?>)">
                                                 <ion-icon name="trash"></ion-icon>
                                                 Excluir
                                             </button>
-                                        <?php } ?>
-                                    </td>
+                                            <?php } ?>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            <?php } else { ?>
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted">Nenhum relatório cadastrado.</td>
                                 </tr>
                             <?php } ?>
                         </tbody>
@@ -138,9 +136,7 @@ $resultado = $conexao->query($sql);
                         <button type="button" class="btn btn-secondary px-5" data-bs-dismiss="modal">
                             Cancelar
                         </button>
-                        <a id="btnConfirmarExclusao"
-                            href="#"
-                            class="btn btn-danger px-5">
+                        <a id="btnConfirmarExclusao" href="#" class="btn btn-danger px-5">
                             Excluir
                         </a>
                     </div>
@@ -148,6 +144,12 @@ $resultado = $conexao->query($sql);
             </div>
         </div>
     </div>
+    <?php if ($mensagem != "") { ?>
+        <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
+            <?= htmlspecialchars($mensagem) ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    <?php } ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../script/botoes.js"></script>
 </body>
