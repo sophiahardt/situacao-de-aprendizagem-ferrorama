@@ -1,7 +1,8 @@
 <?php
+session_start();
+require_once "../../infra/conexao.php";
 require_once "../../infra/protecao.php";
 verificarAdministrador();
-require_once "../../infra/conexao.php";
 $mensagem = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome_relatorio = trim($_POST["nome_relatorio"] ?? "");
