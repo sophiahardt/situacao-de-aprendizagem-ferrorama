@@ -18,3 +18,7 @@ if ($resultado) {
     $linha = $resultado->fetch_assoc();
     $rotas_ativas = $linha["total"];
 }
+
+$total_sensores = $sensores_ativos + $sensores_inativos;
+$porcentagem_ativos = ($sensores_ativos / $total_sensores) * 100;
+$porcentagem_inativos = 100 - $porcentagem_ativos;
