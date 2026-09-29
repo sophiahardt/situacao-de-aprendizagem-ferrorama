@@ -1,5 +1,9 @@
 function abrirAviso(id) {
-    document.getElementById("btnConfirmarExclusao").href = "excluir-user.php?id=" + id;
+    if (window.location.pathname.includes("/relatorio/")) {
+        document.getElementById("btnConfirmarExclusao").href = "excluir-relatorio.php?id=" + id;
+    } else {
+        document.getElementById("btnConfirmarExclusao").href = "excluir-user.php?id=" + id;
+    }
     let modal = new bootstrap.Modal(document.getElementById("modalExclusao"));
     modal.show();
 }
