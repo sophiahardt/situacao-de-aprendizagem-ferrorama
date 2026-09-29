@@ -1,15 +1,10 @@
 <?php
-
 require_once "../../infra/protecao.php";
-
 verificarLogin();
-
 require_once "../../infra/conexao.php";
-
 $sql = "SELECT *
         FROM relatorio
         ORDER BY id_relatorio ASC";
-
 $resultado = $conexao->query($sql);
 ?>
 <!DOCTYPE html>
@@ -50,7 +45,7 @@ $resultado = $conexao->query($sql);
                     </li>
 <?php } ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
+                        <a class="nav-link active" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto align-items-center">
@@ -76,11 +71,14 @@ $resultado = $conexao->query($sql);
                 <h1 class="h3">Relatórios gerados</h1>
                 <p>Visualize relatórios gerados anteriormente</p>
             </div>
-            <button class="btn btn-primary" style="background-color: #003399;"
+<?php if (ehAdministrador()) { ?>
+            <button class="btn btn-primary"
+                style="background-color: #003399;"
                 onclick="window.location.href='cadastrar-relatorio.php'">
                 <ion-icon name="add-circle"></ion-icon>
                 Gerar novo relatório
             </button>
+<?php } ?>
         </div>
         <div class="card shadow-sm">
             <div class="card-body">
@@ -97,19 +95,21 @@ $resultado = $conexao->query($sql);
                             <?php while ($relatorio = $resultado->fetch_assoc()) { ?>
                                 <tr>
                                     <td>
-                                        <?= $relatorio["nome_relatorio"] ?>
+                                        <?= htmlspecialchars($relatorio["nome_relatorio"]) ?>
                                     </td>
                                     <td>
-                                        <?= $relatorio["data_relatorio"] ?>
+                                        <?= htmlspecialchars($relatorio["data_relatorio"]) ?>
                                     </td>
                                     <td>
                                         <?php if (ehAdministrador()) { ?>
-                                            <a href="visualizar-relatorio.php?id=<?= $relatorio["id_relatorio"] ?>"
-                                            class="btn btn-primary btn-sm">
-                                            <ion-icon name="eye"></ion-icon>
-                                            Visualizar
+                                            <a href="editar-relatorio.php?id=<?= $relatorio["id_relatorio"] ?>"
+                                                class="btn btn-primary btn-sm">
+                                                <ion-icon name="pencil"></ion-icon>
+                                                Editar
                                             </a>
-                                            <button type="button" class="btn btn-danger btn-sm">
+                                            <button type="button"
+                                                class="btn btn-danger btn-sm"
+                                                onclick="abrirAviso(<?= $relatorio['id_relatorio'] ?>)">
                                                 <ion-icon name="trash"></ion-icon>
                                                 Excluir
                                             </button>
@@ -123,6 +123,32 @@ $resultado = $conexao->query($sql);
             </div>
         </div>
     </div>
+    <div class="modal" id="modalExclusao" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center">
+                <div class="modal-body p-4">
+                    <div style="font-size: 40px;">⚠️</div>
+                    <h4 class="fw-bold mt-2">
+                        Deseja continuar?
+                    </h4>
+                    <p class="fw-bold mb-4">
+                        Após a confirmação, não será possível reverter esta ação.
+                    </p>
+                    <div class="d-flex justify-content-center gap-5">
+                        <button type="button" class="btn btn-secondary px-5" data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
+                        <a id="btnConfirmarExclusao"
+                            href="#"
+                            class="btn btn-danger px-5">
+                            Excluir
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../script/botoes.js"></script>
 </body>
 </html>

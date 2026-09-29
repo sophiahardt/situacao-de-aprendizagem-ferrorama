@@ -38,46 +38,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
     <div class="container-fluid">
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="../tela-geral-home.php">
-                        Dashboard
-                    </a>
+                    <a class="nav-link" href="../tela-geral-home.php">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../sensor/visualizar-sensor.php">
-                        Sensores
-                    </a>
+                    <a class="nav-link" href="../sensor/visualizar-sensor.php">Sensores</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../trem/visualizar-trem.php">
-                        Trens
-                    </a>
+                    <a class="nav-link" href="../trem/visualizar-trem.php">Trens</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../rota/visualizar-rota.php">
-                        Rotas
-                    </a>
+                    <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../user/visualizar-user.php">
-                        Usuários
-                    </a>
+                    <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="visualizar-relatorio.php">
-                        Relatórios
-                    </a>
+                    <a class="nav-link active" href="visualizar-relatorio.php">Relatórios</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto align-items-center">
@@ -88,8 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </span>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2"
-                       href="../tela-login.php">
+                    <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="../tela-login.php">
                         <ion-icon name="log-out-outline"></ion-icon>
                         <span>Sair</span>
                     </a>
@@ -128,29 +110,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                     </div>
                 </div>
-                <div class="row mt-4">
+                <div class="row mt-3">
                     <div class="col-md-4">
                         <label class="form-label fs-5">
                             Tipo de relatório
                         </label>
-                        <div class="form-check mt-3">
-                            <input class="form-check-input"
+                        <div class="mt-3">
+                            <input class="btn-check"
                                    type="radio"
                                    name="tipo_relatorio"
                                    id="tipo_trem"
                                    value="Trens"
                                    required>
-                            <label class="form-check-label" for="tipo_trem">
+                            <label class="btn btn-outline-primary mb-2"
+                                   for="tipo_trem">
                                 Trens
                             </label>
                         </div>
-                        <div class="form-check mt-3">
-                            <input class="form-check-input"
+                        <div>
+                            <input class="btn-check"
                                    type="radio"
                                    name="tipo_relatorio"
                                    id="tipo_sensor"
                                    value="Sensores">
-                            <label class="form-check-label" for="tipo_sensor">
+                            <label class="btn btn-outline-primary"
+                                   for="tipo_sensor">
                                 Sensores
                             </label>
                         </div>
@@ -159,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label class="form-label fs-5">
                             Período
                         </label>
-                        <div class="border border-dark rounded-3 p-3">
+                        <div class="border rounded-3 p-3">
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="data_inicial" class="form-label">
