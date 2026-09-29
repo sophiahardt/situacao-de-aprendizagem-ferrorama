@@ -61,22 +61,22 @@ $alertas = [
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="../tela-geral-home.php">Dashboard</a>
+                    <a class="nav-link" href="tela-geral-home.php">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                     <a class="nav-link" href="../sensor/visualizar-sensor.php">Sensores</a>
+                     <a class="nav-link" href="sensor/visualizar-sensor.php">Sensores</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../trem/visualizar-trem.php">Trens</a>
+                    <a class="nav-link" href="trem/visualizar-trem.php">Trens</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="visualizar-rota.php">Rotas</a>
+                    <a class="nav-link" href="rota/visualizar-rota.php">Rotas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
+                    <a class="nav-link" href="user/visualizar-user.php">Usuários</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
+                    <a class="nav-link" href="relatorio/visualizar-relatorio.php">Relatórios</a>
                 </li>
             </ul>
 
