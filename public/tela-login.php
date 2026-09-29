@@ -44,13 +44,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             } else {
 
-                $mensagem = "Email ou senha incorretos.";
+                $mensagem = "Email ou senha incorreta.";
 
             }
 
         } else {
 
-            $mensagem = "Email ou senha incorretos.";
+            $mensagem = "Email ou senha incorreta.";
 
         }
     }
