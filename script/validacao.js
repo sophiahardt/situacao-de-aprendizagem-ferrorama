@@ -82,3 +82,40 @@ function alterarLocalizacao() {
 
     }
 }
+
+function verificarLocalizacao() {
+    let rota = document.getElementById("rota");
+    let trem = document.getElementById("trem");
+    let campoRota = document.getElementById("campo_rota");
+    let campoTrem = document.getElementById("campo_trem");
+    let selectRota = document.getElementById("id_rota");
+    let selectTrem = document.getElementById("id_trem");
+    let labelRota = document.querySelector('label[for="rota"]');
+    let labelTrem = document.querySelector('label[for="trem"]');
+
+    if (rota.checked) {
+        campoRota.style.display = "block";
+        campoTrem.style.display = "none";
+        selectRota.name = "id_localizacao";
+        selectTrem.name = "";
+        selectRota.required = true;
+        selectTrem.required = false;
+        selectTrem.value = "";
+        labelRota.classList.remove("btn-outline-dark");
+        labelRota.classList.add("btn-primary");
+        labelTrem.classList.remove("btn-primary");
+        labelTrem.classList.add("btn-outline-dark");
+    } else if (trem.checked) {
+        campoRota.style.display = "none";
+        campoTrem.style.display = "block";
+        selectRota.name = "";
+        selectTrem.name = "id_localizacao";
+        selectRota.required = false;
+        selectTrem.required = true;
+        selectRota.value = "";
+        labelTrem.classList.remove("btn-outline-dark");
+        labelTrem.classList.add("btn-primary");
+        labelRota.classList.remove("btn-primary");
+        labelRota.classList.add("btn-outline-dark");
+    }
+}
