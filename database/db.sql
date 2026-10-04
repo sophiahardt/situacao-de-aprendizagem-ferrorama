@@ -77,3 +77,7 @@ dt_fim DATETIME,
 FOREIGN KEY (id_trem) REFERENCES trem(id_trem),
 FOREIGN KEY (id_rota) REFERENCES rota(id_rota)
 ); 
+
+INSERT INTO cargo (nome_cargo) VALUES 
+('Administrador'),
+('Funcionário');
