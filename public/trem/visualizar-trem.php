@@ -69,7 +69,7 @@ $resultado = $conexao->query($sql);
                     </li>
 
                     <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="#">
+                        <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="../logout.php">
                             <ion-icon name="log-out-outline"></ion-icon>
                             <span>Sair</span>
                         </a>
