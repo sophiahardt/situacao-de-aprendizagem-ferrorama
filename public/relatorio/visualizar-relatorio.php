@@ -41,11 +41,9 @@ $resultado = $conexao->query($sql);
                     <li class="nav-item">
                         <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
-                    <?php if (ehAdministrador()) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
                     </li>
-                    <?php } ?>
                     <li class="nav-item">
                         <a class="nav-link active" href="visualizar-relatorio.php">Relatórios</a>
                     </li>

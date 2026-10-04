@@ -29,10 +29,6 @@ function verificarLogin()
 
 function ehAdministrador()
 {
-    if (isset($_SESSION["eh_administrador"])) {
-        return $_SESSION["eh_administrador"];
-    }
-
     if (!isset($_SESSION["id_cargo"])) {
         return false;
     }
@@ -52,11 +48,8 @@ function ehAdministrador()
     $resultado = $stmt->get_result();
     $cargo = $resultado->fetch_assoc();
 
-    $_SESSION["eh_administrador"] =
-        $cargo &&
+    return $cargo &&
         strtolower(trim($cargo["nome_cargo"])) === "administrador";
-
-    return $_SESSION["eh_administrador"];
 }
 
 function verificarAdministrador()
@@ -68,5 +61,4 @@ function verificarAdministrador()
         exit;
     }
 }
-
 ?>

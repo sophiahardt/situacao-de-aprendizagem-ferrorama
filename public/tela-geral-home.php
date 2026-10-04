@@ -1,10 +1,6 @@
 <?php
-
 require_once "../infra/protecao.php";
-
-verificarAdministrador();
-
-require_once "../infra/conexao.php";
+verificarLogin();
 
 $trens_ativos = 12;
 $sensores_ativos = 34;
