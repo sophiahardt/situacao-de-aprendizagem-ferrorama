@@ -7,15 +7,13 @@ $mensagem = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome_relatorio = trim($_POST["nome_relatorio"] ?? "");
     $tipo_relatorio = $_POST["tipo_relatorio"] ?? "";
-    $data_inicial = $_POST["data_inicial"] ?? "";
-    $data_final = $_POST["data_final"] ?? "";
-    if ($nome_relatorio == "" || $tipo_relatorio == "" || $data_inicial == "" || $data_final == "") {
+    $data_relatorio = $_POST["data_relatorio"] ?? "";
+    if ($nome_relatorio == "" || $tipo_relatorio == "" || $data_relatorio == "") {
         $mensagem = "Preencha todos os campos.";
     } else {
-        $data_relatorio = date("Y-m-d");
-        $sql = "INSERT INTO relatorio (nome_relatorio, data_relatorio, tipo_relatorio, data_inicial, data_final) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO relatorio (nome_relatorio, tipo_relatorio, data_relatorio) VALUES (?, ?, ?)";
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("sssss", $nome_relatorio, $data_relatorio, $tipo_relatorio, $data_inicial, $data_final);
+        $stmt->bind_param("sss", $nome_relatorio, $tipo_relatorio, $data_relatorio);
         if ($stmt->execute()) {
             header("Location: visualizar-relatorio.php");
             exit;
@@ -110,6 +108,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                    required>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="mb-4">
+                            <label for="data_relatorio" class="form-label fs-5">
+                                Data do relatório
+                            </label>
+                            <input type="date"
+                                   name="data_relatorio"
+                                   id="data_relatorio"
+                                   class="form-control"
+                                   required>
+                        </div>
+                    </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-4">
@@ -138,35 +148,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                    for="tipo_sensor">
                                 Sensores
                             </label>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <label class="form-label fs-5">
-                            Período
-                        </label>
-                        <div class="border rounded-3 p-3">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="data_inicial" class="form-label">
-                                        Data inicial
-                                    </label>
-                                    <input type="date"
-                                           name="data_inicial"
-                                           id="data_inicial"
-                                           class="form-control"
-                                           required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="data_final" class="form-label">
-                                        Data final
-                                    </label>
-                                    <input type="date"
-                                           name="data_final"
-                                           id="data_final"
-                                           class="form-control"
-                                           required>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
