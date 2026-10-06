@@ -11,16 +11,16 @@ $mensagem = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome_rota = $_POST["nome_rota"] ?? "";
     $extensao = $_POST["extensao"] ?? "";
-    $tempo_estimado = $_POST["tempo_estimado"] ?? "";
+    $tempo_estimado_minutos = $_POST["tempo_estimado"] ?? "";
 
-    if ($nome_rota == "" || $extensao == "" || $tempo_estimado == "") {
+    if ($nome_rota == "" || $extensao == "" || $tempo_estimado_minutos == "") {
         $mensagem = "Preencha todos os campos.";
     } else {
-        $sql = "INSERT INTO rota (nome_rota, extensao, tempo_estimado) 
+        $sql = "INSERT INTO rota (nome_rota, extensao, tempo_estimado_minutos) 
                 VALUES (?, ?, ?)";
 
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("sii", $nome_rota, $extensao, $tempo_estimado);
+        $stmt->bind_param("sii", $nome_rota, $extensao, $tempo_estimado_minutos);
 
         if ($stmt->execute()) {
             header("Location: visualizar-rota.php");
@@ -127,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <div class="mb-3">
                             <label class="form-label">Tempo estimado (Min)</label>
-                            <input type="number" name="tempo_estimado" class="form-control"
+                            <input type="number" name="tempo_estimado_minutos" class="form-control"
                                 placeholder="Ex: 45" required>
                         </div>
                     </div>
