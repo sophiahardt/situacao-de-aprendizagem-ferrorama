@@ -111,7 +111,7 @@ $resultado = $conexao->query($sql);
                                         <td>
                                             <?php if (ehAdministrador()) { ?>
                                             <a href="editar-rota.php?id=<?= $rota["id_rota"] ?>"
-                                                class="btn btn-warning btn-sm">
+                                                class="btn btn-primary btn-sm">
                                                 <ion-icon name="pencil"></ion-icon>
                                                 Editar
                                             </a>
