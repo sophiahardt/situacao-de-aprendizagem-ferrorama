@@ -118,7 +118,7 @@ $resultado = $conexao->query($sql);
                                     <td>
                                         <?php if (ehAdministrador()) { ?>
 <a href="editar-trem.php?id=<?= $trem["id_trem"] ?>"
-                                            class="btn btn-warning btn-sm">
+                                            class="btn btn-primary btn-sm">
                                             <ion-icon name="pencil"></ion-icon>
                                             Editar
                                         </a>

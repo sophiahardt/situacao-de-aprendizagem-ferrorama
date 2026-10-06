@@ -124,7 +124,7 @@ $resultado = $conexao->query($sql);
                                     <td>
                                         <?php if (ehAdministrador()) { ?>
 <a href="editar-sensor.php?id=<?= $sensor["id_sensor"] ?>"
-                                            class="btn btn-warning btn-sm">
+                                            class="btn btn-primary btn-sm">
                                             <ion-icon name="pencil"></ion-icon>
                                             Editar
                                         </a>
