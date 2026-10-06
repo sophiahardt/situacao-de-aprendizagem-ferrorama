@@ -76,9 +76,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
-                    </li>
+                    <?php if (ehAdministrador()) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
+                        </li>
+                    <?php } ?>
+
 
                     <li class="nav-item">
                         <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
@@ -158,25 +161,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                         </div>
                     </div>
-          
 
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" class="btn btn-light" onclick="window.location.href='visualizar-trem.php'">
-                    <ion-icon name="close-outline"></ion-icon>
-                    Cancelar
-                </button>
 
-                <button type="submit" class="btn btn-primary">
-                    <ion-icon name="save-outline"></ion-icon>
-                    Salvar
-                </button>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="button" class="btn btn-light" onclick="window.location.href='visualizar-trem.php'">
+                            <ion-icon name="close-outline"></ion-icon>
+                            Cancelar
+                        </button>
+
+                        <button type="submit" class="btn btn-primary">
+                            <ion-icon name="save-outline"></ion-icon>
+                            Salvar
+                        </button>
+                    </div>
+                </form>
             </div>
-            </form>
         </div>
-    </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

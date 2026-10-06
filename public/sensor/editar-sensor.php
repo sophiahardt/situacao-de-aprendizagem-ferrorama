@@ -133,11 +133,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             Rotas
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../user/visualizar-user.php">
-                            Usuários
-                        </a>
-                    </li>
+                    <?php if (ehAdministrador()) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
+                        </li>
+                    <?php } ?>
+
                     <li class="nav-item">
                         <a class="nav-link" href="../relatorio/visualizar-relatorio.php">
                             Relatórios

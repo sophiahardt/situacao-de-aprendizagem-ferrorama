@@ -17,6 +17,7 @@ $resultado = $conexao->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,6 +27,7 @@ $resultado = $conexao->query($sql);
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="../../style/style.css">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
         <div class="container-fluid">
@@ -48,9 +50,12 @@ $resultado = $conexao->query($sql);
                         <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
-                    </li>
+                    <?php if (ehAdministrador()) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
+                        </li>
+                    <?php } ?>
+
 
                     <li class="nav-item">
                         <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
@@ -79,13 +84,13 @@ $resultado = $conexao->query($sql);
                 Lista de sensores cadastrados
             </h1>
             <?php if (ehAdministrador()) { ?>
-<button class="btn btn-primary"
-                style="background-color: #003399;"
-                onclick="window.location.href='cadastrar-sensor.php'">
-                <ion-icon name="add-circle"></ion-icon>
-                Novo sensor
-            </button>
-<?php } ?>
+                <button class="btn btn-primary"
+                    style="background-color: #003399;"
+                    onclick="window.location.href='cadastrar-sensor.php'">
+                    <ion-icon name="add-circle"></ion-icon>
+                    Novo sensor
+                </button>
+            <?php } ?>
         </div>
         <div class="card shadow-sm">
             <div class="card-body">
@@ -123,18 +128,18 @@ $resultado = $conexao->query($sql);
                                     </td>
                                     <td>
                                         <?php if (ehAdministrador()) { ?>
-<a href="editar-sensor.php?id=<?= $sensor["id_sensor"] ?>"
-                                            class="btn btn-warning btn-sm">
-                                            <ion-icon name="pencil"></ion-icon>
-                                            Editar
-                                        </a>
-                                        <button type="button"
-                                            class="btn btn-danger btn-sm"
-                                            onclick="abrirAviso(<?= $sensor['id_sensor'] ?>)">
-                                            <ion-icon name="trash"></ion-icon>
-                                            Excluir
-                                        </button>
-<?php } ?>
+                                            <a href="editar-sensor.php?id=<?= $sensor["id_sensor"] ?>"
+                                                class="btn btn-warning btn-sm">
+                                                <ion-icon name="pencil"></ion-icon>
+                                                Editar
+                                            </a>
+                                            <button type="button"
+                                                class="btn btn-danger btn-sm"
+                                                onclick="abrirAviso(<?= $sensor['id_sensor'] ?>)">
+                                                <ion-icon name="trash"></ion-icon>
+                                                Excluir
+                                            </button>
+                                        <?php } ?>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -170,4 +175,5 @@ $resultado = $conexao->query($sql);
     <!-- fazer código em java script para abrir o aviso -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

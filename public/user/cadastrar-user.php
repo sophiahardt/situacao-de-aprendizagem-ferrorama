@@ -39,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,6 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="../../style/style.css">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
         <div class="container-fluid">
@@ -68,9 +70,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li class="nav-item">
                         <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="visualizar-user.php">Usuários</a>
-                    </li>
+                    <?php if (ehAdministrador()) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
+                        </li>
+                    <?php } ?>
+
                     <li class="nav-item">
                         <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
                     </li>
@@ -179,4 +184,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
