@@ -12,6 +12,7 @@ $resultado = $conexao->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +22,7 @@ $resultado = $conexao->query($sql);
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="../../style/style.css">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
         <div class="container-fluid">
@@ -41,9 +43,12 @@ $resultado = $conexao->query($sql);
                     <li class="nav-item">
                         <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
-                    <li class="nav-item">
+                    <<?php if (ehAdministrador()) { ?>
+                        <li class="nav-item">
                         <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
-                    </li>
+                        </li>
+                    <?php } ?>
+
                     <li class="nav-item">
                         <a class="nav-link active" href="visualizar-relatorio.php">Relatórios</a>
                     </li>
@@ -69,10 +74,10 @@ $resultado = $conexao->query($sql);
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="h3">Lista de relatórios cadastrados</h1>
             <?php if (ehAdministrador()) { ?>
-            <a href="cadastrar-relatorio.php" class="btn d-flex align-items-center gap-2" style="background-color: #003399; border-color: #003399; color: white;">
-                <ion-icon name="add-circle"></ion-icon>
-                Novo relatório
-            </a>
+                <a href="cadastrar-relatorio.php" class="btn d-flex align-items-center gap-2" style="background-color: #003399; border-color: #003399; color: white;">
+                    <ion-icon name="add-circle"></ion-icon>
+                    Novo relatório
+                </a>
             <?php } ?>
         </div>
         <div class="card shadow-sm">
@@ -96,14 +101,14 @@ $resultado = $conexao->query($sql);
                                         <td><?= htmlspecialchars($relatorio["data_relatorio"]) ?></td>
                                         <td>
                                             <?php if (ehAdministrador()) { ?>
-                                            <a href="editar-relatorio.php?id=<?= $relatorio["id_relatorio"] ?>" class="btn btn-primary btn-sm">
-                                                <ion-icon name="pencil"></ion-icon>
-                                                Editar
-                                            </a>
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="abrirAviso(<?= $relatorio['id_relatorio'] ?>)">
-                                                <ion-icon name="trash"></ion-icon>
-                                                Excluir
-                                            </button>
+                                                <a href="editar-relatorio.php?id=<?= $relatorio["id_relatorio"] ?>" class="btn btn-primary btn-sm">
+                                                    <ion-icon name="pencil"></ion-icon>
+                                                    Editar
+                                                </a>
+                                                <button type="button" class="btn btn-danger btn-sm" onclick="abrirAviso(<?= $relatorio['id_relatorio'] ?>)">
+                                                    <ion-icon name="trash"></ion-icon>
+                                                    Excluir
+                                                </button>
                                             <?php } ?>
                                         </td>
                                     </tr>
@@ -151,4 +156,5 @@ $resultado = $conexao->query($sql);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../script/botoes.js"></script>
 </body>
+
 </html>
