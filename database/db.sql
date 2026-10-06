@@ -23,6 +23,7 @@ tempo_estimado_minutos INT
 CREATE TABLE relatorio (
 id_relatorio INT AUTO_INCREMENT PRIMARY KEY,
 nome_relatorio VARCHAR(100) NOT NULL,
+tipo_relatorio VARCHAR(45) NOT NULL,
 data_relatorio DATE NOT NULL
 );
 

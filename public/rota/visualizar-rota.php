@@ -115,6 +115,7 @@ $resultado = $conexao->query($sql);
                                         </td>
                                         <td>
                                             <?php if (ehAdministrador()) { ?>
+<<<<<<< HEAD
                                                 <a href="editar-rota.php?id=<?= $rota["id_rota"] ?>"
                                                     class="btn btn-warning btn-sm">
                                                     <ion-icon name="pencil"></ion-icon>
@@ -126,6 +127,19 @@ $resultado = $conexao->query($sql);
                                                     <ion-icon name="trash"></ion-icon>
                                                     Excluir
                                                 </button>
+=======
+                                            <a href="editar-rota.php?id=<?= $rota["id_rota"] ?>"
+                                                class="btn btn-primary btn-sm">
+                                                <ion-icon name="pencil"></ion-icon>
+                                                Editar
+                                            </a>
+                                            <button type="button"
+                                                class="btn btn-danger btn-sm"
+                                                onclick="abrirAviso(<?= $rota['id_rota'] ?>)">
+                                                <ion-icon name="trash"></ion-icon>
+                                                Excluir
+                                            </button>
+>>>>>>> 8a7ea988163332526cf82682a76af0d78e474381
                                             <?php } ?>
                                         </td>
                                     </tr>

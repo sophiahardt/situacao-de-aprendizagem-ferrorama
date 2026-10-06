@@ -120,11 +120,19 @@ $resultado = $conexao->query($sql);
 
                                     <td>
                                         <?php if (ehAdministrador()) { ?>
+<<<<<<< HEAD
                                             <a href="editar-trem.php?id=<?= $trem["id_trem"] ?>"
                                                 class="btn btn-warning btn-sm">
                                                 <ion-icon name="pencil"></ion-icon>
                                                 Editar
                                             </a>
+=======
+<a href="editar-trem.php?id=<?= $trem["id_trem"] ?>"
+                                            class="btn btn-primary btn-sm">
+                                            <ion-icon name="pencil"></ion-icon>
+                                            Editar
+                                        </a>
+>>>>>>> 8a7ea988163332526cf82682a76af0d78e474381
 
                                             <button type="button"
                                                 class="btn btn-danger btn-sm"

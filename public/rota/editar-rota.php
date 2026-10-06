@@ -25,15 +25,15 @@ $rota = $resultado->fetch_assoc();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome_rota = $_POST["nome_rota"] ?? "";
     $extensao = $_POST["extensao"] ?? "";
-    $tempo_estimado = $_POST["tempo_estimado"] ?? "";
+    $tempo_estimado_minutos = $_POST["tempo_estimado"] ?? "";
 
-    if ($nome_rota == "" || $extensao == "" || $tempo_estimado == "") {
+    if ($nome_rota == "" || $extensao == "" || $tempo_estimado_minutos == "") {
         $mensagem = "Preencha todos os campos.";
     } else {
         $sql = "UPDATE rota SET nome_rota = ?, extensao = ?, tempo_estimado = ? WHERE id_rota = ?";
 
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("siii", $nome_rota, $extensao, $tempo_estimado, $id_rota);
+        $stmt->bind_param("siii", $nome_rota, $extensao, $tempo_estimado_minutos, $id_rota);
 
         if ($stmt->execute()) {
             header("Location: visualizar-rota.php");
