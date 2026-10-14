@@ -1,5 +1,8 @@
 <?php
+
 require_once "../../infra/conexao.php";
+require_once "../../infra/protecao.php";
+verificarAdministrador();
 
 $id_trem = $_GET["id"] ?? "";
 

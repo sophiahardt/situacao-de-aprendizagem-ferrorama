@@ -1,9 +1,7 @@
 <?php
 
 require_once "../../infra/protecao.php";
-
 verificarLogin();
-
 require_once "../../infra/conexao.php";
 
 $sql = "SELECT trem.*,
