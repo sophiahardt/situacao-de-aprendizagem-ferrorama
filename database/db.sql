@@ -6,13 +6,6 @@ id_cargo INT AUTO_INCREMENT PRIMARY KEY,
 nome_cargo VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE trem (
-id_trem INT AUTO_INCREMENT PRIMARY KEY,
-nome_trem VARCHAR(100) NOT NULL, 
-velocidade_maxima DECIMAL(5,2) NOT NULL,
-tipo_trem VARCHAR(45) NOT NULL 
-);
-
 CREATE TABLE rota (
 id_rota INT AUTO_INCREMENT PRIMARY KEY,
 nome_rota VARCHAR(45),
@@ -60,6 +53,15 @@ FOREIGN KEY (id_trem) REFERENCES trem(id_trem),
 FOREIGN KEY (id_rota) REFERENCES rota(id_rota)
 ); 
 
+CREATE TABLE trem (
+id_trem INT AUTO_INCREMENT PRIMARY KEY,
+nome_trem VARCHAR(100) NOT NULL, 
+velocidade_maxima DECIMAL(5,2) NOT NULL,
+tipo_trem VARCHAR(45) NOT NULL,
+id_usuario INT,
+FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
+);
+
 CREATE TABLE leitura_sensor (
 id_leitura INT AUTO_INCREMENT PRIMARY KEY,
 id_sensor INT NOT NULL,
@@ -73,8 +75,6 @@ CREATE TABLE trem_rota (
 id_trem_rota INT AUTO_INCREMENT PRIMARY KEY,
 id_trem INT NOT NULL,
 id_rota INT NOT NULL,
-dt_inicio DATETIME,
-dt_fim DATETIME,
 FOREIGN KEY (id_trem) REFERENCES trem(id_trem),
 FOREIGN KEY (id_rota) REFERENCES rota(id_rota)
 ); 
