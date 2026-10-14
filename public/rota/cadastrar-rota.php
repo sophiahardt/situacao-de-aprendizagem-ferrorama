@@ -9,18 +9,19 @@ require_once "../../infra/conexao.php";
 $mensagem = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nome_rota = $_POST["nome_rota"] ?? "";
+    $nome_rota = trim($_POST["nome_rota"] ?? "");
+    $descricao = trim($_POST["descricao"] ?? "");
     $extensao = $_POST["extensao"] ?? "";
     $tempo_estimado_minutos = $_POST["tempo_estimado_minutos"] ?? "";
 
-    if ($nome_rota == "" || $extensao == "" || $tempo_estimado_minutos == "") {
+    if ($nome_rota == "" || $descricao == "" || $extensao == "" || $tempo_estimado_minutos == "") {
         $mensagem = "Preencha todos os campos.";
     } else {
-        $sql = "INSERT INTO rota (nome_rota, extensao, tempo_estimado_minutos) 
-                VALUES (?, ?, ?)";
+        $sql = "INSERT INTO rota (nome_rota, descricao, extensao, tempo_estimado_minutos) 
+                VALUES (?, ?, ?, ?)";
 
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("sii", $nome_rota, $extensao, $tempo_estimado_minutos);
+        $stmt->bind_param("ssdi", $nome_rota, $descricao, $extensao, $tempo_estimado_minutos);
 
         if ($stmt->execute()) {
             header("Location: visualizar-rota.php");
