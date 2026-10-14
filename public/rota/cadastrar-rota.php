@@ -69,10 +69,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li class="nav-item">
                         <a class="nav-link" href="visualizar-rota.php">Rotas</a>
                     </li>
-                    <?php if (ehAdministrador()) { ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
-                        </li>
+                    <?php if ($mensagem != "") { ?>
+                        <p class="text-center text-danger">
+                            <?= htmlspecialchars($mensagem) ?>
+                        </p>
                     <?php } ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
