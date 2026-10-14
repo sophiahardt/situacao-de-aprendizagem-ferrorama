@@ -11,7 +11,7 @@ $mensagem = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome_rota = $_POST["nome_rota"] ?? "";
     $extensao = $_POST["extensao"] ?? "";
-    $tempo_estimado_minutos = $_POST["tempo_estimado"] ?? "";
+    $tempo_estimado_minutos = $_POST["tempo_estimado_minutos"] ?? "";
 
     if ($nome_rota == "" || $extensao == "" || $tempo_estimado_minutos == "") {
         $mensagem = "Preencha todos os campos.";
