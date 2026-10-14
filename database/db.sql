@@ -8,9 +8,11 @@ nome_cargo VARCHAR(45) NOT NULL
 
 CREATE TABLE rota (
 id_rota INT AUTO_INCREMENT PRIMARY KEY,
-nome_rota VARCHAR(45),
-extensao DECIMAL(8,2),
-tempo_estimado_minutos INT
+nome_rota VARCHAR(45) NOT NULL,
+descricao TEXT NOT NULL,
+extensao DECIMAL(8,2) NOT NULL,
+tempo_estimado_minutos INT NOT NULL,
+data_criacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE relatorio (
@@ -82,3 +84,4 @@ FOREIGN KEY (id_rota) REFERENCES rota(id_rota)
 INSERT INTO cargo (nome_cargo) VALUES 
 ('Administrador'),
 ('Funcionário');
+
