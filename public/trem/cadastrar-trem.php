@@ -5,20 +5,24 @@ verificarAdministrador();
 require_once "../../infra/conexao.php";
 
 $mensagem = "";
+$tipo_mensagem = "";
 $rotas = $conexao->query("SELECT id_rota, nome_rota FROM rota");
+$responsavel = $conexao->query("SELECT id_usuario, nome_usuario FROM usuario");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome_trem = $_POST["nome_trem"] ?? "";
     $velocidade_maxima = $_POST["velocidade_maxima"] ?? "";
     $tipo_trem = $_POST["tipo_trem"] ?? "";
     $id_rota = $_POST["id_rota"] ?? "";
+    $id_usuario = $_POST["id_usuario"] ?? "";
 
-    if ($nome_trem == "" || $velocidade_maxima == "" || $tipo_trem == "" || $id_rota == "") {
+    if ($nome_trem == "" || $velocidade_maxima == "" || $tipo_trem == "" || $id_rota == "" || $id_usuario == "") {
         $mensagem = "Preencha todos os campos.";
+        $tipo_mensagem = "danger";
     } else {
-        $sql = "INSERT INTO trem (nome_trem, velocidade_maxima, tipo_trem) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO trem (nome_trem, velocidade_maxima, tipo_trem, id_usuario) VALUES (?, ?, ?, ?)";
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("sds", $nome_trem, $velocidade_maxima, $tipo_trem);
+        $stmt->bind_param("sdsi", $nome_trem, $velocidade_maxima, $tipo_trem, $id_usuario);
 
         if ($stmt->execute()) {
             $id_trem = $conexao->insert_id;
@@ -30,8 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $mensagem = "Trem cadastrado com sucesso!";
             }
         } else {
-            $mensagem = "Erro ao cadastrar o trem.";
+            $mensagem = "Erro ao vincular o trem à rota.";
         }
+    } else {
+        $mensagem = "Erro ao cadastrar trem.";
     }
 }
 ?>
@@ -113,9 +119,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <hr>
 
                 <?php if ($mensagem != "") { ?>
-                    <p class="text-center text-success">
-                        <?= $mensagem ?>
-                    </p>
+                    <div class="alert alert-<?= $tipo_mensagem ?> text-center">
+                        <?= htmlspecialchars($mensagem) ?>
+                    </div>
                 <?php } ?>
 
                 <form method="POST">
@@ -137,11 +143,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <label class="form-label">Tipo de Trem</label>
                                 <select name="tipo_trem" class="form-select" required>
                                     <option selected disabled value="">Selecione o tipo de trem</option>
-                                    <option value="Passageiro">Passageiro</option>
-                                    <option value="Carga">Carga</option>
-                                    <option value="Expresso">Expresso</option>
+                                    <option value="Passageiro"
+                                        <?= (($_POST["tipo_trem"] ?? "") == "Passageiro") ? "selected" : "" ?>>
+                                        Passageiro
+                                    </option>
+                                    <option value="Carga"
+                                        <?= (($_POST["tipo_trem"] ?? "") == "Carga") ? "selected" : "" ?>>
+                                        Carga
+                                    </option>
+                                    <option value="Expresso"
+                                        <?= (($_POST["tipo_trem"] ?? "") == "Expresso") ? "selected" : "" ?>>
+                                        Expresso
+                                    </option>
                                 </select>
                             </div>
+                        </div>    
 
                             <div class="mb-3">
                                 <label class="form-label">Rota</label>
