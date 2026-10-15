@@ -1,11 +1,10 @@
 <?php
-
 require_once "../../infra/protecao.php";
 verificarAdministrador();
 require_once "../../infra/conexao.php";
 
 $mensagem = "";
-$tipo_mensagem = "";
+
 $rotas = $conexao->query("SELECT id_rota, nome_rota FROM rota");
 $responsavel = $conexao->query("SELECT id_usuario, nome_usuario FROM usuario");
 
@@ -18,7 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($nome_trem == "" || $velocidade_maxima == "" || $tipo_trem == "" || $id_rota == "" || $id_usuario == "") {
         $mensagem = "Preencha todos os campos.";
-        $tipo_mensagem = "danger";
     } else {
         $sql = "INSERT INTO trem (nome_trem, velocidade_maxima, tipo_trem, id_usuario) VALUES (?, ?, ?, ?)";
         $stmt = $conexao->prepare($sql);
@@ -26,18 +24,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stmt->execute()) {
             $id_trem = $conexao->insert_id;
+
             $sql_rota = "INSERT INTO trem_rota (id_trem, id_rota) VALUES (?, ?)";
             $stmt_rota = $conexao->prepare($sql_rota);
             $stmt_rota->bind_param("ii", $id_trem, $id_rota);
 
             if ($stmt_rota->execute()) {
                 $mensagem = "Trem cadastrado com sucesso!";
+            } else {
+                $mensagem = "Erro ao vincular o trem à rota.";
             }
         } else {
-            $mensagem = "Erro ao vincular o trem à rota.";
+            $mensagem = "Erro ao cadastrar trem.";
         }
-    } else {
-        $mensagem = "Erro ao cadastrar trem.";
     }
 }
 ?>
@@ -68,6 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li class="nav-item">
                         <a class="nav-link" href="../tela-geral-home.php">Dashboard</a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="../sensor/visualizar-sensor.php">Sensores</a>
                     </li>
@@ -86,11 +86,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </li>
                     <?php } ?>
 
-
                     <li class="nav-item">
                         <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
                     </li>
                 </ul>
+
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item me-3">
                         <span class="nav-link d-flex align-items-center gap-2">
@@ -98,6 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <?= htmlspecialchars($_SESSION["nome_usuario"] ?? "Usuário") ?>
                         </span>
                     </li>
+
                     <li class="nav-item">
                         <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="../logout.php">
                             <ion-icon name="log-out-outline"></ion-icon>
@@ -113,28 +114,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center mb-3">Cadastrar novo trem</h2>
+
                 <p class="text-center text-muted">
                     Preencha as informações para cadastrar um novo trem no sistema
                 </p>
+
                 <hr>
 
                 <?php if ($mensagem != "") { ?>
-                    <div class="alert alert-<?= $tipo_mensagem ?> text-center">
+                    <p class="text-center text-success">
                         <?= htmlspecialchars($mensagem) ?>
-                    </div>
+                    </p>
                 <?php } ?>
 
                 <form method="POST">
                     <div class="row">
+
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Nome do Trem</label>
-                                <input type="text" name="nome_trem" class="form-control" placeholder="Informe o nome do trem" required>
+                                <input type="text" name="nome_trem" class="form-control"
+                                    placeholder="Informe o nome do trem"
+                                    value="<?= htmlspecialchars($_POST["nome_trem"] ?? "") ?>" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Velocidade Máxima</label>
-                                <input type="text" name="velocidade_maxima" class="form-control" placeholder="Informe a velocidade máxima do trem" required>
+                                <input type="text" name="velocidade_maxima" class="form-control"
+                                    placeholder="Informe a velocidade máxima do trem"
+                                    value="<?= htmlspecialchars($_POST["velocidade_maxima"] ?? "") ?>" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Rota</label>
+                                <select name="id_rota" class="form-select" required>
+                                    <option selected disabled value="">
+                                        Selecione a rota em que o trem opera
+                                    </option>
+
+                                    <?php while ($rota = $rotas->fetch_assoc()) { ?>
+                                        <option value="<?= $rota["id_rota"] ?>"
+                                            <?= (($_POST["id_rota"] ?? "") == $rota["id_rota"]) ? "selected" : "" ?>>
+                                            <?= htmlspecialchars($rota["nome_rota"]) ?>
+                                        </option>
+                                    <?php } ?>
+                                </select>
                             </div>
                         </div>
 
@@ -142,43 +166,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="mb-3">
                                 <label class="form-label">Tipo de Trem</label>
                                 <select name="tipo_trem" class="form-select" required>
-                                    <option selected disabled value="">Selecione o tipo de trem</option>
+                                    <option selected disabled value="">
+                                        Selecione o tipo de trem
+                                    </option>
+
                                     <option value="Passageiro"
                                         <?= (($_POST["tipo_trem"] ?? "") == "Passageiro") ? "selected" : "" ?>>
                                         Passageiro
                                     </option>
+
                                     <option value="Carga"
                                         <?= (($_POST["tipo_trem"] ?? "") == "Carga") ? "selected" : "" ?>>
                                         Carga
                                     </option>
+
                                     <option value="Expresso"
                                         <?= (($_POST["tipo_trem"] ?? "") == "Expresso") ? "selected" : "" ?>>
                                         Expresso
                                     </option>
                                 </select>
                             </div>
-                        </div>    
 
                             <div class="mb-3">
-                                <label class="form-label">Rota</label>
-                                <select name="id_rota" id="id_rota" class="form-select" required>
+                                <label class="form-label">Responsável</label>
+                                <select name="id_usuario" class="form-select" required>
                                     <option selected disabled value="">
-                                        Selecione a rota em que o trem opera
+                                        Selecione o responsável
                                     </option>
 
-                                    <?php while ($rota = $rotas->fetch_assoc()) { ?>
-                                        <option value="<?= $rota['id_rota'] ?>">
-                                            <?= $rota['nome_rota'] ?>
+                                    <?php while ($responsavel = $responsaveis->fetch_assoc()) { ?>
+                                        <option value="<?= $responsavel["id_usuario"] ?>"
+                                            <?= (($_POST["id_usuario"] ?? "") == $responsavel["id_usuario"]) ? "selected" : "" ?>>
+                                            <?= htmlspecialchars($responsavel["nome_usuario"]) ?>
                                         </option>
                                     <?php } ?>
                                 </select>
                             </div>
                         </div>
+
                     </div>
 
-
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="button" class="btn btn-light" onclick="window.location.href='visualizar-trem.php'">
+                        <button type="button" class="btn btn-light"
+                            onclick="window.location.href='visualizar-trem.php'">
                             <ion-icon name="close-outline"></ion-icon>
                             Cancelar
                         </button>
@@ -191,9 +221,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </form>
             </div>
         </div>
+    </div>
 
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
