@@ -25,12 +25,12 @@ $rota = $resultado->fetch_assoc();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome_rota = $_POST["nome_rota"] ?? "";
     $extensao = $_POST["extensao"] ?? "";
-    $tempo_estimado_minutos = $_POST["tempo_estimado"] ?? "";
+    $tempo_estimado_minutos = $_POST["tempo_estimado_minutos"] ?? "";
 
     if ($nome_rota == "" || $extensao == "" || $tempo_estimado_minutos == "") {
         $mensagem = "Preencha todos os campos.";
     } else {
-        $sql = "UPDATE rota SET nome_rota = ?, extensao = ?, tempo_estimado = ? WHERE id_rota = ?";
+        $sql = "UPDATE rota SET nome_rota = ?, extensao = ?, tempo_estimado_minutos = ? WHERE id_rota = ?";
 
         $stmt = $conexao->prepare($sql);
         $stmt->bind_param("siii", $nome_rota, $extensao, $tempo_estimado_minutos, $id_rota);
@@ -145,8 +145,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Tempo estimado (min)</label>
-                                <input type="number" name="tempo_estimado" class="form-control"
-                                    value="<?= htmlspecialchars($rota["tempo_estimado"]) ?>" required>
+                                <input type="number" name="tempo_estimado_minutos" class="form-control"
+                                    value="<?= htmlspecialchars($rota["tempo_estimado_minutos"]) ?>" required>
                             </div>
                         </div>
                     </div>
