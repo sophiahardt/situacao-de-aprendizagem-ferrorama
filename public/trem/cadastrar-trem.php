@@ -29,15 +29,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt_rota = $conexao->prepare($sql_rota);
             $stmt_rota->bind_param("ii", $id_trem, $id_rota);
 
-            if ($stmt_rota->execute()) {
-                $mensagem = "Trem cadastrado com sucesso!";
-            } else {
-                $mensagem = "Erro ao vincular o trem à rota.";
-            }
+            if ($stmt->execute()) {
+            header("Location: visualizar-trem.php");
+            exit;
         } else {
-            $mensagem = "Erro ao cadastrar trem.";
+            $mensagem = "Erro ao cadastrar o trem.";
         }
     }
+}
 }
 ?>
 
@@ -194,10 +193,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         Selecione o responsável
                                     </option>
 
-                                    <?php while ($responsavel = $responsavel->fetch_assoc()) { ?>
-                                        <option value="<?= $responsavel["id_usuario"] ?>"
-                                            <?= (($_POST["id_usuario"] ?? "") == $responsavel["id_usuario"]) ? "selected" : "" ?>>
-                                            <?= htmlspecialchars($responsavel["nome"]) ?>
+                                    <?php while ($usuario = $responsavel->fetch_assoc()) { ?>
+                                        <option value="<?= $usuario["id_usuario"] ?>"
+                                            <?= (($_POST["id_usuario"] ?? "") == $usuario["id_usuario"]) ? "selected" : "" ?>>
+                                            <?= htmlspecialchars($usuario["nome"]) ?>
                                         </option>
                                     <?php } ?>
                                 </select>
@@ -206,7 +205,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     </div>
 
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <div class="d-flex justify-content-end gap-2 mt-4">
                         <button type="button" class="btn btn-light"
                             onclick="window.location.href='visualizar-trem.php'">
                             <ion-icon name="close-outline"></ion-icon>
@@ -227,3 +226,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
+
