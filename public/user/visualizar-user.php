@@ -7,9 +7,13 @@ verificarAdministrador();
 require_once "../../infra/conexao.php";
 
 $mensagem = "";
+$tipoMensagem = "success";
 
 if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
     $mensagem = "Usuário excluído com sucesso!";
+} elseif (isset($_GET["erro"]) && $_GET["erro"] == "trens") {
+    $mensagem = "Não é possível excluir este usuário, pois ele está associado a um ou mais trens.";
+    $tipoMensagem = "danger";
 }
 
 $sql = "SELECT usuario.id_usuario,
@@ -159,7 +163,7 @@ $resultado = $conexao->query($sql);
         </div>
     </div>
     <?php if ($mensagem != "") { ?>
-        <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
+        <div class="alert alert-<?= $tipoMensagem ?> alert-dismissible fade show m-4" role="alert">
             <?= htmlspecialchars($mensagem) ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
