@@ -7,13 +7,13 @@ verificarAdministrador();
 require_once "../../infra/conexao.php";
 
 $mensagem = "";
-$tipoMensagem = "success";
+$tipo_mensagem = "success";
 
 if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
     $mensagem = "Usuário excluído com sucesso!";
 } elseif (isset($_GET["erro"]) && $_GET["erro"] == "trens") {
     $mensagem = "Não é possível excluir este usuário, pois ele está associado a um ou mais trens.";
-    $tipoMensagem = "danger";
+    $tipo_mensagem = "danger";
 }
 
 $sql = "SELECT usuario.id_usuario,
@@ -121,7 +121,7 @@ $resultado = $conexao->query($sql);
                                                 <ion-icon name="pencil"></ion-icon>
                                                 Editar
                                             </a>
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="abrirAviso(<?= $usuario['id_usuario'] ?>)">
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="abrirAviso(<?= $usuario['id_usuario'] ?>, 'excluir-user.php')">
                                                 <ion-icon name="trash"></ion-icon>
                                                 Excluir
                                             </button>
@@ -163,7 +163,7 @@ $resultado = $conexao->query($sql);
         </div>
     </div>
     <?php if ($mensagem != "") { ?>
-        <div class="alert alert-<?= $tipoMensagem ?> alert-dismissible fade show m-4" role="alert">
+        <div class="alert alert-<?= $tipo_mensagem ?> alert-dismissible fade show" role="alert">
             <?= htmlspecialchars($mensagem) ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>

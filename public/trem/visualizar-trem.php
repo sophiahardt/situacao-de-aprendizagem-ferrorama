@@ -4,6 +4,19 @@ require_once "../../infra/protecao.php";
 verificarLogin();
 require_once "../../infra/conexao.php";
 
+$mensagem = "";
+$tipo_mensagem = "success";
+
+if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
+    $mensagem = "Trem excluído com sucesso!";
+} elseif (isset($_GET["erro"]) && $_GET["erro"] == "sensores") {
+    $mensagem = "Não é possível excluir este trem, pois existem sensores associados a ele.";
+    $tipo_mensagem = "danger";
+} elseif (isset($_GET["erro"]) && $_GET["erro"] == "exclusao") {
+    $mensagem = "Não foi possível excluir o trem.";
+    $tipo_mensagem = "danger";
+}
+
 $sql = "SELECT trem.*,
                rota.nome_rota
         FROM trem
@@ -126,7 +139,7 @@ $resultado = $conexao->query($sql);
 
                                             <button type="button"
                                                 class="btn btn-danger btn-sm"
-                                                onclick="abrirAviso(<?= $trem['id_trem'] ?>)">
+                                                onclick="abrirAviso(<?= $trem['id_trem'] ?>, 'excluir-trem.php')">
                                                 <ion-icon name="trash"></ion-icon>
                                                 Excluir
                                             </button>
@@ -164,7 +177,12 @@ $resultado = $conexao->query($sql);
             </div>
         </div>
     </div>
-    
+    <?php if ($mensagem != "") { ?>
+        <div class="alert alert-<?= $tipo_mensagem ?> alert-dismissible fade show" role="alert">
+            <?= htmlspecialchars($mensagem) ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    <?php } ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../script/botoes.js"></script>
