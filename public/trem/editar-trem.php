@@ -156,6 +156,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <label class="form-label"> Velocidade Máxima </label>
                                 <input type="text" name="velocidade_maxima" class="form-control" value="<?= $trem["velocidade_maxima"] ?>" required>
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label">Responsável</label>
+
+                                <select name="id_usuario" class="form-select" required>
+                                    <option value="">Selecione o responsável</option>
+
+                                    <?php while ($usuario = $responsavel->fetch_assoc()) { ?>
+                                        <option value="<?= $usuario["id_usuario"] ?>"
+                                            <?= $usuario["id_usuario"] == $id_usuario_trem ? "selected" : "" ?>>
+                                            <?= htmlspecialchars($usuario["nome"]) ?>
+                                        </option>
+                                    <?php } ?>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
