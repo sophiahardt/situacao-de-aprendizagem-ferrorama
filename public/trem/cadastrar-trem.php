@@ -6,7 +6,7 @@ require_once "../../infra/conexao.php";
 $mensagem = "";
 
 $rotas = $conexao->query("SELECT id_rota, nome_rota FROM rota");
-$responsavel = $conexao->query("SELECT id_usuario, nome_usuario FROM usuario");
+$responsavel = $conexao->query("SELECT id_usuario, nome FROM usuario");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome_trem = $_POST["nome_trem"] ?? "";
@@ -194,10 +194,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         Selecione o responsável
                                     </option>
 
-                                    <?php while ($responsavel = $responsaveis->fetch_assoc()) { ?>
+                                    <?php while ($responsavel = $responsavel->fetch_assoc()) { ?>
                                         <option value="<?= $responsavel["id_usuario"] ?>"
                                             <?= (($_POST["id_usuario"] ?? "") == $responsavel["id_usuario"]) ? "selected" : "" ?>>
-                                            <?= htmlspecialchars($responsavel["nome_usuario"]) ?>
+                                            <?= htmlspecialchars($responsavel["nome"]) ?>
                                         </option>
                                     <?php } ?>
                                 </select>

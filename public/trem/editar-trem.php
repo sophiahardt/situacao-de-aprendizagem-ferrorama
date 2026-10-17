@@ -19,6 +19,7 @@ $stmt->bind_param("i", $id_trem);
 $stmt->execute();
 $resultado = $stmt->get_result();
 $trem = $resultado->fetch_assoc();
+$id_usuario_trem = $trem["id_usuario"] ?? "";
 
 if (!$trem) {
     header("Location: visualizar-trem.php");
@@ -35,19 +36,21 @@ $rota_trem = $resultado->fetch_assoc();
 $id_rota_trem = $rota_trem["id_rota"] ?? "";
 
 $rotas = $conexao->query("SELECT id_rota, nome_rota FROM rota ORDER BY nome_rota");
+$responsavel = $conexao->query("SELECT id_usuario, nome FROM usuario ORDER BY nome");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome_trem = $_POST["nome_trem"] ?? "";
     $velocidade_maxima = $_POST["velocidade_maxima"] ?? "";
     $tipo_trem = $_POST["tipo_trem"] ?? "";
     $id_rota = $_POST["id_rota"] ?? "";
+    $id_usuario = $_POST["id_usuario"] ?? "";
 
-    if ($nome_trem == "" || $velocidade_maxima == "" || $tipo_trem == "" || $id_rota == "") {
+    if ($nome_trem == "" || $velocidade_maxima == "" || $tipo_trem == "" || $id_rota == "" || $id_usuario == "") {
         $mensagem = "Preencha todos os campos.";
     } else {
-        $sql = "UPDATE trem SET nome_trem = ?, velocidade_maxima = ?, tipo_trem = ? WHERE id_trem = ?";
+        $sql = "UPDATE trem SET nome_trem = ?, velocidade_maxima = ?, tipo_trem = ?, id_usuario = ? WHERE id_trem = ?";
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("sdsi", $nome_trem, $velocidade_maxima, $tipo_trem, $id_trem);
+        $stmt->bind_param("sdsii", $nome_trem, $velocidade_maxima, $tipo_trem, $id_usuario, $id_trem);
 
         if ($stmt->execute()) {
             $sql_rota = "UPDATE trem_rota SET id_rota = ? WHERE id_trem = ?";
