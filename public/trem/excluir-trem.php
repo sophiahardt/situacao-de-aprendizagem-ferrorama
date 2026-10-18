@@ -25,13 +25,17 @@ if ($resultado->num_rows > 0) {
 $sql_rota = "DELETE FROM trem_rota WHERE id_trem = ?";
 $stmt_rota = $conexao->prepare($sql_rota);
 $stmt_rota->bind_param("i", $id_trem);
-$stmt_rota->execute();
+
+if (!$stmt_rota->execute()) {
+    header("Location: visualizar-trem.php?erro=exclusao");
+    exit;
+}
 
 $sql = "DELETE FROM trem WHERE id_trem = ?";
 $stmt = $conexao->prepare($sql);
 $stmt->bind_param("i", $id_trem);
 
-if ($stmt->execute()) {
+if ($stmt->execute() && $stmt->affected_rows > 0) {
     header("Location: visualizar-trem.php?sucesso=1");
     exit;
 } else {
