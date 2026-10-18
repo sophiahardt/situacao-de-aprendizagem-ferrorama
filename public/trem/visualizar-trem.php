@@ -15,6 +15,10 @@ if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
 } elseif (isset($_GET["erro"]) && $_GET["erro"] == "exclusao") {
     $mensagem = "Não foi possível excluir o trem.";
     $tipo_mensagem = "danger";
+} elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "cadastrado") {
+    $mensagem = "Trem cadastrado com sucesso!";
+} elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "editado") {
+    $mensagem = "Trem editado com sucesso!";
 }
 
 $sql = "SELECT trem.*,
@@ -121,29 +125,37 @@ $resultado = $conexao->query($sql);
                         </thead>
 
                         <tbody>
-                            <?php while ($trem = $resultado->fetch_assoc()) { ?>
+                            <?php if ($resultado && $resultado->num_rows > 0) { ?>
+                                <?php while ($trem = $resultado->fetch_assoc()) { ?>
+                                    <tr>
+                                        <td><?= $trem["id_trem"] ?></td>
+                                        <td><?= $trem["nome_trem"] ?></td>
+                                        <td><?= $trem["velocidade_maxima"] ?></td>
+                                        <td><?= $trem["tipo_trem"] ?></td>
+                                        <td><?= $trem["nome_rota"] ?></td>
+
+                                        <td>
+                                            <?php if (ehAdministrador()) { ?>
+                                                <a href="editar-trem.php?id=<?= $trem["id_trem"] ?>"
+                                                    class="btn btn-primary btn-sm">
+                                                    <ion-icon name="pencil"></ion-icon>
+                                                    Editar
+                                                </a>
+
+                                                <button type="button"
+                                                    class="btn btn-danger btn-sm"
+                                                    onclick="abrirAviso(<?= $trem['id_trem'] ?>, 'excluir-trem.php')">
+                                                    <ion-icon name="trash"></ion-icon>
+                                                    Excluir
+                                                </button>
+                                            <?php } ?>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            <?php } else { ?>
                                 <tr>
-                                    <td><?= $trem["id_trem"] ?></td>
-                                    <td><?= $trem["nome_trem"] ?></td>
-                                    <td><?= $trem["velocidade_maxima"] ?></td>
-                                    <td><?= $trem["tipo_trem"] ?></td>
-                                    <td><?= $trem["nome_rota"] ?></td>
-
-                                    <td>
-                                        <?php if (ehAdministrador()) { ?>
-                                            <a href="editar-trem.php?id=<?= $trem["id_trem"] ?>"
-                                                class="btn btn-primary btn-sm">
-                                                <ion-icon name="pencil"></ion-icon>
-                                                Editar
-                                            </a>
-
-                                            <button type="button"
-                                                class="btn btn-danger btn-sm"
-                                                onclick="abrirAviso(<?= $trem['id_trem'] ?>, 'excluir-trem.php')">
-                                                <ion-icon name="trash"></ion-icon>
-                                                Excluir
-                                            </button>
-                                        <?php } ?>
+                                    <td colspan="" class="text-center text-muted">
+                                        Nenhum trem cadastrado.
                                     </td>
                                 </tr>
                             <?php } ?>
