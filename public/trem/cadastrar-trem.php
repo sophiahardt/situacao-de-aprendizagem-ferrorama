@@ -30,17 +30,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt_rota->bind_param("ii", $id_trem, $id_rota);
 
             if ($stmt_rota->execute()) {
-                header("Location: visualizar-trem.php");
+                header("Location: visualizar-trem.php?sucesso=cadastrado");
                 exit;
             } else {
-                $mensagem = "Erro ao vincular o trem à rota.";
+                $mensagem = "Erro ao cadastrar a rota do trem.";
             }
-        } else {
-            $mensagem = "Erro ao cadastrar o trem.";
         }
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -166,7 +163,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label class="form-label">Tipo do Trem</label>
+                                <label class="form-label">Tipo de Trem</label>
                                 <select name="tipo_trem" class="form-select" required>
                                     <option selected disabled value="">
                                         Selecione o tipo de trem
@@ -229,4 +226,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
-
