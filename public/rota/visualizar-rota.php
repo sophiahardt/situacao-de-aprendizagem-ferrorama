@@ -2,13 +2,36 @@
 require_once "../../infra/protecao.php";
 verificarLogin();
 require_once "../../infra/conexao.php";
-$sql = "SELECT id_rota, nome_rota, extensao, tempo_estimado_minutos
-        FROM rota
-        ORDER BY id_rota ASC";
+
+
+$mensagem = "";
+$tipo_mensagem = "success";
+
+
+if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
+    $mensagem = "Rota excluída com sucesso!";
+} elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "editada") {
+    $mensagem = "Rota editada com sucesso!";
+} elseif (isset($_GET["erro"]) && $_GET["erro"] == "trens") {
+    $mensagem = "Não é possível excluir esta rota, pois existem trens associados a ela.";
+    $tipo_mensagem = "danger";
+} elseif (isset($_GET["erro"]) && $_GET["erro"] == "sensores") {
+    $mensagem = "Não é possível excluir esta rota, pois existem sensores associados a ela.";
+    $tipo_mensagem = "danger";
+} elseif (isset($_GET["erro"]) && $_GET["erro"] == "exclusao") {
+    $mensagem = "Não foi possível excluir a rota.";
+    $tipo_mensagem = "danger";
+}
+
+
+$sql = "SELECT * FROM rota ORDER BY id_rota";
 $resultado = $conexao->query($sql);
 ?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 
 <head>
     <meta charset="UTF-8">
@@ -19,6 +42,7 @@ $resultado = $conexao->query($sql);
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="../../style/style.css">
 </head>
+
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
@@ -42,11 +66,14 @@ $resultado = $conexao->query($sql);
                         <a class="nav-link active" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
 
+
                     <?php if (ehAdministrador()) { ?>
                         <li class="nav-item">
                             <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
                         </li>
                     <?php } ?>
+
+
 
 
                     <li class="nav-item">
@@ -92,6 +119,7 @@ $resultado = $conexao->query($sql);
                             <tr>
                                 <th>ID</th>
                                 <th>Nome</th>
+                                <th>Descrição</th>
                                 <th>Extensão</th>
                                 <th>Tempo estimado</th>
                                 <th>Ações</th>
@@ -101,35 +129,32 @@ $resultado = $conexao->query($sql);
                             <?php if ($resultado && $resultado->num_rows > 0) { ?>
                                 <?php while ($rota = $resultado->fetch_assoc()) { ?>
                                     <tr>
-                                        <td>
-                                            RTA-<?= str_pad($rota["id_rota"], 3, "0", STR_PAD_LEFT) ?>
-                                        </td>
-                                        <td>
-                                            <?= htmlspecialchars($rota["nome_rota"]) ?>
-                                        </td>
-                                        <td>
-                                            <?= htmlspecialchars($rota["extensao"]) ?> Km
-                                        </td>
-                                        <td>
-                                            <?= htmlspecialchars($rota["tempo_estimado_minutos"]) ?> min
-                                        </td>
+                                        <td><?= htmlspecialchars((string) $rota["id_rota"]) ?></td>
+                                        <td><?= htmlspecialchars($rota["nome_rota"]) ?></td>
+                                        <td><?= htmlspecialchars($rota["descricao"]) ?></td>
+                                        <td><?= htmlspecialchars((string) $rota["extensao"]) ?> Km</td>
+                                        <td><?= htmlspecialchars((string) $rota["tempo_estimado_minutos"]) ?> min</td>
                                         <td>
                                             <?php if (ehAdministrador()) { ?>
-                                            <a href="editar-rota.php?id=<?= $rota["id_rota"] ?>"
-                                                class="btn btn-primary btn-sm">
-                                                <ion-icon name="pencil"></ion-icon>
-                                                Editar
-                                            </a>
-                                            <button type="button"
-                                                class="btn btn-danger btn-sm"
-                                                onclick="abrirAviso(<?= $rota['id_rota'] ?>)">
-                                                <ion-icon name="trash"></ion-icon>
-                                                Excluir
-                                            </button>
+                                                <a href="editar-rota.php?id=<?= $rota["id_rota"] ?>"
+                                                    class="btn btn-primary btn-sm">
+                                                    <ion-icon name="pencil"></ion-icon>
+                                                    Editar
+                                                </a>
+                                                <button type="button"
+                                                    class="btn btn-danger btn-sm"
+                                                    onclick="abrirAviso(<?= $rota['id_rota'] ?>, 'excluir-rota.php')">
+                                                    <ion-icon name="trash"></ion-icon>
+                                                    Excluir
+                                                </button>
                                             <?php } ?>
                                         </td>
                                     </tr>
                                 <?php } ?>
+                            <?php } else { ?>
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted">Nenhuma rota cadastrada.</td>
+                                </tr>
                             <?php } ?>
                         </tbody>
                     </table>
@@ -160,8 +185,20 @@ $resultado = $conexao->query($sql);
             </div>
         </div>
     </div>
-    <!-- fazer código em java script para abrir o aviso -->
+
+
+    <?php if ($mensagem != "") { ?>
+        <div class="alert alert-<?= $tipo_mensagem ?> alert-dismissible fade show" role="alert">
+            <?= htmlspecialchars($mensagem) ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                aria-label="Fechar"></button>
+        </div>
+    <?php } ?>
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../script/botoes.js"></script>
 </body>
+
 
 </html>
