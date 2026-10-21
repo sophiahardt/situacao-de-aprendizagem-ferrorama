@@ -1,12 +1,18 @@
 <?php
 
+
 require_once "../../infra/protecao.php";
+
 
 verificarAdministrador();
 
+
 require_once "../../infra/conexao.php";
 
+
 $mensagem = "";
+$tipo_mensagem = "danger";
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome_rota = trim($_POST["nome_rota"] ?? "");
@@ -14,14 +20,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $extensao = $_POST["extensao"] ?? "";
     $tempo_estimado_minutos = $_POST["tempo_estimado_minutos"] ?? "";
 
+
     if ($nome_rota == "" || $descricao == "" || $extensao == "" || $tempo_estimado_minutos == "") {
         $mensagem = "Preencha todos os campos.";
     } else {
-        $sql = "INSERT INTO rota (nome_rota, descricao, extensao, tempo_estimado_minutos) 
+        $sql = "INSERT INTO rota (nome_rota, descricao, extensao, tempo_estimado_minutos)
                 VALUES (?, ?, ?, ?)";
+
 
         $stmt = $conexao->prepare($sql);
         $stmt->bind_param("ssdi", $nome_rota, $descricao, $extensao, $tempo_estimado_minutos);
+
 
         if ($stmt->execute()) {
             header("Location: visualizar-rota.php");
@@ -33,8 +42,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 
 <head>
     <meta charset="UTF-8">
@@ -46,7 +57,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../../style/style.css">
 </head>
 
+
 <body>
+
 
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
         <div class="container-fluid">
@@ -54,6 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
@@ -69,15 +83,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li class="nav-item">
                         <a class="nav-link" href="visualizar-rota.php">Rotas</a>
                     </li>
-                    <?php if ($mensagem != "") { ?>
-                        <p class="text-center text-danger">
-                            <?= htmlspecialchars($mensagem) ?>
-                        </p>
+                    <?php if (ehAdministrador()) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
+                        </li>
                     <?php } ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
                     </li>
                 </ul>
+
 
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item me-3">
@@ -97,22 +112,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </nav>
 
+
     <div class="container mt-5">
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center mb-3">Cadastrar nova rota</h2>
 
+
                 <p class="text-center text-muted">
                     Preencha as informações para cadastrar uma nova rota no sistema
                 </p>
 
+
                 <hr>
+
 
                 <?php if ($mensagem != "") { ?>
                     <p class="text-center text-success">
                         <?= $mensagem ?>
                     </p>
                 <?php } ?>
+
 
                 <form method="POST">
                     <div class="row">
@@ -124,12 +144,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     value="<?= htmlspecialchars($_POST['nome_rota'] ?? '') ?>" required>
                             </div>
 
+
                             <div class="mb-3">
                                 <label class="form-label">Extensão (Km)</label>
                                 <input type="number" name="extensao" class="form-control"
                                     placeholder="Ex: 45.50" step="0.01" min="0"
                                     value="<?= htmlspecialchars($_POST['extensao'] ?? '') ?>" required>
                             </div>
+
 
                             <div class="mb-3">
                                 <label class="form-label">Tempo estimado (Min)</label>
@@ -138,6 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     value="<?= htmlspecialchars($_POST['tempo_estimado_minutos'] ?? '') ?>" required>
                             </div>
                         </div>
+
 
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -149,12 +172,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                     </div>
 
+
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button type="button" class="btn btn-light"
                             onclick="window.location.href='visualizar-rota.php'">
                             <ion-icon name="close-outline"></ion-icon>
                             Cancelar
                         </button>
+
 
                         <button type="submit" class="btn btn-primary">
                             <ion-icon name="save-outline"></ion-icon>
@@ -166,9 +191,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../script/validacao.js"></script>
 
+
 </body>
+
 
 </html>
