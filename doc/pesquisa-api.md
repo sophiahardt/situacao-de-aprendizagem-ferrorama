@@ -416,6 +416,60 @@ if (is_null($resultado)) {
 > **Observação:** `file_get_contents` com URLs depende da diretiva `allow_url_fopen` estar habilitada no `php.ini`. Em aplicações maiores, é comum usar cURL ou bibliotecas como Guzzle.
 
 ---
+# Disponibilização de informações, segurança e uso empresarial de APIs
+
+
+## 1. Como uma API pode disponibilizar informações para outros sistemas
+
+
+As APIs (*Application Programming Interfaces*) disponibilizam informações a outros sistemas por meio de uma **comunicação padronizada** entre aplicações, usando o modelo de **requisição e resposta**. As APIs baseadas na Web funcionam como uma ponte entre cliente e servidor, utilizando protocolos como o **HTTP**. Assim, sistemas diferentes interagem e compartilham dados pela internet, independentemente das tecnologias usadas em cada extremidade.
+
+
+### Etapas do funcionamento
+
+
+1. **O cliente (quem solicita):** a aplicação que precisa obter informações ou executar uma ação, como um aplicativo de celular ou um site.
+2. **O endpoint (o endereço):** o ponto específico de acesso à API para uma determinada operação. Por exemplo:
+   - `GET /tasks` consulta tarefas;
+   - `POST /tasks` adiciona uma nova tarefa.
+3. **O servidor (quem responde):** aguarda as requisições; ao recebê-las, verifica os dados e as permissões de acesso, processa o pedido e executa as operações necessárias.
+4. **A resposta:** o servidor devolve os dados em um formato padronizado, geralmente **JSON** (outros formatos, como **XML**, também podem ser usados).
+5. **O processamento pelo cliente:** o sistema que fez a solicitação usa as informações recebidas, por exemplo, exibindo dados em uma página ou atualizando um aplicativo.
+
+
+```text
+Cliente ──(requisição HTTP: GET /tasks)──► Endpoint (API/Servidor)
+   ▲                                              │
+   │                                    valida, verifica permissões
+   │                                    e processa o pedido
+   └────────(resposta em JSON/XML)◄───────────────┘
+```
+
+
+Dessa forma, as APIs permitem o compartilhamento de informações de maneira **automatizada, organizada e segura**, sem que seja necessário conhecer os detalhes internos do sistema que fornece os dados.
+
+
+### Exemplo prático: aplicativo de previsão do tempo
+
+
+O aplicativo envia uma requisição HTTP a uma API pedindo informações sobre uma cidade. O servidor processa o pedido e retorna dados como temperatura e condições climáticas, normalmente em JSON. O aplicativo interpreta essas informações e as apresenta ao usuário.
+
+
+```http
+GET /clima?cidade=Joinville HTTP/1.1
+Host: api.exemplo.com
+Accept: application/json
+```
+
+
+```json
+{
+  "cidade": "Joinville",
+  "temperatura": 22,
+  "condicao": "Parcialmente nublado"
+}
+```
+
 
 
 ## Referências
