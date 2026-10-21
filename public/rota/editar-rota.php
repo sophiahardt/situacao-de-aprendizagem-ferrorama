@@ -1,52 +1,103 @@
 <?php
 
+
 require_once "../../infra/protecao.php";
-
 verificarAdministrador();
-
 require_once "../../infra/conexao.php";
 
-$mensagem = "";
 
+$mensagem = "";
+$tipo_mensagem = "danger";
 $id_rota = $_GET["id"] ?? "";
+
 
 if ($id_rota == "") {
     header("Location: visualizar-rota.php");
     exit;
 }
 
-$sql_busca = "SELECT * FROM rota WHERE id_rota = ?";
-$stmt_busca = $conexao->prepare($sql_busca);
-$stmt_busca->bind_param("i", $id_rota);
-$stmt_busca->execute();
-$resultado = $stmt_busca->get_result();
+
+$sql = "SELECT * FROM rota WHERE id_rota = ?";
+
+
+$stmt = $conexao->prepare($sql);
+$stmt->bind_param("i", $id_rota);
+$stmt->execute();
+$resultado = $stmt->get_result();
 $rota = $resultado->fetch_assoc();
 
+
+if (!$rota) {
+    header("Location: visualizar-rota.php");
+    exit;
+}
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nome_rota = $_POST["nome_rota"] ?? "";
+    $nome_rota = trim($_POST["nome_rota"] ?? "");
+    $descricao = trim($_POST["descricao"] ?? "");
     $extensao = $_POST["extensao"] ?? "";
     $tempo_estimado_minutos = $_POST["tempo_estimado_minutos"] ?? "";
 
-    if ($nome_rota == "" || $extensao == "" || $tempo_estimado_minutos == "") {
+
+    if (
+        $nome_rota == "" ||
+        $descricao == "" ||
+        $extensao == "" ||
+        $tempo_estimado_minutos == ""
+    ) {
         $mensagem = "Preencha todos os campos.";
+    } elseif (
+        !is_numeric($extensao) ||
+        (float) $extensao <= 0 ||
+        !filter_var($tempo_estimado_minutos, FILTER_VALIDATE_INT) ||
+        (int) $tempo_estimado_minutos <= 0
+    ) {
+        $mensagem = "Informe uma extensão e um tempo estimado válidos.";
     } else {
-        $sql = "UPDATE rota SET nome_rota = ?, extensao = ?, tempo_estimado_minutos = ? WHERE id_rota = ?";
+        $extensao = (float) $extensao;
+        $tempo_estimado_minutos = (int) $tempo_estimado_minutos;
+
+
+        $sql = "UPDATE rota
+                SET nome_rota = ?, descricao = ?, extensao = ?, tempo_estimado_minutos = ?
+                WHERE id_rota = ?";
+
 
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("siii", $nome_rota, $extensao, $tempo_estimado_minutos, $id_rota);
+        $stmt->bind_param(
+            "ssdii",
+            $nome_rota,
+            $descricao,
+            $extensao,
+            $tempo_estimado_minutos,
+            $id_rota
+        );
+
 
         if ($stmt->execute()) {
-            header("Location: visualizar-rota.php");
+            header("Location: visualizar-rota.php?sucesso=editada");
             exit;
         } else {
             $mensagem = "Erro ao editar a rota.";
         }
+
+
+        $stmt->close();
     }
+
+
+    $rota["nome_rota"] = $nome_rota;
+    $rota["descricao"] = $descricao;
+    $rota["extensao"] = $extensao;
+    $rota["tempo_estimado_minutos"] = $tempo_estimado_minutos;
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 
 <head>
     <meta charset="UTF-8">
@@ -58,7 +109,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../../style/style.css">
 </head>
 
+
 <body>
+
 
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
         <div class="container-fluid">
@@ -66,6 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
@@ -91,6 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </li>
                 </ul>
 
+
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item me-3">
                         <span class="nav-link d-flex align-items-center gap-2">
@@ -109,58 +164,76 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <div class="card">
-            <div class="card-body">
-                <h2 class="mb-3">Editar Rota</h2>
 
-                <p class="text-muted">
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="text-center mb-3">Editar Rota</h2>
+
+
+                <p class="text-center text-muted">
                     Altere as informações da rota cadastrada no sistema.
                 </p>
 
+
                 <hr>
 
+
                 <?php if ($mensagem != "") { ?>
-                    <p class="text-center text-success">
-                        <?= $mensagem ?>
-                    </p>
+                    <div class="alert alert-<?= $tipo_mensagem ?> alert-dismissible fade show" role="alert">
+                        <?= htmlspecialchars($mensagem) ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
                 <?php } ?>
 
-                <form method="POST">
-                    <div class="mb-3">
-                        <label class="form-label">Nome</label>
-                        <input type="text" name="nome_rota" class="form-control"
-                            value="<?= htmlspecialchars($rota["nome_rota"]) ?>" required>
-                    </div>
 
+                <form method="POST">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label class="form-label">Extensão (km)</label>
+                                <label class="form-label">Nome da Rota</label>
+                                <input type="text" name="nome_rota" class="form-control"
+                                    value="<?= htmlspecialchars($rota['nome_rota']) ?>" required>
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label class="form-label">Extensão (Km)</label>
                                 <input type="number" name="extensao" class="form-control"
-                                    value="<?= htmlspecialchars($rota["extensao"]) ?>" required>
+                                    step="0.01" min="0.01"
+                                    value="<?= htmlspecialchars($rota['extensao']) ?>" required>
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label class="form-label">Tempo estimado (Min)</label>
+                                <input type="number" name="tempo_estimado_minutos" class="form-control"
+                                    min="1"
+                                    value="<?= htmlspecialchars($rota['tempo_estimado_minutos']) ?>" required>
                             </div>
                         </div>
 
+
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label class="form-label">Tempo estimado (min)</label>
-                                <input type="number" name="tempo_estimado_minutos" class="form-control"
-                                    value="<?= htmlspecialchars($rota["tempo_estimado_minutos"]) ?>" required>
+                                <label class="form-label">Descrição</label>
+                                <textarea name="descricao" class="form-control" rows="6"
+                                    required><?= htmlspecialchars($rota['descricao']) ?></textarea>
                             </div>
                         </div>
                     </div>
 
+
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="button" class="btn btn-light"
-                            onclick="window.location.href='visualizar-rota.php'">
+                        <button type="button" class="btn btn-light" onclick="window.location.href='visualizar-rota.php'">
                             <ion-icon name="close-outline"></ion-icon>
                             Cancelar
                         </button>
 
+
                         <button type="submit" class="btn btn-primary">
                             <ion-icon name="save-outline"></ion-icon>
-                            Salvar
+                            Salvar alterações
                         </button>
                     </div>
                 </form>
@@ -168,9 +241,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../script/validacao.js"></script>
 
+
 </body>
+
 
 </html>
