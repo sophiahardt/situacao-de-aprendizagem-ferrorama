@@ -262,6 +262,104 @@ Em **APIs REST**, os endpoints são acessados por meio dos métodos HTTP (`GET`,
 Dessa forma, os endpoints permitem que aplicações **encontrem e acessem** os recursos e funcionalidades disponibilizados por uma API.
 ---
 
+## Como funciona a troca de dados no formato JSON
+
+JSON (JavaScript Object Notation) é um formato de texto baseado na notação de objetos do JavaScript que serve para armazenar e transportar dados entre servidores e apps para a web. Ele funciona como um tradutor universal de dados, sua sintaxe simples permite que humanos leiam as informações facilmente, enquanto máquinas as processam com alta eficiência e baixo consumo de recursos.
+
+**Estrutura:** 
+
+O JSON estrutura dados como texto legível, facilitando o intercâmbio de informações entre sistemas. Ele usa objetos delimitados por chaves ({}) para pares chave-valor e colchetes ([]) para listas ordenadas de valores.
+A sintaxe exige aspas duplas (“”) em chaves e strings, proibindo comentários ou vírgulas remanescentes ao final de coleções. Essa padronização rigorosa garante que os dados sejam interpretados corretamente por diferentes linguagens de programação.
+
+**Fluxo de troca de dados:**
+
+* Serialização (Stringify): A aplicação de origem (no back-end ou front-end) pega um objeto nativo da sua linguagem de programação e o converte (stringify) em uma string de texto formatada em JSON 
+* Transmissão: Essa string de texto é enviada pela rede (geralmente através de requisições HTTP em APIs RESTful ou AJAX). 
+* Desserialização (Parse): O sistema de destino recebe essa string de texto pura e a converte (parse) em um objeto ou estrutura de dados manipulável pela sua própria linguagem (seja JavaScript, Python, Java, PHP, Go, etc.) 
+
+```php
+{   
+
+"nome": "João Silva",
+
+"idade": 30,  
+ 
+"ativo": true,   
+
+"endereco": {     
+
+  "cidade": "São Paulo",  
+   
+  "cep": "01001-000"   },   
+
+"interesses": ["tecnologia", "segurança digital"]
+
+} 
+```
+
+## API e Sistema Web Tradicional
+
+**API e serviço da Web servem como meio de comunicação.**
+
+Um serviço web é uma API projetada para se comunicar pela web usando HTTP ou HTTPS (protocolos de comunicação). Já uma API (interface de programação de aplicativos) define como diferentes componentes de software interagem. As APIs podem usar vários protocolos, formatos de dados e arquiteturas. 
+
+O sistema web tradicional é desenvolvido principalmente para a interação com seres humanos, ele entrega a página pronta e renderizada para o navegador exibir ao usuário. Enquanto a API é uma interface que permite a comunicação entre softwares, ele entrega apenas dados brutos (como uma lista de produtos ou o saldo de uma conta), deixando que a aplicação que fez o pedido decida como mostrar aquilo na tela.
+
+Todos os serviços da web são APIs, mas nem todas as APIs são serviços da web. 
+
+Resumindo, uma API é uma interface que permite a comunicação entre componentes de software. Um serviço web é um tipo de serviço disponibilizado por meio de uma rede, normalmente usando tecnologias e protocolos da web. 
+
+
+## Aplicação PHP para consumir uma API
+
+Uma aplicação PHP pode consumir uma API enviando requisições HTTP, como o método GET para obter dados de outro sistema. Usando por exemplo a API ViaCEP (permite consultar códigos de endereçamento postal), o PHP envia um CEP, recebe os dados do endereço em formato JSON e utiliza essas informações na aplicação. 
+
+Para organizar o código, pode-se criar uma classe, como Search.php, responsável pela comunicação com a API, e um arquivo index.php para instanciar essa classe e chamar seu método, exibindo o endereço retornado ao usuário. 
+
+```php
+<?php
+
+namespace Jdev\Cepdigital;
+class Search
+{
+    private $url = "https://viacep.com.br/ws/";
+
+    public function getAddressFromZipcode(string $zipCode)
+    {
+        $zipCode = preg_replace('/[^0-9]/im', '', $zipCode);
+
+        $get = file_get_contents(this->url . $zipCode . "/json");
+
+        $get = json_decode(get, true);
+
+        return isset($get['cep']) ? $get : null;
+    }
+}
+```
+
+Na linha 3 estamos definindo o namespace, na linha 4 estamos definindo o nome da classe; na 6 estamos definindo qual o endpoint, ou seja, para onde vamos enviar nossa requisição.
+Na linha 12 usamos a função do php file_get_contents para enviar a requisição, e por fim na linha 16 tratamos o caso da resposta seja nulo usando o operador ternário.
+
+```php
+<?php
+//require __DIR__.'/vendor/autoload.php';
+require_once 'src/Search.php';
+use Jdev\Cepdigital\Search;
+
+$busca = new Search;
+
+$resultado = $busca -> getAddressFromZipcode(‘06230060’); 
+
+if(is_null(resultado))
+{
+    echo "O CEP não foi encontrado.";
+}
+print_r($resultado);
+```
+
+Aqui chamamos a classe Search na linha 3; depois na linha 6 instanciamos um novo objeto dessa classe Search. Na linha 8 acessamos o método getAddressFromZipcode, passando o cep como valor. 
+---
+
 ## Referências
 
 1. **MDN Web Docs.** *API* (Glossário). Disponível em: <https://developer.mozilla.org/pt-BR/docs/Glossary/API>. Acesso em: 21 out. 2026.
