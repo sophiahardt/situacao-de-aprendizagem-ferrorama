@@ -10,6 +10,8 @@ $tipo_mensagem = "success";
 
 if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
     $mensagem = "Rota excluída com sucesso!";
+} elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "cadastrada") {
+    $mensagem = "Rota cadastrada com sucesso!";
 } elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "editada") {
     $mensagem = "Rota editada com sucesso!";
 } elseif (isset($_GET["erro"]) && $_GET["erro"] == "trens") {
