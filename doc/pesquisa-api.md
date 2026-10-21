@@ -511,6 +511,45 @@ Essas medidas ajudam a evitar acessos indevidos, vazamentos de informações e o
 
 ---
 
+## 3. Exemplos de utilização de APIs em sistemas empresariais
+
+
+### 3.1 API de voz
+
+
+Integrada à Inteligência Artificial (IA), permite automatizar chamadas telefônicas, interações por voz e parte das demandas de atendimento ao cliente. A tecnologia interpreta solicitações, reconhece a fala e gera respostas automatizadas, tornando a comunicação mais ágil e escalável.
+
+
+### 3.2 API para SMS
+
+
+Conecta os sistemas internos da empresa às plataformas de envio de mensagens, permitindo automatizar disparos, personalizar comunicações e enviar milhares de mensagens simultaneamente. Isso dá mais agilidade às campanhas (ofertas, novidades, relacionamento) e reduz o trabalho manual da equipe.
+
+
+### 3.3 API para Instagram
+
+
+Permite integrar o Instagram a CRMs, plataformas de marketing e ferramentas de atendimento, centralizando informações e otimizando processos. Possibilita automatizar tarefas, facilitar o gerenciamento de interações e integrar dados às estratégias comerciais.
+
+
+### 3.4 API para WhatsApp
+
+
+Integra as conversas a plataformas de atendimento, CRMs e sistemas comerciais, financeiros ou de marketing. Permite automatizar notificações, confirmações, atualizações de pedidos e etapas do atendimento, além de registrar as interações nos sistemas da empresa.
+
+
+### Resumo
+
+
+| API | Principal uso empresarial | Benefício |
+|---|---|---|
+| Voz (com IA) | Automatizar chamadas e atendimento | Agilidade e escalabilidade |
+| SMS | Campanhas e comunicados em massa | Produtividade e conversão |
+| Instagram | Integração com CRM, marketing e atendimento | Centralização de dados e alcance |
+| WhatsApp | Notificações, confirmações e atendimento | Processos ágeis e informações organizadas |
+
+---
+
 ## Referências
 
 1. **MDN Web Docs.** *API* (Glossário). Disponível em: <https://developer.mozilla.org/pt-BR/docs/Glossary/API>. Acesso em: 21 out. 2026.
