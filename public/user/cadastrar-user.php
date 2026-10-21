@@ -24,14 +24,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $conexao->prepare($sql);
         $stmt->bind_param("issss", $id_cargo, $nome, $email, $telefone, $senha_hash);
         if ($stmt->execute()) {
-            $mensagem = "Usuário cadastrado com sucesso!";
-            $tipo_mensagem = "success";
+            header("Location: visualizar-user.php?sucesso=cadastrado");
+            exit;
         } else {
-            if ($conexao->errno == 1062) {
+            if ($stmt->errno == 1062) {
                 $mensagem = "Este e-mail já está cadastrado.";
             } else {
                 $mensagem = "Erro ao cadastrar o usuário.";
             }
+
             $tipo_mensagem = "danger";
         }
     }

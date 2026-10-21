@@ -11,8 +11,15 @@ $tipo_mensagem = "success";
 
 if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
     $mensagem = "Usuário excluído com sucesso!";
+} elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "cadastrado") {
+    $mensagem = "Usuário cadastrado com sucesso!";
+} elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "editado") {
+    $mensagem = "Usuário editado com sucesso!";
 } elseif (isset($_GET["erro"]) && $_GET["erro"] == "trens") {
     $mensagem = "Não é possível excluir este usuário, pois ele está associado a um ou mais trens.";
+    $tipo_mensagem = "danger";
+} elseif (isset($_GET["erro"]) && $_GET["erro"] == "exclusao") {
+    $mensagem = "Erro ao excluir o usuário.";
     $tipo_mensagem = "danger";
 }
 
