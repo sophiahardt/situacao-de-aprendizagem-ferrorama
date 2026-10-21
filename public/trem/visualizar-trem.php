@@ -4,6 +4,23 @@ require_once "../../infra/protecao.php";
 verificarLogin();
 require_once "../../infra/conexao.php";
 
+$mensagem = "";
+$tipo_mensagem = "success";
+
+if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
+    $mensagem = "Trem excluído com sucesso!";
+} elseif (isset($_GET["erro"]) && $_GET["erro"] == "sensores") {
+    $mensagem = "Não é possível excluir este trem, pois existem sensores associados a ele.";
+    $tipo_mensagem = "danger";
+} elseif (isset($_GET["erro"]) && $_GET["erro"] == "exclusao") {
+    $mensagem = "Não foi possível excluir o trem.";
+    $tipo_mensagem = "danger";
+} elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "cadastrado") {
+    $mensagem = "Trem cadastrado com sucesso!";
+} elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "editado") {
+    $mensagem = "Trem editado com sucesso!";
+}
+
 $sql = "SELECT trem.*,
                rota.nome_rota
         FROM trem
@@ -108,29 +125,37 @@ $resultado = $conexao->query($sql);
                         </thead>
 
                         <tbody>
-                            <?php while ($trem = $resultado->fetch_assoc()) { ?>
+                            <?php if ($resultado && $resultado->num_rows > 0) { ?>
+                                <?php while ($trem = $resultado->fetch_assoc()) { ?>
+                                    <tr>
+                                        <td><?= $trem["id_trem"] ?></td>
+                                        <td><?= $trem["nome_trem"] ?></td>
+                                        <td><?= $trem["velocidade_maxima"] ?></td>
+                                        <td><?= $trem["tipo_trem"] ?></td>
+                                        <td><?= $trem["nome_rota"] ?></td>
+
+                                        <td>
+                                            <?php if (ehAdministrador()) { ?>
+                                                <a href="editar-trem.php?id=<?= $trem["id_trem"] ?>"
+                                                    class="btn btn-primary btn-sm">
+                                                    <ion-icon name="pencil"></ion-icon>
+                                                    Editar
+                                                </a>
+
+                                                <button type="button"
+                                                    class="btn btn-danger btn-sm"
+                                                    onclick="abrirAviso(<?= $trem['id_trem'] ?>, 'excluir-trem.php')">
+                                                    <ion-icon name="trash"></ion-icon>
+                                                    Excluir
+                                                </button>
+                                            <?php } ?>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            <?php } else { ?>
                                 <tr>
-                                    <td><?= $trem["id_trem"] ?></td>
-                                    <td><?= $trem["nome_trem"] ?></td>
-                                    <td><?= $trem["velocidade_maxima"] ?></td>
-                                    <td><?= $trem["tipo_trem"] ?></td>
-                                    <td><?= $trem["nome_rota"] ?></td>
-
-                                    <td>
-                                        <?php if (ehAdministrador()) { ?>
-                                            <a href="editar-trem.php?id=<?= $trem["id_trem"] ?>"
-                                                class="btn btn-warning btn-sm">
-                                                <ion-icon name="pencil"></ion-icon>
-                                                Editar
-                                            </a>
-
-                                            <button type="button"
-                                                class="btn btn-danger btn-sm"
-                                                onclick="abrirAviso(<?= $trem['id_trem'] ?>)">
-                                                <ion-icon name="trash"></ion-icon>
-                                                Excluir
-                                            </button>
-                                        <?php } ?>
+                                    <td colspan="" class="text-center text-muted">
+                                        Nenhum trem cadastrado.
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -164,9 +189,15 @@ $resultado = $conexao->query($sql);
             </div>
         </div>
     </div>
+    <?php if ($mensagem != "") { ?>
+        <div class="alert alert-<?= $tipo_mensagem ?> alert-dismissible fade show" role="alert">
+            <?= htmlspecialchars($mensagem) ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    <?php } ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="../../script/botoes.js"></script>
 </body>
 
 </html>

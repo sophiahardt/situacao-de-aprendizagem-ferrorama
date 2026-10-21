@@ -282,34 +282,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-
 </html>
-
-public/sensor/excluir-sensor.php
-
-<?php
-
-require_once "../../infra/protecao.php";
-
-verificarAdministrador();
-
-require_once "../../infra/conexao.php";
-
-$id_sensor = $_GET["id"] ?? "";
-
-if ($id_sensor == "") {
-    header("Location: visualizar-sensor.php");
-    exit;
-}
-
-$sql = "DELETE FROM sensor WHERE id_sensor = ?";
-$stmt = $conexao->prepare($sql);
-$stmt->bind_param("i", $id_sensor);
-
-if ($stmt->execute()) {
-    header("Location: visualizar-sensor.php");
-    exit;
-} else {
-    echo "Erro ao excluir sensor.";
-}
-?>

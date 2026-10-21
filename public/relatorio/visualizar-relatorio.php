@@ -43,7 +43,7 @@ $resultado = $conexao->query($sql);
                     <li class="nav-item">
                         <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
-                    <<?php if (ehAdministrador()) { ?>
+                    <?php if (ehAdministrador()) { ?>
                         <li class="nav-item">
                         <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
                         </li>

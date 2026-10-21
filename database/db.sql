@@ -40,6 +40,15 @@ dt_acesso DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
 
+CREATE TABLE trem (
+id_trem INT AUTO_INCREMENT PRIMARY KEY,
+nome_trem VARCHAR(100) NOT NULL, 
+velocidade_maxima DECIMAL(5,2) NOT NULL,
+tipo_trem VARCHAR(45) NOT NULL,
+id_usuario INT,
+FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
+);
+
 CREATE TABLE sensor (
 id_sensor INT AUTO_INCREMENT PRIMARY KEY,
 nome_sensor VARCHAR(45) NOT NULL,
@@ -55,14 +64,6 @@ FOREIGN KEY (id_trem) REFERENCES trem(id_trem),
 FOREIGN KEY (id_rota) REFERENCES rota(id_rota)
 ); 
 
-CREATE TABLE trem (
-id_trem INT AUTO_INCREMENT PRIMARY KEY,
-nome_trem VARCHAR(100) NOT NULL, 
-velocidade_maxima DECIMAL(5,2) NOT NULL,
-tipo_trem VARCHAR(45) NOT NULL,
-id_usuario INT,
-FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
-);
 
 CREATE TABLE leitura_sensor (
 id_leitura INT AUTO_INCREMENT PRIMARY KEY,

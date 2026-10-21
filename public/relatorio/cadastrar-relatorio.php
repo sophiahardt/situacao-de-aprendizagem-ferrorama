@@ -3,19 +3,22 @@ session_start();
 require_once "../../infra/conexao.php";
 require_once "../../infra/protecao.php";
 verificarAdministrador();
+
 $mensagem = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome_relatorio = trim($_POST["nome_relatorio"] ?? "");
     $tipo_relatorio = $_POST["tipo_relatorio"] ?? "";
-    $data_inicial = $_POST["data_inicial"] ?? "";
-    $data_final = $_POST["data_final"] ?? "";
-    if ($nome_relatorio == "" || $tipo_relatorio == "" || $data_inicial == "" || $data_final == "") {
+    $data_relatorio = $_POST["data_relatorio"] ?? "";
+
+    if ($nome_relatorio == "" || $tipo_relatorio == "" || $data_relatorio == "") {
         $mensagem = "Preencha todos os campos.";
     } else {
-        $data_relatorio = date("Y-m-d");
-        $sql = "INSERT INTO relatorio (nome_relatorio, data_relatorio, tipo_relatorio, data_inicial, data_final) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO relatorio (nome_relatorio, tipo_relatorio, data_relatorio) VALUES (?, ?, ?)";
+
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("sssss", $nome_relatorio, $data_relatorio, $tipo_relatorio, $data_inicial, $data_final);
+        $stmt->bind_param("sss", $nome_relatorio, $tipo_relatorio, $data_relatorio);
+
         if ($stmt->execute()) {
             header("Location: visualizar-relatorio.php");
             exit;
@@ -58,10 +61,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                 </li>
                 <?php if (ehAdministrador()) { ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
-                        </li>
-                    <?php } ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
+                    </li>
+                <?php } ?>
                 <li class="nav-item">
                     <a class="nav-link active" href="visualizar-relatorio.php">Relatórios</a>
                 </li>
@@ -106,10 +109,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 Nome
                             </label>
                             <input type="text"
-                                   name="nome_relatorio"
-                                   class="form-control"
-                                   placeholder="Digite um nome para o relatório"
-                                   required>
+                                name="nome_relatorio"
+                                class="form-control"
+                                placeholder="Digite um nome para o relatório"
+                                required>
                         </div>
                     </div>
                 </div>
@@ -120,67 +123,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </label>
                         <div class="mt-3">
                             <input class="btn-check"
-                                   type="radio"
-                                   name="tipo_relatorio"
-                                   id="tipo_trem"
-                                   value="Trens"
-                                   required>
+                                type="radio"
+                                name="tipo_relatorio"
+                                id="tipo_trem"
+                                value="Trens"
+                                required>
                             <label class="btn btn-outline-primary mb-2"
-                                   for="tipo_trem">
+                                for="tipo_trem">
                                 Trens
                             </label>
                         </div>
                         <div>
                             <input class="btn-check"
-                                   type="radio"
-                                   name="tipo_relatorio"
-                                   id="tipo_sensor"
-                                   value="Sensores">
+                                type="radio"
+                                name="tipo_relatorio"
+                                id="tipo_sensor"
+                                value="Sensores">
                             <label class="btn btn-outline-primary"
-                                   for="tipo_sensor">
+                                for="tipo_sensor">
                                 Sensores
                             </label>
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <label class="form-label fs-5">
-                            Período
+                        <label for="data_relatorio" class="form-label fs-5">
+                            Data do relatório
                         </label>
                         <div class="border rounded-3 p-3">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="data_inicial" class="form-label">
-                                        Data inicial
-                                    </label>
-                                    <input type="date"
-                                           name="data_inicial"
-                                           id="data_inicial"
-                                           class="form-control"
-                                           required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="data_final" class="form-label">
-                                        Data final
-                                    </label>
-                                    <input type="date"
-                                           name="data_final"
-                                           id="data_final"
-                                           class="form-control"
-                                           required>
-                                </div>
-                            </div>
+                            <input type="date"
+                                name="data_relatorio"
+                                id="data_relatorio"
+                                class="form-control"
+                                required>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-end gap-3 mt-5">
                     <button type="button"
-                            class="btn btn-light px-4 py-2"
-                            onclick="window.location.href='visualizar-relatorio.php'">
+                        class="btn btn-light px-4 py-2"
+                        onclick="window.location.href='visualizar-relatorio.php'">
                         <ion-icon name="close-outline"></ion-icon>
                         Cancelar
                     </button>
                     <button type="submit"
-                            class="btn btn-primary px-4 py-2">
+                        class="btn btn-primary px-4 py-2">
                         <ion-icon name="save-outline"></ion-icon>
                         Salvar
                     </button>

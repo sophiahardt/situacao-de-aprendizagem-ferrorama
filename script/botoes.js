@@ -1,10 +1,10 @@
-function abrirAviso(id) {
-    if (window.location.pathname.includes("/relatorio/")) {
-        document.getElementById("btnConfirmarExclusao").href = "excluir-relatorio.php?id=" + id;
-    } else {
-        document.getElementById("btnConfirmarExclusao").href = "excluir-user.php?id=" + id;
-    }
-    let modal = new bootstrap.Modal(document.getElementById("modalExclusao"));
+function abrirAviso(id, arquivo) {
+    document.getElementById("btnConfirmarExclusao").href = arquivo + "?id=" + id;
+
+    let modal = new bootstrap.Modal(
+        document.getElementById("modalExclusao")
+    );
+
     modal.show();
 }
 
