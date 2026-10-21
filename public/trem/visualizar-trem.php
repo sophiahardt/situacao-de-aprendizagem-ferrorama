@@ -22,10 +22,12 @@ if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
 }
 
 $sql = "SELECT trem.*,
-               rota.nome_rota
+               rota.nome_rota,
+               usuario.nome AS nome_responsavel
         FROM trem
         LEFT JOIN trem_rota ON trem.id_trem = trem_rota.id_trem
-        LEFT JOIN rota ON trem_rota.id_rota = rota.id_rota";
+        LEFT JOIN rota ON trem_rota.id_rota = rota.id_rota
+        LEFT JOIN usuario ON trem.id_usuario = usuario.id_usuario";
 
 $resultado = $conexao->query($sql);
 ?>
@@ -119,6 +121,7 @@ $resultado = $conexao->query($sql);
                                 <th>Nome</th>
                                 <th>Velocidade Máxima</th>
                                 <th>Tipo</th>
+                                <th>Responsável</th>
                                 <th>Rotas</th>
                                 <th>Ações</th>
                             </tr>
@@ -128,11 +131,12 @@ $resultado = $conexao->query($sql);
                             <?php if ($resultado && $resultado->num_rows > 0) { ?>
                                 <?php while ($trem = $resultado->fetch_assoc()) { ?>
                                     <tr>
-                                        <td><?= $trem["id_trem"] ?></td>
-                                        <td><?= $trem["nome_trem"] ?></td>
-                                        <td><?= $trem["velocidade_maxima"] ?></td>
-                                        <td><?= $trem["tipo_trem"] ?></td>
-                                        <td><?= $trem["nome_rota"] ?></td>
+                                        <td><?= htmlspecialchars((string) $trem["id_trem"]) ?></td>
+                                        <td><?= htmlspecialchars($trem["nome_trem"]) ?></td>
+                                        <td><?= htmlspecialchars((string) $trem["velocidade_maxima"]) ?></td>
+                                        <td><?= htmlspecialchars($trem["tipo_trem"]) ?></td>
+                                        <td><?= htmlspecialchars($trem["nome_responsavel"] ?? "Não definido") ?></td>
+                                        <td><?= htmlspecialchars($trem["nome_rota"] ?? "Não definida") ?></td>
 
                                         <td>
                                             <?php if (ehAdministrador()) { ?>
@@ -154,7 +158,7 @@ $resultado = $conexao->query($sql);
                                 <?php } ?>
                             <?php } else { ?>
                                 <tr>
-                                    <td colspan="" class="text-center text-muted">
+                                    <td colspan="7" class="text-center text-muted">
                                         Nenhum trem cadastrado.
                                     </td>
                                 </tr>
