@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         if ($stmt->execute()) {
-            header("Location: visualizar-rota.php");
+            header("Location: visualizar-rota.php?sucesso=cadastrada");
             exit;
         } else {
             $mensagem = "Erro ao cadastrar a rota.";
@@ -128,8 +128,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                 <?php if ($mensagem != "") { ?>
-                    <p class="text-center text-success">
-                        <?= $mensagem ?>
+                    <p class="text-center text-danger">
+                        <?= htmlspecialchars($mensagem) ?>
                     </p>
                 <?php } ?>
 
