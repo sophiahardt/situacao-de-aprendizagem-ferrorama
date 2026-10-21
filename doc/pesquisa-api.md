@@ -574,4 +574,9 @@ Integra as conversas a plataformas de atendimento, CRMs e sistemas comerciais, f
 20. **DIO.** *Web vs. API: o que são?* Disponível em: <https://www.dio.me/articles/web-vs-api-o-que-sao>. Acesso em: 21 out. 2026.
 21. **iMASTERS.** *Como consumir APIs em aplicações PHP de forma simples*. Disponível em: <https://imasters.com.br/apis-microsservicos/como-consumir-apis-em-aplicacoes-php-de-forma-simples>. Acesso em: 21 out. 2026.
 22. **ARAÚJO, Jaelcio.** *Consumindo APIs com PHP*. LinkedIn Pulse. Disponível em: <https://pt.linkedin.com/pulse/consumindo-apis-com-php-jaelcio-araujo>. Acesso em: 21 out. 2026.
+23. **FOCUS NFE.** *O que é uma API?* Disponível em: <https://focusnfe.com.br/blog/o-que-e-uma-api/>. Acesso em: 21 out. 2026.
+24. **ALURA.** *API: o que é e como funciona*. Disponível em: <https://www.alura.com.br/artigos/api>. Acesso em: 21 out. 2026.
+25. **IBM.** *O que é autenticação de API?* Disponível em: <https://www.ibm.com/br-pt/think/topics/api-authentication>. Acesso em: 21 out. 2026.
+26. **KONG.** *API Authentication vs. API Authorization*. Disponível em: <https://konghq.com/blog/engineering/api-authentication-vs-api-authorization>. Acesso em: 21 out. 2026.
+27. **ENGDB.** *Exemplos de API*. Disponível em: <https://blog.engdb.com.br/exemplos-de-api/>. Acesso em: 21 out. 2026.
 
