@@ -470,7 +470,46 @@ Accept: application/json
 }
 ```
 
+---
 
+
+## 2. Importância da autenticação, autorização e segurança no consumo de APIs
+
+
+Autenticação, autorização e segurança são fundamentais no consumo de APIs porque protegem as informações e garantem que **apenas usuários e sistemas autorizados** acessem os recursos disponibilizados.
+
+
+### Autenticação × Autorização
+
+
+| Conceito | Pergunta que responde | Como funciona | Exemplos de mecanismos |
+|---|---|---|---|
+| **Autenticação** | *Quem é você?* | Verifica a identidade de um usuário ou sistema | Senhas, tokens de acesso, certificados digitais |
+| **Autorização** | *O que você pode fazer?* | Define quais informações e funcionalidades o usuário ou sistema pode acessar, **após** ter a identidade verificada | Perfis e permissões (ex.: administrador × usuário comum) |
+
+
+**Exemplo:** quando um funcionário faz login em um sistema, a autenticação confirma sua identidade. Em seguida, a autorização determina quais recursos ele pode acessar, de acordo com seu perfil. Um administrador, por exemplo, pode ter acesso a mais funcionalidades que um usuário comum.
+
+
+### Segurança no consumo de APIs
+
+
+Envolve medidas como:
+
+
+- uso de **HTTPS** para proteger os dados durante a transmissão;
+- **validação das requisições**;
+- **controle de acesso**;
+- **gerenciamento seguro de tokens e credenciais**.
+
+
+Essas medidas ajudam a evitar acessos indevidos, vazamentos de informações e outras ameaças.
+
+
+> Autenticação, autorização e segurança trabalham em conjunto para garantir uma comunicação confiável entre sistemas, protegendo os dados e assegurando que cada usuário ou aplicação acesse somente o que lhe é permitido.
+
+
+---
 
 ## Referências
 
