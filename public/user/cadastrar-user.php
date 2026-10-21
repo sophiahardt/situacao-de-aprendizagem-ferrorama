@@ -107,9 +107,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </p>
                 <hr>
                 <?php if ($mensagem != "") { ?>
-                    <div class="alert alert-<?= $tipo_mensagem ?> text-center">
+                    <p class="text-center text-success">
                         <?= htmlspecialchars($mensagem) ?>
-                    </div>
+                    </p>
                 <?php } ?>
                 <form method="POST" autocomplete="off">
                     <div class="row">

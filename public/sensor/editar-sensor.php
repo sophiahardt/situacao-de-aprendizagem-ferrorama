@@ -7,7 +7,7 @@ verificarAdministrador();
 require_once "../../infra/conexao.php";
 
 $mensagem = "";
-
+$tipo_mensagem = "";
 $id_sensor = $_GET["id"] ?? "";
 
 if ($id_sensor == "") {
@@ -78,12 +78,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         );
 
         if ($stmt->execute()) {
-
-            header("Location: visualizar-sensor.php");
+            header("Location: visualizar-sensor.php?sucesso=editado");
             exit;
         } else {
-
             $mensagem = "Erro ao editar o sensor.";
+            $tipo_mensagem = "danger";
         }
     }
 }
@@ -171,6 +170,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     Preencha as informações para editar o sensor no sistema
                 </p>
                 <hr>
+
+                <?php if ($mensagem != "") { ?>
+                    <div class="alert alert-<?= $tipo_mensagem ?> text-center">
+                        <?= htmlspecialchars($mensagem) ?>
+                    </div>
+                <?php } ?>
 
                 <form method="POST">
                     <div class="row">
@@ -282,4 +287,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

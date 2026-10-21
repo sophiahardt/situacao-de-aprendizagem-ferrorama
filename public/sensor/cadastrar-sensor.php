@@ -2,14 +2,18 @@
 require_once "../../infra/protecao.php";
 verificarAdministrador();
 require_once "../../infra/conexao.php";
+
 $mensagem = "";
+
 $rotas = $conexao->query("SELECT id_rota, nome_rota FROM rota ORDER BY nome_rota");
 $trens = $conexao->query("SELECT id_trem, nome_trem FROM trem ORDER BY nome_trem");
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome_sensor = $_POST["nome_sensor"] ?? "";
     $tipo_sensor = $_POST["tipo_sensor"] ?? "";
     $localizacao = $_POST["localizacao"] ?? "";
     $id_localizacao = $_POST["id_localizacao"] ?? "";
+
     if ($nome_sensor == "" || $tipo_sensor == "" || $localizacao == "" || $id_localizacao == "") {
         $mensagem = "Preencha todos os campos.";
     } else {
@@ -33,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $id_rota
         );
         if ($stmt->execute()) {
-            header("Location: visualizar-sensor.php");
+            header("Location: visualizar-sensor.php?sucesso=cadastrado");
             exit;
         } else {
             $mensagem = "Erro ao cadastrar o sensor.";
@@ -129,7 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </p>
                 <hr>
                 <?php if ($mensagem != "") { ?>
-                    <p class="text-center text-danger">
+                    <p class="text-center text-success">
                         <?= htmlspecialchars($mensagem) ?>
                     </p>
                 <?php } ?>

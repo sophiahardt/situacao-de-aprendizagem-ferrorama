@@ -1,10 +1,25 @@
 <?php
 
 require_once "../../infra/protecao.php";
-
 verificarLogin();
-
 require_once "../../infra/conexao.php";
+
+$mensagem = "";
+$tipo_mensagem = "success";
+
+if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
+    $mensagem = "Sensor excluído com sucesso!";
+} elseif (isset($_GET["erro"]) && $_GET["erro"] == "leituras") {
+    $mensagem = "Não é possível excluir este sensor, pois existem leituras associadas a ele.";
+    $tipo_mensagem = "danger";
+} elseif (isset($_GET["erro"]) && $_GET["erro"] == "exclusao") {
+    $mensagem = "Não foi possível excluir o sensor.";
+    $tipo_mensagem = "danger";
+} elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "cadastrado") {
+    $mensagem = "Sensor cadastrado com sucesso!";
+} elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "editado") {
+    $mensagem = "Sensor editado com sucesso!";
+}
 
 $sql = "SELECT sensor.*,
                rota.nome_rota,
@@ -15,6 +30,7 @@ $sql = "SELECT sensor.*,
 
 $resultado = $conexao->query($sql);
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -106,40 +122,43 @@ $resultado = $conexao->query($sql);
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while ($sensor = $resultado->fetch_assoc()) { ?>
+                            <?php if ($resultado && $resultado->num_rows > 0) { ?>
+                                <?php while ($sensor = $resultado->fetch_assoc()) { ?>
+                                    <tr>
+                                        <td><?= $sensor["id_sensor"] ?></td>
+                                        <td><?= htmlspecialchars($sensor["nome_sensor"]) ?></td>
+                                        <td>
+                                            <?php
+                                            if ($sensor["localizacao"] == "rota") {
+                                                echo "Rotas: " . htmlspecialchars($sensor["nome_rota"] ?? "Não identificada");
+                                            } else {
+                                                echo "Trens: " . htmlspecialchars($sensor["nome_trem"] ?? "Não identificado");
+                                            }
+                                            ?>
+                                        </td>
+                                        <td><?= htmlspecialchars($sensor["tipo_sensor"]) ?></td>
+                                        <td>
+                                            <?php if (ehAdministrador()) { ?>
+                                                <a href="editar-sensor.php?id=<?= $sensor["id_sensor"] ?>"
+                                                    class="btn btn-primary btn-sm">
+                                                    <ion-icon name="pencil"></ion-icon>
+                                                    Editar
+                                                </a>
+
+                                                <button type="button"
+                                                    class="btn btn-danger btn-sm"
+                                                    onclick="abrirAviso(<?= $sensor['id_sensor'] ?>, 'excluir-sensor.php')">
+                                                    <ion-icon name="trash"></ion-icon>
+                                                    Excluir
+                                                </button>
+                                            <?php } ?>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            <?php } else { ?>
                                 <tr>
-                                    <td>
-                                        <?= $sensor["id_sensor"] ?>
-                                    </td>
-                                    <td>
-                                        <?= $sensor["nome_sensor"] ?>
-                                    </td>
-                                    <td>
-                                        <?php
-                                        if ($sensor["localizacao"] == "rota") {
-                                            echo "Rotas: " . $sensor["nome_rota"];
-                                        } else {
-                                            echo "Trens: " . $sensor["nome_trem"];
-                                        }
-                                        ?>
-                                    </td>
-                                    <td>
-                                        <?= $sensor["tipo_sensor"] ?>
-                                    </td>
-                                    <td>
-                                        <?php if (ehAdministrador()) { ?>
-                                            <a href="editar-sensor.php?id=<?= $sensor["id_sensor"] ?>"
-                                                class="btn btn-primary btn-sm">
-                                                <ion-icon name="pencil"></ion-icon>
-                                                Editar
-                                            </a>
-                                            <button type="button"
-                                                class="btn btn-danger btn-sm"
-                                                onclick="abrirAviso(<?= $sensor['id_sensor'] ?>)">
-                                                <ion-icon name="trash"></ion-icon>
-                                                Excluir
-                                            </button>
-                                        <?php } ?>
+                                    <td colspan="5" class="text-center text-muted">
+                                        Nenhum sensor cadastrado.
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -172,8 +191,16 @@ $resultado = $conexao->query($sql);
             </div>
         </div>
     </div>
-    <!-- fazer código em java script para abrir o aviso -->
+    <?php if ($mensagem != "") { ?>
+        <div class="alert alert-<?= $tipo_mensagem ?> alert-dismissible fade show" role="alert">
+            <?= htmlspecialchars($mensagem) ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    <?php } ?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../script/botoes.js"></script>
+
 </body>
 
 </html>
