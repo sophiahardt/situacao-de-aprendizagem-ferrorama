@@ -155,6 +155,113 @@ Descreve níveis de adoção do REST:
 
 ---
 
+# Requisições HTTP, métodos e endpoints de API
+
+## 1. Requisição HTTP
+
+O protocolo HTTP funciona no modelo **requisição–resposta**: o cliente (navegador ou aplicação front-end) envia uma requisição ao servidor, e o servidor responde com o recurso solicitado ou com uma mensagem de status.
+
+### Estrutura de uma requisição
+
+- **Método:** a ação que o cliente quer realizar (GET, POST, PUT, PATCH, DELETE).
+- **Cabeçalho (*header*):** informações adicionais, como tipo de conteúdo e autenticação.
+- **Corpo (*body*):** dados transmitidos ao servidor. É opcional e aparece, por exemplo, em requisições `POST`.
+
+### Estrutura de uma resposta
+
+Toda resposta traz um **código de status HTTP**, que indica o resultado da requisição:
+
+| Código | Significado |
+|---|---|
+| `200` | Requisição bem-sucedida |
+| `404` | Recurso não encontrado |
+| `500` | Erro interno no servidor |
+
+Esse modelo é essencial para a comunicação entre sistemas diferentes e serve de base para a construção de **APIs REST**.
+
+```http
+POST /usuarios HTTP/1.1
+Host: api.exemplo.com
+Content-Type: application/json
+
+{
+  "nome": "Ana Souza",
+  "email": "ana@exemplo.com"
+}
+```
+
+---
+
+## 2. Métodos HTTP
+
+Os métodos HTTP indicam ao servidor **qual ação deve ser realizada** em uma requisição. Cada um tem uma finalidade: buscar, enviar, atualizar ou excluir informações.
+
+### GET: buscar dados
+
+Solicita dados ao servidor, como ao acessar uma página ou consultar informações. Não tem como objetivo alterar dados no servidor, e parâmetros de consulta podem ser enviados pela URL.
+- **Exemplo:** buscar a lista de produtos ou de usuários.
+
+```http
+GET /usuarios?pagina=1 HTTP/1.1
+```
+
+### POST: enviar dados / criar recurso
+
+Envia dados ao servidor, normalmente para criar um novo recurso. É muito usado em formulários e cadastros. Os dados vão no **corpo** da requisição.
+- **Exemplo:** ao preencher um cadastro com nome e e-mail, os dados são enviados via `POST` para criar um novo usuário.
+
+### PUT: atualização completa
+
+Atualiza um recurso que já existe, enviando os dados necessários para **substituí-lo por completo**. Utiliza o identificador do recurso.
+- **Exemplo:** `PUT /usuarios/42` para editar todos os dados do usuário de ID 42.
+
+### PATCH: atualização parcial
+
+Altera **somente determinadas informações** de um recurso, sem precisar reenviar todos os dados (diferente do `PUT`).
+- **Exemplo:** o usuário quer mudar apenas o telefone: `PATCH /usuarios/42` com somente o campo `telefone`.
+
+### DELETE: excluir recurso
+
+Remove um recurso do servidor. Normalmente é preciso informar o identificador do recurso.
+- **Exemplo:** `DELETE /usuarios/42` para excluir um usuário, produto ou publicação pelo ID.
+
+### Resumo
+
+| Método | Ação | Exemplo de uso |
+|---|---|---|
+| `GET` | Buscar informações | Listar produtos |
+| `POST` | Criar / enviar informações | Cadastrar usuário |
+| `PUT` | Atualizar recurso completamente | Editar todos os dados de um usuário |
+| `PATCH` | Atualizar recurso parcialmente | Alterar apenas o telefone |
+| `DELETE` | Remover recurso | Excluir um produto |
+
+---
+
+## 3. O que são endpoints de API
+
+Um **endpoint de API** é o local digital onde uma API recebe solicitações para acessar recursos de um servidor. Geralmente é representado por uma **URL**.
+O endpoint funciona como um **ponto de contato entre cliente e servidor**:
+
+1. A aplicação precisa de um recurso e envia a solicitação ao endpoint correspondente.
+2. O servidor recebe a solicitação e processa as informações.
+3. O servidor retorna uma resposta ao cliente.
+
+Em **APIs REST**, os endpoints são acessados por meio dos métodos HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`), e cada método indica a ação desejada sobre o recurso.
+
+### Exemplo: um mesmo recurso, vários endpoints/ações
+
+| Ação | Método e endpoint |
+|---|---|
+| Consultar usuários | `GET /usuarios` |
+| Consultar um usuário | `GET /usuarios/42` |
+| Cadastrar usuário | `POST /usuarios` |
+| Alterar dados (completo) | `PUT /usuarios/42` |
+| Alterar dados (parcial) | `PATCH /usuarios/42` |
+| Excluir usuário | `DELETE /usuarios/42` |
+
+Dessa forma, os endpoints permitem que aplicações **encontrem e acessem** os recursos e funcionalidades disponibilizados por uma API.
+---
+
 ## Referências
 
 1. **MDN Web Docs.** *API* (Glossário). Disponível em: <https://developer.mozilla.org/pt-BR/docs/Glossary/API>. Acesso em: 21 out. 2026.
@@ -163,7 +270,9 @@ Descreve níveis de adoção do REST:
 4. **AWS (Amazon Web Services).** *O que é uma API?* Disponível em: <https://aws.amazon.com/pt/what-is/api/>. Acesso em: 21 out. 2026.
 5. **AWS (Amazon Web Services).** *O que é uma API RESTful?* Disponível em: <https://aws.amazon.com/pt/what-is/restful-api/>. Acesso em: 21 out. 2026.
 6. **Red Hat.** *O que é uma API?* Disponível em: <https://www.redhat.com/pt-br/topics/api/what-are-application-programming-interfaces>. Acesso em: 21 out. 2026.
-7. **FIELDING, Roy Thomas.** *Architectural Styles and the Design of Network-based Software Architectures*. Tese (Doutorado) – University of California, Irvine, 2000. Capítulo 5: *Representational State Transfer (REST)*. Disponível em: <https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm>. Acesso em: 21 out. 2026.
+7. **FIELDING, Roy Thomas.** *Architectural Styles and the Design of Network-based Software Architectures*. Tese (Doutorado) – University of California, Irvine, 2000. Capítulo 5. *Representational State Transfer (REST)*. Disponível em: <https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm>. Acesso em: 21 out. 2026.
 8. **IETF.** *RFC 9110: HTTP Semantics*. Disponível em: <https://www.rfc-editor.org/rfc/rfc9110>. Acesso em: 21 out. 2026.
 9. **IETF.** *RFC 8259: The JavaScript Object Notation (JSON) Data Interchange Format*. Disponível em: <https://www.rfc-editor.org/rfc/rfc8259>. Acesso em: 21 out. 2026.
 10. **FOWLER, Martin.** *Richardson Maturity Model*. Disponível em: <https://martinfowler.com/articles/richardsonMaturityModel.html>. Acesso em: 21 out. 2026.
+11. **PROGRAMADORES BRASIL.** *Como funciona a Requisição HTTP: GET, POST, PUT e DELETE*. Disponível em: <https://programadoresbrasil.com/desenvolvimento-fullstack/requisicao-http-como-funciona-get-post-put-e-delete/>. Acesso em: 21 out. 2026.
+12. **IBM.** *O que é um endpoint de API?* Disponível em: <https://www.ibm.com/br-pt/think/topics/api-endpoint>. Acesso em: 21 out. 2026.
