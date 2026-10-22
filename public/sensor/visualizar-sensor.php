@@ -4,6 +4,8 @@ require_once "../../infra/protecao.php";
 verificarLogin();
 require_once "../../infra/conexao.php";
 
+$total_colunas = ehAdministrador() ? 5 : 4;
+
 $mensagem = "";
 $tipo_mensagem = "success";
 
@@ -116,7 +118,7 @@ $resultado = $conexao->query($sql);
                                 <th>Nome</th>
                                 <th>Localização</th>
                                 <th>Tipo de dado</th>
-                                <th>Ações</th>
+                                <?php if (ehAdministrador()) { ?><th>Ações</th><?php } ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -135,33 +137,28 @@ $resultado = $conexao->query($sql);
                                             ?>
                                         </td>
                                         <td><?= htmlspecialchars($sensor["tipo_sensor"]) ?></td>
-                                        <td>
-                                            <a href="editar-sensor.php?id=<?= $sensor["id_sensor"] ?>"
-                                                class="btn btn-primary btn-sm">
-                                                <ion-icon name="pencil"></ion-icon>
-                                                Editar
-                                            </a>
-                                            <?php if (ehAdministrador()) { ?>
+                                        
+                                        <?php if (ehAdministrador()) { ?>
+                                            <td>
+                                                <a href="editar-sensor.php?id=<?= $sensor['id_sensor'] ?>"
+                                                    class="btn btn-primary btn-sm">
+                                                    <ion-icon name="pencil"></ion-icon>
+                                                    Editar
+                                                </a>
+
                                                 <button type="button"
                                                     class="btn btn-danger btn-sm"
-                                                    onclick="abrirAviso(<?= (int) $sensor['id_sensor'] ?>, 'excluir-sensor.php')">
+                                                    onclick="abrirAviso(<?= $sensor['id_sensor'] ?>, 'excluir-sensor.php')">
                                                     <ion-icon name="trash"></ion-icon>
                                                     Excluir
                                                 </button>
-                                            <?php } else { ?>
-                                                <button type="button"
-                                                    class="btn btn-danger btn-sm"
-                                                    onclick="window.location.href='excluir-sensor.php?id=<?= (int) $sensor['id_sensor'] ?>'">
-                                                    <ion-icon name="trash"></ion-icon>
-                                                    Excluir
-                                                </button>
-                                            <?php } ?>
-                                        </td>
+                                            </td>
+                                        <?php } ?>
                                     </tr>
                                 <?php } ?>
                             <?php } else { ?>
                                 <tr>
-                                    <td colspan="5" class="text-center text-muted">
+                                    <td colspan="<?= $total_colunas ?>" class="text-center text-muted">
                                         Nenhum sensor cadastrado.
                                     </td>
                                 </tr>

@@ -7,6 +7,8 @@ require_once "../../infra/conexao.php";
 $mensagem = "";
 $tipo_mensagem = "success";
 
+$total_colunas = ehAdministrador() ? 7 : 6;
+
 if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
     $mensagem = "Trem excluído com sucesso!";
 } elseif (isset($_GET["erro"]) && $_GET["erro"] == "sensores") {
@@ -121,7 +123,7 @@ $resultado = $conexao->query($sql);
                                 <th>Tipo</th>
                                 <th>Responsável</th>
                                 <th>Rotas</th>
-                                <th>Ações</th>
+                                <?php if (ehAdministrador()) { ?><th>Ações</th><?php } ?>
                             </tr>
                         </thead>
 
@@ -136,33 +138,27 @@ $resultado = $conexao->query($sql);
                                         <td><?= htmlspecialchars($trem["nome_responsavel"] ?? "Não definido") ?></td>
                                         <td><?= htmlspecialchars($trem["nome_rota"] ?? "Não definida") ?></td>
 
-                                        <td>
-                                            <a href="editar-trem.php?id=<?= $trem["id_trem"] ?>"
-                                                class="btn btn-primary btn-sm">
-                                                <ion-icon name="pencil"></ion-icon>
-                                                Editar
-                                            </a>
-                                            <?php if (ehAdministrador()) { ?>
+                                        <?php if (ehAdministrador()) { ?>
+                                            <td>
+                                                <a href="editar-trem.php?id=<?= $trem['id_trem'] ?>"
+                                                    class="btn btn-primary btn-sm">
+                                                    <ion-icon name="pencil"></ion-icon>
+                                                    Editar
+                                                </a>
+
                                                 <button type="button"
                                                     class="btn btn-danger btn-sm"
-                                                    onclick="abrirAviso(<?= (int) $trem['id_trem'] ?>, 'excluir-trem.php')">
+                                                    onclick="abrirAviso(<?= $trem['id_trem'] ?>, 'excluir-trem.php')">
                                                     <ion-icon name="trash"></ion-icon>
                                                     Excluir
                                                 </button>
-                                            <?php } else { ?>
-                                                <button type="button"
-                                                    class="btn btn-danger btn-sm"
-                                                    onclick="window.location.href='excluir-trem.php?id=<?= (int) $trem['id_trem'] ?>'">
-                                                    <ion-icon name="trash"></ion-icon>
-                                                    Excluir
-                                                </button>
-                                            <?php } ?>
-                                        </td>
+                                            </td>
+                                        <?php } ?>
                                     </tr>
                                 <?php } ?>
                             <?php } else { ?>
                                 <tr>
-                                    <td colspan="7" class="text-center text-muted">
+                                    <td colspan="<?= $total_colunas ?>" class="text-center text-muted">
                                         Nenhum trem cadastrado.
                                     </td>
                                 </tr>

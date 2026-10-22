@@ -7,6 +7,7 @@ require_once "../../infra/conexao.php";
 $mensagem = "";
 $tipo_mensagem = "success";
 
+$total_colunas = ehAdministrador() ? 6 : 7;
 
 if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
     $mensagem = "Rota excluída com sucesso!";
@@ -75,9 +76,6 @@ $resultado = $conexao->query($sql);
                         </li>
                     <?php } ?>
 
-
-
-
                     <li class="nav-item">
                         <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
                     </li>
@@ -122,7 +120,7 @@ $resultado = $conexao->query($sql);
                                 <th>Descrição</th>
                                 <th>Extensão</th>
                                 <th>Tempo estimado</th>
-                                <th>Ações</th>
+                                <?php if (ehAdministrador()) { ?><th>Ações</th><?php } ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -134,33 +132,30 @@ $resultado = $conexao->query($sql);
                                         <td><?= htmlspecialchars($rota["descricao"]) ?></td>
                                         <td><?= htmlspecialchars((string) $rota["extensao"]) ?> Km</td>
                                         <td><?= htmlspecialchars((string) $rota["tempo_estimado_minutos"]) ?> min</td>
-                                        <td>
-                                            <a href="editar-rota.php?id=<?= $rota["id_rota"] ?>"
-                                                class="btn btn-primary btn-sm">
-                                                <ion-icon name="pencil"></ion-icon>
-                                                Editar
-                                            </a>
-                                            <?php if (ehAdministrador()) { ?>
+                                        <?php if (ehAdministrador()) { ?>
+                                        
+                                            <td>
+                                                <a href="editar-rota.php?id=<?= $rota['id_rota'] ?>"
+                                                    class="btn btn-primary btn-sm">
+                                                    <ion-icon name="pencil"></ion-icon>
+                                                    Editar
+                                                </a>
+
                                                 <button type="button"
                                                     class="btn btn-danger btn-sm"
-                                                    onclick="abrirAviso(<?= (int) $rota['id_rota'] ?>, 'excluir-rota.php')">
+                                                    onclick="abrirAviso(<?= $rota['id_rota'] ?>, 'excluir-rota.php')">
                                                     <ion-icon name="trash"></ion-icon>
                                                     Excluir
                                                 </button>
-                                            <?php } else { ?>
-                                                <button type="button"
-                                                    class="btn btn-danger btn-sm"
-                                                    onclick="window.location.href='excluir-rota.php?id=<?= (int) $rota['id_rota'] ?>'">
-                                                    <ion-icon name="trash"></ion-icon>
-                                                    Excluir
-                                                </button>
-                                            <?php } ?>
-                                        </td>
+                                            </td>
+                                        <?php } ?>
                                     </tr>
                                 <?php } ?>
                             <?php } else { ?>
                                 <tr>
-                                    <td colspan="6" class="text-center text-muted">Nenhuma rota cadastrada.</td>
+                                    <td colspan="<?= $total_colunas ?>" class="text-center text-muted">
+                                        Nenhuma rota cadastrada.
+                                    </td>
                                 </tr>
                             <?php } ?>
                         </tbody>

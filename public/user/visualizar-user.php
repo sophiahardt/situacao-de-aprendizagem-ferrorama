@@ -9,6 +9,8 @@ require_once "../../infra/conexao.php";
 $mensagem = "";
 $tipo_mensagem = "success";
 
+$total_colunas = ehAdministrador() ? 5 : 6;
+
 if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
     $mensagem = "Usuário excluído com sucesso!";
 } elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "cadastrado") {
@@ -112,7 +114,7 @@ $resultado = $conexao->query($sql);
                                 <th>Cargo</th>
                                 <th>Email</th>
                                 <th>Telefone</th>
-                                <th>Ações</th>
+                                <?php if (ehAdministrador()) { ?><th>Ações</th><?php } ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -123,21 +125,29 @@ $resultado = $conexao->query($sql);
                                         <td><?= htmlspecialchars($usuario["nome_cargo"]) ?></td>
                                         <td><?= htmlspecialchars($usuario["email"]) ?></td>
                                         <td><?= htmlspecialchars($usuario["telefone"]) ?></td>
-                                        <td>
-                                            <a href="editar-user.php?id=<?= $usuario["id_usuario"] ?>" class="btn btn-primary btn-sm">
-                                                <ion-icon name="pencil"></ion-icon>
-                                                Editar
-                                            </a>
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="abrirAviso(<?= $usuario['id_usuario'] ?>, 'excluir-user.php')">
-                                                <ion-icon name="trash"></ion-icon>
-                                                Excluir
-                                            </button>
-                                        </td>
+                                        <?php if (ehAdministrador()) { ?>
+                                            <td>
+                                                <a href="editar-user.php?id=<?= $usuario['id_usuario'] ?>"
+                                                    class="btn btn-primary btn-sm">
+                                                    <ion-icon name="pencil"></ion-icon>
+                                                    Editar
+                                                </a>
+
+                                                <button type="button"
+                                                    class="btn btn-danger btn-sm"
+                                                    onclick="abrirAviso(<?= $usuario['id_usuario'] ?>, 'excluir-user.php')">
+                                                    <ion-icon name="trash"></ion-icon>
+                                                    Excluir
+                                                </button>
+                                            </td>
+                                        <?php } ?>
                                     </tr>
                                 <?php } ?>
                             <?php } else { ?>
                                 <tr>
-                                    <td colspan="5" class="text-center text-muted">Nenhum usuário cadastrado.</td>
+                                    <td colspan="<?= $total_colunas ?>" class="text-center text-muted">
+                                        Nenhum usuário cadastrado.
+                                    </td>
                                 </tr>
                             <?php } ?>
                         </tbody>

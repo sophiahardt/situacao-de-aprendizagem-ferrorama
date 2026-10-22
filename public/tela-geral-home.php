@@ -71,7 +71,7 @@ $alertas = [
                     </li>
                     <?php if (ehAdministrador()) { ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
+                            <a class="nav-link" href="user/visualizar-user.php">Usuários</a>
                         </li>
                     <?php } ?>
                     <li class="nav-item">
