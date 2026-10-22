@@ -104,14 +104,12 @@ $resultado = $conexao->query($sql);
             <h1 class="h3">
                 Lista de rotas cadastradas
             </h1>
-            <?php if (ehAdministrador()) { ?>
-                <button class="btn btn-primary"
-                    style="background-color: #003399;"
-                    onclick="window.location.href='cadastrar-rota.php'">
-                    <ion-icon name="add-circle"></ion-icon>
-                    Nova rota
-                </button>
-            <?php } ?>
+            <button class="btn btn-primary"
+                style="background-color: #003399;"
+                onclick="window.location.href='cadastrar-rota.php'">
+                <ion-icon name="add-circle"></ion-icon>
+                Nova rota
+            </button>
         </div>
         <div class="card shadow-sm">
             <div class="card-body">
@@ -137,15 +135,22 @@ $resultado = $conexao->query($sql);
                                         <td><?= htmlspecialchars((string) $rota["extensao"]) ?> Km</td>
                                         <td><?= htmlspecialchars((string) $rota["tempo_estimado_minutos"]) ?> min</td>
                                         <td>
+                                            <a href="editar-rota.php?id=<?= $rota["id_rota"] ?>"
+                                                class="btn btn-primary btn-sm">
+                                                <ion-icon name="pencil"></ion-icon>
+                                                Editar
+                                            </a>
                                             <?php if (ehAdministrador()) { ?>
-                                                <a href="editar-rota.php?id=<?= $rota["id_rota"] ?>"
-                                                    class="btn btn-primary btn-sm">
-                                                    <ion-icon name="pencil"></ion-icon>
-                                                    Editar
-                                                </a>
                                                 <button type="button"
                                                     class="btn btn-danger btn-sm"
-                                                    onclick="abrirAviso(<?= $rota['id_rota'] ?>, 'excluir-rota.php')">
+                                                    onclick="abrirAviso(<?= (int) $rota['id_rota'] ?>, 'excluir-rota.php')">
+                                                    <ion-icon name="trash"></ion-icon>
+                                                    Excluir
+                                                </button>
+                                            <?php } else { ?>
+                                                <button type="button"
+                                                    class="btn btn-danger btn-sm"
+                                                    onclick="window.location.href='excluir-rota.php?id=<?= (int) $rota['id_rota'] ?>'">
                                                     <ion-icon name="trash"></ion-icon>
                                                     Excluir
                                                 </button>

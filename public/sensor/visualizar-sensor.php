@@ -99,14 +99,12 @@ $resultado = $conexao->query($sql);
             <h1 class="h3">
                 Lista de sensores cadastrados
             </h1>
-            <?php if (ehAdministrador()) { ?>
-                <button class="btn btn-primary"
-                    style="background-color: #003399;"
-                    onclick="window.location.href='cadastrar-sensor.php'">
-                    <ion-icon name="add-circle"></ion-icon>
-                    Novo sensor
-                </button>
-            <?php } ?>
+            <button class="btn btn-primary"
+                style="background-color: #003399;"
+                onclick="window.location.href='cadastrar-sensor.php'">
+                <ion-icon name="add-circle"></ion-icon>
+                Novo sensor
+            </button>
         </div>
         <div class="card shadow-sm">
             <div class="card-body">
@@ -138,16 +136,22 @@ $resultado = $conexao->query($sql);
                                         </td>
                                         <td><?= htmlspecialchars($sensor["tipo_sensor"]) ?></td>
                                         <td>
+                                            <a href="editar-sensor.php?id=<?= $sensor["id_sensor"] ?>"
+                                                class="btn btn-primary btn-sm">
+                                                <ion-icon name="pencil"></ion-icon>
+                                                Editar
+                                            </a>
                                             <?php if (ehAdministrador()) { ?>
-                                                <a href="editar-sensor.php?id=<?= $sensor["id_sensor"] ?>"
-                                                    class="btn btn-primary btn-sm">
-                                                    <ion-icon name="pencil"></ion-icon>
-                                                    Editar
-                                                </a>
-
                                                 <button type="button"
                                                     class="btn btn-danger btn-sm"
-                                                    onclick="abrirAviso(<?= $sensor['id_sensor'] ?>, 'excluir-sensor.php')">
+                                                    onclick="abrirAviso(<?= (int) $sensor['id_sensor'] ?>, 'excluir-sensor.php')">
+                                                    <ion-icon name="trash"></ion-icon>
+                                                    Excluir
+                                                </button>
+                                            <?php } else { ?>
+                                                <button type="button"
+                                                    class="btn btn-danger btn-sm"
+                                                    onclick="window.location.href='excluir-sensor.php?id=<?= (int) $sensor['id_sensor'] ?>'">
                                                     <ion-icon name="trash"></ion-icon>
                                                     Excluir
                                                 </button>

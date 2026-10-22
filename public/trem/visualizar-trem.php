@@ -103,12 +103,10 @@ $resultado = $conexao->query($sql);
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="h3">Lista de trens cadastrados</h1>
 
-            <?php if (ehAdministrador()) { ?>
-                <button class="btn btn-primary" style="background-color: #003399;" onclick="window.location.href='cadastrar-trem.php'">
-                    <ion-icon name="add-circle"></ion-icon>
-                    Novo trem
-                </button>
-            <?php } ?>
+            <button class="btn btn-primary" style="background-color: #003399;" onclick="window.location.href='cadastrar-trem.php'">
+                <ion-icon name="add-circle"></ion-icon>
+                Novo trem
+            </button>
         </div>
 
         <div class="card shadow-sm">
@@ -139,16 +137,22 @@ $resultado = $conexao->query($sql);
                                         <td><?= htmlspecialchars($trem["nome_rota"] ?? "Não definida") ?></td>
 
                                         <td>
+                                            <a href="editar-trem.php?id=<?= $trem["id_trem"] ?>"
+                                                class="btn btn-primary btn-sm">
+                                                <ion-icon name="pencil"></ion-icon>
+                                                Editar
+                                            </a>
                                             <?php if (ehAdministrador()) { ?>
-                                                <a href="editar-trem.php?id=<?= $trem["id_trem"] ?>"
-                                                    class="btn btn-primary btn-sm">
-                                                    <ion-icon name="pencil"></ion-icon>
-                                                    Editar
-                                                </a>
-
                                                 <button type="button"
                                                     class="btn btn-danger btn-sm"
-                                                    onclick="abrirAviso(<?= $trem['id_trem'] ?>, 'excluir-trem.php')">
+                                                    onclick="abrirAviso(<?= (int) $trem['id_trem'] ?>, 'excluir-trem.php')">
+                                                    <ion-icon name="trash"></ion-icon>
+                                                    Excluir
+                                                </button>
+                                            <?php } else { ?>
+                                                <button type="button"
+                                                    class="btn btn-danger btn-sm"
+                                                    onclick="window.location.href='excluir-trem.php?id=<?= (int) $trem['id_trem'] ?>'">
                                                     <ion-icon name="trash"></ion-icon>
                                                     Excluir
                                                 </button>
