@@ -11,6 +11,9 @@ $total_colunas = ehAdministrador() ? 7 : 6;
 
 if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
     $mensagem = "Trem excluído com sucesso!";
+} elseif (isset($_GET["erro"]) && $_GET["erro"] == "rotas") {
+    $mensagem = "Não é possível excluir este trem, pois existem rotas associadas a ele.";
+    $tipo_mensagem = "danger";
 } elseif (isset($_GET["erro"]) && $_GET["erro"] == "sensores") {
     $mensagem = "Não é possível excluir este trem, pois existem sensores associados a ele.";
     $tipo_mensagem = "danger";
@@ -36,7 +39,6 @@ $resultado = $conexao->query($sql);
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,7 +77,6 @@ $resultado = $conexao->query($sql);
                             <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
                         </li>
                     <?php } ?>
-
 
                     <li class="nav-item">
                         <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>

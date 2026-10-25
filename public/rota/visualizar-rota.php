@@ -7,7 +7,7 @@ require_once "../../infra/conexao.php";
 $mensagem = "";
 $tipo_mensagem = "success";
 
-$total_colunas = ehAdministrador() ? 6 : 7;
+$total_colunas = ehAdministrador() ? 6 : 5;
 
 if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
     $mensagem = "Rota excluída com sucesso!";
@@ -15,9 +15,6 @@ if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
     $mensagem = "Rota cadastrada com sucesso!";
 } elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "editada") {
     $mensagem = "Rota editada com sucesso!";
-} elseif (isset($_GET["erro"]) && $_GET["erro"] == "trens") {
-    $mensagem = "Não é possível excluir esta rota, pois existem trens associados a ela.";
-    $tipo_mensagem = "danger";
 } elseif (isset($_GET["erro"]) && $_GET["erro"] == "sensores") {
     $mensagem = "Não é possível excluir esta rota, pois existem sensores associados a ela.";
     $tipo_mensagem = "danger";
@@ -34,8 +31,6 @@ $resultado = $conexao->query($sql);
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,7 +40,6 @@ $resultado = $conexao->query($sql);
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="../../style/style.css">
 </head>
-
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
@@ -68,7 +62,6 @@ $resultado = $conexao->query($sql);
                     <li class="nav-item">
                         <a class="nav-link active" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
-
 
                     <?php if (ehAdministrador()) { ?>
                         <li class="nav-item">
@@ -133,7 +126,7 @@ $resultado = $conexao->query($sql);
                                         <td><?= htmlspecialchars((string) $rota["extensao"]) ?> Km</td>
                                         <td><?= htmlspecialchars((string) $rota["tempo_estimado_minutos"]) ?> min</td>
                                         <?php if (ehAdministrador()) { ?>
-                                        
+                                       
                                             <td>
                                                 <a href="editar-rota.php?id=<?= $rota['id_rota'] ?>"
                                                     class="btn btn-primary btn-sm">
@@ -188,7 +181,6 @@ $resultado = $conexao->query($sql);
         </div>
     </div>
 
-
     <?php if ($mensagem != "") { ?>
         <div class="alert alert-<?= $tipo_mensagem ?> alert-dismissible fade show" role="alert">
             <?= htmlspecialchars($mensagem) ?>
@@ -196,7 +188,6 @@ $resultado = $conexao->query($sql);
                 aria-label="Fechar"></button>
         </div>
     <?php } ?>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../script/botoes.js"></script>

@@ -20,6 +20,9 @@ if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
 } elseif (isset($_GET["erro"]) && $_GET["erro"] == "trens") {
     $mensagem = "Não é possível excluir este usuário, pois ele está associado a um ou mais trens.";
     $tipo_mensagem = "danger";
+} elseif (isset($_GET["erro"]) && $_GET["erro"] == "ultimo_admin") {
+    $mensagem = "Não é possível excluir o único administrador do sistema.";
+    $tipo_mensagem = "danger";
 } elseif (isset($_GET["erro"]) && $_GET["erro"] == "exclusao") {
     $mensagem = "Erro ao excluir o usuário.";
     $tipo_mensagem = "danger";
