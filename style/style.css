@@ -10,25 +10,25 @@ body {
 }
 
 .navbar-sistema {
-    background-color: #003399;
+	background-color: #003399;
 }
 
 .navbar-sistema .nav-link {
-    color: white !important;
+	color: white !important;
 }
 
 .nav-link ion-icon {
-    font-size: 22px;
+	font-size: 22px;
 }
 
 .btn ion-icon {
-    font-size: 18px;
+	font-size: 18px;
 }
 
 .btn-outline-light {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .fundo-tela-login{
@@ -134,7 +134,7 @@ body {
 
 .card-cima img {
   padding: 8px;
-  max-width: 380px; 
+  max-width: 380px;
   width: 100%;    
   height: auto;
 }
@@ -146,24 +146,191 @@ body {
 }
 
 .opcoes-localizacao {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
+	display: flex;
+	gap: 10px;
+	margin-bottom: 15px;
 }
 
 .opcoes-localizacao input[type="radio"] {
-    display: none;
+	display: none;
 }
 
 .btn-localizacao {
-    flex: 1;
-    text-align: center;
-    padding: 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 12px;
-    background-color: #fff;
+	flex: 1;
+	text-align: center;
+	padding: 12px;
+	border: 1px solid #d1d5db;
+	border-radius: 12px;
+	background-color: #fff;
 }
 
 .opcoes-localizacao input[type="radio"]:checked + .btn-localizacao {
-    border: 2px solid #000;
+	border: 2px solid #000;
+}
+
+.lp {
+  background: #f4f8fd;
+  color: #0b1f44;
+  scroll-behavior: smooth;
+}
+
+html { scroll-behavior: smooth; }
+
+.lp-container {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.lp ion-icon { flex-shrink: 0; }
+
+.lp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: transform 0.15s, background 0.15s;
+}
+.lp-btn:hover { transform: translateY(-2px); }
+.lp-btn-azul { background: #1666e8; color: #fff; }
+.lp-btn-azul:hover { background: #0f55c7; color: #fff; }
+.lp-btn-branco { background: #fff; color: #0b1f44; padding: 8px 18px; }
+.lp-btn-contorno { background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.7); }
+.lp-btn-contorno:hover { background: rgba(255,255,255,0.18); color: #fff; }
+
+.lp-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #071a3d;
+  padding: 12px 0;
+}
+.lp-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+.lp-brand ion-icon { font-size: 28px; }
+.lp-menu { gap: 28px; }
+.lp-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.lp-menu a:hover { color: #6fb1ff; }
+
+.lp-hero {
+  min-height: 460px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  background:
+	linear-gradient(90deg, rgba(7,26,61,0.92) 0%, rgba(7,26,61,0.7) 45%, rgba(7,26,61,0.1) 100%),
+	url("../assets/img/fundotela.jpg") center right / cover no-repeat;
+}
+.lp-hero-texto { max-width: 520px; padding: 50px 0; }
+.lp-hero h1 { font-weight: 800; font-size: 2.6rem; margin-bottom: 8px; }
+.lp-hero h2 { font-weight: 700; font-size: 1.5rem; line-height: 1.3; margin-bottom: 16px; }
+.lp-hero p { font-size: 0.95rem; color: #d6e4fa; margin-bottom: 24px; }
+
+.lp-titulo { font-weight: 800; font-size: 1.45rem; color: #0a2a66; margin-bottom: 16px; }
+.lp-texto { color: #2b4170; line-height: 1.7; }
+
+.lp-sobre { background: #fff; padding: 50px 0; }
+.lp-sobre-imagem {
+  position: relative;
+  min-height: 230px;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px;
+  color: #fff;
+  background:
+	linear-gradient(180deg, rgba(10,42,102,0.75), rgba(7,26,61,0.85)),
+	url("../assets/img/trem.jpg") center / cover no-repeat;
+}
+.lp-sobre-icones { display: flex; flex-wrap: wrap; gap: 14px; }
+.lp-sobre-icones span {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.4);
+}
+.lp-sobre-imagem p { align-self: flex-end; margin: 0; font-weight: 700; max-width: 180px; text-align: right; }
+
+.lp-funcionalidades { padding: 45px 0; background: #eef4fc; }
+.lp-card-func {
+  height: 100%;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px 16px;
+  box-shadow: 0 4px 14px rgba(10,42,102,0.08);
+  transition: transform 0.2s;
+}
+.lp-card-func:hover { transform: translateY(-4px); }
+.lp-card-func ion-icon { font-size: 34px; color: #1666e8; }
+.lp-card-func h4 { font-size: 0.95rem; font-weight: 800; margin: 12px 0 6px; color: #0a2a66; }
+.lp-card-func p { font-size: 0.82rem; color: #4a5f8a; margin: 0; }
+
+.lp-monitoramento {
+  padding: 50px 0;
+  color: #fff;
+  background:
+	linear-gradient(90deg, rgba(7,26,61,0.97) 0%, rgba(7,26,61,0.88) 60%, rgba(7,26,61,0.7) 100%),
+	url("../assets/img/fundotela.jpg") center / cover no-repeat;
+}
+.lp-monitoramento h3 { font-weight: 800; font-size: 1.6rem; margin-bottom: 12px; }
+.lp-monitoramento p { color: #d6e4fa; margin-bottom: 20px; max-width: 460px; }
+.lp-item-monitor {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.lp-item-monitor ion-icon { font-size: 30px; color: #6fb1ff; }
+.lp-item-monitor strong, .lp-item-monitor span { display: block; }
+.lp-item-monitor span { font-size: 0.82rem; color: #c3d6f5; }
+
+.lp-beneficios { padding: 45px 0; background: #fff; }
+.lp-beneficio { display: flex; align-items: center; gap: 14px; }
+.lp-beneficio ion-icon { font-size: 36px; color: #1666e8; }
+.lp-beneficio strong, .lp-beneficio span { display: block; }
+.lp-beneficio strong { color: #0a2a66; }
+.lp-beneficio span { font-size: 0.85rem; color: #4a5f8a; }
+
+.lp-cta { background: linear-gradient(90deg, #071a3d, #0a2a66); color: #fff; padding: 34px 0; }
+.lp-cta-icone { font-size: 56px; color: #6fb1ff; }
+.lp-cta h4 { font-weight: 800; font-size: 1.15rem; margin: 0 0 4px; }
+.lp-cta p { margin: 0; font-size: 0.88rem; color: #c3d6f5; }
+.lp-rodape { background: #051230; color: #c3d6f5; text-align: center; padding: 12px; font-size: 0.8rem; }
+.lp-rodape span { margin: 0 6px; opacity: 0.5; }
+
+@media (max-width: 767px) {
+  .lp-hero { background-position: 70% center; }
+  .lp-hero h1 { font-size: 2rem; }
+  .lp-hero h2 { font-size: 1.2rem; }
 }
