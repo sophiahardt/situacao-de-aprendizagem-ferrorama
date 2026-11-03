@@ -334,3 +334,142 @@ html { scroll-behavior: smooth; }
   .lp-hero h1 { font-size: 2rem; }
   .lp-hero h2 { font-size: 1.2rem; }
 }
+
+body {
+    background-color: #f7faff;
+}
+
+.dashboard-container {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 20px 24px;
+}
+
+.card-dashboard,
+.card-atalho,
+.card-resumo {
+    border: 1px solid #dce9f8;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 51, 153, 0.05);
+}
+
+.titulo-secao {
+    color: #123c79;
+    font-weight: bold;
+}
+
+.clima-local {
+    color: #52708f;
+    font-size: 0.85rem;
+}
+
+.clima-temperatura ion-icon {
+    font-size: 3rem;
+    color: #f5b400;
+}
+
+.clima-temperatura h2 {
+    color: #123c79;
+    font-weight: bold;
+}
+
+.banner-dashboard {
+    min-height: 190px;
+    padding: 30px;
+    border-radius: 10px;
+    background: linear-gradient(110deg, #021688, #0533b1, #0f297e);
+    color: white;
+}
+
+.banner-icone {
+    font-size: 8rem;
+    color: #ffffff30;
+    margin-right: 30px;
+}
+
+.card-atalho {
+    height: 100%;
+    text-decoration: none;
+    color: #123c79;
+}
+
+.card-atalho:hover {
+    border-color: #2878d0;
+    transform: translateY(-3px);
+}
+
+.card-atalho ion-icon {
+    font-size: 2rem;
+}
+
+.card-atalho span,
+.link-pequeno {
+    color: #1763b5;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.card-resumo ion-icon {
+    color: #123c79;
+    font-size: 2rem;
+}
+
+.card-resumo h4 {
+    color: #123c79;
+    font-weight: bold;
+}
+
+.evento-item,
+.rota-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.evento-item:last-child,
+.rota-item:last-child {
+    border: none;
+}
+
+.evento-ponto {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.alerta { background: #ef4444; }
+.informacao { background: #2878d0; }
+.normal { background: #16a36a; }
+
+.rota-item ion-icon {
+    color: #1763b5;
+    font-size: 1.5rem;
+}
+
+.grafico-area {
+    height: 210px;
+}
+
+.card-atalho .card-body {
+    height: 100%;
+}
+
+.card-atalho span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-atalho span ion-icon {
+    font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 12px;
+    }
+}
