@@ -165,8 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <ion-icon name="close-outline"></ion-icon>
                         Cancelar
                     </button>
-                    <button type="submit"
-                        class="btn btn-primary px-4 py-2">
+                    <button type="submit" class="btn btn-primary btn-login px-5">
                         <ion-icon name="save-outline"></ion-icon>
                         Salvar
                     </button>

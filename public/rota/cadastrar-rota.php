@@ -176,7 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </button>
 
 
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary btn-login px-5">
                             <ion-icon name="save-outline"></ion-icon>
                             Salvar
                         </button>
