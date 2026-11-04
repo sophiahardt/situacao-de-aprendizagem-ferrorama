@@ -142,7 +142,7 @@ if ($resultado) {
             <div class="col-lg-8">
                 <div class="banner-dashboard h-100 d-flex align-items-center">
                     <div class="banner-conteudo">
-                        <h2>Ferrorama</h2>
+                        <h2 class="fw-bold ">FERRORAMAS</h2>
                         <p>
                             Monitoramento ferroviário em tempo real
                             para mais segurança e eficiência.

@@ -14,7 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($email == "" || $senha == "") {
 
         $mensagem = "Preencha todos os campos.";
-
     } else {
 
         $sql = "SELECT * FROM usuario WHERE email = ?";
@@ -41,17 +40,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 header("Location: tela-geral-home.php");
                 exit;
-
             } else {
 
                 $mensagem = "Email ou senha incorreta.";
-
             }
-
         } else {
 
             $mensagem = "Email ou senha incorreta.";
-
         }
     }
 }
@@ -68,34 +63,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Login</title>
-
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="../style/style.css">
 
 </head>
 
 <body class="fundo-tela-login">
-
     <div class="container-fluid p-0">
-
         <div class="fundo">
-
             <div class="painel d-flex align-items-center">
-
                 <div class="login-box w-100 text-white">
 
                     <div class="logo text-center mb-4">
-
-                        <img src="../assets/img/logo.png"
-                             alt="Logo"
-                             class="img-fluid">
-
+                        <ion-icon name="train-outline" class="logo-icone"></ion-icon>
                     </div>
 
-                    <h5 class="text-center fw-bold mb-5">
-                        Sistema Ferroviário Inteligente
-                    </h5>
+                    <h4 class="text-center fw-bold mb-5 logo-titulo">
+                        FERRORAMAS
+                    </h4>
 
                     <h2 class="text-center fw-bold mb-4">
                         Login
@@ -123,8 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 class="form-control"
                                 id="email"
                                 placeholder="Digite seu email"
-                                required
-                            >
+                                required>
 
                         </div>
 
@@ -140,8 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 class="form-control"
                                 id="senha"
                                 placeholder="Digite sua senha"
-                                required
-                            >
+                                required>
 
                         </div>
 
@@ -149,8 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                             <button
                                 type="submit"
-                                class="btn btn-primary px-5"
-                            >
+                                class="btn btn-primary btn-login px-5">
                                 Entrar
                             </button>
 
@@ -167,4 +151,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
 </body>
+
 </html>

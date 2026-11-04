@@ -50,14 +50,22 @@ body {
 }
 
 .logo {
-  width: 130px;
-  height: 85px;
-  background: #2b2114;
-  margin: 0 auto;
-  font-size: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    width: 130px;
+    height: 85px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+}
+
+.logo-icone {
+    font-size: 100px;
+    color: #151d4b;
+}
+
+.logo-titulo {
+    color: #151d4b;
 }
 
 .painel .form-control {
@@ -65,7 +73,7 @@ body {
 }
 
 .painel .btn {
-  border-radius: 0;
+  border-radius: 6px;
 }
 
 #mensagem {
@@ -462,4 +470,22 @@ body {
     .dashboard-container {
         padding: 12px;
     }
+}
+
+.btn-login {
+    background-color: #151d4b !important;
+    border-color: #151d4b !important;
+    color: white !important;
+    border-radius: 6px !important;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-login:hover {
+    background-color: #0d153b !important;
+    border-color: #0d153b !important;
+}
+
+.btn-login:focus {
+    box-shadow: 0 0 0 0.2rem rgba(21, 29, 75, 0.25);
 }

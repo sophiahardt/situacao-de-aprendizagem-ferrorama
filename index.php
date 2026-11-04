@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Ferrorama | Monitoramento ferroviário</title>
+    <title>Ferroramas | Monitoramento ferroviário</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style/style.css">
@@ -21,7 +21,7 @@
 
             <a href="#inicio" class="lp-brand">
                 <ion-icon name="train-outline"></ion-icon>
-                FERRORAMA
+                FERRORAMAS
             </a>
 
             <div class="lp-menu d-none d-md-flex">
@@ -44,7 +44,7 @@
 
             <div class="lp-hero-texto">
 
-                <h1>FERRORAMA</h1>
+                <h1>FERRORAMAS</h1>
 
                 <h2>
                     Tecnologia e monitoramento para um transporte
@@ -52,7 +52,7 @@
                 </h2>
 
                 <p>
-                    O Ferrorama é uma solução completa para o monitoramento
+                    O Ferroramas é uma solução completa para o monitoramento
                     ferroviário, integrando sensores, dados em tempo real
                     e gestão de operações em um único sistema.
                 </p>
@@ -72,11 +72,11 @@
                 <div class="col-lg-6">
 
                     <h3 class="lp-titulo">
-                        O que é o Ferrorama?
+                        O que é o Ferroramas?
                     </h3>
 
                     <p class="lp-texto">
-                        O Ferrorama é um sistema de monitoramento ferroviário
+                        O Ferroramas é um sistema de monitoramento ferroviário
                         desenvolvido para garantir mais segurança, eficiência
                         e controle das operações.
                     </p>
@@ -225,7 +225,7 @@
                     </h3>
 
                     <p>
-                        Com sensores e integração de dados, o Ferrorama
+                        Com sensores e integração de dados, o Ferroramas
                         auxilia no acompanhamento das condições dos trens
                         e na identificação de possíveis situações anormais.
                     </p>
@@ -289,7 +289,7 @@
         <div class="lp-container">
 
             <h3 class="lp-titulo">
-                Benefícios do Ferrorama
+                Benefícios do Ferroramas
             </h3>
 
             <div class="row g-4">
@@ -365,7 +365,7 @@
             </h4>
 
             <p>
-                O Ferrorama reúne informações importantes para facilitar
+                O Ferroramas reúne informações importantes para facilitar
                 o acompanhamento das operações ferroviárias.
             </p>
 
@@ -376,7 +376,7 @@
 
     <footer class="lp-rodape">
 
-        FERRORAMA
+        FERRORAMAS
         <span>|</span>
         Tecnologia que move a ferrovia.
 
