@@ -233,7 +233,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             Cancelar
                         </button>
 
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary" style="background-color: #071b8d;">
                             <ion-icon name="save-outline"></ion-icon>
                             Salvar alterações
                         </button>

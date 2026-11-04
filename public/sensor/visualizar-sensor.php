@@ -102,7 +102,7 @@ $resultado = $conexao->query($sql);
                 Lista de sensores cadastrados
             </h1>
             <button class="btn btn-primary"
-                style="background-color: #003399;"
+                style="background-color: #151d4b;"
                 onclick="window.location.href='cadastrar-sensor.php'">
                 <ion-icon name="add-circle"></ion-icon>
                 Novo sensor
@@ -141,7 +141,7 @@ $resultado = $conexao->query($sql);
                                         <?php if (ehAdministrador()) { ?>
                                             <td>
                                                 <a href="editar-sensor.php?id=<?= $sensor['id_sensor'] ?>"
-                                                    class="btn btn-primary btn-sm">
+                                                    class="btn btn-primary btn-sm" style="background-color: #071b8d;">
                                                     <ion-icon name="pencil"></ion-icon>
                                                     Editar
                                                 </a>

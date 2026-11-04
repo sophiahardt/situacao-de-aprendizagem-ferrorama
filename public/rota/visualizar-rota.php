@@ -96,7 +96,7 @@ $resultado = $conexao->query($sql);
                 Lista de rotas cadastradas
             </h1>
             <button class="btn btn-primary"
-                style="background-color: #003399;"
+                style="background-color: #151d4b;"
                 onclick="window.location.href='cadastrar-rota.php'">
                 <ion-icon name="add-circle"></ion-icon>
                 Nova rota
@@ -129,7 +129,7 @@ $resultado = $conexao->query($sql);
                                        
                                             <td>
                                                 <a href="editar-rota.php?id=<?= $rota['id_rota'] ?>"
-                                                    class="btn btn-primary btn-sm">
+                                                    class="btn btn-primary btn-sm" style="background-color: #071b8d;">
                                                     <ion-icon name="pencil"></ion-icon>
                                                     Editar
                                                 </a>

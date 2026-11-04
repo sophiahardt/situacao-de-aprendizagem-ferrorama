@@ -102,7 +102,7 @@ $resultado = $conexao->query($sql);
     <div class="container-fluid p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="h3">Lista de usuários cadastrados</h1>
-            <a href="cadastrar-user.php" class="btn d-flex align-items-center gap-2" style="background-color: #003399; border-color: #003399; color: white;">
+            <a href="cadastrar-user.php" class="btn d-flex align-items-center gap-2" style="background-color: #151d4b;  color: white;">
                 <ion-icon name="add-circle"></ion-icon>
                 Novo usuário
             </a>
@@ -131,7 +131,7 @@ $resultado = $conexao->query($sql);
                                         <?php if (ehAdministrador()) { ?>
                                             <td>
                                                 <a href="editar-user.php?id=<?= $usuario['id_usuario'] ?>"
-                                                    class="btn btn-primary btn-sm">
+                                                    class="btn btn-primary btn-sm" style="background-color: #071b8d;">
                                                     <ion-icon name="pencil"></ion-icon>
                                                     Editar
                                                 </a>

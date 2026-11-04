@@ -198,7 +198,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         class="form-control"
                         value="<?= htmlspecialchars($relatorio["data_relatorio"]) ?>"
                         required>
-
                 </div>
 
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -206,27 +205,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <button type="button"
                         class="btn btn-light"
                         onclick="window.location.href='visualizar-relatorio.php'">
-
                         <ion-icon name="close-outline"></ion-icon>
                         Cancelar
-
                     </button>
 
-                    <button type="submit" class="btn btn-primary">
-
+                    <button type="submit" class="btn btn-primary" style="background-color: #071b8d;">
                         <ion-icon name="save-outline"></ion-icon>
                         Salvar
-
                     </button>
-
                 </div>
-
             </form>
-
         </div>
-
     </div>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

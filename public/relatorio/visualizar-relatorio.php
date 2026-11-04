@@ -74,7 +74,7 @@ $resultado = $conexao->query($sql);
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="h3">Lista de relatórios cadastrados</h1>
             <?php if (ehAdministrador()) { ?>
-                <a href="cadastrar-relatorio.php" class="btn d-flex align-items-center gap-2" style="background-color: #003399; border-color: #003399; color: white;">
+                <a href="cadastrar-relatorio.php" class="btn d-flex align-items-center gap-2" style="background-color: #151d4b; border-color: #003399; color: white;">
                     <ion-icon name="add-circle"></ion-icon>
                     Novo relatório
                 </a>
@@ -101,7 +101,7 @@ $resultado = $conexao->query($sql);
                                         <td><?= htmlspecialchars($relatorio["data_relatorio"]) ?></td>
                                         <td>
                                             <?php if (ehAdministrador()) { ?>
-                                                <a href="editar-relatorio.php?id=<?= $relatorio["id_relatorio"] ?>" class="btn btn-primary btn-sm">
+                                                <a href="editar-relatorio.php?id=<?= $relatorio["id_relatorio"] ?>" class="btn btn-primary btn-sm" style="background-color: #071b8d;">
                                                     <ion-icon name="pencil"></ion-icon>
                                                     Editar
                                                 </a>

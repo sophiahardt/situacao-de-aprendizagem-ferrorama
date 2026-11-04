@@ -10,7 +10,7 @@ body {
 }
 
 .navbar-sistema {
-	background-color: #003399;
+	background-color: #151d4b;
 }
 
 .navbar-sistema .nav-link {
@@ -70,16 +70,6 @@ body {
 
 #mensagem {
   color: white;
-}
-
-.mensagem-bem-vindo {
-  padding: 20px;
-  margin-bottom: 2px;
-}
-
-.mensagem-admin-home {
-  color: #2d5cff;
-  font-weight: 700;
 }
 
 .pergunta-mensagem-bem-vindo {
@@ -378,7 +368,7 @@ body {
     min-height: 190px;
     padding: 30px;
     border-radius: 10px;
-    background: linear-gradient(110deg, #021688, #0533b1, #0f297e);
+    background: linear-gradient(110deg, #151d4b, #11204b, #192241);
     color: white;
 }
 

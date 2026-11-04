@@ -106,7 +106,7 @@ $resultado = $conexao->query($sql);
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="h3">Lista de trens cadastrados</h1>
 
-            <button class="btn btn-primary" style="background-color: #003399;" onclick="window.location.href='cadastrar-trem.php'">
+            <button class="btn btn-primary" style="background-color: #151d4b;" onclick="window.location.href='cadastrar-trem.php'">
                 <ion-icon name="add-circle"></ion-icon>
                 Novo trem
             </button>
@@ -142,7 +142,7 @@ $resultado = $conexao->query($sql);
                                         <?php if (ehAdministrador()) { ?>
                                             <td>
                                                 <a href="editar-trem.php?id=<?= $trem['id_trem'] ?>"
-                                                    class="btn btn-primary btn-sm">
+                                                    class="btn btn-primary btn-sm" style="background-color: #071b8d;">
                                                     <ion-icon name="pencil"></ion-icon>
                                                     Editar
                                                 </a>
