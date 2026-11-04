@@ -32,7 +32,7 @@ body {
 }
 
 .fundo-tela-login{
-  background-image: url("../assets/img/imagemfundo.png");
+  background-image: url("../assets/img/trem-login.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
