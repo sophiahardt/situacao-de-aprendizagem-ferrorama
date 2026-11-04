@@ -26,17 +26,11 @@ if ($resultado) {
     $rotas_ativas = $linha["total"];
 }
 
-$ultimas_rotas = $conexao->query("
-    SELECT nome_rota, extensao
-    FROM rota
-    ORDER BY id_rota DESC
-    LIMIT 3
-");
-
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,6 +40,7 @@ $ultimas_rotas = $conexao->query("
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="../style/style.css">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
         <div class="container-fluid">
@@ -223,18 +218,18 @@ $ultimas_rotas = $conexao->query("
         </section>
 
 
+        <section class="row g-3 mb-3 align-items-stretch">
+            <div class="col-lg-6 d-flex flex-column gap-3">
 
-        <section class="row g-3 mb-3">
-            <div class="col-lg-6">
-                <div class="card card-dashboard h-100">
+                <div class="card card-dashboard">
                     <div class="card-body">
                         <h6 class="titulo-secao">Resumo da operação</h6>
+
                         <div class="row g-3">
                             <div class="col-6">
                                 <div class="card card-resumo">
                                     <div class="card-body">
                                         <ion-icon name="train-outline"></ion-icon>
-
                                         <div>
                                             <small>Trens cadastrados</small>
                                             <h4><?= $trens_ativos ?></h4>
@@ -247,7 +242,6 @@ $ultimas_rotas = $conexao->query("
                                 <div class="card card-resumo">
                                     <div class="card-body">
                                         <ion-icon name="git-network-outline"></ion-icon>
-
                                         <div>
                                             <small>Rotas cadastradas</small>
                                             <h4><?= $rotas_ativas ?></h4>
@@ -260,7 +254,6 @@ $ultimas_rotas = $conexao->query("
                                 <div class="card card-resumo">
                                     <div class="card-body">
                                         <ion-icon name="radio-outline"></ion-icon>
-
                                         <div>
                                             <small>Sensores cadastrados</small>
                                             <h4><?= $sensores_ativos ?></h4>
@@ -273,7 +266,6 @@ $ultimas_rotas = $conexao->query("
                                 <div class="card card-resumo">
                                     <div class="card-body">
                                         <ion-icon name="shield-checkmark-outline"></ion-icon>
-
                                         <div>
                                             <small>Sistema</small>
                                             <h4 class="texto-normal">Operacional</h4>
@@ -284,81 +276,18 @@ $ultimas_rotas = $conexao->query("
                         </div>
                     </div>
                 </div>
-            </div>
 
-
-            <div class="col-lg-6">
-                <div class="card card-dashboard h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h6 class="titulo-secao mb-0">Últimos eventos</h6>
-                            <span class="texto-azul">Monitoramento</span>
-                        </div>
-
-                        <div class="evento-item">
-                            <span class="evento-ponto alerta"></span>
-
-                            <div>
-                                <strong>Monitoramento de sensores</strong>
-                                <small>Consulte os dados dos sensores cadastrados.</small>
-                            </div>
-
-                            <span class="badge bg-warning-subtle text-warning">Acompanhar</span>
-                        </div>
-
-                        <div class="evento-item">
-                            <span class="evento-ponto informacao"></span>
-
-                            <div>
-                                <strong>Trens cadastrados</strong>
-                                <small><?= $trens_ativos ?> trem(ns) registrado(s) no sistema.</small>
-                            </div>
-
-                            <span class="badge bg-primary-subtle text-primary">Informação</span>
-                        </div>
-
-                        <div class="evento-item">
-                            <span class="evento-ponto normal"></span>
-
-                            <div>
-                                <strong>Rotas cadastradas</strong>
-                                <small><?= $rotas_ativas ?> rota(s) registrada(s) no sistema.</small>
-                            </div>
-
-                            <span class="badge bg-success-subtle text-success">Normal</span>
-                        </div>
-
-                        <div class="evento-item">
-                            <span class="evento-ponto normal"></span>
-
-                            <div>
-                                <strong>Sistema Ferrorama</strong>
-                                <small>Painel de gerenciamento disponível.</small>
-                            </div>
-
-                            <span class="badge bg-success-subtle text-success">Normal</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-
-        <section class="row g-3 mb-3">
-            <div class="col-lg-6">
-                <div class="card card-dashboard h-100">
+                <div class="card card-dashboard flex-grow-1">
                     <div class="card-body">
                         <h6 class="titulo-secao">Monitoramento ferroviário</h6>
 
                         <p class="texto-apoio">
-                            Espaço reservado para exibição dos dados de velocidade dos trens.
+                            Espaço reservado para exibição de alertas 
                         </p>
 
                         <div class="grafico-area">
                             <canvas id="graficoTrens"></canvas>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -366,44 +295,30 @@ $ultimas_rotas = $conexao->query("
 
             <div class="col-lg-6">
                 <div class="card card-dashboard h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h6 class="titulo-secao mb-0">Rotas cadastradas</h6>
+                    <div class="card-body d-flex flex-column">
 
-                            <a href="rota/visualizar-rota.php" class="link-pequeno">
-                                Ver todas
-                                <ion-icon name="arrow-forward-outline"></ion-icon>
-                            </a>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h6 class="titulo-secao mb-1">Traçado ferroviário</h6>
+                                <small class="texto-apoio">
+                                    Visualização dos trilhos e movimentação do trem.
+                                </small>
+                            </div>
+
+                            <span class="badge bg-success-subtle text-success">
+                                Em operação
+                            </span>
                         </div>
 
-                        <?php if ($ultimas_rotas && $ultimas_rotas->num_rows > 0) { ?>
-
-                            <?php while ($rota = $ultimas_rotas->fetch_assoc()) { ?>
-
-                                <div class="rota-item">
-                                    <ion-icon name="location-outline"></ion-icon>
-
-                                    <div>
-                                        <strong><?= htmlspecialchars($rota["nome_rota"]) ?></strong>
-                                        <small><?= number_format($rota["extensao"], 2, ",", ".") ?> km de extensão</small>
-                                    </div>
-
-                                    <span class="badge bg-success-subtle text-success">Cadastrada</span>
-                                </div>
-
-                            <?php } ?>
-
-                        <?php } else { ?>
-                            <p class="texto-apoio">
-                                Nenhuma rota cadastrada até o momento.
-                            </p>
-                        <?php } ?>
-
+                        <div class="mapa-ferrovia flex-grow-1">
+                            <!-- Espaço reservado para o mapa ferroviário -->
+                        </div>
                     </div>
                 </div>
             </div>
+
         </section>
     </main>
-
 </body>
+
 </html>
