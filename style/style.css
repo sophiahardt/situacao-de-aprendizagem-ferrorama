@@ -157,18 +157,18 @@ body {
 	flex: 1;
 	text-align: center;
 	padding: 12px;
-	border: 1px solid #d1d5db;
+	border: 1px solid #dce4ed;
 	border-radius: 12px;
 	background-color: #fff;
 }
 
 .opcoes-localizacao input[type="radio"]:checked + .btn-localizacao {
-	border: 2px solid #000;
+	border: 2px solid #151d4b;
 }
 
 .lp {
   background: #f4f8fd;
-  color: #0b1f44;
+  color: #151d4b;
   scroll-behavior: smooth;
 }
 
@@ -197,9 +197,9 @@ html { scroll-behavior: smooth; }
   transition: transform 0.15s, background 0.15s;
 }
 .lp-btn:hover { transform: translateY(-2px); }
-.lp-btn-azul { background: #1666e8; color: #fff; }
-.lp-btn-azul:hover { background: #0f55c7; color: #fff; }
-.lp-btn-branco { background: #fff; color: #0b1f44; padding: 8px 18px; }
+.lp-btn-azul { background: #1763b5; color: #fff; }
+.lp-btn-azul:hover { background: #151d4b; color: #fff; }
+.lp-btn-branco { background: #fff; color: #151d4b; padding: 8px 18px; }
 .lp-btn-contorno { background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.7); }
 .lp-btn-contorno:hover { background: rgba(255,255,255,0.18); color: #fff; }
 
@@ -207,7 +207,7 @@ html { scroll-behavior: smooth; }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: #071a3d;
+  background: #151d4b;
   padding: 12px 0;
 }
 .lp-brand {
@@ -236,16 +236,16 @@ html { scroll-behavior: smooth; }
   align-items: center;
   color: #fff;
   background:
-	linear-gradient(90deg, rgba(7,26,61,0.92) 0%, rgba(7,26,61,0.7) 45%, rgba(7,26,61,0.1) 100%),
+	linear-gradient(90deg, rgba(21,29,75,0.92) 0%, rgba(21,29,75,0.7) 45%, rgba(21,29,75,0.1) 100%),
 	url("../assets/img/fundotela.jpg") center right / cover no-repeat;
 }
 .lp-hero-texto { max-width: 520px; padding: 50px 0; }
 .lp-hero h1 { font-weight: 800; font-size: 2.6rem; margin-bottom: 8px; }
 .lp-hero h2 { font-weight: 700; font-size: 1.5rem; line-height: 1.3; margin-bottom: 16px; }
-.lp-hero p { font-size: 0.95rem; color: #d6e4fa; margin-bottom: 24px; }
+.lp-hero p { font-size: 0.95rem; color: #dce4ed; margin-bottom: 24px; }
 
-.lp-titulo { font-weight: 800; font-size: 1.45rem; color: #0a2a66; margin-bottom: 16px; }
-.lp-texto { color: #2b4170; line-height: 1.7; }
+.lp-titulo { font-weight: 800; font-size: 1.45rem; color: #151d4b; margin-bottom: 16px; }
+.lp-texto { color: #52708f; line-height: 1.7; }
 
 .lp-sobre { background: #fff; padding: 50px 0; }
 .lp-sobre-imagem {
@@ -259,7 +259,7 @@ html { scroll-behavior: smooth; }
   padding: 22px;
   color: #fff;
   background:
-	linear-gradient(180deg, rgba(10,42,102,0.75), rgba(7,26,61,0.85)),
+	linear-gradient(180deg, rgba(21,29,75,0.75), rgba(21,29,75,0.85)),
 	url("../assets/img/trem.jpg") center / cover no-repeat;
 }
 .lp-sobre-icones { display: flex; flex-wrap: wrap; gap: 14px; }
@@ -276,29 +276,29 @@ html { scroll-behavior: smooth; }
 }
 .lp-sobre-imagem p { align-self: flex-end; margin: 0; font-weight: 700; max-width: 180px; text-align: right; }
 
-.lp-funcionalidades { padding: 45px 0; background: #eef4fc; }
+.lp-funcionalidades { padding: 45px 0; background: #f4f8fd; }
 .lp-card-func {
   height: 100%;
   background: #fff;
   border-radius: 10px;
   padding: 20px 16px;
-  box-shadow: 0 4px 14px rgba(10,42,102,0.08);
+  box-shadow: 0 4px 14px rgba(21,29,75,0.08);
   transition: transform 0.2s;
 }
 .lp-card-func:hover { transform: translateY(-4px); }
-.lp-card-func ion-icon { font-size: 34px; color: #1666e8; }
-.lp-card-func h4 { font-size: 0.95rem; font-weight: 800; margin: 12px 0 6px; color: #0a2a66; }
-.lp-card-func p { font-size: 0.82rem; color: #4a5f8a; margin: 0; }
+.lp-card-func ion-icon { font-size: 34px; color: #1763b5; }
+.lp-card-func h4 { font-size: 0.95rem; font-weight: 800; margin: 12px 0 6px; color: #151d4b; }
+.lp-card-func p { font-size: 0.82rem; color: #52708f; margin: 0; }
 
 .lp-monitoramento {
   padding: 50px 0;
   color: #fff;
   background:
-	linear-gradient(90deg, rgba(7,26,61,0.97) 0%, rgba(7,26,61,0.88) 60%, rgba(7,26,61,0.7) 100%),
+	linear-gradient(90deg, rgba(21,29,75,0.97) 0%, rgba(21,29,75,0.88) 60%, rgba(21,29,75,0.7) 100%),
 	url("../assets/img/fundotela.jpg") center / cover no-repeat;
 }
 .lp-monitoramento h3 { font-weight: 800; font-size: 1.6rem; margin-bottom: 12px; }
-.lp-monitoramento p { color: #d6e4fa; margin-bottom: 20px; max-width: 460px; }
+.lp-monitoramento p { color: #dce4ed; margin-bottom: 20px; max-width: 460px; }
 .lp-item-monitor {
   display: flex;
   align-items: center;
@@ -311,30 +311,26 @@ html { scroll-behavior: smooth; }
 }
 .lp-item-monitor ion-icon { font-size: 30px; color: #6fb1ff; }
 .lp-item-monitor strong, .lp-item-monitor span { display: block; }
-.lp-item-monitor span { font-size: 0.82rem; color: #c3d6f5; }
+.lp-item-monitor span { font-size: 0.82rem; color: #dce4ed; }
 
 .lp-beneficios { padding: 45px 0; background: #fff; }
 .lp-beneficio { display: flex; align-items: center; gap: 14px; }
-.lp-beneficio ion-icon { font-size: 36px; color: #1666e8; }
+.lp-beneficio ion-icon { font-size: 36px; color: #1763b5; }
 .lp-beneficio strong, .lp-beneficio span { display: block; }
-.lp-beneficio strong { color: #0a2a66; }
-.lp-beneficio span { font-size: 0.85rem; color: #4a5f8a; }
+.lp-beneficio strong { color: #151d4b; }
+.lp-beneficio span { font-size: 0.85rem; color: #52708f; }
 
-.lp-cta { background: linear-gradient(90deg, #071a3d, #0a2a66); color: #fff; padding: 34px 0; }
+.lp-cta { background: #151d4b; color: #fff; padding: 34px 0; }
 .lp-cta-icone { font-size: 56px; color: #6fb1ff; }
 .lp-cta h4 { font-weight: 800; font-size: 1.15rem; margin: 0 0 4px; }
-.lp-cta p { margin: 0; font-size: 0.88rem; color: #c3d6f5; }
-.lp-rodape { background: #051230; color: #c3d6f5; text-align: center; padding: 12px; font-size: 0.8rem; }
+.lp-cta p { margin: 0; font-size: 0.88rem; color: #dce4ed; }
+.lp-rodape { background: #101735; color: #dce4ed; text-align: center; padding: 12px; font-size: 0.8rem; }
 .lp-rodape span { margin: 0 6px; opacity: 0.5; }
 
 @media (max-width: 767px) {
   .lp-hero { background-position: 70% center; }
   .lp-hero h1 { font-size: 2rem; }
   .lp-hero h2 { font-size: 1.2rem; }
-}
-
-body {
-    background-color: #f7faff;
 }
 
 .dashboard-container {
@@ -347,13 +343,13 @@ body {
 .card-dashboard,
 .card-atalho,
 .card-resumo {
-    border: 1px solid #dce9f8;
+    border: 1px solid #dce4ed;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 51, 153, 0.05);
+    box-shadow: 0 2px 8px rgba(21,29,75,0.05);
 }
 
 .titulo-secao {
-    color: #123c79;
+    color: #151d4b;
     font-weight: bold;
 }
 
@@ -368,7 +364,7 @@ body {
 }
 
 .clima-temperatura h2 {
-    color: #123c79;
+    color: #151d4b;
     font-weight: bold;
 }
 
@@ -376,7 +372,7 @@ body {
     min-height: 190px;
     padding: 30px;
     border-radius: 10px;
-    background: linear-gradient(110deg, #051151, #0b2262, #001455);
+    background: linear-gradient(110deg, #151d4b, #151d4b, #151d4b);
     color: white;
 }
 
@@ -389,11 +385,11 @@ body {
 .card-atalho {
     height: 100%;
     text-decoration: none;
-    color: #123c79;
+    color: #151d4b;
 }
 
 .card-atalho:hover {
-    border-color: #2878d0;
+    border-color: #1763b5;
     transform: translateY(-3px);
 }
 
@@ -409,12 +405,12 @@ body {
 }
 
 .card-resumo ion-icon {
-    color: #123c79;
+    color: #151d4b;
     font-size: 2rem;
 }
 
 .card-resumo h4 {
-    color: #123c79;
+    color: #151d4b;
     font-weight: bold;
 }
 
@@ -424,7 +420,7 @@ body {
     align-items: center;
     gap: 12px;
     padding: 12px 0;
-    border-bottom: 1px solid #edf2f7;
+    border-bottom: 1px solid #dce4ed;
 }
 
 .evento-item:last-child,
@@ -440,7 +436,7 @@ body {
 }
 
 .alerta { background: #ef4444; }
-.informacao { background: #2878d0; }
+.informacao { background: #1763b5; }
 .normal { background: #16a36a; }
 
 .rota-item ion-icon {
@@ -482,10 +478,10 @@ body {
 }
 
 .btn-login:hover {
-    background-color: #0d153b !important;
-    border-color: #0d153b !important;
+    background-color: #151d4b !important;
+    border-color: #151d4b !important;
 }
 
 .btn-login:focus {
-    box-shadow: 0 0 0 0.2rem rgba(21, 29, 75, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(21,29,75,0.25);
 }
