@@ -33,6 +33,10 @@ function ehAdministrador()
         return false;
     }
 
+    if ((int) $_SESSION["id_cargo"] === 1) {
+        return true;
+    }
+
     global $conexao;
 
     $sql = "SELECT nome_cargo FROM cargo WHERE id_cargo = ?";
@@ -49,7 +53,7 @@ function ehAdministrador()
     $cargo = $resultado->fetch_assoc();
 
     return $cargo &&
-        strtolower(trim($cargo["nome_cargo"])) === "administrador";
+        in_array(strtolower(trim($cargo["nome_cargo"])), ["administrador", "admin"], true);
 }
 
 function verificarAdministrador()
