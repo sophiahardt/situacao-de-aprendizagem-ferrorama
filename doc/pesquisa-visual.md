@@ -46,3 +46,17 @@ A combinação busca manter uma aparência equilibrada e padronizada. O azul-mar
 
 Os tons claros e o branco ajudam a criar contraste com os elementos principais, facilitando a leitura e a identificação das informações.
 
+## 4. Tipografia e elementos gráficos
+
+Foi mantida a fonte Arial, com estilo sem serifa, por apresentar boa legibilidade e uma aparência simples e adequada a sistemas administrativos.
+
+A hierarquia dos textos foi organizada por meio de diferentes tamanhos e pesos:
+
+- Títulos em destaque e com maior peso.
+- Subtítulos para identificar as seções.
+- Textos menores para descrições e informações complementares.
+- Botões com textos objetivos para indicar suas ações.
+
+Para os elementos gráficos, foram utilizados ícones da biblioteca Ionicons, escolhidos de acordo com suas funcionalidades, como trens, sensores, usuários, rotas e relatórios.
+
+A utilização de ícones semelhantes entre as páginas ajuda a manter a padronização visual e facilita o reconhecimento das funcionalidades.
