@@ -1,15 +1,20 @@
 <?php
 session_start();
 
+
 require_once "../../infra/protecao.php";
 verificarAdministrador();
 
+
 require_once "../../infra/conexao.php";
+
 
 $mensagem = "";
 $tipo_mensagem = "success";
 
-$total_colunas = ehAdministrador() ? 5 : 6;
+
+$total_colunas = ehAdministrador() ? 7 : 6;
+
 
 if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
     $mensagem = "Usuário excluído com sucesso!";
@@ -28,19 +33,28 @@ if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
     $tipo_mensagem = "danger";
 }
 
+
 $sql = "SELECT usuario.id_usuario,
                usuario.nome,
                cargo.nome_cargo,
                usuario.email,
-               usuario.telefone
+               usuario.telefone,
+               usuario.cep,
+               usuario.logradouro,
+               usuario.bairro,
+               usuario.cidade,
+               usuario.uf
         FROM usuario
         INNER JOIN cargo ON usuario.id_cargo = cargo.id_cargo";
+
 
 $resultado = $conexao->query($sql);
 ?>
 
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 
 <head>
     <meta charset="UTF-8">
@@ -51,6 +65,7 @@ $resultado = $conexao->query($sql);
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="../../style/style.css">
 </head>
+
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
@@ -77,6 +92,7 @@ $resultado = $conexao->query($sql);
                             <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
                         </li>
                     <?php } ?>
+
 
                     <li class="nav-item">
                         <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
@@ -117,6 +133,8 @@ $resultado = $conexao->query($sql);
                                 <th>Cargo</th>
                                 <th>Email</th>
                                 <th>Telefone</th>
+                                <th>CEP</th>
+                                <th>Endereço</th>
                                 <?php if (ehAdministrador()) { ?><th>Ações</th><?php } ?>
                             </tr>
                         </thead>
@@ -128,6 +146,13 @@ $resultado = $conexao->query($sql);
                                         <td><?= htmlspecialchars($usuario["nome_cargo"]) ?></td>
                                         <td><?= htmlspecialchars($usuario["email"]) ?></td>
                                         <td><?= htmlspecialchars($usuario["telefone"]) ?></td>
+                                        <td><?= htmlspecialchars($usuario["cep"] ?? "") ?></td>
+                                        <td><?= htmlspecialchars(implode(", ", array_filter([
+                                            $usuario["logradouro"],
+                                            $usuario["bairro"],
+                                            $usuario["cidade"],
+                                            $usuario["uf"]
+                                        ], static fn($valor) => $valor !== null && $valor !== ""))) ?></td>
                                         <?php if (ehAdministrador()) { ?>
                                             <td>
                                                 <a href="editar-user.php?id=<?= $usuario['id_usuario'] ?>"
@@ -135,6 +160,7 @@ $resultado = $conexao->query($sql);
                                                     <ion-icon name="pencil"></ion-icon>
                                                     Editar
                                                 </a>
+
 
                                                 <button type="button"
                                                     class="btn btn-danger btn-sm"
@@ -188,6 +214,7 @@ $resultado = $conexao->query($sql);
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     <?php } ?>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../script/botoes.js"></script>
