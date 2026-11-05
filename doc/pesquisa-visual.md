@@ -85,3 +85,31 @@ Essa diferença prejudicava a continuidade visual e poderia transmitir a impress
 Para resolver o problema, a equipe decidiu expandir a identidade visual definida na etapa anterior, reduzindo a quantidade de tonalidades de azul e padronizando os principais elementos das demais telas.
 
 Também foi revisada a tela de login, substituindo a imagem de fundo por uma opção mais adequada à identidade visual definida.
+
+## 7. Mudanças realizadas e justificativas
+
+As principais alterações foram:
+
+- **Usuários, trens, rotas e sensores:** padronização das cores da navbar e dos botões, utilizando principalmente o azul-marinho.
+- **Home Page:** alteração da cor do banner principal para combinar com a identidade visual definida na Landing Page.
+- **Landing Page:** padronização dos botões, títulos, ícones e fundos, reduzindo a quantidade de tonalidades de azul.
+- **Tela de login:** substituição da imagem de fundo por uma imagem mais profissional, alteração da cor do botão de entrada e do título "FERRORAMAS", além da padronização do ícone do trem.
+
+Essas mudanças tiveram como objetivo dar continuidade à identidade visual definida anteriormente, tornando as páginas mais consistentes, organizadas e relacionadas à proposta ferroviária do sistema.
+
+## 8. Testes de contraste, responsividade e legibilidade
+
+A equipe considerou a legibilidade dos textos, o contraste entre os elementos e a adaptação da interface a diferentes tamanhos de tela.
+
+Foram utilizados recursos do Bootstrap para organizar os elementos de forma responsiva, como o sistema de grid e as classes de espaçamento e alinhamento.
+
+Os testes de responsividade devem considerar:
+
+- Visualização em computadores.
+- Visualização em telas menores.
+- Funcionamento do menu de navegação recolhido.
+- Organização dos cards e formulários em diferentes larguras.
+
+Também é importante verificar se os textos e botões continuam legíveis e se os elementos interativos permanecem acessíveis.
+
+**Registro dos testes:** inserir capturas de tela das diferentes resoluções testadas e registrar eventuais ajustes realizados.
