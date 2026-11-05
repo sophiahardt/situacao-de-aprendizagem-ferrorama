@@ -10,19 +10,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_cargo = $_POST["id_cargo"] ?? "";
     $email = trim($_POST["email"] ?? "");
     $telefone = trim($_POST["telefone"] ?? "");
+    $cep_digitado = trim($_POST["cep"] ?? "");
+    $logradouro = trim($_POST["logradouro"] ?? "");
+    $bairro = trim($_POST["bairro"] ?? "");
+    $cidade = trim($_POST["cidade"] ?? "");
+    $uf = strtoupper(trim($_POST["uf"] ?? ""));
     $senha = $_POST["senha"] ?? "";
+    $cep = null;
+    if ($cep_digitado !== "") {
+        if (!preg_match('/^\d{5}-?\d{3}$/', $cep_digitado)) {
+            $mensagem = "Informe um CEP válido com 8 dígitos.";
+            $tipo_mensagem = "danger";
+        } else {
+            $cep_numerico = str_replace("-", "", $cep_digitado);
+            $cep = substr($cep_numerico, 0, 5) . "-" . substr($cep_numerico, 5);
+        }
+    }
+
+    if ($uf !== "" && !preg_match('/^[A-Z]{2}$/', $uf)) {
+        $mensagem = "Informe uma UF válida com 2 letras.";
+        $tipo_mensagem = "danger";
+    }
+
     if ($nome == "" || $id_cargo == "" || $email == "" || $telefone == "" || $senha == "") {
         $mensagem = "Preencha todos os campos.";
         $tipo_mensagem = "danger";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $mensagem = "Informe um e-mail válido.";
         $tipo_mensagem = "danger";
-    } else {
+    } elseif ($tipo_mensagem === "") {
         $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO usuario (id_cargo, nome, email, telefone, senha_hash)
-                VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO usuario (id_cargo, nome, email, telefone, cep, logradouro, bairro, cidade, uf, senha_hash)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("issss", $id_cargo, $nome, $email, $telefone, $senha_hash);
+        $tipos = "i" . str_repeat("s", 9);
+        $stmt->bind_param($tipos, $id_cargo, $nome, $email, $telefone, $cep, $logradouro, $bairro, $cidade, $uf, $senha_hash);
         if ($stmt->execute()) {
             header("Location: visualizar-user.php?sucesso=cadastrado");
             exit;
@@ -77,6 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </li>
                     <?php } ?>
 
+
                     <li class="nav-item">
                         <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
                     </li>
@@ -107,9 +130,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </p>
                 <hr>
                 <?php if ($mensagem != "") { ?>
-                    <p class="text-center text-success">
+                    <div class="alert alert-<?= htmlspecialchars($tipo_mensagem) ?> text-center">
                         <?= htmlspecialchars($mensagem) ?>
-                    </p>
+                    </div>
                 <?php } ?>
                 <form method="POST" autocomplete="off">
                     <div class="row">
@@ -120,6 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     name="nome"
                                     class="form-control"
                                     placeholder="Digite o nome completo"
+                                    value="<?= htmlspecialchars($_POST["nome"] ?? "") ?>"
                                     autocomplete="off"
                                     required>
                             </div>
@@ -129,6 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     name="email"
                                     class="form-control"
                                     placeholder="Digite o e-mail"
+                                    value="<?= htmlspecialchars($_POST["email"] ?? "") ?>"
                                     autocomplete="off"
                                     required>
                             </div>
@@ -150,7 +175,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         Selecione o cargo
                                     </option>
                                     <?php while ($cargo = $cargos->fetch_assoc()) { ?>
-                                        <option value="<?= $cargo['id_cargo'] ?>">
+                                        <option value="<?= $cargo['id_cargo'] ?>"
+                                            <?= ($_POST["id_cargo"] ?? "") == $cargo["id_cargo"] ? "selected" : "" ?>>
                                             <?= htmlspecialchars($cargo['nome_cargo']) ?>
                                         </option>
                                     <?php } ?>
@@ -162,9 +188,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     name="telefone"
                                     class="form-control"
                                     placeholder="(00) 00000-0000"
+                                    value="<?= htmlspecialchars($_POST["telefone"] ?? "") ?>"
                                     autocomplete="off"
                                     required>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="cep" class="form-label">CEP</label>
+                                <div class="input-group">
+                                    <input type="text"
+                                        id="cep"
+                                        name="cep"
+                                        class="form-control"
+                                        placeholder="00000-000"
+                                        value="<?= htmlspecialchars($_POST["cep"] ?? "") ?>"
+                                        inputmode="numeric"
+                                        autocomplete="postal-code"
+                                        maxlength="9"
+                                        pattern="\d{5}-?\d{3}"
+                                        aria-describedby="cep-ajuda cep-mensagem">
+                                    <button type="button" class="btn btn-outline-secondary" id="consultar-cep">
+                                        Buscar CEP
+                                    </button>
+                                </div>
+                                <small id="cep-ajuda" class="text-muted">Informe o CEP para preencher o endereço; os campos podem ser editados.</small>
+                                <div id="cep-mensagem" class="small mt-1" role="status" aria-live="polite"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="logradouro" class="form-label">Logradouro</label>
+                            <input type="text" id="logradouro" name="logradouro" class="form-control"
+                                value="<?= htmlspecialchars($_POST["logradouro"] ?? "") ?>" autocomplete="address-line1">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="bairro" class="form-label">Bairro</label>
+                            <input type="text" id="bairro" name="bairro" class="form-control"
+                                value="<?= htmlspecialchars($_POST["bairro"] ?? "") ?>">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="cidade" class="form-label">Cidade</label>
+                            <input type="text" id="cidade" name="cidade" class="form-control"
+                                value="<?= htmlspecialchars($_POST["cidade"] ?? "") ?>" autocomplete="address-level2">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="uf" class="form-label">UF</label>
+                            <input type="text" id="uf" name="uf" class="form-control" maxlength="2"
+                                value="<?= htmlspecialchars($_POST["uf"] ?? "") ?>" autocomplete="address-level1"
+                                pattern="[A-Za-z]{2}">
                         </div>
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -184,6 +259,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../script/consulta-cep.js"></script>
 </body>
 
 </html>

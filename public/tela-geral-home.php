@@ -100,14 +100,14 @@ if ($resultado) {
 
                         <p class="clima-local">
                             <ion-icon name="location"></ion-icon>
-                            <span id="clima-local">Localização</span>
+                            <span id="clima-local">Aguardando localização...</span>
                         </p>
 
                         <div class="d-flex align-items-center gap-3 clima-temperatura">
                             <ion-icon name="partly-sunny" id="clima-icone"></ion-icon>
                             <div>
                                 <h2 id="clima-temperatura">--°C</h2>
-                                <span id="clima-condicao">Carregando clima...</span>
+                                <span id="clima-condicao" aria-live="polite">Carregando clima...</span>
                             </div>
                         </div>
                         <hr>
@@ -132,12 +132,15 @@ if ($resultado) {
                         </div>
 
                         <div class="clima-atualizacao">
-                            <small id="clima-atualizacao">Aguardando atualização...</small>
+                            <small id="clima-atualizacao" aria-live="polite">Aguardando atualização...</small>
+                            <button type="button" class="btn btn-link btn-sm p-0 d-none" id="clima-tentar-novamente">
+                                Tentar novamente
+                            </button>
+                            <small>Dados meteorológicos: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a></small>
                         </div>
                     </div>
                 </div>
             </div>
-
 
             <div class="col-lg-8">
                 <div class="banner-dashboard h-100 d-flex align-items-center">
@@ -217,7 +220,6 @@ if ($resultado) {
 
         </section>
 
-
         <section class="row g-3 mb-3 align-items-stretch">
             <div class="col-lg-6 d-flex flex-column gap-3">
 
@@ -281,9 +283,11 @@ if ($resultado) {
                     <div class="card-body">
                         <h6 class="titulo-secao">Monitoramento ferroviário</h6>
 
+
                         <p class="texto-apoio">
-                            Espaço reservado para exibição de alertas 
+                            Espaço reservado para exibição de alertas
                         </p>
+
 
                         <div class="grafico-area">
                             <canvas id="graficoTrens"></canvas>
@@ -292,10 +296,10 @@ if ($resultado) {
                 </div>
             </div>
 
-
             <div class="col-lg-6">
                 <div class="card card-dashboard h-100">
                     <div class="card-body d-flex flex-column">
+
 
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <div>
@@ -305,10 +309,12 @@ if ($resultado) {
                                 </small>
                             </div>
 
+
                             <span class="badge bg-success-subtle text-success">
                                 Em operação
                             </span>
                         </div>
+
 
                         <div class="mapa-ferrovia flex-grow-1">
                             <!-- Espaço reservado para o mapa ferroviário -->
@@ -320,6 +326,7 @@ if ($resultado) {
         </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../script/clima.js"></script>
 </body>
 
 </html>
