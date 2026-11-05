@@ -1,13 +1,10 @@
-# Identidade Visual Do Projeto
+# Identidade Visual — Ferroramas
 
-A identidade visual do Sistema Ferroviário foi desenvolvida de forma colaborativa pela equipe, com o objetivo de transmitir modernidade e eficiência aos usuários. 
+## 1. Processo de definição da identidade visual
 
-Buscamos adotar um design prático, simples e intuitivo, priorizando a experiência do usuário com o sistema. Os campos de login e cadastro apresentam fundo branco com texto em preto, garantindo a clareza na escrita e fácil leitura. Na tela de login utilizamos a imagem de um trem representar visualmente o sistema e reforçar sua temática. Além disso, aplicamos botões que combinam textos em negrito e ícones, facilitando a navegação e tornando a interface mais simples. 
+A identidade visual do Ferroramas começou a ser definida durante o desenvolvimento da Landing Page, na etapa anterior da atividade.
 
-## Paleta de cores 
-A paleta de cores foi definida da seguinte forma: 
+Durante esse processo, a equipe experimentou diferentes tonalidades de azul e analisou como elas ficavam aplicadas à interface. Ao testar tons mais escuros, percebeu que eles combinavam melhor com a proposta do sistema, transmitindo uma aparência mais profissional e tecnológica.
 
-- O branco se destaca sobre o azul, proporcionando melhor legibilidade. 
-- As cores azul e branco transmitem segurança e confiabilidade.
-- O vermelho é utilizado para alertas e ações críticas. 
-- O verde indica elementos ativos ou em funcionamento, contribuindo para uma comunicação visual clara e eficiente.
+Como o resultado agradou à equipe, foi decidido manter essa identidade visual e expandi-la para as demais páginas do sistema, garantindo maior consistência entre a Landing Page, a tela de login e as funcionalidades internas.
+
