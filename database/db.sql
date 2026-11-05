@@ -28,6 +28,11 @@ id_cargo INT NOT NULL,
 nome VARCHAR(45) NOT NULL,
 email VARCHAR(45) NOT NULL UNIQUE,
 telefone VARCHAR(45),
+cep VARCHAR(9) NULL,
+logradouro VARCHAR(150) NULL,
+bairro VARCHAR(100) NULL,
+cidade VARCHAR(100) NULL,
+uf CHAR(2) NULL,
 senha_hash VARCHAR(255) NOT NULL,
 FOREIGN KEY (id_cargo) REFERENCES cargo(id_cargo)
 );
@@ -85,4 +90,3 @@ FOREIGN KEY (id_rota) REFERENCES rota(id_rota)
 INSERT INTO cargo (nome_cargo) VALUES 
 ('Administrador'),
 ('Funcionário');
-
