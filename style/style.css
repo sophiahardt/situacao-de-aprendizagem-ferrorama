@@ -18,6 +18,13 @@ body {
     background-color: #151d4b;
 }
 
+.navbar-fixa {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
 .navbar-sistema .nav-link {
     color: white !important;
 }
@@ -579,7 +586,7 @@ body {
     width: 100%;
     max-width: none;
     margin: 0;
-    padding: 20px 24px;
+    padding: 82px 20px 24px;
 }
 
 .card-dashboard,
