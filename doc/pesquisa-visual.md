@@ -60,3 +60,28 @@ A hierarquia dos textos foi organizada por meio de diferentes tamanhos e pesos:
 Para os elementos gráficos, foram utilizados ícones da biblioteca Ionicons, escolhidos de acordo com suas funcionalidades, como trens, sensores, usuários, rotas e relatórios.
 
 A utilização de ícones semelhantes entre as páginas ajuda a manter a padronização visual e facilita o reconhecimento das funcionalidades.
+
+## 5. Decisões de layout e hierarquia visual
+
+A equipe buscou manter uma estrutura semelhante entre as páginas, facilitando a navegação e evitando diferenças visuais desnecessárias.
+
+As principais decisões foram:
+
+- Utilização de uma navbar padronizada para manter a navegação consistente.
+- Organização de informações em cards, facilitando a identificação de cada funcionalidade.
+- Utilização de títulos e subtítulos para separar os conteúdos.
+- Padronização de botões, cores e ícones.
+- Uso de espaçamentos e alinhamentos para evitar excesso de informações concentradas em uma única área.
+- Organização responsiva com Bootstrap, permitindo adaptar os elementos a diferentes tamanhos de tela.
+
+Na Home Page, também foi mantido um destaque visual para o nome do sistema e para o acesso às rotas, reforçando a identidade do projeto.
+
+## 6. Problemas de usabilidade e inconsistências visuais identificadas
+
+Durante a revisão do frontend, foi identificada uma diferença visual entre a Landing Page e algumas páginas internas do sistema. Enquanto a Landing Page já utilizava tons mais escuros de azul, outras telas ainda apresentavam cores diferentes nos botões, títulos e na barra de navegação.
+
+Essa diferença prejudicava a continuidade visual e poderia transmitir a impressão de que as páginas pertenciam a sistemas diferentes.
+
+Para resolver o problema, a equipe decidiu expandir a identidade visual definida na etapa anterior, reduzindo a quantidade de tonalidades de azul e padronizando os principais elementos das demais telas.
+
+Também foi revisada a tela de login, substituindo a imagem de fundo por uma opção mais adequada à identidade visual definida.
