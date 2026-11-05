@@ -27,3 +27,22 @@ Também foram mantidas cores complementares para indicar diferentes estados do s
 - **Verde:** representa sucesso, segurança, equilíbrio e funcionamento correto. Foi escolhido para indicar operações concluídas e situações normais do sistema.
 - **Vermelho:** remete a perigo, urgência e atenção imediata. Foi escolhido para identificar erros, falhas e alertas que exigem alguma ação.
 
+## 3. Paleta de cores escolhida
+
+| Cor | Código HEX | Função |
+|---|---|---|
+| Azul-marinho | `#151D4B` | Cor principal, utilizada na navbar, botões, títulos e fundos escuros. Transmite confiança, segurança, estabilidade e profissionalismo, combinando com a proposta tecnológica do sistema. |
+| Azul médio | `#1763B5` | Links, ícones e elementos interativos. Remete à confiança, organização e tecnologia, destacando elementos importantes da interface. |
+| Azul-claro | `#6FB1FF` | Detalhes, ícones e efeitos de destaque em fundos escuros. Transmite leveza, modernidade e inovação, criando pontos de destaque visual. |
+| Azul acinzentado | `#52708F` | Textos secundários e informações complementares. Passa uma impressão de equilíbrio, neutralidade e discrição, facilitando a organização das informações. |
+| Fundo claro | `#F4F8FD` | Fundo principal das páginas. Transmite limpeza, tranquilidade e simplicidade, deixando a interface mais leve e facilitando a leitura. |
+| Branco | `#FFFFFF` | Cards, formulários e superfícies. Remete à clareza, organização e simplicidade, além de ajudar a destacar os conteúdos apresentados. |
+| Cinza-claro | `#DCE4ED` | Bordas, divisórias e textos claros. Transmite neutralidade e equilíbrio, sendo utilizado para separar elementos sem chamar muita atenção. |
+| Verde | `#16A36A` | Indicação de sucesso e operação normal. Representa segurança, estabilidade e confirmação de que determinada ação foi realizada corretamente. |
+| Amarelo | `#F5B400` | Atenção e informações que precisam de destaque. Remete a cuidado e prevenção, indicando situações que precisam ser observadas. |
+| Vermelho | `#EF4444` | Erros e alertas. Transmite urgência e perigo, permitindo identificar rapidamente problemas e situações que exigem atenção. |
+
+A combinação busca manter uma aparência equilibrada e padronizada. O azul-marinho é predominante, enquanto as demais tonalidades são utilizadas de maneira pontual, evitando o excesso de cores semelhantes.
+
+Os tons claros e o branco ajudam a criar contraste com os elementos principais, facilitando a leitura e a identificação das informações.
+
