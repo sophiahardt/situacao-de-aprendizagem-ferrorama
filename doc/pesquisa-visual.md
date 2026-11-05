@@ -113,3 +113,25 @@ Os testes de responsividade devem considerar:
 Também é importante verificar se os textos e botões continuam legíveis e se os elementos interativos permanecem acessíveis.
 
 **Registro dos testes:** inserir capturas de tela das diferentes resoluções testadas e registrar eventuais ajustes realizados.
+
+## 9. Fontes consultadas
+
+- [Bootstrap 5.3 — Documentação oficial](https://getbootstrap.com/docs/5.3/): referência para organização responsiva, componentes e estrutura das páginas.
+- [Ionicons — Documentação oficial](https://ionic.io/ionicons): referência para utilização dos ícones.
+- [W3C — Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/standards-guidelines/wcag/): referência para critérios de acessibilidade, contraste e legibilidade.
+
+A própria Landing Page, desenvolvida na etapa anterior, foi utilizada como referência interna para dar continuidade à identidade visual.
+
+## 10. Ferramentas utilizadas
+
+Durante o desenvolvimento e a revisão da interface, foram utilizadas:
+
+- **HTML:** estruturação dos conteúdos das páginas.
+- **CSS:** definição das cores, estilos e identidade visual.
+- **Bootstrap 5.3.3:** organização dos elementos e responsividade.
+- **Ionicons:** utilização de ícones relacionados às funcionalidades.
+- **Visual Studio Code:** edição dos arquivos do sistema.
+- **Git e GitHub:** versionamento e registro das alterações.
+- **Inteligência Artificial:** apoio na organização de ideias, sugestões de melhorias visuais e auxílio durante o desenvolvimento e a revisão da interface.
+
+As decisões finais de design foram avaliadas e definidas pela equipe, considerando as necessidades e a identidade do sistema Ferroramas.
