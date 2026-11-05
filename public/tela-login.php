@@ -74,8 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container-fluid p-0">
         <div class="fundo">
             <div class="painel d-flex align-items-center">
+                <a href="../index.php" class="link-saiba-mais">Saiba mais</a>
                 <div class="login-box w-100 text-white">
-
                     <div class="logo text-center mb-4">
                         <ion-icon name="train-outline" class="logo-icone"></ion-icon>
                     </div>
