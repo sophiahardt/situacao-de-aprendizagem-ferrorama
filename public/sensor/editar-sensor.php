@@ -1,62 +1,52 @@
 <?php
-
 require_once "../../infra/protecao.php";
-
 verificarAdministrador();
-
 require_once "../../infra/conexao.php";
-
 $mensagem = "";
 $tipo_mensagem = "";
 $id_sensor = $_GET["id"] ?? "";
-
 if ($id_sensor == "") {
     header("Location: visualizar-sensor.php");
     exit;
 }
-
 $sql = "SELECT * FROM sensor WHERE id_sensor = ?";
-
 $stmt = $conexao->prepare($sql);
 $stmt->bind_param("i", $id_sensor);
 $stmt->execute();
-
 $resultado = $stmt->get_result();
 $sensor = $resultado->fetch_assoc();
-
 if (!$sensor) {
     header("Location: visualizar-sensor.php");
     exit;
 }
-
 $rotas = $conexao->query("SELECT id_rota, nome_rota FROM rota ORDER BY nome_rota");
-
 $trens = $conexao->query("SELECT id_trem, nome_trem FROM trem ORDER BY nome_trem");
-
+$localizacao_atual = $sensor["localizacao"];
 $id_rota_sensor = $sensor["id_rota"] ?? "";
 $id_trem_sensor = $sensor["id_trem"] ?? "";
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
     $nome_sensor = $_POST["nome_sensor"] ?? "";
     $tipo_sensor = $_POST["tipo_sensor"] ?? "";
     $localizacao = $_POST["localizacao"] ?? "";
     $id_localizacao = $_POST["id_localizacao"] ?? "";
-
+    $localizacao_atual = $localizacao;
+    $id_rota_sensor = "";
+    $id_trem_sensor = "";
+    if ($localizacao == "rota") {
+        $id_rota_sensor = $id_localizacao;
+    } else {
+        $id_trem_sensor = $id_localizacao;
+    }
     if ($nome_sensor == "" || $tipo_sensor == "" || $localizacao == "" || $id_localizacao == "") {
-
         $mensagem = "Preencha todos os campos.";
     } else {
-
         $id_rota = null;
         $id_trem = null;
-
         if ($localizacao == "rota") {
             $id_rota = $id_localizacao;
         } else {
             $id_trem = $id_localizacao;
         }
-
         $sql = "UPDATE sensor
                 SET nome_sensor = ?,
                     tipo_sensor = ?,
@@ -64,19 +54,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     id_trem = ?,
                     id_rota = ?
                 WHERE id_sensor = ?";
-
         $stmt = $conexao->prepare($sql);
-
-        $stmt->bind_param(
-            "sssiii",
-            $nome_sensor,
-            $tipo_sensor,
-            $localizacao,
-            $id_trem,
-            $id_rota,
-            $id_sensor
-        );
-
+        $stmt->bind_param("sssiii", $nome_sensor, $tipo_sensor, $localizacao, $id_trem, $id_rota, $id_sensor);
         if ($stmt->execute()) {
             header("Location: visualizar-sensor.php?sucesso=editado");
             exit;
@@ -86,12 +65,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -101,47 +77,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="../../style/style.css">
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="../tela-geral-home.php">
-                            Dashboard
-                        </a>
+                        <a class="nav-link" href="../tela-geral-home.php">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="visualizar-sensor.php">
-                            Sensores
-                        </a>
+                        <a class="nav-link" href="visualizar-sensor.php">Sensores</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../trem/visualizar-trem.php">
-                            Trens
-                        </a>
+                        <a class="nav-link" href="../trem/visualizar-trem.php">Trens</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../rota/visualizar-rota.php">
-                            Rotas
-                        </a>
+                        <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
                     <?php if (ehAdministrador()) { ?>
                         <li class="nav-item">
                             <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
                         </li>
                     <?php } ?>
-
                     <li class="nav-item">
-                        <a class="nav-link" href="../relatorio/visualizar-relatorio.php">
-                            Relatórios
-                        </a>
+                        <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto align-items-center">
@@ -161,118 +123,72 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </nav>
-
     <div class="container mt-5">
         <div class="card shadow-sm">
             <div class="card-body">
                 <h2 class="text-center mb-3">Editar sensor</h2>
-                <p class="text-center text-muted">
-                    Preencha as informações para editar o sensor no sistema
-                </p>
+                <p class="text-center text-muted">Preencha as informações para editar o sensor no sistema</p>
                 <hr>
-
                 <?php if ($mensagem != "") { ?>
                     <div class="alert alert-<?= $tipo_mensagem ?> text-center">
                         <?= htmlspecialchars($mensagem) ?>
                     </div>
                 <?php } ?>
-
                 <form method="POST">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Nome do Sensor</label>
-                                <input type="text" name="nome_sensor" class="form-control" value="<?= $sensor["nome_sensor"] ?>" required>
+                                <input type="text" name="nome_sensor" class="form-control" value="<?= htmlspecialchars($sensor["nome_sensor"]) ?>" required>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label">Tipo de Dado</label>
                                 <select name="tipo_sensor" class="form-select" required>
-                                    <option selected disabled value="">Selecione o tipo de dado</option>
-
-                                    <option value="Temperatura"
-                                        <?= $sensor["tipo_sensor"] == "Temperatura" ? "selected" : "" ?>>
-                                        Temperatura
-                                    </option>
-
-                                    <option value="Velocidade"
-                                        <?= $sensor["tipo_sensor"] == "Velocidade" ? "selected" : "" ?>>
-                                        Velocidade
-                                    </option>
-
-                                    <option value="Presença"
-                                        <?= $sensor["tipo_sensor"] == "Presença" ? "selected" : "" ?>>
-                                        Presença
-                                    </option>
+                                    <option value="" disabled>Selecione o tipo de dado</option>
+                                    <option value="Temperatura" <?= $sensor["tipo_sensor"] == "Temperatura" ? "selected" : "" ?>>Temperatura</option>
+                                    <option value="Velocidade" <?= $sensor["tipo_sensor"] == "Velocidade" ? "selected" : "" ?>>Velocidade</option>
+                                    <option value="Presença" <?= $sensor["tipo_sensor"] == "Presença" ? "selected" : "" ?>>Presença</option>
                                 </select>
                             </div>
                         </div>
-
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Localização</label>
-
-                                <select name="localizacao" id="localizacao" class="form-select" required>
-                                    <option selected disabled value="">Selecione a localização</option>
-
-                                    <option value="rota"
-                                        <?= $sensor["localizacao"] == "rota" ? "selected" : "" ?>>
-                                        Rota
-                                    </option>
-
-                                    <option value="trem"
-                                        <?= $sensor["localizacao"] == "trem" ? "selected" : "" ?>>
-                                        Trem
-                                    </option>
+                                <select name="localizacao" id="localizacao" class="form-select" onchange="verificarLocalizacao()" required>
+                                    <option value="" disabled>Selecione a localização</option>
+                                    <option value="rota" <?= $localizacao_atual == "rota" ? "selected" : "" ?>>Rota</option>
+                                    <option value="trem" <?= $localizacao_atual == "trem" ? "selected" : "" ?>>Trem</option>
                                 </select>
                             </div>
-
-
-                            <div class="mb-3">
-                                <label class="form-label">
-                                    Rota ou Trem
-                                </label>
-
-                                <select name="id_localizacao"
-                                    class="form-select"
-                                    required>
-
-                                    <option selected disabled value="">
-                                        Selecione
-                                    </option>
-
+                            <div class="mb-3" id="campo_rota" style="display: none;">
+                                <label class="form-label">Rota</label>
+                                <select name="id_localizacao" id="id_rota" class="form-select" disabled>
+                                    <option value="">Selecione a rota</option>
                                     <?php while ($rota = $rotas->fetch_assoc()) { ?>
-
-                                        <option value="<?= $rota["id_rota"] ?>"
-                                            <?= $rota["id_rota"] == $id_rota_sensor ? "selected" : "" ?>>
-                                            <?= $rota["nome_rota"] ?>
+                                        <option value="<?= $rota["id_rota"] ?>" <?= $rota["id_rota"] == $id_rota_sensor ? "selected" : "" ?>>
+                                            <?= htmlspecialchars($rota["nome_rota"]) ?>
                                         </option>
                                     <?php } ?>
-
-                                    <?php while ($trem = $trens->fetch_assoc()) { ?>
-
-                                        <option value="<?= $trem["id_trem"] ?>"
-                                            <?= $trem["id_trem"] == $id_trem_sensor ? "selected" : "" ?>>
-
-                                            <?= $trem["nome_trem"] ?>
-
-                                        </option>
-
-                                    <?php } ?>
-
                                 </select>
                             </div>
-
+                            <div class="mb-3" id="campo_trem" style="display: none;">
+                                <label class="form-label">Trem</label>
+                                <select name="id_localizacao" id="id_trem" class="form-select" disabled>
+                                    <option value="">Selecione o trem</option>
+                                    <?php while ($trem = $trens->fetch_assoc()) { ?>
+                                        <option value="<?= $trem["id_trem"] ?>" <?= $trem["id_trem"] == $id_trem_sensor ? "selected" : "" ?>>
+                                            <?= htmlspecialchars($trem["nome_trem"]) ?>
+                                        </option>
+                                    <?php } ?>
+                                </select>
+                            </div>
                         </div>
-
                     </div>
-
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-light" onclick="window.location.href='visualizar-sensor.php'">
                             <ion-icon name="close-outline"></ion-icon>
                             Cancelar
                         </button>
-
                         <button type="submit" class="btn btn-primary" style="background-color: #071b8d;">
                             <ion-icon name="save-outline"></ion-icon>
                             Salvar alterações
@@ -282,10 +198,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
-
-
+    <script>
+        function verificarLocalizacao() {
+            let localizacao = document.getElementById("localizacao").value;
+            let campo_rota = document.getElementById("campo_rota");
+            let campo_trem = document.getElementById("campo_trem");
+            let id_rota = document.getElementById("id_rota");
+            let id_trem = document.getElementById("id_trem");
+            if (localizacao == "rota") {
+                campo_rota.style.display = "block";
+                campo_trem.style.display = "none";
+                id_rota.disabled = false;
+                id_rota.required = true;
+                id_trem.disabled = true;
+                id_trem.required = false;
+            } else if (localizacao == "trem") {
+                campo_rota.style.display = "none";
+                campo_trem.style.display = "block";
+                id_rota.disabled = true;
+                id_rota.required = false;
+                id_trem.disabled = false;
+                id_trem.required = true;
+            } else {
+                campo_rota.style.display = "none";
+                campo_trem.style.display = "none";
+                id_rota.disabled = true;
+                id_trem.disabled = true;
+            }
+        }
+        verificarLocalizacao();
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
-
 </html>
