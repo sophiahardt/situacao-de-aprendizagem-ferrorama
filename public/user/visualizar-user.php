@@ -115,8 +115,8 @@ $resultado = $conexao->query($sql);
             </div>
         </div>
     </nav>
-    <div class="container-fluid p-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="container-fluid p-4 crud-container">
+        <div class="d-flex justify-content-between align-items-center mb-4 crud-cabecalho">
             <h1 class="h3">Lista de usuários cadastrados</h1>
             <a href="cadastrar-user.php" class="btn d-flex align-items-center gap-2" style="background-color: #151d4b;  color: white;">
                 <ion-icon name="add-circle"></ion-icon>
