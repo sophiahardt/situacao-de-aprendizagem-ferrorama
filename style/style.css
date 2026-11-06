@@ -772,3 +772,130 @@ body {
         padding: 12px;
     }
 }
+
+.crud-container {
+    padding: 30px !important;
+}
+
+.crud-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.crud-container .card {
+    border: 1px solid #dce4f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.crud-container .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.crud-container table {
+    width: 100%;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.crud-container table th {
+    background-color: #eef2f8;
+    color: #151d4b;
+    font-weight: 700;
+    white-space: nowrap;
+    padding: 14px;
+}
+
+.crud-container table td {
+    padding: 13px;
+    vertical-align: middle;
+}
+
+.crud-container table tbody tr:hover {
+    background-color: #f5f8fc;
+}
+
+.crud-container table .btn {
+    min-width: 75px;
+    margin: 2px;
+}
+
+.btn-detalhes {
+    background-color: #151d4b;
+    color: white;
+    border: none;
+}
+
+.btn-detalhes:hover {
+    background-color: #0a2a66;
+    color: white;
+}
+
+.modal-detalhes .modal-header {
+    background-color: #151d4b;
+    color: white;
+}
+
+.modal-detalhes .modal-body p {
+    margin-bottom: 12px;
+}
+
+.modal-detalhes .modal-body strong {
+    color: #151d4b;
+}
+
+.mapa-ferrovia {
+    position: relative;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.trilho {
+    position: relative;
+    width: 100%;
+    height: 8px;
+    background-color: #7d8796;
+    border-top: 2px solid #4b5563;
+    border-bottom: 2px solid #4b5563;
+}
+
+.trem-animado {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 38px;
+    color: #151d4b;
+    animation: movimentoTrem 12s linear infinite;
+}
+
+@keyframes movimentoTrem {
+    from {
+        left: 0;
+    }
+    to {
+        left: calc(100% - 45px);
+    }
+}
+
+@media (max-width: 768px) {
+    .crud-container {
+        padding: 15px !important;
+    }
+
+    .crud-cabecalho {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .crud-container table {
+        min-width: 650px;
+    }
+}
