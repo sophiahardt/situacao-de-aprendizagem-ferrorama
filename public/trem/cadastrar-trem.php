@@ -18,23 +18,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($nome_trem == "" || $velocidade_maxima == "" || $tipo_trem == "" || $id_rota == "" || $id_usuario == "") {
         $mensagem = "Preencha todos os campos.";
     } else {
-        $sql = "INSERT INTO trem (nome_trem, velocidade_maxima, tipo_trem, id_usuario) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO trem (nome_trem, velocidade_maxima, tipo_trem, id_usuario, id_rota) VALUES (?, ?, ?, ?, ?)";
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("sdsi", $nome_trem, $velocidade_maxima, $tipo_trem, $id_usuario);
+        $stmt->bind_param("sdsii", $nome_trem, $velocidade_maxima, $tipo_trem, $id_usuario, $id_rota);
 
         if ($stmt->execute()) {
-            $id_trem = $conexao->insert_id;
-
-            $sql_rota = "INSERT INTO trem_rota (id_trem, id_rota) VALUES (?, ?)";
-            $stmt_rota = $conexao->prepare($sql_rota);
-            $stmt_rota->bind_param("ii", $id_trem, $id_rota);
-
-            if ($stmt_rota->execute()) {
-                header("Location: visualizar-trem.php?sucesso=cadastrado");
-                exit;
-            } else {
-                $mensagem = "Erro ao cadastrar a rota do trem.";
-            }
+            header("Location: visualizar-trem.php?sucesso=cadastrado");
+            exit;
+        } else {
+            $mensagem = "Erro ao cadastrar o trem.";
         }
     }
 }
@@ -159,7 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <?php } ?>
                                 </select>
                                 <div class="form-text">
-                                    O trem precisa estar associado a uma rota.
+                                    Informe a rota em que o trem anda.
                                     <a href="../rota/cadastrar-rota.php" target="_blank" rel="noopener noreferrer">
                                         Cadastrar rota
                                     </a>

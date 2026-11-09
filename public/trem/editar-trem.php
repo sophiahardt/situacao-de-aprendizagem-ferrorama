@@ -27,14 +27,7 @@ if (!$trem) {
     exit;
 }
 
-$sql = "SELECT id_rota FROM trem_rota WHERE id_trem = ?";
-
-$stmt = $conexao->prepare($sql);
-$stmt->bind_param("i", $id_trem);
-$stmt->execute();
-$resultado = $stmt->get_result();
-$rota_trem = $resultado->fetch_assoc();
-$id_rota_trem = $rota_trem["id_rota"] ?? "";
+$id_rota_trem = $trem["id_rota"] ?? "";
 
 $rotas = $conexao->query("SELECT id_rota, nome_rota FROM rota ORDER BY nome_rota");
 $responsavel = $conexao->query("SELECT id_usuario, nome FROM usuario ORDER BY nome");
@@ -49,21 +42,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($nome_trem == "" || $velocidade_maxima == "" || $tipo_trem == "" || $id_rota == "" || $id_usuario == "") {
         $mensagem = "Preencha todos os campos.";
     } else {
-        $sql = "UPDATE trem SET nome_trem = ?, velocidade_maxima = ?, tipo_trem = ?, id_usuario = ? WHERE id_trem = ?";
+        $sql = "UPDATE trem SET nome_trem = ?, velocidade_maxima = ?, tipo_trem = ?, id_usuario = ?, id_rota = ? WHERE id_trem = ?";
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("sdsii", $nome_trem, $velocidade_maxima, $tipo_trem, $id_usuario, $id_trem);
+        $stmt->bind_param("sdsiii", $nome_trem, $velocidade_maxima, $tipo_trem, $id_usuario, $id_rota, $id_trem);
 
         if ($stmt->execute()) {
-            $sql_rota = "UPDATE trem_rota SET id_rota = ? WHERE id_trem = ?";
-            $stmt_rota = $conexao->prepare($sql_rota);
-            $stmt_rota->bind_param("ii", $id_rota, $id_trem);
-            if ($stmt_rota->execute()) {
-                header("Location: visualizar-trem.php?sucesso=editado");
-                exit;
-            } else {
-                $mensagem = "Erro ao atualizar a rota do trem.";
-                $tipo_mensagem = "danger";
-            }
+            header("Location: visualizar-trem.php?sucesso=editado");
+            exit;
         } else {
             $mensagem = "Erro ao editar o trem.";
             $tipo_mensagem = "danger";

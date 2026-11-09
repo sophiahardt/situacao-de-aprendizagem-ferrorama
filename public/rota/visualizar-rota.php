@@ -3,7 +3,6 @@ require_once "../../infra/protecao.php";
 verificarLogin();
 require_once "../../infra/conexao.php";
 
-
 $mensagem = "";
 $tipo_mensagem = "success";
 
@@ -15,6 +14,9 @@ if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
     $mensagem = "Rota cadastrada com sucesso!";
 } elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "editada") {
     $mensagem = "Rota editada com sucesso!";
+} elseif (isset($_GET["erro"]) && $_GET["erro"] == "trens") {
+    $mensagem = "Não é possível excluir esta rota, pois existem trens operando nela.";
+    $tipo_mensagem = "danger";
 } elseif (isset($_GET["erro"]) && $_GET["erro"] == "sensores") {
     $mensagem = "Não é possível excluir esta rota, pois existem sensores associados a ela.";
     $tipo_mensagem = "danger";
@@ -27,8 +29,6 @@ if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
 $sql = "SELECT * FROM rota ORDER BY id_rota";
 $resultado = $conexao->query($sql);
 ?>
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -192,6 +192,4 @@ $resultado = $conexao->query($sql);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../script/botoes.js"></script>
 </body>
-
-
 </html>

@@ -37,21 +37,15 @@ senha_hash VARCHAR(255) NOT NULL,
 FOREIGN KEY (id_cargo) REFERENCES cargo(id_cargo)
 );
 
-CREATE TABLE log_acesso (
-id_log INT AUTO_INCREMENT PRIMARY KEY,
-id_usuario INT NOT NULL,
-acao VARCHAR(45) NOT NULL,
-dt_acesso DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
-);
-
 CREATE TABLE trem (
 id_trem INT AUTO_INCREMENT PRIMARY KEY,
-nome_trem VARCHAR(100) NOT NULL, 
+nome_trem VARCHAR(100) NOT NULL,
 velocidade_maxima DECIMAL(5,2) NOT NULL,
 tipo_trem VARCHAR(45) NOT NULL,
 id_usuario INT,
-FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
+id_rota INT NOT NULL,
+FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+FOREIGN KEY (id_rota) REFERENCES rota(id_rota)
 );
 
 CREATE TABLE sensor (
@@ -78,14 +72,6 @@ unidade_medida VARCHAR(45),
 dt_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY (id_sensor) REFERENCES sensor(id_sensor)
 );
-
-CREATE TABLE trem_rota (
-id_trem_rota INT AUTO_INCREMENT PRIMARY KEY,
-id_trem INT NOT NULL,
-id_rota INT NOT NULL,
-FOREIGN KEY (id_trem) REFERENCES trem(id_trem),
-FOREIGN KEY (id_rota) REFERENCES rota(id_rota)
-); 
 
 INSERT INTO cargo (nome_cargo) VALUES 
 ('Administrador'),

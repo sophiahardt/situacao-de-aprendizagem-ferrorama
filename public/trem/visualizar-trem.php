@@ -11,9 +11,6 @@ $total_colunas = ehAdministrador() ? 7 : 6;
 
 if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
     $mensagem = "Trem excluído com sucesso!";
-} elseif (isset($_GET["erro"]) && $_GET["erro"] == "rotas") {
-    $mensagem = "Não é possível excluir este trem, pois existem rotas associadas a ele.";
-    $tipo_mensagem = "danger";
 } elseif (isset($_GET["erro"]) && $_GET["erro"] == "sensores") {
     $mensagem = "Não é possível excluir este trem, pois existem sensores associados a ele.";
     $tipo_mensagem = "danger";
@@ -30,8 +27,7 @@ $sql = "SELECT trem.*,
                rota.nome_rota,
                usuario.nome AS nome_responsavel
         FROM trem
-        LEFT JOIN trem_rota ON trem.id_trem = trem_rota.id_trem
-        LEFT JOIN rota ON trem_rota.id_rota = rota.id_rota
+        LEFT JOIN rota ON trem.id_rota = rota.id_rota
         LEFT JOIN usuario ON trem.id_usuario = usuario.id_usuario";
 
 $resultado = $conexao->query($sql);
@@ -123,7 +119,7 @@ $resultado = $conexao->query($sql);
                                 <th>Velocidade Máxima</th>
                                 <th>Tipo</th>
                                 <th>Responsável</th>
-                                <th>Rotas</th>
+                                <th>Rota</th>
                                 <?php if (ehAdministrador()) { ?><th>Ações</th><?php } ?>
                             </tr>
                         </thead>
