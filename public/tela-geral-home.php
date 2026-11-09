@@ -161,7 +161,7 @@ if ($resultado) {
         </section>
 
         <section class="row g-3 mb-3">
-            <div class="col-6 col-md-4 col-lg">
+            <div class="col-6 col-md-4 col-xl">
                 <a href="trem/visualizar-trem.php" class="card card-atalho">
                     <div class="card-body">
                         <ion-icon name="train-outline"></ion-icon>
@@ -172,7 +172,7 @@ if ($resultado) {
                 </a>
             </div>
 
-            <div class="col-6 col-md-4 col-lg">
+            <div class="col-6 col-md-4 col-xl">
                 <a href="rota/visualizar-rota.php" class="card card-atalho">
                     <div class="card-body">
                         <ion-icon name="git-network-outline"></ion-icon>
@@ -183,7 +183,7 @@ if ($resultado) {
                 </a>
             </div>
 
-            <div class="col-6 col-md-4 col-lg">
+            <div class="col-6 col-md-4 col-xl">
                 <a href="sensor/visualizar-sensor.php" class="card card-atalho">
                     <div class="card-body">
                         <ion-icon name="radio-outline"></ion-icon>
@@ -195,7 +195,7 @@ if ($resultado) {
             </div>
 
             <?php if (ehAdministrador()) { ?>
-                <div class="col-6 col-md-4 col-lg">
+                <div class="col-6 col-md-4 col-xl">
                     <a href="user/visualizar-user.php" class="card card-atalho">
                         <div class="card-body">
                             <ion-icon name="person-outline"></ion-icon>
@@ -207,7 +207,7 @@ if ($resultado) {
                 </div>
             <?php } ?>
 
-            <div class="col-6 col-md-4 col-lg">
+            <div class="col-6 col-md-4 col-xl">
                 <a href="relatorio/visualizar-relatorio.php" class="card card-atalho">
                     <div class="card-body">
                         <ion-icon name="document-text-outline"></ion-icon>
@@ -220,7 +220,7 @@ if ($resultado) {
 
         </section>
 
-        <section class="row g-3 mb-3 align-items-stretch">
+        <section class="row g-3 mb-3 align-items-start">
             <div class="col-lg-6 d-flex flex-column gap-3">
 
                 <div class="card card-dashboard">
@@ -297,7 +297,7 @@ if ($resultado) {
             </div>
 
             <div class="col-lg-6">
-                <div class="card card-dashboard h-100">
+                <div class="card card-dashboard">
                     <div class="card-body d-flex flex-column">
 
 
@@ -316,7 +316,7 @@ if ($resultado) {
                         </div>
 
 
-                        <div class="mapa-ferrovia flex-grow-1">
+                        <div class="mapa-ferrovia">
                             <!-- Espaço reservado para o mapa ferroviário -->
                         </div>
                     </div>
