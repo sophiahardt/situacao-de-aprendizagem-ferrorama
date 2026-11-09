@@ -158,6 +158,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         </option>
                                     <?php } ?>
                                 </select>
+                                <div class="form-text">
+                                    O trem precisa estar associado a uma rota.
+                                    <a href="../rota/cadastrar-rota.php" target="_blank" rel="noopener noreferrer">
+                                        Cadastrar rota
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -206,7 +212,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
 
                     <div class="d-flex justify-content-end gap-2 mt-4">
-                        <button type="button" class="btn btn-light"
+                        <button type="button" class="btn btn-light btn-cancelar"
                             onclick="window.location.href='visualizar-trem.php'">
                             <ion-icon name="close-outline"></ion-icon>
                             Cancelar
