@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/style.css?v=3">
 
 </head>
 
@@ -74,7 +74,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container-fluid p-0">
         <div class="fundo">
             <div class="painel d-flex align-items-center">
-                <a href="../index.php" class="link-saiba-mais">Saiba mais</a>
                 <div class="login-box w-100 text-white">
                     <div class="logo text-center mb-4">
                         <ion-icon name="train-outline" class="logo-icone"></ion-icon>
@@ -87,14 +86,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h2 class="text-center fw-bold mb-4">
                         Login
                     </h2>
-
-                    <?php if ($mensagem != "") { ?>
-
-                        <p class="text-center mt-3 text-warning">
-                            <?= $mensagem ?>
-                        </p>
-
-                    <?php } ?>
 
                     <form method="POST">
 
@@ -149,6 +140,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
     </div>
+
+    <?php if ($mensagem != "") { ?>
+        <div
+            class="login-snackbar"
+            id="erroLogin"
+            role="alert"
+            aria-live="assertive">
+            <ion-icon name="alert-circle-outline" class="login-snackbar-icone" aria-hidden="true"></ion-icon>
+            <span><?= htmlspecialchars($mensagem, ENT_QUOTES, "UTF-8") ?></span>
+            <button type="button" class="login-snackbar-fechar" id="fecharErroLogin" aria-label="Fechar mensagem">
+                Fechar
+            </button>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const snackbar = document.getElementById("erroLogin");
+                const fechar = document.getElementById("fecharErroLogin");
+                const dispensar = function () {
+                    snackbar.classList.add("login-snackbar-oculto");
+                };
+
+                fechar.addEventListener("click", dispensar);
+            });
+        </script>
+    <?php } ?>
 
 </body>
 
