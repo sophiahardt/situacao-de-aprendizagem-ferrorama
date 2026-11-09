@@ -461,7 +461,7 @@ $resultado = $conexao->query($sql);
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                        <button type="button" class="btn btn-light btn-cancelar" data-bs-dismiss="modal">
                             <ion-icon name="close-outline"></ion-icon>
                             Cancelar
                         </button>
@@ -585,7 +585,7 @@ $resultado = $conexao->query($sql);
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                        <button type="button" class="btn btn-light btn-cancelar" data-bs-dismiss="modal">
                             <ion-icon name="close-outline"></ion-icon>
                             Cancelar
                         </button>

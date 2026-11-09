@@ -378,7 +378,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                         <button type="button"
-                            class="btn btn-light"
+                            class="btn btn-light btn-cancelar"
                             onclick="window.location.href='visualizar-user.php'">
                             <ion-icon name="close-outline"></ion-icon>
                             Cancelar
@@ -445,6 +445,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 </html>
-
 
 

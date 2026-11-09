@@ -160,7 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="d-flex justify-content-end gap-3 mt-5">
                     <button type="button"
-                        class="btn btn-light px-4 py-2"
+                        class="btn btn-light btn-cancelar px-4 py-2"
                         onclick="window.location.href='visualizar-relatorio.php'">
                         <ion-icon name="close-outline"></ion-icon>
                         Cancelar

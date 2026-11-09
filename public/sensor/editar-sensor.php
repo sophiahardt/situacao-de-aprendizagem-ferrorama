@@ -185,7 +185,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-light" onclick="window.location.href='visualizar-sensor.php'">
+                        <button type="button" class="btn btn-light btn-cancelar" onclick="window.location.href='visualizar-sensor.php'">
                             <ion-icon name="close-outline"></ion-icon>
                             Cancelar
                         </button>

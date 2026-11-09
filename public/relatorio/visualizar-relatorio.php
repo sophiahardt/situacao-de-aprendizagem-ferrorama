@@ -136,7 +136,7 @@
                             Após a confirmação, não será possível reverter esta ação.
                         </p>
                         <div class="d-flex justify-content-center gap-5">
-                            <button type="button" class="btn btn-secondary px-5" data-bs-dismiss="modal">
+                            <button type="button" class="btn btn-secondary btn-cancelar px-5" data-bs-dismiss="modal">
                                 Cancelar
                             </button>
                             <a id="btnConfirmarExclusao" href="#" class="btn btn-danger px-5">

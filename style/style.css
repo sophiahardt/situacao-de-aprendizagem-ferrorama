@@ -782,6 +782,21 @@ body {
     box-shadow: 0 0 0 0.2rem rgba(21, 29, 75, 0.25);
 }
 
+.btn-cancelar {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+    color: #fff !important;
+}
+
+.btn-cancelar:hover {
+    background-color: #bb2d3b !important;
+    border-color: #b02a37 !important;
+}
+
+.btn-cancelar:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
 @media (max-width: 767px) {
     .lp-navbar-conteudo {
         display: flex;
