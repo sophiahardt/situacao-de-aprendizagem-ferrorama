@@ -9,7 +9,6 @@ $mensagem = "";
 $tipo_mensagem = "success";
 $abrir_modal = false;
 $abrir_modal_edicao = false;
-$abrir_modal_aviso_exclusao = false;
 
 $nome_sensor_form = "";
 $tipo_sensor_form = "";
@@ -28,15 +27,12 @@ if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "cadastrado") {
     $mensagem = "Sensor editado com sucesso!";
 } elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
     $mensagem = "Sensor excluído com sucesso!";
-    $abrir_modal_aviso_exclusao = true;
 } elseif (isset($_GET["erro"]) && $_GET["erro"] == "leituras") {
     $mensagem = "Não é possível excluir este sensor, pois existem leituras associadas.";
     $tipo_mensagem = "danger";
-    $abrir_modal_aviso_exclusao = true;
 } elseif (isset($_GET["erro"]) && $_GET["erro"] == "exclusao") {
-    $mensagem = "Erro ao excluir o sensor.";
+    $mensagem = "Não foi possível excluir o sensor.";
     $tipo_mensagem = "danger";
-    $abrir_modal_aviso_exclusao = true;
 }
 
 $consulta_rotas = $conexao->query("SELECT id_rota, nome_rota FROM rota ORDER BY nome_rota");
@@ -58,9 +54,9 @@ if ($consulta_trens) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
+    $mensagem = "";
+    $tipo_mensagem = "success";
     if (($_POST["acao"] ?? "") == "cadastrar") {
-
         $nome_sensor_form = trim($_POST["nome_sensor"] ?? "");
         $tipo_sensor_form = $_POST["tipo_sensor"] ?? "";
         $localizacao_form = $_POST["localizacao"] ?? "";
@@ -112,9 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
         }
-
     } elseif (($_POST["acao"] ?? "") == "editar") {
-
         $id_sensor_edicao = (int) ($_POST["id_sensor"] ?? 0);
         $nome_sensor_edicao = trim($_POST["nome_sensor"] ?? "");
         $tipo_sensor_edicao = $_POST["tipo_sensor"] ?? "";
@@ -217,13 +211,11 @@ $resultado = $conexao->query($sql);
                     <li class="nav-item">
                         <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
                     </li>
-
                     <?php if (ehAdministrador()) { ?>
                         <li class="nav-item">
                             <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
                         </li>
                     <?php } ?>
-
                     <li class="nav-item">
                         <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
                     </li>
@@ -251,7 +243,6 @@ $resultado = $conexao->query($sql);
             <h1 class="h3">
                 Lista de sensores cadastrados
             </h1>
-
             <?php if (ehAdministrador()) { ?>
                 <button type="button" class="btn btn-primary"
                     style="background-color: #151d4b;"
@@ -261,13 +252,6 @@ $resultado = $conexao->query($sql);
                 </button>
             <?php } ?>
         </div>
-
-        <?php if ($mensagem != "" && !$abrir_modal && !$abrir_modal_edicao && !$abrir_modal_aviso_exclusao) { ?>
-            <div class="alert alert-<?= $tipo_mensagem ?> alert-dismissible fade show" role="alert">
-                <?= htmlspecialchars($mensagem) ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        <?php } ?>
 
         <div class="card shadow-sm">
             <div class="card-body">
@@ -279,15 +263,21 @@ $resultado = $conexao->query($sql);
                                 <th>Nome</th>
                                 <th>Localização</th>
                                 <th>Tipo de dado</th>
-                                <?php if (ehAdministrador()) { ?><th>Ações</th><?php } ?>
+                                <?php if (ehAdministrador()) { ?>
+                                    <th>Ações</th>
+                                <?php } ?>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if ($resultado && $resultado->num_rows > 0) { ?>
                                 <?php while ($sensor = $resultado->fetch_assoc()) { ?>
                                     <tr>
-                                        <td><?= $sensor["id_sensor"] ?></td>
-                                        <td><?= htmlspecialchars($sensor["nome_sensor"]) ?></td>
+                                        <td>
+                                            <?= $sensor["id_sensor"] ?>
+                                        </td>
+                                        <td>
+                                            <?= htmlspecialchars($sensor["nome_sensor"]) ?>
+                                        </td>
                                         <td>
                                             <?php
                                             if ($sensor["localizacao"] == "rota") {
@@ -297,8 +287,9 @@ $resultado = $conexao->query($sql);
                                             }
                                             ?>
                                         </td>
-                                        <td><?= htmlspecialchars($sensor["tipo_sensor"]) ?></td>
-
+                                        <td>
+                                            <?= htmlspecialchars($sensor["tipo_sensor"]) ?>
+                                        </td>
                                         <?php if (ehAdministrador()) { ?>
                                             <td>
                                                 <button type="button"
@@ -315,13 +306,12 @@ $resultado = $conexao->query($sql);
                                                     <ion-icon name="pencil"></ion-icon>
                                                     Editar
                                                 </button>
-
-                                                <a href="excluir-sensor.php?id=<?= $sensor["id_sensor"] ?>"
+                                                <button type="button"
                                                     class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('Tem certeza que deseja excluir este sensor?')">
+                                                    onclick="abrirAviso(<?= $sensor['id_sensor'] ?>, 'excluir-sensor.php')">
                                                     <ion-icon name="trash"></ion-icon>
                                                     Excluir
-                                                </a>
+                                                </button>
                                             </td>
                                         <?php } ?>
                                     </tr>
@@ -338,6 +328,15 @@ $resultado = $conexao->query($sql);
                 </div>
             </div>
         </div>
+
+        <!-- MENSAGEM DE SUCESSO OU ERRO -->
+        <?php if ($mensagem != "" && !$abrir_modal && !$abrir_modal_edicao) { ?>
+            <div class="alert alert-<?= $tipo_mensagem ?> alert-dismissible fade show mt-3" role="alert">
+                <?= htmlspecialchars($mensagem) ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                    aria-label="Fechar"></button>
+            </div>
+        <?php } ?>
     </div>
 
     <!-- MODAL DE CADASTRO -->
@@ -351,21 +350,17 @@ $resultado = $conexao->query($sql);
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-
-                <form method="POST">
+                <form method="POST" action="visualizar-sensor.php">
                     <input type="hidden" name="acao" value="cadastrar">
-
                     <div class="modal-body">
                         <p class="text-muted">
                             Preencha as informações para cadastrar um novo sensor no sistema.
                         </p>
-
                         <?php if ($mensagem != "" && $abrir_modal) { ?>
                             <div class="alert alert-<?= $tipo_mensagem ?>" role="alert">
                                 <?= htmlspecialchars($mensagem) ?>
                             </div>
                         <?php } ?>
-
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -377,10 +372,8 @@ $resultado = $conexao->query($sql);
                                         value="<?= htmlspecialchars($nome_sensor_form) ?>"
                                         required>
                                 </div>
-
                                 <div class="mb-3">
                                     <label class="form-label">Localização do Sensor</label>
-
                                     <div class="row">
                                         <div class="col-md-6">
                                             <input type="radio"
@@ -395,7 +388,6 @@ $resultado = $conexao->query($sql);
                                                 Rota
                                             </label>
                                         </div>
-
                                         <div class="col-md-6">
                                             <input type="radio"
                                                 class="btn-check"
@@ -410,7 +402,6 @@ $resultado = $conexao->query($sql);
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="mb-3" id="campo_rota" style="display: none;">
                                     <label for="id_rota" class="form-label">Rota</label>
                                     <select name="id_localizacao" id="id_rota" class="form-select" disabled>
@@ -423,7 +414,6 @@ $resultado = $conexao->query($sql);
                                         <?php } ?>
                                     </select>
                                 </div>
-
                                 <div class="mb-3" id="campo_trem" style="display: none;">
                                     <label for="id_trem" class="form-label">Trem</label>
                                     <select name="id_localizacao" id="id_trem" class="form-select" disabled>
@@ -437,7 +427,6 @@ $resultado = $conexao->query($sql);
                                     </select>
                                 </div>
                             </div>
-
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Tipo de Dado</label>
@@ -459,7 +448,6 @@ $resultado = $conexao->query($sql);
                             </div>
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light btn-cancelar" data-bs-dismiss="modal">
                             <ion-icon name="close-outline"></ion-icon>
@@ -486,26 +474,24 @@ $resultado = $conexao->query($sql);
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-
-                <form method="POST">
+                <form method="POST" action="visualizar-sensor.php">
                     <input type="hidden" name="acao" value="editar">
                     <input type="hidden" name="id_sensor" id="editar_id_sensor">
-
                     <div class="modal-body">
                         <p class="text-muted">
                             Altere as informações do sensor selecionado.
                         </p>
-
                         <?php if ($mensagem != "" && $abrir_modal_edicao) { ?>
                             <div class="alert alert-<?= $tipo_mensagem ?>" role="alert">
                                 <?= htmlspecialchars($mensagem) ?>
                             </div>
                         <?php } ?>
-
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="editar_nome_sensor" class="form-label">Nome do Sensor</label>
+                                    <label for="editar_nome_sensor" class="form-label">
+                                        Nome do Sensor
+                                    </label>
                                     <input type="text"
                                         name="nome_sensor"
                                         id="editar_nome_sensor"
@@ -513,10 +499,8 @@ $resultado = $conexao->query($sql);
                                         placeholder="Informe o nome do sensor"
                                         required>
                                 </div>
-
                                 <div class="mb-3">
                                     <label class="form-label">Localização do Sensor</label>
-
                                     <div class="row">
                                         <div class="col-md-6">
                                             <input type="radio"
@@ -530,7 +514,6 @@ $resultado = $conexao->query($sql);
                                                 Rota
                                             </label>
                                         </div>
-
                                         <div class="col-md-6">
                                             <input type="radio"
                                                 class="btn-check"
@@ -544,7 +527,6 @@ $resultado = $conexao->query($sql);
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="mb-3" id="campo_rota_edicao" style="display: none;">
                                     <label for="editar_id_rota" class="form-label">Rota</label>
                                     <select name="id_localizacao" id="editar_id_rota" class="form-select" disabled>
@@ -556,7 +538,6 @@ $resultado = $conexao->query($sql);
                                         <?php } ?>
                                     </select>
                                 </div>
-
                                 <div class="mb-3" id="campo_trem_edicao" style="display: none;">
                                     <label for="editar_id_trem" class="form-label">Trem</label>
                                     <select name="id_localizacao" id="editar_id_trem" class="form-select" disabled>
@@ -569,10 +550,11 @@ $resultado = $conexao->query($sql);
                                     </select>
                                 </div>
                             </div>
-
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="editar_tipo_sensor" class="form-label">Tipo de Dado</label>
+                                    <label for="editar_tipo_sensor" class="form-label">
+                                        Tipo de Dado
+                                    </label>
                                     <select name="tipo_sensor" id="editar_tipo_sensor" class="form-select" required>
                                         <option value="">Selecione o tipo de dado coletado</option>
                                         <option value="Temperatura">Temperatura</option>
@@ -583,7 +565,6 @@ $resultado = $conexao->query($sql);
                             </div>
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light btn-cancelar" data-bs-dismiss="modal">
                             <ion-icon name="close-outline"></ion-icon>
@@ -599,35 +580,46 @@ $resultado = $conexao->query($sql);
         </div>
     </div>
 
-    <!-- MODAL DE AVISO DE EXCLUSÃO -->
-    <div class="modal fade" id="modalAvisoExclusao" tabindex="-1">
+    <!-- MODAL DE CONFIRMAÇÃO DE EXCLUSÃO -->
+    <div class="modal" id="modalExclusao" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        <?= $tipo_mensagem == "success" ? "Sucesso" : "Atenção" ?>
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <?= htmlspecialchars($mensagem) ?>
-                </div>
-                <div class="modal-footer justify-content-center">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-                        OK
-                    </button>
+            <div class="modal-content text-center">
+                <div class="modal-body p-4">
+                    <div style="font-size: 40px;">⚠️</div>
+                    <h4 class="fw-bold mt-2">
+                        Deseja continuar?
+                    </h4>
+                    <p class="fw-bold mb-4">
+                        Após a confirmação, não será possível reverter esta ação.
+                    </p>
+                    <div class="d-flex justify-content-center gap-5">
+                        <button type="button"
+                            class="btn btn-secondary btn-cancelar px-5"
+                            data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
+                        <a id="btnConfirmarExclusao"
+                            href="#"
+                            class="btn btn-danger px-5">
+                            Excluir
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../script/botoes.js"></script>
     <script src="../../script/sensor.js"></script>
 
+    <!-- MODAIS DE CADASTRO E EDIÇÃO -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             <?php if ($abrir_modal) { ?>
-                let modalCadastro = new bootstrap.Modal(document.getElementById("modalCadastroSensor"));
+                let modalCadastro = new bootstrap.Modal(
+                    document.getElementById("modalCadastroSensor")
+                );
                 modalCadastro.show();
             <?php } ?>
 
@@ -646,15 +638,13 @@ $resultado = $conexao->query($sql);
                     document.getElementById("editar_id_trem").value = <?= json_encode($id_localizacao_edicao) ?>;
                 }
 
-                let modalEdicao = new bootstrap.Modal(document.getElementById("modalEditarSensor"));
+                let modalEdicao = new bootstrap.Modal(
+                    document.getElementById("modalEditarSensor")
+                );
                 modalEdicao.show();
-            <?php } ?>
-
-            <?php if ($abrir_modal_aviso_exclusao) { ?>
-                let modalAviso = new bootstrap.Modal(document.getElementById("modalAvisoExclusao"));
-                modalAviso.show();
             <?php } ?>
         });
     </script>
 </body>
+
 </html>
