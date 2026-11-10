@@ -1,10 +1,8 @@
-
 // ---------- Consulta de CEP ----------
-(() => {
-    const cepInput = document.querySelector("#cep");
-    const consultarButton = document.querySelector("#consultar-cep");
-    const mensagem = document.querySelector("#cep-mensagem");
-
+function configurarCep(prefixo) {
+    const cepInput = document.getElementById(prefixo + "cep");
+    const consultarButton = document.getElementById(prefixo + "consultar-cep");
+    const mensagem = document.getElementById(prefixo + "cep-mensagem");
 
     if (!(cepInput instanceof HTMLInputElement)
         || !(consultarButton instanceof HTMLButtonElement)
@@ -12,12 +10,11 @@
         return;
     }
 
-
     const campos = {
-        logradouro: document.querySelector("#logradouro"),
-        bairro: document.querySelector("#bairro"),
-        cidade: document.querySelector("#cidade"),
-        uf: document.querySelector("#uf")
+        logradouro: document.getElementById(prefixo + "logradouro"),
+        bairro: document.getElementById(prefixo + "bairro"),
+        cidade: document.getElementById(prefixo + "cidade"),
+        uf: document.getElementById(prefixo + "uf")
     };
     let digitsAtuais = cepInput.value.replace(/\D/g, "");
     let ultimoCepConsultado = "";
@@ -25,12 +22,10 @@
     let numeroRequisicao = 0;
     let temporizador;
 
-
     const mostrarMensagem = (texto, tipo = "muted") => {
         mensagem.textContent = texto;
         mensagem.className = `small mt-1 text-${tipo}`;
     };
-
 
     const cancelarConsulta = () => {
         numeroRequisicao += 1;
@@ -39,7 +34,6 @@
             controlador = undefined;
         }
     };
-
 
     const consultarCep = async () => {
         const cep = cepInput.value.replace(/\D/g, "");
@@ -51,7 +45,6 @@
             return;
         }
 
-
         cancelarConsulta();
         const requisicaoAtual = numeroRequisicao;
         const controladorAtual = new AbortController();
@@ -59,7 +52,6 @@
         const timeout = window.setTimeout(() => controladorAtual.abort(), 10000);
         consultarButton.disabled = true;
         mostrarMensagem("Consultando CEP...", "secondary");
-
 
         try {
             const resposta = await fetch(`https://viacep.com.br/ws/${cep}/json/`, {
@@ -69,7 +61,6 @@
             if (!resposta.ok) {
                 throw new Error("Falha na comunicação com o serviço de CEP.");
             }
-
 
             let dados;
             try {
@@ -85,7 +76,6 @@
             if (!dados.cep || !dados.localidade || !dados.uf) {
                 throw new Error("A resposta do serviço de CEP está incompleta.");
             }
-
 
             ultimoCepConsultado = cep;
             cepInput.value = dados.cep;
@@ -115,11 +105,9 @@
         }
     };
 
-
     cepInput.value = digitsAtuais.length > 5
         ? `${digitsAtuais.slice(0, 5)}-${digitsAtuais.slice(5, 8)}`
         : digitsAtuais.slice(0, 8);
-
 
     cepInput.addEventListener("input", () => {
         const digits = cepInput.value.replace(/\D/g, "").slice(0, 8);
@@ -127,14 +115,12 @@
             ? `${digits.slice(0, 5)}-${digits.slice(5)}`
             : digits;
 
-
         if (digits !== digitsAtuais) {
             digitsAtuais = digits;
             ultimoCepConsultado = "";
             cancelarConsulta();
             consultarButton.disabled = false;
         }
-
 
         window.clearTimeout(temporizador);
         if (digits.length === 8) {
@@ -144,9 +130,24 @@
         }
     });
 
-
     consultarButton.addEventListener("click", consultarCep);
-})();
+
+    const modal = cepInput.closest(".modal");
+
+    if (modal) {
+        modal.addEventListener("show.bs.modal", () => {
+            cancelarConsulta();
+            window.clearTimeout(temporizador);
+            consultarButton.disabled = false;
+            mostrarMensagem("");
+        });
+
+        modal.addEventListener("shown.bs.modal", () => {
+            digitsAtuais = cepInput.value.replace(/\D/g, "");
+            ultimoCepConsultado = "";
+        });
+    }
+}
 
 // ---------- Máscara de telefone brasileiro ----------
 function formatarTelefone(telefone) {
@@ -180,12 +181,17 @@ function formatarTelefone(telefone) {
     return `+55 (${ddd}) ${restante.slice(0, 5)}-${restante.slice(5, 9)}`;
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    const telefone = document.getElementById("telefone");
+document.addEventListener("DOMContentLoaded", function () {
+    // Cadastro (ids sem prefixo) e edição (ids com "editar_").
+    ["", "editar_"].forEach(function (prefixo) {
+        configurarCep(prefixo);
 
-    if (telefone) {
-        telefone.addEventListener("input", function() {
-            this.value = formatarTelefone(this.value);
-        });
-    }
+        const telefone = document.getElementById(prefixo + "telefone");
+
+        if (telefone) {
+            telefone.addEventListener("input", function () {
+                this.value = formatarTelefone(this.value);
+            });
+        }
+    });
 });

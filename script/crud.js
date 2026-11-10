@@ -109,6 +109,21 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("editar_id_trem").value = dados.trem;
     });
 
+    // Usuários (a senha nunca vem preenchida: em branco mantém a atual)
+    preencherAoAbrir("modalEditarUsuario", function (dados) {
+        document.getElementById("editar_id_usuario").value = dados.id;
+        document.getElementById("editar_nome").value = dados.nome;
+        document.getElementById("editar_id_cargo").value = dados.cargo;
+        document.getElementById("editar_email").value = dados.email;
+        document.getElementById("editar_nova_senha").value = "";
+        document.getElementById("editar_telefone").value = dados.telefone;
+        document.getElementById("editar_cep").value = dados.cep;
+        document.getElementById("editar_logradouro").value = dados.logradouro;
+        document.getElementById("editar_bairro").value = dados.bairro;
+        document.getElementById("editar_cidade").value = dados.cidade;
+        document.getElementById("editar_uf").value = dados.uf;
+    });
+
     // Trens
     preencherAoAbrir("modalEditarTrem", function (dados) {
         document.getElementById("editar_id_trem").value = dados.id;

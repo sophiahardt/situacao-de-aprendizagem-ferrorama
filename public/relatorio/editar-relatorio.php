@@ -63,164 +63,163 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
-    <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
+        <div class="container-fluid">
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarNav">
 
-            <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav me-auto">
 
-                <li class="nav-item">
-                    <a class="nav-link" href="../tela-geral-home.php">Dashboard</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="../sensor/visualizar-sensor.php">Sensores</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="../trem/visualizar-trem.php">Trens</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
-                </li>
-
-                <?php if (ehAdministrador()) { ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
+                        <a class="nav-link" href="../tela-geral-home.php">Dashboard</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../sensor/visualizar-sensor.php">Sensores</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../trem/visualizar-trem.php">Trens</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../rota/visualizar-rota.php">Rotas</a>
+                    </li>
+
+                    <?php if (ehAdministrador()) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
+                        </li>
+                    <?php } ?>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="visualizar-relatorio.php">Relatórios</a>
+                    </li>
+
+                </ul>
+
+                <ul class="navbar-nav ms-auto align-items-center">
+
+                    <li class="nav-item me-3">
+                        <span class="nav-link d-flex align-items-center gap-2">
+                            <ion-icon name="person-circle-outline"></ion-icon>
+                            <?= htmlspecialchars($_SESSION["nome_usuario"] ?? "Usuário") ?>
+                        </span>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="../logout.php">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                            <span>Sair</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <h2 class="text-center mb-3">
+                    Editar Relatório
+                </h2>
+
+                <p class="text-center text-muted">
+                    Altere as informações do relatório cadastrado no sistema
+                </p>
+
+                <hr>
+
+                <?php if ($mensagem != "") { ?>
+                    <p class="text-center text-danger">
+                        <?= htmlspecialchars($mensagem) ?>
+                    </p>
                 <?php } ?>
 
-                <li class="nav-item">
-                    <a class="nav-link active" href="visualizar-relatorio.php">Relatórios</a>
-                </li>
+                <form method="POST">
 
-            </ul>
+                    <div class="mb-3">
 
-            <ul class="navbar-nav ms-auto align-items-center">
+                        <label class="form-label">
+                            Nome do Relatório
+                        </label>
 
-                <li class="nav-item me-3">
-                    <span class="nav-link d-flex align-items-center gap-2">
-                        <ion-icon name="person-circle-outline"></ion-icon>
-                        <?= htmlspecialchars($_SESSION["nome_usuario"] ?? "Usuário") ?>
-                    </span>
-                </li>
+                        <input type="text"
+                            name="nome_relatorio"
+                            class="form-control"
+                            value="<?= htmlspecialchars($relatorio["nome_relatorio"]) ?>"
+                            required>
 
-                <li class="nav-item">
-                    <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="../logout.php">
-                        <ion-icon name="log-out-outline"></ion-icon>
-                        <span>Sair</span>
-                    </a>
-                </li>
+                    </div>
 
-            </ul>
+                    <div class="mb-3">
 
+                        <label class="form-label">
+                            Tipo de Relatório
+                        </label>
+
+                        <select name="tipo_relatorio" class="form-select" required>
+
+                            <option value="">Selecione o tipo</option>
+
+                            <option value="Trens"
+                                <?= $relatorio["tipo_relatorio"] == "Trens" ? "selected" : "" ?>>
+                                Trens
+                            </option>
+
+                            <option value="Sensores"
+                                <?= $relatorio["tipo_relatorio"] == "Sensores" ? "selected" : "" ?>>
+                                Sensores
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Data do Relatório
+                        </label>
+
+                        <input type="date"
+                            name="data_relatorio"
+                            class="form-control"
+                            value="<?= htmlspecialchars($relatorio["data_relatorio"]) ?>"
+                            required>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+                        <button type="button"
+                            class="btn btn-light btn-cancelar"
+                            onclick="window.location.href='visualizar-relatorio.php'">
+                            <ion-icon name="close-outline"></ion-icon>
+                            Cancelar
+                        </button>
+
+                        <button type="submit" class="btn btn-primary" style="background-color: #071b8d;">
+                            <ion-icon name="save-outline"></ion-icon>
+                            Salvar
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</nav>
 
-<div class="container mt-5">
-
-    <div class="card">
-
-        <div class="card-body">
-
-            <h2 class="text-center mb-3">
-                Editar Relatório
-            </h2>
-
-            <p class="text-center text-muted">
-                Altere as informações do relatório cadastrado no sistema
-            </p>
-
-            <hr>
-
-            <?php if ($mensagem != "") { ?>
-                <p class="text-center text-danger">
-                    <?= htmlspecialchars($mensagem) ?>
-                </p>
-            <?php } ?>
-
-            <form method="POST">
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-                        Nome do Relatório
-                    </label>
-
-                    <input type="text"
-                        name="nome_relatorio"
-                        class="form-control"
-                        value="<?= htmlspecialchars($relatorio["nome_relatorio"]) ?>"
-                        required>
-
-                </div>
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-                        Tipo de Relatório
-                    </label>
-
-                    <select name="tipo_relatorio" class="form-select" required>
-
-                        <option value="">Selecione o tipo</option>
-
-                        <option value="Trens"
-                            <?= $relatorio["tipo_relatorio"] == "Trens" ? "selected" : "" ?>>
-                            Trens
-                        </option>
-
-                        <option value="Sensores"
-                            <?= $relatorio["tipo_relatorio"] == "Sensores" ? "selected" : "" ?>>
-                            Sensores
-                        </option>
-
-                    </select>
-
-                </div>
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-                        Data do Relatório
-                    </label>
-
-                    <input type="date"
-                        name="data_relatorio"
-                        class="form-control"
-                        value="<?= htmlspecialchars($relatorio["data_relatorio"]) ?>"
-                        required>
-                </div>
-
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-
-                    <button type="button"
-                        class="btn btn-light btn-cancelar"
-                        onclick="window.location.href='visualizar-relatorio.php'">
-                        <ion-icon name="close-outline"></ion-icon>
-                        Cancelar
-                    </button>
-
-                    <button type="submit" class="btn btn-primary" style="background-color: #071b8d;">
-                        <ion-icon name="save-outline"></ion-icon>
-                        Salvar
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../../script/validacao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
