@@ -23,7 +23,7 @@
     --alerta-atencao: #f5b400;
     --alerta-atencao-escuro: #9a6b00;
     --alerta-info: var(--azul-destaque);
-    --degrade-topo: linear-gradient(90deg, rgba(0, 25, 75, 0.96) 0%, rgba(0, 51, 153, 0.75) 55%, rgba(0, 51, 153, 0.15) 100%);
+    --degrade-topo: linear-gradient(90deg, rgba(var(--azul-noite-rgb), 0.96) 0%, rgba(var(--azul-noite-rgb), 0.8) 50%, rgba(var(--azul-noite-rgb), 0.3) 100%);
 }
 
 {
@@ -765,7 +765,7 @@ h6,
 }
 
 .crud-container table .coluna-acoes {
-    width: 110px;
+    width: 150px;
     white-space: nowrap;
 }
 
