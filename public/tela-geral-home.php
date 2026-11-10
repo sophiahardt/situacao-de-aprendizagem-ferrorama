@@ -2,34 +2,58 @@
 require_once "../infra/protecao.php";
 verificarLogin();
 
+
 $trens_ativos = 0;
 $resultado = $conexao->query("SELECT COUNT(*) AS total FROM trem");
+
 
 if ($resultado) {
     $linha = $resultado->fetch_assoc();
     $trens_ativos = $linha["total"];
 }
 
+
 $sensores_ativos = 0;
 $resultado = $conexao->query("SELECT COUNT(*) AS total FROM sensor");
+
 
 if ($resultado) {
     $linha = $resultado->fetch_assoc();
     $sensores_ativos = $linha["total"];
 }
 
+
 $rotas_ativas = 0;
 $resultado = $conexao->query("SELECT COUNT(*) AS total FROM rota");
+
 
 if ($resultado) {
     $linha = $resultado->fetch_assoc();
     $rotas_ativas = $linha["total"];
 }
 
+
+$alertas = [
+    ["nivel" => "critico", "icone" => "speedometer-outline",   "titulo" => "Velocidade alta",        "detalhe" => "132 km/h · Expresso 01",  "horario" => "há 2 min"],
+    ["nivel" => "critico", "icone" => "thermometer-outline",   "titulo" => "Motor superaquecido",    "detalhe" => "98 °C · Cargueiro 02",    "horario" => "há 6 min"],
+    ["nivel" => "atencao", "icone" => "walk-outline",          "titulo" => "Presença na via",        "detalhe" => "Km 14 · Rota Sul",        "horario" => "há 12 min"],
+    ["nivel" => "atencao", "icone" => "cloud-offline-outline", "titulo" => "Sensor sem sinal",       "detalhe" => "Passageiro 03",           "horario" => "há 15 min"],
+    ["nivel" => "info",    "icone" => "time-outline",          "titulo" => "Atraso previsto",        "detalhe" => "+8 min · Rota Leste",     "horario" => "há 25 min"],
+    ["nivel" => "info",    "icone" => "checkmark-circle-outline", "titulo" => "Velocidade normalizada", "detalhe" => "Expresso 01",          "horario" => "há 30 min"]
+];
+
+
+$nomes_nivel = [
+    "critico" => "Crítico",
+    "atencao" => "Atenção",
+    "info" => "Informativo"
+];
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 
 <head>
     <meta charset="UTF-8">
@@ -38,8 +62,9 @@ if ($resultado) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="../style/style.css?v=6">
+    <link rel="stylesheet" href="../style/style.css?v=8">
 </head>
+
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema navbar-fixa">
@@ -48,6 +73,7 @@ if ($resultado) {
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
@@ -73,6 +99,7 @@ if ($resultado) {
                     </li>
                 </ul>
 
+
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item me-3">
                         <span class="nav-link d-flex align-items-center gap-2">
@@ -91,6 +118,7 @@ if ($resultado) {
         </div>
     </nav>
 
+
     <main class="container-fluid dashboard-container">
         <section class="row g-3 mb-3">
             <div class="col-lg-4">
@@ -98,10 +126,12 @@ if ($resultado) {
                     <div class="card-body">
                         <h6 class="fw-bold">Clima atual</h6>
 
+
                         <p class="clima-local">
                             <ion-icon name="location"></ion-icon>
                             <span id="clima-local">Aguardando localização...</span>
                         </p>
+
 
                         <div class="d-flex align-items-center gap-3 clima-temperatura">
                             <ion-icon name="partly-sunny" id="clima-icone"></ion-icon>
@@ -112,6 +142,7 @@ if ($resultado) {
                         </div>
                         <hr>
 
+
                         <div class="row text-center">
                             <div class="col-6">
                                 <p class="mb-1">
@@ -119,8 +150,10 @@ if ($resultado) {
                                     Umidade
                                 </p>
 
+
                                 <strong id="clima-umidade">--%</strong>
                             </div>
+
 
                             <div class="col-6">
                                 <p class="mb-1">
@@ -130,6 +163,7 @@ if ($resultado) {
                                 <strong id="clima-vento">-- km/h</strong>
                             </div>
                         </div>
+
 
                         <div class="clima-atualizacao">
                             <small id="clima-atualizacao" aria-live="polite">Aguardando atualização...</small>
@@ -141,6 +175,7 @@ if ($resultado) {
                     </div>
                 </div>
             </div>
+
 
             <div class="col-lg-8">
                 <div class="banner-dashboard h-100 d-flex align-items-center">
@@ -160,6 +195,7 @@ if ($resultado) {
             </div>
         </section>
 
+
         <section class="row g-3 mb-3">
             <div class="col-6 col-md-4 col-xl">
                 <a href="trem/visualizar-trem.php" class="card card-atalho">
@@ -172,6 +208,7 @@ if ($resultado) {
                 </a>
             </div>
 
+
             <div class="col-6 col-md-4 col-xl">
                 <a href="rota/visualizar-rota.php" class="card card-atalho">
                     <div class="card-body">
@@ -183,6 +220,7 @@ if ($resultado) {
                 </a>
             </div>
 
+
             <div class="col-6 col-md-4 col-xl">
                 <a href="sensor/visualizar-sensor.php" class="card card-atalho">
                     <div class="card-body">
@@ -193,6 +231,7 @@ if ($resultado) {
                     </div>
                 </a>
             </div>
+
 
             <?php if (ehAdministrador()) { ?>
                 <div class="col-6 col-md-4 col-xl">
@@ -207,6 +246,7 @@ if ($resultado) {
                 </div>
             <?php } ?>
 
+
             <div class="col-6 col-md-4 col-xl">
                 <a href="relatorio/visualizar-relatorio.php" class="card card-atalho">
                     <div class="card-body">
@@ -218,14 +258,16 @@ if ($resultado) {
                 </a>
             </div>
 
+
         </section>
 
-        <section class="row g-3 mb-3 align-items-start">
-            <div class="col-lg-6 d-flex flex-column gap-3">
 
-                <div class="card card-dashboard">
+        <section class="row g-3 mb-3">
+            <div class="col-lg-6">
+                <div class="card card-dashboard h-100">
                     <div class="card-body">
                         <h6 class="titulo-secao">Resumo da operação</h6>
+
 
                         <div class="row g-3">
                             <div class="col-6">
@@ -240,6 +282,7 @@ if ($resultado) {
                                 </div>
                             </div>
 
+
                             <div class="col-6">
                                 <div class="card card-resumo">
                                     <div class="card-body">
@@ -252,6 +295,7 @@ if ($resultado) {
                                 </div>
                             </div>
 
+
                             <div class="col-6">
                                 <div class="card card-resumo">
                                     <div class="card-body">
@@ -263,6 +307,7 @@ if ($resultado) {
                                     </div>
                                 </div>
                             </div>
+
 
                             <div class="col-6">
                                 <div class="card card-resumo">
@@ -278,55 +323,44 @@ if ($resultado) {
                         </div>
                     </div>
                 </div>
-
-                <div class="card card-dashboard flex-grow-1">
-                    <div class="card-body">
-                        <h6 class="titulo-secao">Monitoramento ferroviário</h6>
-
-
-                        <p class="texto-apoio">
-                            Espaço reservado para exibição de alertas
-                        </p>
-
-
-                        <div class="grafico-area">
-                            <canvas id="graficoTrens"></canvas>
-                        </div>
-                    </div>
-                </div>
             </div>
+
 
             <div class="col-lg-6">
-                <div class="card card-dashboard">
+                <div class="card card-dashboard h-100">
                     <div class="card-body d-flex flex-column">
-
-
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <h6 class="titulo-secao mb-1">Traçado ferroviário</h6>
-                                <small class="texto-apoio">
-                                    Visualização dos trilhos e movimentação do trem.
-                                </small>
-                            </div>
-
-
-                            <span class="badge bg-success-subtle text-success">
-                                Em operação
-                            </span>
+                        <div class="mb-3">
+                            <h6 class="titulo-secao mb-1">Monitoramento ferroviário</h6>
+                            <small class="text-muted">Últimos alertas dos sensores.</small>
                         </div>
 
 
-                        <div class="mapa-ferrovia">
-                            <!-- Espaço reservado para o mapa ferroviário -->
+                        <div class="grade-alertas">
+                            <?php foreach ($alertas as $alerta) { ?>
+                                <div class="alerta-quadro alerta-<?= $alerta["nivel"] ?>"
+                                    title="<?= $nomes_nivel[$alerta["nivel"]] ?>">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <span class="alerta-icone">
+                                            <ion-icon name="<?= $alerta["icone"] ?>" aria-hidden="true"></ion-icon>
+                                        </span>
+                                        <small class="alerta-horario"><?= htmlspecialchars($alerta["horario"]) ?></small>
+                                    </div>
+                                    <strong>
+                                        <span class="visually-hidden"><?= $nomes_nivel[$alerta["nivel"]] ?>:</span>
+                                        <?= htmlspecialchars($alerta["titulo"]) ?>
+                                    </strong>
+                                    <small class="alerta-detalhe"><?= htmlspecialchars($alerta["detalhe"]) ?></small>
+                                </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
             </div>
-
         </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../script/clima.js"></script>
 </body>
+
 
 </html>
