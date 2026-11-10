@@ -1,195 +1,113 @@
 <?php
-
-
-require_once "../../infra/protecao.php";
-require_once "../../infra/conexao.php";
-
-
-$mensagem = "";
-$tipo_mensagem = "danger";
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nome_rota = trim($_POST["nome_rota"] ?? "");
-    $descricao = trim($_POST["descricao"] ?? "");
-    $extensao = $_POST["extensao"] ?? "";
-    $tempo_estimado_minutos = $_POST["tempo_estimado_minutos"] ?? "";
-
-
-    if ($nome_rota == "" || $descricao == "" || $extensao == "" || $tempo_estimado_minutos == "") {
-        $mensagem = "Preencha todos os campos.";
-    } else {
-        $sql = "INSERT INTO rota (nome_rota, descricao, extensao, tempo_estimado_minutos)
-                VALUES (?, ?, ?, ?)";
-
-
-        $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("ssdi", $nome_rota, $descricao, $extensao, $tempo_estimado_minutos);
-
-
-        if ($stmt->execute()) {
-            header("Location: visualizar-rota.php?sucesso=cadastrada");
-            exit;
-        } else {
-            $mensagem = "Erro ao cadastrar a rota.";
-        }
-    }
+if (!defined("ROTA_MODAIS")) {
+    header("Location: visualizar-rota.php");
+    exit;
 }
 ?>
-
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Rotas</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="../../style/style.css">
-</head>
-
-
-<body>
-
-
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../tela-geral-home.php">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../sensor/visualizar-sensor.php">Sensores</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../trem/visualizar-trem.php">Trens</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="visualizar-rota.php">Rotas</a>
-                    </li>
-                    <?php if (ehAdministrador()) { ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../user/visualizar-user.php">Usuários</a>
-                        </li>
-                    <?php } ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
-                    </li>
-                </ul>
-
-
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item me-3">
-                        <span class="nav-link d-flex align-items-center gap-2">
-                            <ion-icon name="person-circle-outline"></ion-icon>
-                            <?= htmlspecialchars($_SESSION["nome_usuario"] ?? "Usuário") ?>
-                        </span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="../logout.php">
-                            <ion-icon name="log-out-outline"></ion-icon>
-                            <span>Sair</span>
-                        </a>
-                    </li>
-                </ul>
+<!-- MODAL DE CADASTRO -->
+<div class="modal fade" id="modalCadastroRota" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <ion-icon name="map-outline"></ion-icon>
+                    Cadastrar nova rota
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-        </div>
-    </nav>
-
-
-    <div class="container mt-5">
-        <div class="card">
-            <div class="card-body">
-                <h2 class="text-center mb-3">Cadastrar nova rota</h2>
-
-
-                <p class="text-center text-muted">
-                    Preencha as informações para cadastrar uma nova rota no sistema
-                </p>
-
-
-                <hr>
-
-
-                <?php if ($mensagem != "") { ?>
-                    <p class="text-center text-danger">
-                        <?= htmlspecialchars($mensagem) ?>
+            <form method="POST" action="visualizar-rota.php">
+                <input type="hidden" name="acao" value="cadastrar">
+                <div class="modal-body">
+                    <p class="text-muted">
+                        Preencha as informações para cadastrar uma nova rota no sistema.
                     </p>
-                <?php } ?>
-
-
-                <form method="POST">
+                    <?php if ($mensagem != "" && $abrir_modal) { ?>
+                        <div class="alert alert-<?= $tipo_mensagem ?>" role="alert">
+                            <?= htmlspecialchars($mensagem) ?>
+                        </div>
+                    <?php } ?>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Nome da Rota</label>
-                                <input type="text" name="nome_rota" class="form-control"
-                                    placeholder="Digite o nome" maxlength="45"
-                                    value="<?= htmlspecialchars($_POST['nome_rota'] ?? '') ?>" required>
+                                <input type="text"
+                                    name="nome_rota"
+                                    class="form-control"
+                                    placeholder="Informe o nome da rota"
+                                    maxlength="45"
+                                    value="<?= htmlspecialchars($nome_rota_form) ?>"
+                                    required>
                             </div>
-
-
                             <div class="mb-3">
                                 <label class="form-label">Extensão (Km)</label>
-                                <input type="number" name="extensao" class="form-control"
-                                    placeholder="Ex: 45.50" step="0.01" min="0"
-                                    value="<?= htmlspecialchars($_POST['extensao'] ?? '') ?>" required>
+                                <input type="number"
+                                    name="extensao"
+                                    class="form-control"
+                                    placeholder="Ex: 45.50"
+                                    step="0.01"
+                                    min="0.01"
+                                    value="<?= htmlspecialchars($extensao_form) ?>"
+                                    required>
                             </div>
-
-
                             <div class="mb-3">
                                 <label class="form-label">Tempo estimado (Min)</label>
-                                <input type="number" name="tempo_estimado_minutos" class="form-control"
-                                    placeholder="Ex: 45" min="1"
-                                    value="<?= htmlspecialchars($_POST['tempo_estimado_minutos'] ?? '') ?>" required>
+                                <input type="number"
+                                    name="tempo_estimado_minutos"
+                                    class="form-control"
+                                    placeholder="Ex: 45"
+                                    min="1"
+                                    value="<?= htmlspecialchars($tempo_estimado_form) ?>"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Trem</label>
+                                <select name="id_trem" class="form-select" required>
+                                    <option value="" disabled <?= $id_trem_form == "" ? "selected" : "" ?>>
+                                        Selecione o trem que anda nesta rota
+                                    </option>
+                                    <?php foreach ($trens as $trem) { ?>
+                                        <option value="<?= $trem["id_trem"] ?>"
+                                            <?= $id_trem_form == $trem["id_trem"] ? "selected" : "" ?>>
+                                            <?= htmlspecialchars($trem["nome_trem"]) ?>
+                                            <?= $trem["nome_rota"] ? "(hoje na rota " . htmlspecialchars($trem["nome_rota"]) . ")" : "(sem rota)" ?>
+                                        </option>
+                                    <?php } ?>
+                                </select>
+                                <div class="form-text">
+                                    <?php if (count($trens) == 0) { ?>
+                                        Nenhum trem cadastrado.
+                                        <a href="../trem/visualizar-trem.php?abrir=cadastro" target="_blank" rel="noopener noreferrer">
+                                            Cadastrar trem
+                                        </a>
+                                    <?php } else { ?>
+                                        Se o trem já andar em outra rota, ele passa para esta.
+                                    <?php } ?>
+                                </div>
                             </div>
                         </div>
-
-
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Descrição</label>
-                                <textarea name="descricao" class="form-control" rows="6"
+                                <textarea name="descricao"
+                                    class="form-control"
+                                    rows="8"
                                     placeholder="Descreva a rota (trajeto, estações, observações...)"
-                                    required><?= htmlspecialchars($_POST['descricao'] ?? '') ?></textarea>
+                                    required><?= htmlspecialchars($descricao_form) ?></textarea>
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="button" class="btn btn-light btn-cancelar"
-                            onclick="window.location.href='visualizar-rota.php'">
-                            <ion-icon name="close-outline"></ion-icon>
-                            Cancelar
-                        </button>
-
-
-                        <button type="submit" class="btn btn-primary btn-login px-5">
-                            <ion-icon name="save-outline"></ion-icon>
-                            Salvar
-                        </button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light btn-cancelar" data-bs-dismiss="modal">
+                        <ion-icon name="close-outline"></ion-icon>
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-login px-5">
+                        <ion-icon name="save-outline"></ion-icon>
+                        Salvar
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../script/validacao.js"></script>
-
-</body>
-
-
-</html>
+</div>

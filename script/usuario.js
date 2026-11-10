@@ -1,3 +1,5 @@
+
+// ---------- Consulta de CEP ----------
 (() => {
     const cepInput = document.querySelector("#cep");
     const consultarButton = document.querySelector("#consultar-cep");
@@ -145,3 +147,45 @@
 
     consultarButton.addEventListener("click", consultarCep);
 })();
+
+// ---------- Máscara de telefone brasileiro ----------
+function formatarTelefone(telefone) {
+    const digits = telefone.replace(/\D/g, "").slice(0, 13);
+
+    if (!digits) {
+        return "";
+    }
+
+    let numero = digits;
+
+    if (numero.startsWith("55")) {
+        numero = numero.slice(2);
+    }
+
+    if (numero.length <= 2) {
+        return `+55 (${numero}`;
+    }
+
+    const ddd = numero.slice(0, 2);
+    const restante = numero.slice(2);
+
+    if (restante.length <= 5) {
+        return `+55 (${ddd}) ${restante}`;
+    }
+
+    if (restante.length <= 9) {
+        return `+55 (${ddd}) ${restante.slice(0, 5)}-${restante.slice(5)}`;
+    }
+
+    return `+55 (${ddd}) ${restante.slice(0, 5)}-${restante.slice(5, 9)}`;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const telefone = document.getElementById("telefone");
+
+    if (telefone) {
+        telefone.addEventListener("input", function() {
+            this.value = formatarTelefone(this.value);
+        });
+    }
+});

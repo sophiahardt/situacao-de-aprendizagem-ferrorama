@@ -3,30 +3,199 @@ require_once "../../infra/protecao.php";
 verificarLogin();
 require_once "../../infra/conexao.php";
 
+$total_colunas = ehAdministrador() ? 7 : 6;
+
+function validarRota($nome_rota, $descricao, $extensao, $tempo_estimado)
+{
+    if ($nome_rota == "" || $descricao == "" || $extensao == "" || $tempo_estimado == "") {
+        return "Preencha todos os campos.";
+    }
+
+    if (
+        !is_numeric($extensao) ||
+        (float) $extensao <= 0 ||
+        !filter_var($tempo_estimado, FILTER_VALIDATE_INT) ||
+        (int) $tempo_estimado <= 0
+    ) {
+        return "Informe uma extensão e um tempo estimado válidos.";
+    }
+
+    return "";
+}
+
 $mensagem = "";
 $tipo_mensagem = "success";
+$abrir_modal_edicao = false;
 
-$total_colunas = ehAdministrador() ? 6 : 5;
+$abrir_modal = ($_GET["abrir"] ?? "") == "cadastro" && ehAdministrador();
 
-if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
-    $mensagem = "Rota excluída com sucesso!";
-} elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "cadastrada") {
+$nome_rota_form = "";
+$descricao_form = "";
+$extensao_form = "";
+$tempo_estimado_form = "";
+$id_trem_form = "";
+
+$id_rota_edicao = "";
+$nome_rota_edicao = "";
+$descricao_edicao = "";
+$extensao_edicao = "";
+$tempo_estimado_edicao = "";
+
+$sucesso = $_GET["sucesso"] ?? "";
+$erro = $_GET["erro"] ?? "";
+
+if ($sucesso == "cadastrada") {
     $mensagem = "Rota cadastrada com sucesso!";
-} elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "editada") {
+} elseif ($sucesso == "editada") {
     $mensagem = "Rota editada com sucesso!";
-} elseif (isset($_GET["erro"]) && $_GET["erro"] == "trens") {
+} elseif ($sucesso == "1") {
+    $mensagem = "Rota excluída com sucesso!";
+} elseif ($erro == "trens") {
     $mensagem = "Não é possível excluir esta rota, pois existem trens operando nela.";
     $tipo_mensagem = "danger";
-} elseif (isset($_GET["erro"]) && $_GET["erro"] == "sensores") {
+} elseif ($erro == "sensores") {
     $mensagem = "Não é possível excluir esta rota, pois existem sensores associados a ela.";
     $tipo_mensagem = "danger";
-} elseif (isset($_GET["erro"]) && $_GET["erro"] == "exclusao") {
+} elseif ($erro == "exclusao") {
     $mensagem = "Não foi possível excluir a rota.";
     $tipo_mensagem = "danger";
 }
 
+$consulta_trens = $conexao->query(
+    "SELECT trem.id_trem, trem.nome_trem, rota.nome_rota
+     FROM trem
+     LEFT JOIN rota ON trem.id_rota = rota.id_rota
+     ORDER BY trem.nome_trem"
+);
 
-$sql = "SELECT * FROM rota ORDER BY id_rota";
+$trens = $consulta_trens ? $consulta_trens->fetch_all(MYSQLI_ASSOC) : [];
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (($_POST["acao"] ?? "") == "cadastrar") {
+        $nome_rota_form = trim($_POST["nome_rota"] ?? "");
+        $descricao_form = trim($_POST["descricao"] ?? "");
+        $extensao_form = $_POST["extensao"] ?? "";
+        $tempo_estimado_form = $_POST["tempo_estimado_minutos"] ?? "";
+        $id_trem_form = $_POST["id_trem"] ?? "";
+
+        $abrir_modal = true;
+
+        if (!ehAdministrador()) {
+            $mensagem = "Você não tem permissão para cadastrar rotas.";
+        } else {
+            $mensagem = validarRota($nome_rota_form, $descricao_form, $extensao_form, $tempo_estimado_form);
+
+            if ($mensagem == "" && $id_trem_form == "") {
+                $mensagem = "Selecione o trem que anda nesta rota.";
+            }
+        }
+
+        if ($mensagem == "") {
+            $extensao = (float) $extensao_form;
+            $tempo_estimado_minutos = (int) $tempo_estimado_form;
+            $id_trem = (int) $id_trem_form;
+
+            $conexao->begin_transaction();
+
+            try {
+                $sql = "INSERT INTO rota (nome_rota, descricao, extensao, tempo_estimado_minutos)
+                        VALUES (?, ?, ?, ?)";
+
+                $stmt = $conexao->prepare($sql);
+
+                $stmt->bind_param(
+                    "ssdi",
+                    $nome_rota_form,
+                    $descricao_form,
+                    $extensao,
+                    $tempo_estimado_minutos
+                );
+
+                $stmt->execute();
+
+                $id_rota_nova = $conexao->insert_id;
+
+                $sql = "UPDATE trem SET id_rota = ? WHERE id_trem = ?";
+                $stmt = $conexao->prepare($sql);
+                $stmt->bind_param("ii", $id_rota_nova, $id_trem);
+                $stmt->execute();
+
+                if ($stmt->affected_rows <= 0) {
+                    throw new Exception("Trem não encontrado.");
+                }
+
+                $conexao->commit();
+
+                header("Location: visualizar-rota.php?sucesso=cadastrada");
+                exit;
+            } catch (Throwable $excecao) {
+                $conexao->rollback();
+                $mensagem = "Erro ao cadastrar a rota.";
+            }
+        }
+
+        $tipo_mensagem = "danger";
+    } elseif (($_POST["acao"] ?? "") == "editar") {
+        $id_rota_edicao = (int) ($_POST["id_rota"] ?? 0);
+        $nome_rota_edicao = trim($_POST["nome_rota"] ?? "");
+        $descricao_edicao = trim($_POST["descricao"] ?? "");
+        $extensao_edicao = $_POST["extensao"] ?? "";
+        $tempo_estimado_edicao = $_POST["tempo_estimado_minutos"] ?? "";
+
+        $abrir_modal_edicao = true;
+
+        if (!ehAdministrador()) {
+            $mensagem = "Você não tem permissão para editar rotas.";
+        } elseif ($id_rota_edicao <= 0) {
+            $mensagem = "Preencha todos os campos.";
+        } else {
+            $mensagem = validarRota($nome_rota_edicao, $descricao_edicao, $extensao_edicao, $tempo_estimado_edicao);
+        }
+
+        if ($mensagem == "") {
+            $extensao = (float) $extensao_edicao;
+            $tempo_estimado_minutos = (int) $tempo_estimado_edicao;
+
+            $sql = "UPDATE rota
+                    SET nome_rota = ?,
+                        descricao = ?,
+                        extensao = ?,
+                        tempo_estimado_minutos = ?
+                    WHERE id_rota = ?";
+
+            $stmt = $conexao->prepare($sql);
+
+            $stmt->bind_param(
+                "ssdii",
+                $nome_rota_edicao,
+                $descricao_edicao,
+                $extensao,
+                $tempo_estimado_minutos,
+                $id_rota_edicao
+            );
+
+            try {
+                if ($stmt->execute()) {
+                    header("Location: visualizar-rota.php?sucesso=editada");
+                    exit;
+                }
+            } catch (mysqli_sql_exception $excecao) {
+            }
+
+            $mensagem = "Erro ao editar a rota.";
+        }
+
+        $tipo_mensagem = "danger";
+    }
+}
+
+$sql = "SELECT rota.*,
+               GROUP_CONCAT(trem.nome_trem ORDER BY trem.nome_trem SEPARATOR ', ') AS trens
+        FROM rota
+        LEFT JOIN trem ON trem.id_rota = rota.id_rota
+        GROUP BY rota.id_rota
+        ORDER BY rota.id_rota";
+
 $resultado = $conexao->query($sql);
 ?>
 <!DOCTYPE html>
@@ -95,13 +264,16 @@ $resultado = $conexao->query($sql);
             <h1 class="h3">
                 Lista de rotas cadastradas
             </h1>
-            <button class="btn btn-primary"
-                style="background-color: #151d4b;"
-                onclick="window.location.href='cadastrar-rota.php'">
-                <ion-icon name="add-circle"></ion-icon>
-                Nova rota
-            </button>
+            <?php if (ehAdministrador()) { ?>
+                <button type="button" class="btn btn-primary"
+                    style="background-color: #151d4b;"
+                    data-bs-toggle="modal" data-bs-target="#modalCadastroRota">
+                    <ion-icon name="add-circle"></ion-icon>
+                    Nova rota
+                </button>
+            <?php } ?>
         </div>
+
         <div class="card shadow-sm">
             <div class="card-body">
                 <div class="table-responsive">
@@ -113,27 +285,49 @@ $resultado = $conexao->query($sql);
                                 <th>Descrição</th>
                                 <th>Extensão</th>
                                 <th>Tempo estimado</th>
-                                <?php if (ehAdministrador()) { ?><th>Ações</th><?php } ?>
+                                <th>Trens</th>
+                                <?php if (ehAdministrador()) { ?>
+                                    <th>Ações</th>
+                                <?php } ?>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if ($resultado && $resultado->num_rows > 0) { ?>
                                 <?php while ($rota = $resultado->fetch_assoc()) { ?>
                                     <tr>
-                                        <td><?= htmlspecialchars((string) $rota["id_rota"]) ?></td>
-                                        <td><?= htmlspecialchars($rota["nome_rota"]) ?></td>
-                                        <td><?= htmlspecialchars($rota["descricao"]) ?></td>
-                                        <td><?= htmlspecialchars((string) $rota["extensao"]) ?> Km</td>
-                                        <td><?= htmlspecialchars((string) $rota["tempo_estimado_minutos"]) ?> min</td>
+                                        <td>
+                                            <?= $rota["id_rota"] ?>
+                                        </td>
+                                        <td>
+                                            <?= htmlspecialchars($rota["nome_rota"]) ?>
+                                        </td>
+                                        <td>
+                                            <?= htmlspecialchars($rota["descricao"]) ?>
+                                        </td>
+                                        <td>
+                                            <?= htmlspecialchars((string) $rota["extensao"]) ?> Km
+                                        </td>
+                                        <td>
+                                            <?= htmlspecialchars((string) $rota["tempo_estimado_minutos"]) ?> min
+                                        </td>
+                                        <td>
+                                            <?= htmlspecialchars($rota["trens"] ?? "Nenhum trem") ?>
+                                        </td>
                                         <?php if (ehAdministrador()) { ?>
-                                       
                                             <td>
-                                                <a href="editar-rota.php?id=<?= $rota['id_rota'] ?>"
-                                                    class="btn btn-primary btn-sm" style="background-color: #071b8d;">
+                                                <button type="button"
+                                                    class="btn btn-primary btn-sm"
+                                                    style="background-color: #071b8d;"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalEditarRota"
+                                                    data-id="<?= $rota["id_rota"] ?>"
+                                                    data-nome="<?= htmlspecialchars($rota["nome_rota"], ENT_QUOTES, 'UTF-8') ?>"
+                                                    data-descricao="<?= htmlspecialchars($rota["descricao"], ENT_QUOTES, 'UTF-8') ?>"
+                                                    data-extensao="<?= htmlspecialchars((string) $rota["extensao"], ENT_QUOTES, 'UTF-8') ?>"
+                                                    data-tempo="<?= htmlspecialchars((string) $rota["tempo_estimado_minutos"], ENT_QUOTES, 'UTF-8') ?>">
                                                     <ion-icon name="pencil"></ion-icon>
                                                     Editar
-                                                </a>
-
+                                                </button>
                                                 <button type="button"
                                                     class="btn btn-danger btn-sm"
                                                     onclick="abrirAviso(<?= $rota['id_rota'] ?>, 'excluir-rota.php')">
@@ -156,40 +350,50 @@ $resultado = $conexao->query($sql);
                 </div>
             </div>
         </div>
-    </div>
-    <div class="modal" id="modalExclusao" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content text-center">
-                <div class="modal-body p-4">
-                    <div style="font-size: 40px;">⚠️</div>
-                    <h4 class="fw-bold mt-2">
-                        Deseja continuar?
-                    </h4>
-                    <p class="fw-bold mb-4">
-                        Após a confirmação, não será possível reverter esta ação.
-                    </p>
-                    <div class="d-flex justify-content-center gap-5">
-                        <button type="button" class="btn btn-secondary btn-cancelar px-5" data-bs-dismiss="modal">
-                            Cancelar
-                        </button>
-                        <a id="btnConfirmarExclusao" href="#" class="btn btn-danger px-5">
-                            Excluir
-                        </a>
-                    </div>
-                </div>
+
+        <?php if ($mensagem != "" && !$abrir_modal && !$abrir_modal_edicao) { ?>
+            <div class="alert alert-<?= $tipo_mensagem ?> alert-dismissible fade show mt-3" role="alert">
+                <?= htmlspecialchars($mensagem) ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                    aria-label="Fechar"></button>
             </div>
-        </div>
+        <?php } ?>
     </div>
 
-    <?php if ($mensagem != "") { ?>
-        <div class="alert alert-<?= $tipo_mensagem ?> alert-dismissible fade show" role="alert">
-            <?= htmlspecialchars($mensagem) ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                aria-label="Fechar"></button>
-        </div>
-    <?php } ?>
+    <?php
+    define("ROTA_MODAIS", true);
+    require __DIR__ . "/cadastrar-rota.php";
+    require __DIR__ . "/editar-rota.php";
+    require __DIR__ . "/excluir-rota.php";
+    ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../script/botoes.js"></script>
+    <script src="../../script/crud.js"></script>
+
+    <!-- MODAIS DE CADASTRO E EDIÇÃO -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            <?php if ($abrir_modal) { ?>
+                let modalCadastro = new bootstrap.Modal(
+                    document.getElementById("modalCadastroRota")
+                );
+                modalCadastro.show();
+            <?php } ?>
+
+            <?php if ($abrir_modal_edicao) { ?>
+                document.getElementById("editar_id_rota").value = <?= json_encode($id_rota_edicao) ?>;
+                document.getElementById("editar_nome_rota").value = <?= json_encode($nome_rota_edicao) ?>;
+                document.getElementById("editar_descricao").value = <?= json_encode($descricao_edicao) ?>;
+                document.getElementById("editar_extensao").value = <?= json_encode($extensao_edicao) ?>;
+                document.getElementById("editar_tempo_estimado_minutos").value = <?= json_encode($tempo_estimado_edicao) ?>;
+
+                let modalEdicao = new bootstrap.Modal(
+                    document.getElementById("modalEditarRota")
+                );
+                modalEdicao.show();
+            <?php } ?>
+        });
+    </script>
 </body>
+
 </html>

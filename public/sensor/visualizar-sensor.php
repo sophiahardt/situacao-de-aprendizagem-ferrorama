@@ -5,6 +5,28 @@ require_once "../../infra/conexao.php";
 
 $total_colunas = ehAdministrador() ? 5 : 4;
 
+function validarSensor($nome_sensor, $tipo_sensor, $localizacao, $id_localizacao)
+{
+    if ($nome_sensor == "" || $tipo_sensor == "" || $localizacao == "" || $id_localizacao == "") {
+        return "Preencha todos os campos.";
+    }
+
+    if ($localizacao != "rota" && $localizacao != "trem") {
+        return "Selecione uma localização válida.";
+    }
+
+    return "";
+}
+
+function separarLocalizacao($localizacao, $id_localizacao)
+{
+    if ($localizacao == "rota") {
+        return [null, (int) $id_localizacao];
+    }
+
+    return [(int) $id_localizacao, null];
+}
+
 $mensagem = "";
 $tipo_mensagem = "success";
 $abrir_modal = false;
@@ -21,16 +43,19 @@ $localizacao_edicao = "";
 $id_localizacao_edicao = "";
 $id_sensor_edicao = "";
 
-if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "cadastrado") {
+$sucesso = $_GET["sucesso"] ?? "";
+$erro = $_GET["erro"] ?? "";
+
+if ($sucesso == "cadastrado") {
     $mensagem = "Sensor cadastrado com sucesso!";
-} elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "editado") {
+} elseif ($sucesso == "editado") {
     $mensagem = "Sensor editado com sucesso!";
-} elseif (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
+} elseif ($sucesso == "1") {
     $mensagem = "Sensor excluído com sucesso!";
-} elseif (isset($_GET["erro"]) && $_GET["erro"] == "leituras") {
+} elseif ($erro == "leituras") {
     $mensagem = "Não é possível excluir este sensor, pois existem leituras associadas.";
     $tipo_mensagem = "danger";
-} elseif (isset($_GET["erro"]) && $_GET["erro"] == "exclusao") {
+} elseif ($erro == "exclusao") {
     $mensagem = "Não foi possível excluir o sensor.";
     $tipo_mensagem = "danger";
 }
@@ -38,24 +63,10 @@ if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "cadastrado") {
 $consulta_rotas = $conexao->query("SELECT id_rota, nome_rota FROM rota ORDER BY nome_rota");
 $consulta_trens = $conexao->query("SELECT id_trem, nome_trem FROM trem ORDER BY nome_trem");
 
-$rotas = [];
-$trens = [];
-
-if ($consulta_rotas) {
-    while ($rota = $consulta_rotas->fetch_assoc()) {
-        $rotas[] = $rota;
-    }
-}
-
-if ($consulta_trens) {
-    while ($trem = $consulta_trens->fetch_assoc()) {
-        $trens[] = $trem;
-    }
-}
+$rotas = $consulta_rotas ? $consulta_rotas->fetch_all(MYSQLI_ASSOC) : [];
+$trens = $consulta_trens ? $consulta_trens->fetch_all(MYSQLI_ASSOC) : [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $mensagem = "";
-    $tipo_mensagem = "success";
     if (($_POST["acao"] ?? "") == "cadastrar") {
         $nome_sensor_form = trim($_POST["nome_sensor"] ?? "");
         $tipo_sensor_form = $_POST["tipo_sensor"] ?? "";
@@ -66,48 +77,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (!ehAdministrador()) {
             $mensagem = "Você não tem permissão para cadastrar sensores.";
-            $tipo_mensagem = "danger";
-        } elseif ($nome_sensor_form == "" || $tipo_sensor_form == "" || $localizacao_form == "" || $id_localizacao_form == "") {
-            $mensagem = "Preencha todos os campos.";
-            $tipo_mensagem = "danger";
         } else {
-            $id_rota = null;
-            $id_trem = null;
+            $mensagem = validarSensor($nome_sensor_form, $tipo_sensor_form, $localizacao_form, $id_localizacao_form);
+        }
 
-            if ($localizacao_form == "rota") {
-                $id_rota = (int) $id_localizacao_form;
-            } elseif ($localizacao_form == "trem") {
-                $id_trem = (int) $id_localizacao_form;
-            } else {
-                $mensagem = "Selecione uma localização válida.";
-                $tipo_mensagem = "danger";
-            }
+        if ($mensagem == "") {
+            [$id_trem, $id_rota] = separarLocalizacao($localizacao_form, $id_localizacao_form);
 
-            if ($mensagem == "") {
-                $sql = "INSERT INTO sensor
-                        (nome_sensor, tipo_sensor, localizacao, id_trem, id_rota)
-                        VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO sensor
+                    (nome_sensor, tipo_sensor, localizacao, id_trem, id_rota)
+                    VALUES (?, ?, ?, ?, ?)";
 
-                $stmt = $conexao->prepare($sql);
+            $stmt = $conexao->prepare($sql);
 
-                $stmt->bind_param(
-                    "sssii",
-                    $nome_sensor_form,
-                    $tipo_sensor_form,
-                    $localizacao_form,
-                    $id_trem,
-                    $id_rota
-                );
+            $stmt->bind_param(
+                "sssii",
+                $nome_sensor_form,
+                $tipo_sensor_form,
+                $localizacao_form,
+                $id_trem,
+                $id_rota
+            );
 
+            try {
                 if ($stmt->execute()) {
                     header("Location: visualizar-sensor.php?sucesso=cadastrado");
                     exit;
-                } else {
-                    $mensagem = "Erro ao cadastrar o sensor.";
-                    $tipo_mensagem = "danger";
                 }
+            } catch (mysqli_sql_exception $excecao) {
             }
+
+            $mensagem = "Erro ao cadastrar o sensor.";
         }
+
+        $tipo_mensagem = "danger";
     } elseif (($_POST["acao"] ?? "") == "editar") {
         $id_sensor_edicao = (int) ($_POST["id_sensor"] ?? 0);
         $nome_sensor_edicao = trim($_POST["nome_sensor"] ?? "");
@@ -119,22 +122,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (!ehAdministrador()) {
             $mensagem = "Você não tem permissão para editar sensores.";
-            $tipo_mensagem = "danger";
-        } elseif ($id_sensor_edicao <= 0 || $nome_sensor_edicao == "" || $tipo_sensor_edicao == "" || $localizacao_edicao == "" || $id_localizacao_edicao == "") {
+        } elseif ($id_sensor_edicao <= 0) {
             $mensagem = "Preencha todos os campos.";
-            $tipo_mensagem = "danger";
-        } elseif ($localizacao_edicao != "rota" && $localizacao_edicao != "trem") {
-            $mensagem = "Selecione uma localização válida.";
-            $tipo_mensagem = "danger";
         } else {
-            $id_rota = null;
-            $id_trem = null;
+            $mensagem = validarSensor($nome_sensor_edicao, $tipo_sensor_edicao, $localizacao_edicao, $id_localizacao_edicao);
+        }
 
-            if ($localizacao_edicao == "rota") {
-                $id_rota = (int) $id_localizacao_edicao;
-            } else {
-                $id_trem = (int) $id_localizacao_edicao;
-            }
+        if ($mensagem == "") {
+            [$id_trem, $id_rota] = separarLocalizacao($localizacao_edicao, $id_localizacao_edicao);
 
             $sql = "UPDATE sensor
                     SET nome_sensor = ?,
@@ -156,14 +151,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $id_sensor_edicao
             );
 
-            if ($stmt->execute()) {
-                header("Location: visualizar-sensor.php?sucesso=editado");
-                exit;
-            } else {
-                $mensagem = "Erro ao editar o sensor.";
-                $tipo_mensagem = "danger";
+            try {
+                if ($stmt->execute()) {
+                    header("Location: visualizar-sensor.php?sucesso=editado");
+                    exit;
+                }
+            } catch (mysqli_sql_exception $excecao) {
             }
+
+            $mensagem = "Erro ao editar o sensor.";
         }
+
+        $tipo_mensagem = "danger";
     }
 }
 
@@ -339,7 +338,7 @@ $resultado = $conexao->query($sql);
     </div>
 
     <?php
-    
+
     define("SENSOR_MODAIS", true);
     require __DIR__ . "/cadastrar-sensor.php";
     require __DIR__ . "/editar-sensor.php";
@@ -347,8 +346,7 @@ $resultado = $conexao->query($sql);
     ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../script/botoes.js"></script>
-    <script src="../../script/sensor.js"></script>
+    <script src="../../script/crud.js"></script>
 
     <!-- MODAIS DE CADASTRO E EDIÇÃO -->
     <script>
