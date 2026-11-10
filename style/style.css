@@ -1,3 +1,4 @@
+
 :root {
     --azul-noite: #071a3d;
     --azul-noite-rgb: 7, 26, 61;
@@ -18,10 +19,14 @@
     --fonte-padrao: Arial, Helvetica, sans-serif;
     --bs-body-font-family: var(--fonte-padrao);
     --bs-font-sans-serif: var(--fonte-padrao);
+    --alerta-critico: #dc3545;
+    --alerta-atencao: #f5b400;
+    --alerta-atencao-escuro: #9a6b00;
+    --alerta-info: var(--azul-destaque);
     --degrade-topo: linear-gradient(90deg, rgba(0, 25, 75, 0.96) 0%, rgba(0, 51, 153, 0.75) 55%, rgba(0, 51, 153, 0.15) 100%);
 }
 
-* {
+{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -645,10 +650,6 @@ h6,
     padding: clamp(0.75rem, 1.5vw, 1.25rem);
 }
 
-.grafico-area {
-    height: 210px;
-}
-
 .card-atalho .card-body {
     height: 100%;
 }
@@ -801,24 +802,6 @@ h6,
     justify-content: center;
 }
 
-.mapa-ferrovia {
-    position: relative;
-    height: clamp(180px, 30vh, 320px);
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    padding: 20px;
-}
-
-.trilho {
-    position: relative;
-    width: 100%;
-    height: 8px;
-    background-color: #7d8796;
-    border-top: 2px solid #4b5563;
-    border-bottom: 2px solid #4b5563;
-}
-
 @media (max-width: 768px) {
     .crud-container {
         padding: 15px !important;
@@ -856,4 +839,78 @@ h6,
     --bs-btn-active-color: #fff;
     --bs-btn-active-bg: var(--azul-sistema);
     --bs-btn-active-border-color: var(--azul-sistema);
+}
+
+.grade-alertas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.alerta-quadro {
+    --cor-alerta: var(--alerta-info);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px;
+    border: 1px solid var(--borda-clara);
+    border-top: 4px solid var(--cor-alerta);
+    border-radius: 10px;
+    background-color: #fff;
+    min-width: 0;
+}
+
+.alerta-critico {
+    --cor-alerta: var(--alerta-critico);
+}
+
+.alerta-atencao {
+    --cor-alerta: var(--alerta-atencao);
+}
+
+.alerta-atencao .alerta-icone {
+    color: var(--alerta-atencao-escuro);
+    background-color: #fef4db;
+}
+
+.alerta-info {
+    --cor-alerta: var(--alerta-info);
+}
+
+.alerta-icone {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cor-alerta);
+    background-color: var(--fundo-azulado);
+    background-color: color-mix(in srgb, var(--cor-alerta) 14%, #fff);
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.alerta-quadro strong {
+    color: var(--azul-sistema);
+    font-size: 0.88rem;
+    line-height: 1.2;
+}
+
+.alerta-detalhe,
+.alerta-horario {
+    color: var(--texto-suave);
+    font-size: 0.76rem;
+}
+
+.alerta-detalhe {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 1199px) {
+    .grade-alertas {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
