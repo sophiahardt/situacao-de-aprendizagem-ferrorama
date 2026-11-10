@@ -40,6 +40,7 @@ $nome_rota_edicao = "";
 $descricao_edicao = "";
 $extensao_edicao = "";
 $tempo_estimado_edicao = "";
+$id_trem_edicao = "";
 
 $sucesso = $_GET["sucesso"] ?? "";
 $erro = $_GET["erro"] ?? "";
@@ -50,9 +51,6 @@ if ($sucesso == "cadastrada") {
     $mensagem = "Rota editada com sucesso!";
 } elseif ($sucesso == "1") {
     $mensagem = "Rota excluída com sucesso!";
-} elseif ($erro == "trens") {
-    $mensagem = "Não é possível excluir esta rota, pois existem trens operando nela.";
-    $tipo_mensagem = "danger";
 } elseif ($erro == "sensores") {
     $mensagem = "Não é possível excluir esta rota, pois existem sensores associados a ela.";
     $tipo_mensagem = "danger";
@@ -141,6 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $descricao_edicao = trim($_POST["descricao"] ?? "");
         $extensao_edicao = $_POST["extensao"] ?? "";
         $tempo_estimado_edicao = $_POST["tempo_estimado_minutos"] ?? "";
+        $id_trem_edicao = $_POST["id_trem"] ?? "";
 
         $abrir_modal_edicao = true;
 
@@ -150,36 +149,68 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mensagem = "Preencha todos os campos.";
         } else {
             $mensagem = validarRota($nome_rota_edicao, $descricao_edicao, $extensao_edicao, $tempo_estimado_edicao);
+
+            if ($mensagem == "" && $id_trem_edicao == "") {
+                $mensagem = "Selecione o trem que anda nesta rota.";
+            }
         }
 
         if ($mensagem == "") {
             $extensao = (float) $extensao_edicao;
             $tempo_estimado_minutos = (int) $tempo_estimado_edicao;
+            $id_trem = (int) $id_trem_edicao;
 
-            $sql = "UPDATE rota
-                    SET nome_rota = ?,
-                        descricao = ?,
-                        extensao = ?,
-                        tempo_estimado_minutos = ?
-                    WHERE id_rota = ?";
-
-            $stmt = $conexao->prepare($sql);
-
-            $stmt->bind_param(
-                "ssdii",
-                $nome_rota_edicao,
-                $descricao_edicao,
-                $extensao,
-                $tempo_estimado_minutos,
-                $id_rota_edicao
-            );
+            $conexao->begin_transaction();
 
             try {
-                if ($stmt->execute()) {
-                    header("Location: visualizar-rota.php?sucesso=editada");
-                    exit;
+                $sql = "UPDATE rota
+                        SET nome_rota = ?,
+                            descricao = ?,
+                            extensao = ?,
+                            tempo_estimado_minutos = ?
+                        WHERE id_rota = ?";
+
+                $stmt = $conexao->prepare($sql);
+
+                $stmt->bind_param(
+                    "ssdii",
+                    $nome_rota_edicao,
+                    $descricao_edicao,
+                    $extensao,
+                    $tempo_estimado_minutos,
+                    $id_rota_edicao
+                );
+
+                $stmt->execute();
+
+                // O trem que andava nesta rota e não foi o escolhido fica sem rota.
+                $sql = "UPDATE trem SET id_rota = NULL WHERE id_rota = ? AND id_trem <> ?";
+                $stmt = $conexao->prepare($sql);
+                $stmt->bind_param("ii", $id_rota_edicao, $id_trem);
+                $stmt->execute();
+
+                // O trem escolhido passa a andar nesta rota.
+                $sql = "UPDATE trem SET id_rota = ? WHERE id_trem = ?";
+                $stmt = $conexao->prepare($sql);
+                $stmt->bind_param("ii", $id_rota_edicao, $id_trem);
+                $stmt->execute();
+
+                // Confere se o trem escolhido existe 
+                $sql = "SELECT id_trem FROM trem WHERE id_trem = ?";
+                $stmt = $conexao->prepare($sql);
+                $stmt->bind_param("i", $id_trem);
+                $stmt->execute();
+
+                if ($stmt->get_result()->num_rows == 0) {
+                    throw new Exception("Trem não encontrado.");
                 }
-            } catch (mysqli_sql_exception $excecao) {
+
+                $conexao->commit();
+
+                header("Location: visualizar-rota.php?sucesso=editada");
+                exit;
+            } catch (Throwable $excecao) {
+                $conexao->rollback();
             }
 
             $mensagem = "Erro ao editar a rota.";
@@ -190,7 +221,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 $sql = "SELECT rota.*,
-               GROUP_CONCAT(trem.nome_trem ORDER BY trem.nome_trem SEPARATOR ', ') AS trens
+               GROUP_CONCAT(trem.nome_trem ORDER BY trem.nome_trem SEPARATOR ', ') AS trens,
+               MIN(trem.id_trem) AS id_trem
         FROM rota
         LEFT JOIN trem ON trem.id_rota = rota.id_rota
         GROUP BY rota.id_rota
@@ -200,6 +232,7 @@ $resultado = $conexao->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -324,7 +357,8 @@ $resultado = $conexao->query($sql);
                                                     data-nome="<?= htmlspecialchars($rota["nome_rota"], ENT_QUOTES, 'UTF-8') ?>"
                                                     data-descricao="<?= htmlspecialchars($rota["descricao"], ENT_QUOTES, 'UTF-8') ?>"
                                                     data-extensao="<?= htmlspecialchars((string) $rota["extensao"], ENT_QUOTES, 'UTF-8') ?>"
-                                                    data-tempo="<?= htmlspecialchars((string) $rota["tempo_estimado_minutos"], ENT_QUOTES, 'UTF-8') ?>">
+                                                    data-tempo="<?= htmlspecialchars((string) $rota["tempo_estimado_minutos"], ENT_QUOTES, 'UTF-8') ?>"
+                                                    data-trem="<?= $rota["id_trem"] ?? "" ?>">
                                                     <ion-icon name="pencil"></ion-icon>
                                                     Editar
                                                 </button>
@@ -386,6 +420,7 @@ $resultado = $conexao->query($sql);
                 document.getElementById("editar_descricao").value = <?= json_encode($descricao_edicao) ?>;
                 document.getElementById("editar_extensao").value = <?= json_encode($extensao_edicao) ?>;
                 document.getElementById("editar_tempo_estimado_minutos").value = <?= json_encode($tempo_estimado_edicao) ?>;
+                document.getElementById("editar_id_trem").value = <?= json_encode($id_trem_edicao) ?>;
 
                 let modalEdicao = new bootstrap.Modal(
                     document.getElementById("modalEditarRota")

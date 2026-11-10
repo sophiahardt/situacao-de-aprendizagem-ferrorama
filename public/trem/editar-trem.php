@@ -51,17 +51,6 @@ if (!defined("TREM_MODAIS")) {
                                     step="0.01"
                                     required>
                             </div>
-                            <div class="mb-3">
-                                <label for="editar_id_rota" class="form-label">Rota (opcional)</label>
-                                <select name="id_rota" id="editar_id_rota" class="form-select">
-                                    <option value="">Sem rota</option>
-                                    <?php foreach ($rotas as $rota) { ?>
-                                        <option value="<?= $rota["id_rota"] ?>">
-                                            <?= htmlspecialchars($rota["nome_rota"]) ?>
-                                        </option>
-                                    <?php } ?>
-                                </select>
-                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">

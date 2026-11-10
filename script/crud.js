@@ -19,7 +19,7 @@ function preencherAoAbrir(idModal, preencher) {
         return;
     }
 
-    modal.addEventListener("show.bs.modal", function(event) {
+    modal.addEventListener("show.bs.modal", function (event) {
         let botao = event.relatedTarget;
 
         if (!botao) {
@@ -77,13 +77,13 @@ function verificarLocalizacaoEdicao() {
     );
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Sensores
     if (document.getElementById("modalCadastroSensor")) {
         verificarLocalizacao();
     }
 
-    preencherAoAbrir("modalEditarSensor", function(dados) {
+    preencherAoAbrir("modalEditarSensor", function (dados) {
         document.getElementById("editar_id_sensor").value = dados.id;
         document.getElementById("editar_nome_sensor").value = dados.nome;
         document.getElementById("editar_tipo_sensor").value = dados.tipo;
@@ -100,21 +100,21 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Rotas
-    preencherAoAbrir("modalEditarRota", function(dados) {
+    preencherAoAbrir("modalEditarRota", function (dados) {
         document.getElementById("editar_id_rota").value = dados.id;
         document.getElementById("editar_nome_rota").value = dados.nome;
         document.getElementById("editar_descricao").value = dados.descricao;
         document.getElementById("editar_extensao").value = dados.extensao;
         document.getElementById("editar_tempo_estimado_minutos").value = dados.tempo;
+        document.getElementById("editar_id_trem").value = dados.trem;
     });
 
     // Trens
-    preencherAoAbrir("modalEditarTrem", function(dados) {
+    preencherAoAbrir("modalEditarTrem", function (dados) {
         document.getElementById("editar_id_trem").value = dados.id;
         document.getElementById("editar_nome_trem").value = dados.nome;
         document.getElementById("editar_velocidade_maxima").value = dados.velocidade;
         document.getElementById("editar_tipo_trem").value = dados.tipo;
-        document.getElementById("editar_id_rota").value = dados.rota;
         document.getElementById("editar_id_usuario").value = dados.usuario;
     });
 });

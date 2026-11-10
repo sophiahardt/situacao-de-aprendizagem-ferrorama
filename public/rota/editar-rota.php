@@ -59,6 +59,22 @@ if (!defined("ROTA_MODAIS")) {
                                     min="1"
                                     required>
                             </div>
+                            <div class="mb-3">
+                                <label for="editar_id_trem" class="form-label">Trem</label>
+                                <select name="id_trem" id="editar_id_trem" class="form-select" required>
+                                    <option value="" disabled>Selecione o trem que anda nesta rota</option>
+                                    <?php foreach ($trens as $trem) { ?>
+                                        <option value="<?= $trem["id_trem"] ?>">
+                                            <?= htmlspecialchars($trem["nome_trem"]) ?>
+                                            <?= $trem["nome_rota"] ? "(hoje na rota " . htmlspecialchars($trem["nome_rota"]) . ")" : "(sem rota)" ?>
+                                        </option>
+                                    <?php } ?>
+                                </select>
+                                <div class="form-text">
+                                    Ao trocar o trem, o anterior fica sem rota. Se o trem escolhido
+                                    estiver em outra rota, ele passa para esta.
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">

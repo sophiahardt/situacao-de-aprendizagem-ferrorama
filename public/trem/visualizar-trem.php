@@ -39,7 +39,6 @@ $id_trem_edicao = "";
 $nome_trem_edicao = "";
 $velocidade_maxima_edicao = "";
 $tipo_trem_edicao = "";
-$id_rota_edicao = "";
 $id_usuario_edicao = "";
 
 $sucesso = $_GET["sucesso"] ?? "";
@@ -51,6 +50,9 @@ if ($sucesso == "cadastrado") {
     $mensagem = "Trem editado com sucesso!";
 } elseif ($sucesso == "1") {
     $mensagem = "Trem excluído com sucesso!";
+} elseif ($erro == "rotas") {
+    $mensagem = "Não é possível excluir este trem, pois existem rotas associadas a ele.";
+    $tipo_mensagem = "danger";
 } elseif ($erro == "sensores") {
     $mensagem = "Não é possível excluir este trem, pois existem sensores associados a ele.";
     $tipo_mensagem = "danger";
@@ -59,10 +61,8 @@ if ($sucesso == "cadastrado") {
     $tipo_mensagem = "danger";
 }
 
-$consulta_rotas = $conexao->query("SELECT id_rota, nome_rota FROM rota ORDER BY nome_rota");
 $consulta_usuarios = $conexao->query("SELECT id_usuario, nome FROM usuario ORDER BY nome");
 
-$rotas = $consulta_rotas ? $consulta_rotas->fetch_all(MYSQLI_ASSOC) : [];
 $usuarios = $consulta_usuarios ? $consulta_usuarios->fetch_all(MYSQLI_ASSOC) : [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -115,7 +115,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nome_trem_edicao = trim($_POST["nome_trem"] ?? "");
         $velocidade_maxima_edicao = $_POST["velocidade_maxima"] ?? "";
         $tipo_trem_edicao = $_POST["tipo_trem"] ?? "";
-        $id_rota_edicao = $_POST["id_rota"] ?? "";
         $id_usuario_edicao = $_POST["id_usuario"] ?? "";
 
         $abrir_modal_edicao = true;
@@ -130,26 +129,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($mensagem == "") {
             $velocidade_maxima = (float) $velocidade_maxima_edicao;
-            $id_rota = $id_rota_edicao === "" ? null : (int) $id_rota_edicao;
             $id_usuario = (int) $id_usuario_edicao;
 
             $sql = "UPDATE trem
                     SET nome_trem = ?,
                         velocidade_maxima = ?,
                         tipo_trem = ?,
-                        id_usuario = ?,
-                        id_rota = ?
+                        id_usuario = ?
                     WHERE id_trem = ?";
 
             $stmt = $conexao->prepare($sql);
 
             $stmt->bind_param(
-                "sdsiii",
+                "sdsii",
                 $nome_trem_edicao,
                 $velocidade_maxima,
                 $tipo_trem_edicao,
                 $id_usuario,
-                $id_rota,
                 $id_trem_edicao
             );
 
@@ -169,9 +165,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 $sql = "SELECT trem.*,
-               rota.nome_rota
+               usuario.nome AS nome_responsavel
         FROM trem
-        LEFT JOIN rota ON trem.id_rota = rota.id_rota";
+        LEFT JOIN usuario ON trem.id_usuario = usuario.id_usuario";
 
 $resultado = $conexao->query($sql);
 ?>
@@ -266,7 +262,7 @@ $resultado = $conexao->query($sql);
                                 <th>Nome</th>
                                 <th>Velocidade Máxima</th>
                                 <th>Tipo</th>
-                                <th>Rota</th>
+                                <th>Responsável</th>
                                 <?php if (ehAdministrador()) { ?>
                                     <th>Ações</th>
                                 <?php } ?>
@@ -289,7 +285,7 @@ $resultado = $conexao->query($sql);
                                             <?= htmlspecialchars($trem["tipo_trem"]) ?>
                                         </td>
                                         <td>
-                                            <?= htmlspecialchars($trem["nome_rota"] ?? "Sem rota") ?>
+                                            <?= htmlspecialchars($trem["nome_responsavel"] ?? "Não definido") ?>
                                         </td>
                                         <?php if (ehAdministrador()) { ?>
                                             <td>
@@ -302,7 +298,6 @@ $resultado = $conexao->query($sql);
                                                     data-nome="<?= htmlspecialchars($trem["nome_trem"], ENT_QUOTES, 'UTF-8') ?>"
                                                     data-velocidade="<?= htmlspecialchars((string) $trem["velocidade_maxima"], ENT_QUOTES, 'UTF-8') ?>"
                                                     data-tipo="<?= htmlspecialchars($trem["tipo_trem"], ENT_QUOTES, 'UTF-8') ?>"
-                                                    data-rota="<?= $trem["id_rota"] ?? "" ?>"
                                                     data-usuario="<?= $trem["id_usuario"] ?? "" ?>">
                                                     <ion-icon name="pencil"></ion-icon>
                                                     Editar
@@ -364,7 +359,6 @@ $resultado = $conexao->query($sql);
                 document.getElementById("editar_nome_trem").value = <?= json_encode($nome_trem_edicao) ?>;
                 document.getElementById("editar_velocidade_maxima").value = <?= json_encode($velocidade_maxima_edicao) ?>;
                 document.getElementById("editar_tipo_trem").value = <?= json_encode($tipo_trem_edicao) ?>;
-                document.getElementById("editar_id_rota").value = <?= json_encode($id_rota_edicao) ?>;
                 document.getElementById("editar_id_usuario").value = <?= json_encode($id_usuario_edicao) ?>;
 
                 let modalEdicao = new bootstrap.Modal(

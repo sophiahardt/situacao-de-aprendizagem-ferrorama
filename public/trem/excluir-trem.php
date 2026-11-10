@@ -24,6 +24,17 @@ if (!defined("TREM_MODAIS")) {
         exit;
     }
 
+    $sql_rota = "SELECT id_trem FROM trem WHERE id_trem = ? AND id_rota IS NOT NULL";
+    $stmt_rota = $conexao->prepare($sql_rota);
+    $stmt_rota->bind_param("i", $id_trem);
+    $stmt_rota->execute();
+    $resultado_rota = $stmt_rota->get_result();
+
+    if ($resultado_rota->num_rows > 0) {
+        header("Location: visualizar-trem.php?erro=rotas");
+        exit;
+    }
+
     $sql = "DELETE FROM trem WHERE id_trem = ?";
     $stmt = $conexao->prepare($sql);
     $stmt->bind_param("i", $id_trem);
