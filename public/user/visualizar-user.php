@@ -279,7 +279,7 @@ $resultado = $conexao->query($sql);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="../../style/style.css">
+    <link rel="stylesheet" href="../../style/style.css?v=5">
 </head>
 
 
@@ -337,8 +337,7 @@ $resultado = $conexao->query($sql);
                 Lista de usuários cadastrados
             </h1>
             <?php if (ehAdministrador()) { ?>
-                <button type="button" class="btn btn-primary"
-                    style="background-color: #151d4b;"
+                <button type="button" class="btn btn-sistema"
                     data-bs-toggle="modal" data-bs-target="#modalCadastroUsuario">
                     <ion-icon name="add-circle"></ion-icon>
                     Novo usuário
@@ -393,8 +392,7 @@ $resultado = $conexao->query($sql);
                                         <?php if (ehAdministrador()) { ?>
                                             <td>
                                                 <button type="button"
-                                                    class="btn btn-primary btn-sm"
-                                                    style="background-color: #071b8d;"
+                                                    class="btn btn-editar btn-sm"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#modalEditarUsuario"
                                                     data-id="<?= $usuario["id_usuario"] ?>"

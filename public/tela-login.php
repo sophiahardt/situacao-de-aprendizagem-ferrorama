@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../style/style.css?v=3">
+    <link rel="stylesheet" href="../style/style.css?v=5">
 
 </head>
 
@@ -128,17 +128,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 class="btn btn-primary btn-login px-5">
                                 Entrar
                             </button>
-
                         </div>
-
                     </form>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
     <?php if ($mensagem != "") { ?>
@@ -154,10 +148,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </button>
         </div>
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("DOMContentLoaded", function() {
                 const snackbar = document.getElementById("erroLogin");
                 const fechar = document.getElementById("fecharErroLogin");
-                const dispensar = function () {
+                const dispensar = function() {
                     snackbar.classList.add("login-snackbar-oculto");
                 };
 

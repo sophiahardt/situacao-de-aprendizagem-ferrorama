@@ -20,7 +20,7 @@ $resultado = $conexao->query($sql);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="../../style/style.css">
+    <link rel="stylesheet" href="../../style/style.css?v=5">
 </head>
 
 <body>
@@ -73,7 +73,7 @@ $resultado = $conexao->query($sql);
     <div class="container-fluid p-4 crud-container">
         <div class="d-flex justify-content-between align-items-center mb-4 crud-cabecalho">
             <h1 class="h3">Lista de relatórios cadastrados</h1>
-            <a href="cadastrar-relatorio.php" class="btn d-flex align-items-center gap-2" style="background-color: #151d4b; border-color: #003399; color: white;">
+            <a href="cadastrar-relatorio.php" class="btn btn-sistema d-flex align-items-center gap-2">
                 <ion-icon name="add-circle"></ion-icon>
                 Novo relatório
             </a>
@@ -99,7 +99,7 @@ $resultado = $conexao->query($sql);
                                         <td><?= htmlspecialchars($relatorio["data_relatorio"]) ?></td>
                                         <td>
                                             <?php if (ehAdministrador()) { ?>
-                                                <a href="editar-relatorio.php?id=<?= $relatorio["id_relatorio"] ?>" class="btn btn-primary btn-sm" style="background-color: #071b8d;">
+                                                <a href="editar-relatorio.php?id=<?= $relatorio["id_relatorio"] ?>" class="btn btn-editar btn-sm">
                                                     <ion-icon name="pencil"></ion-icon>
                                                     Editar
                                                 </a>
