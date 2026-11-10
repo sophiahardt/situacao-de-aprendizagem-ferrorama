@@ -75,11 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $abrir_modal = true;
 
-        if (!ehAdministrador()) {
-            $mensagem = "Você não tem permissão para cadastrar sensores.";
-        } else {
-            $mensagem = validarSensor($nome_sensor_form, $tipo_sensor_form, $localizacao_form, $id_localizacao_form);
-        }
+        $mensagem = validarSensor($nome_sensor_form, $tipo_sensor_form, $localizacao_form, $id_localizacao_form);
 
         if ($mensagem == "") {
             [$id_trem, $id_rota] = separarLocalizacao($localizacao_form, $id_localizacao_form);
@@ -242,14 +238,12 @@ $resultado = $conexao->query($sql);
             <h1 class="h3">
                 Lista de sensores cadastrados
             </h1>
-            <?php if (ehAdministrador()) { ?>
-                <button type="button" class="btn btn-primary"
-                    style="background-color: #151d4b;"
-                    data-bs-toggle="modal" data-bs-target="#modalCadastroSensor">
-                    <ion-icon name="add-circle"></ion-icon>
-                    Novo sensor
-                </button>
-            <?php } ?>
+            <button type="button" class="btn btn-primary"
+                style="background-color: #151d4b;"
+                data-bs-toggle="modal" data-bs-target="#modalCadastroSensor">
+                <ion-icon name="add-circle"></ion-icon>
+                Novo sensor
+            </button>
         </div>
 
         <div class="card shadow-sm">

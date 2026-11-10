@@ -73,12 +73,10 @@ $resultado = $conexao->query($sql);
     <div class="container-fluid p-4 crud-container">
         <div class="d-flex justify-content-between align-items-center mb-4 crud-cabecalho">
             <h1 class="h3">Lista de relatórios cadastrados</h1>
-            <?php if (ehAdministrador()) { ?>
-                <a href="cadastrar-relatorio.php" class="btn d-flex align-items-center gap-2" style="background-color: #151d4b; border-color: #003399; color: white;">
-                    <ion-icon name="add-circle"></ion-icon>
-                    Novo relatório
-                </a>
-            <?php } ?>
+            <a href="cadastrar-relatorio.php" class="btn d-flex align-items-center gap-2" style="background-color: #151d4b; border-color: #003399; color: white;">
+                <ion-icon name="add-circle"></ion-icon>
+                Novo relatório
+            </a>
         </div>
         <div class="card shadow-sm">
             <div class="card-body">

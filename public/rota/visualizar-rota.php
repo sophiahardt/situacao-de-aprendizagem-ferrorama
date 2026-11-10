@@ -27,7 +27,7 @@ $mensagem = "";
 $tipo_mensagem = "success";
 $abrir_modal_edicao = false;
 
-$abrir_modal = ($_GET["abrir"] ?? "") == "cadastro" && ehAdministrador();
+$abrir_modal = ($_GET["abrir"] ?? "") == "cadastro";
 
 $nome_rota_form = "";
 $descricao_form = "";
@@ -78,14 +78,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $abrir_modal = true;
 
-        if (!ehAdministrador()) {
-            $mensagem = "Você não tem permissão para cadastrar rotas.";
-        } else {
-            $mensagem = validarRota($nome_rota_form, $descricao_form, $extensao_form, $tempo_estimado_form);
+        $mensagem = validarRota($nome_rota_form, $descricao_form, $extensao_form, $tempo_estimado_form);
 
-            if ($mensagem == "" && $id_trem_form == "") {
-                $mensagem = "Selecione o trem que anda nesta rota.";
-            }
+        if ($mensagem == "" && $id_trem_form == "") {
+            $mensagem = "Selecione o trem que anda nesta rota.";
         }
 
         if ($mensagem == "") {
@@ -297,14 +293,12 @@ $resultado = $conexao->query($sql);
             <h1 class="h3">
                 Lista de rotas cadastradas
             </h1>
-            <?php if (ehAdministrador()) { ?>
-                <button type="button" class="btn btn-primary"
-                    style="background-color: #151d4b;"
-                    data-bs-toggle="modal" data-bs-target="#modalCadastroRota">
-                    <ion-icon name="add-circle"></ion-icon>
-                    Nova rota
-                </button>
-            <?php } ?>
+            <button type="button" class="btn btn-primary"
+                style="background-color: #151d4b;"
+                data-bs-toggle="modal" data-bs-target="#modalCadastroRota">
+                <ion-icon name="add-circle"></ion-icon>
+                Nova rota
+            </button>
         </div>
 
         <div class="card shadow-sm">

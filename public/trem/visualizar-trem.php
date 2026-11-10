@@ -28,7 +28,7 @@ $mensagem = "";
 $tipo_mensagem = "success";
 $abrir_modal_edicao = false;
 
-$abrir_modal = ($_GET["abrir"] ?? "") == "cadastro" && ehAdministrador();
+$abrir_modal = ($_GET["abrir"] ?? "") == "cadastro";
 
 $nome_trem_form = "";
 $velocidade_maxima_form = "";
@@ -74,11 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $abrir_modal = true;
 
-        if (!ehAdministrador()) {
-            $mensagem = "Você não tem permissão para cadastrar trens.";
-        } else {
-            $mensagem = validarTrem($nome_trem_form, $velocidade_maxima_form, $tipo_trem_form, $id_usuario_form, $tipos_trem);
-        }
+        $mensagem = validarTrem($nome_trem_form, $velocidade_maxima_form, $tipo_trem_form, $id_usuario_form, $tipos_trem);
 
         if ($mensagem == "") {
             $velocidade_maxima = (float) $velocidade_maxima_form;
@@ -242,14 +238,12 @@ $resultado = $conexao->query($sql);
             <h1 class="h3">
                 Lista de trens cadastrados
             </h1>
-            <?php if (ehAdministrador()) { ?>
-                <button type="button" class="btn btn-primary"
-                    style="background-color: #151d4b;"
-                    data-bs-toggle="modal" data-bs-target="#modalCadastroTrem">
-                    <ion-icon name="add-circle"></ion-icon>
-                    Novo trem
-                </button>
-            <?php } ?>
+            <button type="button" class="btn btn-primary"
+                style="background-color: #151d4b;"
+                data-bs-toggle="modal" data-bs-target="#modalCadastroTrem">
+                <ion-icon name="add-circle"></ion-icon>
+                Novo trem
+            </button>
         </div>
 
         <div class="card shadow-sm">
