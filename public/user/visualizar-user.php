@@ -279,7 +279,7 @@ $resultado = $conexao->query($sql);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="../../style/style.css?v=5">
+    <link rel="stylesheet" href="../../style/style.css?v=6">
 </head>
 
 
@@ -351,14 +351,14 @@ $resultado = $conexao->query($sql);
                     <table class="table table-hover mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th>Nome</th>
+                                <th class="coluna-nome">Nome</th>
                                 <th>Cargo</th>
                                 <th>Email</th>
                                 <th>Telefone</th>
                                 <th>CEP</th>
                                 <th>Endereço</th>
                                 <?php if (ehAdministrador()) { ?>
-                                    <th>Ações</th>
+                                    <th class="coluna-acoes">Ações</th>
                                 <?php } ?>
                             </tr>
                         </thead>
@@ -366,7 +366,7 @@ $resultado = $conexao->query($sql);
                             <?php if ($resultado && $resultado->num_rows > 0) { ?>
                                 <?php while ($usuario = $resultado->fetch_assoc()) { ?>
                                     <tr>
-                                        <td>
+                                        <td class="coluna-nome">
                                             <?= htmlspecialchars($usuario["nome"]) ?>
                                         </td>
                                         <td>
@@ -390,9 +390,9 @@ $resultado = $conexao->query($sql);
                                             ], static fn($valor) => $valor !== null && $valor !== ""))) ?>
                                         </td>
                                         <?php if (ehAdministrador()) { ?>
-                                            <td>
+                                            <td class="coluna-acoes">
                                                 <button type="button"
-                                                    class="btn btn-editar btn-sm"
+                                                    class="btn btn-editar btn-sm" title="Editar" aria-label="Editar"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#modalEditarUsuario"
                                                     data-id="<?= $usuario["id_usuario"] ?>"
@@ -405,14 +405,12 @@ $resultado = $conexao->query($sql);
                                                     data-bairro="<?= htmlspecialchars($usuario["bairro"] ?? "", ENT_QUOTES, 'UTF-8') ?>"
                                                     data-cidade="<?= htmlspecialchars($usuario["cidade"] ?? "", ENT_QUOTES, 'UTF-8') ?>"
                                                     data-uf="<?= htmlspecialchars($usuario["uf"] ?? "", ENT_QUOTES, 'UTF-8') ?>">
-                                                    <ion-icon name="pencil"></ion-icon>
-                                                    Editar
+                                                    <ion-icon name="pencil" aria-hidden="true"></ion-icon>
                                                 </button>
                                                 <button type="button"
-                                                    class="btn btn-danger btn-sm"
+                                                    class="btn btn-danger btn-sm" title="Excluir" aria-label="Excluir"
                                                     onclick="abrirAviso(<?= $usuario['id_usuario'] ?>, 'excluir-user.php')">
-                                                    <ion-icon name="trash"></ion-icon>
-                                                    Excluir
+                                                    <ion-icon name="trash" aria-hidden="true"></ion-icon>
                                                 </button>
                                             </td>
                                         <?php } ?>

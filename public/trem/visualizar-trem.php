@@ -178,7 +178,7 @@ $resultado = $conexao->query($sql);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="../../style/style.css?v=5">
+    <link rel="stylesheet" href="../../style/style.css?v=6">
 </head>
 
 <body>
@@ -252,13 +252,13 @@ $resultado = $conexao->query($sql);
                     <table class="table table-hover mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th>ID</th>
+                                <th class="coluna-id">ID</th>
                                 <th>Nome</th>
                                 <th>Velocidade Máxima</th>
                                 <th>Tipo</th>
                                 <th>Responsável</th>
                                 <?php if (ehAdministrador()) { ?>
-                                    <th>Ações</th>
+                                    <th class="coluna-acoes">Ações</th>
                                 <?php } ?>
                             </tr>
                         </thead>
@@ -266,7 +266,7 @@ $resultado = $conexao->query($sql);
                             <?php if ($resultado && $resultado->num_rows > 0) { ?>
                                 <?php while ($trem = $resultado->fetch_assoc()) { ?>
                                     <tr>
-                                        <td>
+                                        <td class="coluna-id">
                                             <?= $trem["id_trem"] ?>
                                         </td>
                                         <td>
@@ -282,9 +282,9 @@ $resultado = $conexao->query($sql);
                                             <?= htmlspecialchars($trem["nome_responsavel"] ?? "Não definido") ?>
                                         </td>
                                         <?php if (ehAdministrador()) { ?>
-                                            <td>
+                                            <td class="coluna-acoes">
                                                 <button type="button"
-                                                    class="btn btn-editar btn-sm"
+                                                    class="btn btn-editar btn-sm" title="Editar" aria-label="Editar"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#modalEditarTrem"
                                                     data-id="<?= $trem["id_trem"] ?>"
@@ -292,14 +292,12 @@ $resultado = $conexao->query($sql);
                                                     data-velocidade="<?= htmlspecialchars((string) $trem["velocidade_maxima"], ENT_QUOTES, 'UTF-8') ?>"
                                                     data-tipo="<?= htmlspecialchars($trem["tipo_trem"], ENT_QUOTES, 'UTF-8') ?>"
                                                     data-usuario="<?= $trem["id_usuario"] ?? "" ?>">
-                                                    <ion-icon name="pencil"></ion-icon>
-                                                    Editar
+                                                    <ion-icon name="pencil" aria-hidden="true"></ion-icon>
                                                 </button>
                                                 <button type="button"
-                                                    class="btn btn-danger btn-sm"
+                                                    class="btn btn-danger btn-sm" title="Excluir" aria-label="Excluir"
                                                     onclick="abrirAviso(<?= $trem['id_trem'] ?>, 'excluir-trem.php')">
-                                                    <ion-icon name="trash"></ion-icon>
-                                                    Excluir
+                                                    <ion-icon name="trash" aria-hidden="true"></ion-icon>
                                                 </button>
                                             </td>
                                         <?php } ?>

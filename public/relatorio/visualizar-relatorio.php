@@ -20,7 +20,7 @@ $resultado = $conexao->query($sql);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="../../style/style.css?v=5">
+    <link rel="stylesheet" href="../../style/style.css?v=6">
 </head>
 
 <body>
@@ -84,28 +84,26 @@ $resultado = $conexao->query($sql);
                     <table class="table table-hover mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th>Nome do Relatório</th>
+                                <th class="coluna-nome">Nome do Relatório</th>
                                 <th>Tipo</th>
                                 <th>Data</th>
-                                <th>Ações</th>
+                                <th class="coluna-acoes">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if ($resultado && $resultado->num_rows > 0) { ?>
                                 <?php while ($relatorio = $resultado->fetch_assoc()) { ?>
                                     <tr>
-                                        <td><?= htmlspecialchars($relatorio["nome_relatorio"]) ?></td>
+                                        <td class="coluna-nome"><?= htmlspecialchars($relatorio["nome_relatorio"]) ?></td>
                                         <td><?= htmlspecialchars($relatorio["tipo_relatorio"]) ?></td>
                                         <td><?= htmlspecialchars($relatorio["data_relatorio"]) ?></td>
-                                        <td>
+                                        <td class="coluna-acoes">
                                             <?php if (ehAdministrador()) { ?>
-                                                <a href="editar-relatorio.php?id=<?= $relatorio["id_relatorio"] ?>" class="btn btn-editar btn-sm">
-                                                    <ion-icon name="pencil"></ion-icon>
-                                                    Editar
+                                                <a href="editar-relatorio.php?id=<?= $relatorio["id_relatorio"] ?>" class="btn btn-editar btn-sm" title="Editar" aria-label="Editar">
+                                                    <ion-icon name="pencil" aria-hidden="true"></ion-icon>
                                                 </a>
-                                                <button type="button" class="btn btn-danger btn-sm" onclick="abrirAviso(<?= $relatorio['id_relatorio'] ?>)">
-                                                    <ion-icon name="trash"></ion-icon>
-                                                    Excluir
+                                                <button type="button" class="btn btn-danger btn-sm" title="Excluir" aria-label="Excluir" onclick="abrirAviso(<?= $relatorio['id_relatorio'] ?>, 'excluir-relatorio.php')">
+                                                    <ion-icon name="trash" aria-hidden="true"></ion-icon>
                                                 </button>
                                             <?php } ?>
                                         </td>
