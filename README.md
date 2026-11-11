@@ -72,3 +72,21 @@ O sistema busca:
 - **Ionicons 7.1** — ícones da interface
 - **Open-Meteo** — API de clima exibida no dashboard
 - **ViaCEP** — API que preenche o endereço a partir do CEP no cadastro de usuários
+
+## Funcionalidades implementadas
+
+- **Login e controle de acesso:** login com e-mail e senha (senhas guardadas com `password_hash`), sessão por tipo de usuário e página de acesso negado. Ao sair, o usuário volta para a Landing Page.
+- **Landing Page:** apresentação do sistema, com acesso ao login.
+- **Dashboard:** clima atual da localização do usuário, atalhos para cada módulo, resumo da operação (quantidade de trens, rotas e sensores) e alertas de monitoramento.
+- **Sensores, trens, rotas e usuários:** listagem com cadastro e edição em modais (janelas sobre a própria listagem) e exclusão com confirmação.
+- **Relatórios:** listagem, cadastro, edição e exclusão.
+- **Validações:** campos obrigatórios, e-mail, telefone, CEP e UF no cadastro de usuários; valores numéricos em trens e rotas; e-mail repetido não é aceito.
+- **Busca de CEP:** ao digitar o CEP no cadastro de usuário, o endereço é preenchido automaticamente.
+
+## Relação entre usuário, trem e rota
+
+- O sistema segue a ordem usuário → trem → rota: cada trem tem um usuário responsável, e cada trem anda em uma rota (uma rota pode ter vários trens).
+- O trem é cadastrado sem rota; o vínculo é feito no cadastro ou na edição da rota, escolhendo o trem que anda nela.
+- Um trem não pode ser excluído enquanto estiver associado a uma rota, nem enquanto tiver sensores.
+- Ao excluir uma rota, os trens dela ficam sem rota (desde que a rota não tenha sensores).
+- Um usuário não pode ser excluído enquanto for responsável por algum trem, e o único administrador do sistema não pode ser excluído.
