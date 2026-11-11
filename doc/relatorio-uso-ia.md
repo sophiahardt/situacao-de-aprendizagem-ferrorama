@@ -59,3 +59,50 @@ A ferramenta de IA ajudou bastante, principalmente na estilização. Com sua aju
 Por outro lado, nem todas as respostas atenderam exatamente ao necessário, sendo preciso realizar ajustes manualmente. Isso mostrou a importância de revisar e testar o conteúdo gerado antes de utilizá-lo no projeto.
 
 ---
+
+## Responsável: Sophia
+
+### 1. Ferramenta ou agente de IA utilizado
+
+ChatGPT.
+
+### 2. Objetivo de cada utilização
+
+O ChatGPT foi utilizado para ajudar a melhorar a aparência da Home Page, deixando os botões e os cards mais organizados e facilitando a navegação pelo sistema.
+
+### 3. Principais instruções ou prompts fornecidos
+
+Foi solicitado que a IA:
+
+- Melhorasse a aparência da página.
+- Organizasse os elementos.
+- Ajustasse os botões.
+- Mantivesse o mesmo estilo visual do projeto.
+
+### 4. Trechos, arquivos ou funcionalidades produzidos com auxílio da IA
+
+A IA auxiliou principalmente nas alterações dos códigos HTML e CSS da Home Page, melhorando a aparência dos cards, dos botões e a organização geral da página.
+
+### 5. Alterações realizadas pela equipe no conteúdo gerado
+
+Após receber o código, a equipe realizou alguns ajustes para deixar a página de acordo com o projeto, mantendo as cores e o padrão visual das demais telas do sistema.
+
+### 6. Testes executados para verificar o funcionamento e a qualidade do resultado
+
+A página foi aberta no navegador para verificar:
+
+- Se os elementos estavam organizados.
+- Se os botões funcionavam corretamente.
+- Se os acessos às outras funcionalidades estavam funcionando.
+
+### 7. Problemas identificados e como foram corrigidos
+
+Alguns detalhes da aparência não ficaram exatamente como esperado. Por isso, foram realizados ajustes no código até chegar a um resultado que combinasse melhor com o restante do sistema.
+
+### 8. Reflexão sobre as contribuições e limitações da ferramenta durante o desenvolvimento
+
+O ChatGPT ajudou bastante, principalmente na parte visual, dando ideias e facilitando algumas alterações no código.
+
+Mesmo assim, nem todas as sugestões ficaram como a equipe esperava, sendo necessário revisar, testar e fazer algumas mudanças por conta própria. No geral, foi uma ferramenta que facilitou o desenvolvimento.
+
+---
