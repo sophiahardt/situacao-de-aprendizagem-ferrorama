@@ -68,24 +68,31 @@ A Landing Page e o login usam a mesma foto e o mesmo degradê azul, escuro à es
 
 ## 6. Problemas de usabilidade e inconsistências visuais identificadas
 
-Durante a revisão do frontend, foi identificada uma diferença visual entre a Landing Page e algumas páginas internas do sistema. Enquanto a Landing Page já utilizava tons mais escuros de azul, outras telas ainda apresentavam cores diferentes nos botões, títulos e na barra de navegação.
-
-Essa diferença prejudicava a continuidade visual e poderia transmitir a impressão de que as páginas pertenciam a sistemas diferentes.
-
-Para resolver o problema, a equipe decidiu expandir a identidade visual definida na etapa anterior, reduzindo a quantidade de tonalidades de azul e padronizando os principais elementos das demais telas.
-
-Também foi revisada a tela de login, substituindo a imagem de fundo por uma opção mais adequada à identidade visual definida.
+| Problema encontrado | Como foi resolvido |
+|---|---|
+| Telas internas com cores diferentes da Landing Page | Paleta única, aplicada em todas as telas |
+| Login não parecia do mesmo sistema (observação do professor) | Mesma foto e degradê da Landing Page, com painel azul sólido |
+| Cerca de 25 tons de azul e cores escritas direto no HTML | Tons agrupados em variáveis e classes de botão |
+| Títulos com pesos diferentes entre as telas | Todos os títulos com peso 700 |
+| ID e botões mudavam de lugar ao trocar de tela | Colunas com largura fixa |
+| Botões com texto e ícone ao mesmo tempo (observação do professor) | Só ícones, com o nome ao passar o mouse |
+| Botão Salvar cortado no modal de usuário | Rolagem interna no modal |
+| Botão de excluir relatório não funcionava | Link de exclusão corrigido |
+| Espaço do mapa vazio no dashboard | Substituído pelos alertas de monitoramento |
+| Funcionário não via o botão de cadastro | Botão liberado para quem tem permissão |
 
 ## 7. Mudanças realizadas e justificativas
 
-As principais alterações foram:
+| Decisão | Justificativa |
+|---|---|
+| Login igual à Landing Page | O botão "Acessar o sistema" leva direto ao login; com a mesma imagem, a passagem entre as telas fica contínua. O painel sólido garante a leitura dos campos. |
+| Botões de ação só com ícones | Lápis e lixeira são símbolos conhecidos. A coluna Ações diminuiu de 220px para 110px, sobrando espaço para as informações. |
+| Um tom de azul por função | Na harmonia monocromática, cada tom precisa de um papel claro. Com as variáveis, o mesmo elemento tem a mesma cor em todas as telas. |
+| Colunas fixas nas tabelas | O que se repete em todas as telas deve ficar no mesmo lugar, para o usuário não precisar procurar. |
+| Alertas em quadros curtos | Mostram só o essencial (ícone, título, detalhe e horário), e a gravidade é percebida rapidamente. |
+| Sair volta para a Landing Page | Fecha o ciclo de navegação: o usuário sai do sistema pelo mesmo lugar por onde entrou. |
 
-- **Usuários, trens, rotas e sensores:** padronização das cores da navbar e dos botões, utilizando principalmente o azul-marinho.
-- **Home Page:** alteração da cor do banner principal para combinar com a identidade visual definida na Landing Page.
-- **Landing Page:** padronização dos botões, títulos, ícones e fundos, reduzindo a quantidade de tonalidades de azul.
-- **Tela de login:** substituição da imagem de fundo por uma imagem mais profissional, alteração da cor do botão de entrada e do título "FERRORAMAS", além da padronização do ícone do trem.
-
-Essas mudanças tiveram como objetivo dar continuidade à identidade visual definida anteriormente, tornando as páginas mais consistentes, organizadas e relacionadas à proposta ferroviária do sistema.
+**Dificuldade enfrentada:** no modal de cadastro de usuário, o botão Salvar ficava cortado em telas mais baixas. O `<form>` ficava entre o corpo e o rodapé do modal e impedia a rolagem do Bootstrap. A solução foi adicionar ao formulário as classes `d-flex flex-column overflow-hidden`, fazendo o conteúdo rolar e mantendo os botões sempre visíveis.
 
 ## 8. Testes de contraste, responsividade e legibilidade
 
