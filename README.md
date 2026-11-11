@@ -176,3 +176,4 @@ O Ferroramas está sendo desenvolvido de forma colaborativa utilizando GitHub pa
 3. Implementação das funcionalidades em PHP;
 4. Validações e testes do sistema;
 5. Integração dos dados de monitoramento.
+     
