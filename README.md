@@ -90,3 +90,89 @@ O sistema busca:
 - Um trem não pode ser excluído enquanto estiver associado a uma rota, nem enquanto tiver sensores.
 - Ao excluir uma rota, os trens dela ficam sem rota (desde que a rota não tenha sensores).
 - Um usuário não pode ser excluído enquanto for responsável por algum trem, e o único administrador do sistema não pode ser excluído.
+
+## Como executar o projeto
+
+1. Instale o XAMPP e inicie o Apache e o MySQL.
+2. Coloque a pasta do projeto dentro de `C:\xampp\htdocs\`.
+3. Crie o banco de dados executando o arquivo `database/db.sql` (por exemplo, na aba SQL do phpMyAdmin). Ele cria o banco `db_ferrovia`, as tabelas e os cargos Administrador e Funcionário.
+4. Confira os dados de conexão em `infra/conexao.php`. O projeto está configurado para o MySQL na porta 3307; se o seu MySQL usa a porta padrão, troque para 3306.
+5. Crie o primeiro administrador:
+   - acesse `http://localhost/situacao-de-aprendizagem-ferrorama/public/gerar-senha.php`, que mostra o hash da senha definida no arquivo;
+   - no phpMyAdmin, insira o usuário com esse hash:
+
+   ```sql
+   INSERT INTO usuario (id_cargo, nome, email, senha_hash)
+   VALUES (1, 'Administrador', 'admin@email.com', 'COLE_O_HASH_AQUI');
+   ```
+
+6. Acesse `http://localhost/situacao-de-aprendizagem-ferrorama/` para abrir a Landing Page e clique em **Acessar o sistema**.
+
+## Integrantes da equipe
+
+- Sophia Lara Hardt — Líder do projeto
+- Isabella Balas Rech
+- Brayan Anzini
+- André De Quadros Goudinho
+
+## Metodologia de Desenvolvimento
+
+Para a organização do desenvolvimento do Ferroramas, a equipe utiliza uma abordagem baseada em Scrum e Kanban:
+
+- **Scrum:** Utilizado como referência para organizar o desenvolvimento em etapas, definir prioridades e acompanhar a evolução das atividades.
+- **Kanban:** Por meio do GitHub Projects, é utilizado para visualizar e controlar o andamento das tarefas. Os cards são organizados de acordo com o status de desenvolvimento, permitindo identificar o que já foi concluído, o que está em andamento, o que está em revisão e o que ainda precisa ser desenvolvido.
+
+### Estrutura das Tarefas no Kanban
+
+Cada tarefa do Kanban deve apresentar, sempre que aplicável:
+
+- Descrição da ação
+- Responsável pela execução
+- Requisito Funcional relacionado
+- Status da atividade
+- Prioridade da tarefa
+
+## Pesquisa Visual e Identidade do Projeto
+
+A identidade visual do Sistema Ferroviário foi desenvolvida de forma colaborativa pela equipe, com o objetivo de transmitir modernidade e eficiência aos usuários.
+
+Buscamos adotar um design prático, simples e intuitivo, priorizando a experiência do usuário (UX).
+
+O processo completo, com referências, justificativas, problemas encontrados e testes, está em `pesquisas/identidade-visual.md`.
+
+### Resumo
+
+- **Cores:** harmonia monocromática em azul-marinho, que transmite confiança, segurança e tecnologia. Cada tom de azul tem uma função (fundo escuro, cor principal, títulos, destaque, detalhes) e está definido como variável no início do `style/style.css`.
+- **Estados:** vermelho para erros, exclusão e alertas críticos; amarelo para atenção; verde para sucesso; azul para informação. Os estados também usam texto e ícone, para não depender só da cor.
+- **Tipografia:** Arial em todo o sistema, com títulos em negrito em todas as telas.
+- **Ícones:** Ionicons, sempre o mesmo ícone para a mesma funcionalidade. Na coluna Ações das tabelas, os botões usam só o ícone do lápis (editar) e da lixeira (excluir).
+- **Login e Landing Page:** usam a mesma foto e o mesmo degradê azul.
+- **Tabelas:** as colunas de ID (ou Nome) e de Ações têm posição e largura fixas em todas as listagens.
+- **Contraste:** as combinações de texto e fundo foram testadas pelos critérios do WCAG (nível AA).
+
+### Paleta principal
+
+| Cor | HEX | Uso |
+|---|---|---|
+| Azul-noite | `#071A3D` | Fundos escuros, painel do login |
+| Azul-marinho | `#151D4B` | Navbar, botões principais, cabeçalho das tabelas |
+| Azul profundo | `#0A2A66` | Títulos e botão Editar |
+| Azul de destaque | `#1666E8` | Ícones, links e botão Entrar |
+| Azul-claro | `#6FB1FF` | Detalhes sobre fundos escuros |
+| Fundo claro | `#F5F8FC` | Fundo das páginas |
+| Vermelho | `#DC3545` | Erros, exclusão e alertas críticos |
+| Amarelo | `#F5B400` | Alertas de atenção |
+
+## Outras Informações
+
+O Ferroramas está sendo desenvolvido de forma colaborativa utilizando GitHub para versionamento de código e GitHub Projects para gerenciamento das atividades.
+
+**Qualidade de Código:** Durante o desenvolvimento, a equipe realiza revisões do código, testes das funcionalidades e organização contínua da estrutura do projeto, buscando manter os padrões definidos e garantir a integração entre as diferentes partes do sistema.
+
+**Desenvolvimento Incremental:** O projeto será desenvolvido em etapas progressivas:
+
+1. Desenvolvimento das interfaces (Front-end);
+2. Criação e integração do banco de dados;
+3. Implementação das funcionalidades em PHP;
+4. Validações e testes do sistema;
+5. Integração dos dados de monitoramento.
