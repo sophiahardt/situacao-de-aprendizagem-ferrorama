@@ -108,10 +108,11 @@ $nomes_nivel = [
                         </span>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" href="logout.php">
+                        <button type="button" class="btn btn-outline-light btn-sm d-flex align-items-center gap-2"
+                            data-bs-toggle="modal" data-bs-target="#modalLogout">
                             <ion-icon name="log-out-outline"></ion-icon>
                             <span>Sair</span>
-                        </a>
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -360,6 +361,32 @@ $nomes_nivel = [
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../script/clima.js"></script>
+
+    <div class="modal fade" id="modalLogout" tabindex="-1" aria-labelledby="modalLogoutLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLogoutLabel">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                        Confirmar logout
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">Tem certeza que deseja sair do sistema?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light btn-cancelar" data-bs-dismiss="modal">
+                        <ion-icon name="close-outline"></ion-icon>
+                        Cancelar
+                    </button>
+                    <a class="btn btn-danger btn-login px-4" href="logout.php">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                        Sair
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 
