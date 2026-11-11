@@ -78,6 +78,14 @@ if (!defined("SENSOR_MODAIS")) {
                                             </option>
                                         <?php } ?>
                                     </select>
+                                    <div class="form-text">
+                                        <?php if (count($rotas) == 0) { ?>
+                                            Nenhuma rota cadastrada.
+                                            <a href="../rota/visualizar-rota.php?abrir=cadastro" target="_blank" rel="noopener noreferrer">
+                                                Cadastrar rota
+                                            </a>
+                                        <?php } ?>
+                                    </div>
                                 </div>
                                 <div class="mb-3" id="campo_trem" style="display: none;">
                                     <label for="id_trem" class="form-label">Trem</label>
@@ -90,6 +98,14 @@ if (!defined("SENSOR_MODAIS")) {
                                             </option>
                                         <?php } ?>
                                     </select>
+                                    <div class="form-text">
+                                        <?php if (count($trens) == 0) { ?>
+                                            Nenhum trem cadastrado.
+                                            <a href="../trem/visualizar-trem.php?abrir=cadastro" target="_blank" rel="noopener noreferrer">
+                                                Cadastrar trem
+                                            </a>
+                                        <?php } ?>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
