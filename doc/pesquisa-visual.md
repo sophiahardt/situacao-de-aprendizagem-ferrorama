@@ -96,39 +96,47 @@ A Landing Page e o login usam a mesma foto e o mesmo degradê azul, escuro à es
 
 ## 8. Testes de contraste, responsividade e legibilidade
 
-A equipe considerou a legibilidade dos textos, o contraste entre os elementos e a adaptação da interface a diferentes tamanhos de tela.
+### Contraste
 
-Foram utilizados recursos do Bootstrap para organizar os elementos de forma responsiva, como o sistema de grid e as classes de espaçamento e alinhamento.
+Calculado pela fórmula do WCAG 2.1. O mínimo (nível AA) é 4,5:1 para texto e 3:1 para ícones.
 
-Os testes de responsividade devem considerar:
+| Combinação | Contraste | Resultado |
+|---|---:|---|
+| Texto branco na navbar e nos botões (#151D4B) | 16,04:1 |
+| Texto branco no botão Entrar (#1666E8) | 5,12:1 |
+| Texto branco no botão Excluir (#DC3545) | 4,53:1 |
+| Cabeçalho das tabelas (#151D4B sobre #EEF4FC) | 14,50:1 |
+| Texto secundário (#4A5F8A sobre branco) | 6,37:1 |
+| Ícone de atenção — antes (#F5B400) | 1,68:1 |
+| Ícone de atenção — depois (#9A6B00) | 4,28:1 |
 
-- Visualização em computadores.
-- Visualização em telas menores.
-- Funcionamento do menu de navegação recolhido.
-- Organização dos cards e formulários em diferentes larguras.
+O único problema foi o ícone amarelo dos alertas: ele passou a usar um amarelo escuro, e o amarelo original ficou só na faixa do card.
 
-Também é importante verificar se os textos e botões continuam legíveis e se os elementos interativos permanecem acessíveis.
+### Responsividade
 
-**Registro dos testes:** inserir capturas de tela das diferentes resoluções testadas e registrar eventuais ajustes realizados.
+- A navbar recolhe em um botão de menu em telas pequenas.
+- As tabelas rolam para o lado em vez de espremer as colunas.
+- Os formulários passam de duas colunas para uma.
+- Os alertas passam de 3 para 2 por linha.
 
 ## 9. Fontes consultadas
 
-- [Bootstrap 5.3 — Documentação oficial](https://getbootstrap.com/docs/5.3/): referência para organização responsiva, componentes e estrutura das páginas.
-- [Ionicons — Documentação oficial](https://ionic.io/ionicons): referência para utilização dos ícones.
-- [W3C — Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/standards-guidelines/wcag/): referência para critérios de acessibilidade, contraste e legibilidade.
-
-A própria Landing Page, desenvolvida na etapa anterior, foi utilizada como referência interna para dar continuidade à identidade visual.
+- Bootstrap 5.3 — Documentação oficial: responsividade, modais, tabelas e botões.
+- Ionicons — Documentação oficial: ícones.
+- W3C — WCAG: critérios de acessibilidade.
+- W3C — Contraste mínimo (1.4.3): valores usados nos testes de contraste.
+- W3C — Uso de cor (1.4.1): por que a cor não pode ser o único sinal.
+- WebAIM — Contrast Checker: ferramenta para conferir contraste.
+- MDN — Variáveis CSS: organização da paleta em variáveis.
+- A própria Landing Page, desenvolvida na etapa anterior, foi utilizada como referência interna.
 
 ## 10. Ferramentas utilizadas
 
-Durante o desenvolvimento e a revisão da interface, foram utilizadas:
-
-- **HTML:** estruturação dos conteúdos das páginas.
-- **CSS:** definição das cores, estilos e identidade visual.
-- **Bootstrap 5.3.3:** organização dos elementos e responsividade.
-- **Ionicons:** utilização de ícones relacionados às funcionalidades.
-- **Visual Studio Code:** edição dos arquivos do sistema.
+- **HTML, CSS e JavaScript:** estrutura, estilos e interações.
+- **Bootstrap 5.3.3:** grid responsivo, modais e componentes.
+- **Ionicons:** ícones.
+- **Visual Studio Code:** edição dos arquivos.
 - **Git e GitHub:** versionamento e registro das alterações.
-- **Inteligência Artificial:** apoio na organização de ideias, sugestões de melhorias visuais e auxílio durante o desenvolvimento e a revisão da interface.
+- **Inteligência Artificial (Claude e ChatGPT):** apoio na implementação das mudanças definidas pela equipe e pelo professor (organização das cores em variáveis, modais, remoção de CSS sem uso, cálculo de contraste) e na revisão deste documento.
 
 As decisões finais de design foram avaliadas e definidas pela equipe, considerando as necessidades e a identidade do sistema Ferroramas.
