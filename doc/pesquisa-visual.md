@@ -17,25 +17,37 @@ Harmonia monocromática em azul, complementada por cores de estado.
 - **Cores de estado só para estados:** vermelho, amarelo e verde nunca aparecem como decoração, para que o usuário aprenda o que cada uma significa.
 - **A cor não trabalha sozinha:** todo estado também tem texto ou ícone, já que nem todas as pessoas distinguem bem as cores.
 
+### Cores de estado
+
+| Cor | Significado | Onde aparece |
+|---|---|---|
+| Vermelho | Perigo, erro | Alertas críticos, erros, botão Excluir |
+| Amarelo | Atenção | Alertas de atenção |
+| Verde | Sucesso | Mensagens após cadastrar, editar ou excluir |
+| Azul | Informação | Alertas informativos |
+
+
 ## 3. Paleta de cores escolhida
 
-| Cor | Código HEX | Função |
+As cores ficam definidas uma única vez, como variáveis no início do `style/style.css`.
+
+| Cor | HEX | Função |
 |---|---|---|
-| Azul-marinho | `#151D4B` | Cor principal, utilizada na navbar, botões, títulos e fundos escuros. Transmite confiança, segurança, estabilidade e profissionalismo, combinando com a proposta tecnológica do sistema. |
-| Azul médio | `#1763B5` | Links, ícones e elementos interativos. Remete à confiança, organização e tecnologia, destacando elementos importantes da interface. |
-| Azul-claro | `#6FB1FF` | Detalhes, ícones e efeitos de destaque em fundos escuros. Transmite leveza, modernidade e inovação, criando pontos de destaque visual. |
-| Azul acinzentado | `#52708F` | Textos secundários e informações complementares. Passa uma impressão de equilíbrio, neutralidade e discrição, facilitando a organização das informações. |
-| Fundo claro | `#F4F8FD` | Fundo principal das páginas. Transmite limpeza, tranquilidade e simplicidade, deixando a interface mais leve e facilitando a leitura. |
-| Branco | `#FFFFFF` | Cards, formulários e superfícies. Remete à clareza, organização e simplicidade, além de ajudar a destacar os conteúdos apresentados. |
-| Cinza-claro | `#DCE4ED` | Bordas, divisórias e textos claros. Transmite neutralidade e equilíbrio, sendo utilizado para separar elementos sem chamar muita atenção. |
-| Verde | `#16A36A` | Indicação de sucesso e operação normal. Representa segurança, estabilidade e confirmação de que determinada ação foi realizada corretamente. |
-| Amarelo | `#F5B400` | Atenção e informações que precisam de destaque. Remete a cuidado e prevenção, indicando situações que precisam ser observadas. |
-| Vermelho | `#EF4444` | Erros e alertas. Transmite urgência e perigo, permitindo identificar rapidamente problemas e situações que exigem atenção. |
+| Azul-noite | `#071A3D` | Fundos escuros: barra da Landing Page, painel do login |
+| Azul-marinho | `#151D4B` | Cor principal: navbar, botões principais, cabeçalho das tabelas |
+| Azul profundo | `#0A2A66` | Títulos azuis e botão Editar |
+| Azul de destaque | `#1666E8` | Ícones, links e botão Entrar |
+| Azul-claro | `#6FB1FF` | Detalhes sobre fundos escuros |
+| Azul acinzentado | `#4A5F8A` | Textos secundários |
+| Fundo claro | `#F5F8FC` | Fundo das páginas |
+| Fundo azulado | `#EEF4FC` | Seções e cabeçalho das tabelas |
+| Borda clara | `#DCE9F8` | Bordas de cards e tabelas |
+| Branco | `#FFFFFF` | Cards, formulários e modais |
+| Vermelho | `#DC3545` | Erros, exclusão e alertas críticos |
+| Amarelo | `#F5B400` | Alertas de atenção |
+| Amarelo escuro | `#9A6B00` | Ícone dos alertas de atenção (ver item 8) |
 
-A combinação busca manter uma aparência equilibrada e padronizada. O azul-marinho é predominante, enquanto as demais tonalidades são utilizadas de maneira pontual, evitando o excesso de cores semelhantes.
-
-Os tons claros e o branco ajudam a criar contraste com os elementos principais, facilitando a leitura e a identificação das informações.
-
+A Landing Page e o login usam a mesma foto e o mesmo degradê azul, escuro à esquerda (onde ficam o texto e o formulário) e transparente à direita (onde aparece a locomotiva).
 ## 4. Tipografia e elementos gráficos
 
 Foi mantida a fonte Arial, com estilo sem serifa, por apresentar boa legibilidade e uma aparência simples e adequada a sistemas administrativos.
