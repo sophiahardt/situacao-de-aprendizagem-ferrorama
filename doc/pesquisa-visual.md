@@ -48,35 +48,23 @@ As cores ficam definidas uma única vez, como variáveis no início do `style/st
 | Amarelo escuro | `#9A6B00` | Ícone dos alertas de atenção (ver item 8) |
 
 A Landing Page e o login usam a mesma foto e o mesmo degradê azul, escuro à esquerda (onde ficam o texto e o formulário) e transparente à direita (onde aparece a locomotiva).
+
 ## 4. Tipografia e elementos gráficos
 
-Foi mantida a fonte Arial, com estilo sem serifa, por apresentar boa legibilidade e uma aparência simples e adequada a sistemas administrativos.
-
-A hierarquia dos textos foi organizada por meio de diferentes tamanhos e pesos:
-
-- Títulos em destaque e com maior peso.
-- Subtítulos para identificar as seções.
-- Textos menores para descrições e informações complementares.
-- Botões com textos objetivos para indicar suas ações.
-
-Para os elementos gráficos, foram utilizados ícones da biblioteca Ionicons, escolhidos de acordo com suas funcionalidades, como trens, sensores, usuários, rotas e relatórios.
-
-A utilização de ícones semelhantes entre as páginas ajuda a manter a padronização visual e facilita o reconhecimento das funcionalidades.
+- **Fonte:** Arial em todo o sistema, por ser legível em tamanhos pequenos, como em tabelas e formulários.
+- **Títulos sempre em negrito:** antes, alguns títulos apareciam finos e outros em negrito. O Arial só tem dois pesos, e o padrão do Bootstrap (500) aparecia como normal. Todos os títulos passaram a usar o peso 700.
+- **Hierarquia:** títulos maiores e em negrito; subtítulos para as seções; descrições menores e em cor suave.
+- **Ícones:** biblioteca Ionicons, sempre o mesmo ícone para a mesma funcionalidade (por exemplo, o trem sempre representa trens).
 
 ## 5. Decisões de layout e hierarquia visual
 
-A equipe buscou manter uma estrutura semelhante entre as páginas, facilitando a navegação e evitando diferenças visuais desnecessárias.
+- Navbar padronizada em todas as telas internas.
+- Cadastro e edição em modais em sensores, trens, rotas e usuários: o usuário não sai da listagem, e todas as telas funcionam do mesmo jeito.
+- Colunas fixas nas tabelas: ID (ou Nome) sempre à esquerda e Ações sempre à direita, com a mesma largura em todas as listagens.
+- Ações só com ícones: lápis para editar e lixeira para excluir.
+- Dashboard em faixas: clima e banner no topo, atalhos no meio, e o resumo da operação ao lado dos alertas embaixo.
+- Responsividade com Bootstrap (ver item 8).
 
-As principais decisões foram:
-
-- Utilização de uma navbar padronizada para manter a navegação consistente.
-- Organização de informações em cards, facilitando a identificação de cada funcionalidade.
-- Utilização de títulos e subtítulos para separar os conteúdos.
-- Padronização de botões, cores e ícones.
-- Uso de espaçamentos e alinhamentos para evitar excesso de informações concentradas em uma única área.
-- Organização responsiva com Bootstrap, permitindo adaptar os elementos a diferentes tamanhos de tela.
-
-Na Home Page, também foi mantido um destaque visual para o nome do sistema e para o acesso às rotas, reforçando a identidade do projeto.
 
 ## 6. Problemas de usabilidade e inconsistências visuais identificadas
 
