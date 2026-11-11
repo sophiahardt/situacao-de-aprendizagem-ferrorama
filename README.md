@@ -25,6 +25,11 @@ O sistema busca:
 - Facilitar a tomada de decisões baseada em dados;
 - Contribuir para maior controle e segurança das operações ferroviárias.
 
+## Problema que o sistema busca resolver
+
+- A falta de uma plataforma centralizada para acompanhar as operações ferroviárias pode dificultar o controle de trens, sensores e rotas. Também pode tornar mais difícil identificar falhas, acompanhar informações e consultar ocorrências.
+- O Ferroramas foi desenvolvido para reunir essas informações em um único sistema, facilitando o monitoramento e o gerenciamento das operações ferroviárias.
+
 ## Requisitos Funcionais
 
 - **RF1 Fazer Login** — o sistema deve permitir que usuários cadastrados realizem login utilizando suas credenciais de acesso.
