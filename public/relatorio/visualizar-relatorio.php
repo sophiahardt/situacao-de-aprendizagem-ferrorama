@@ -4,9 +4,101 @@ require_once "../../infra/conexao.php";
 require_once "../../infra/protecao.php";
 verificarLogin();
 $mensagem = "";
-if (isset($_GET["sucesso"]) && $_GET["sucesso"] == "1") {
+$tipo_mensagem = "success";
+$abrir_modal = ($_GET["abrir"] ?? "") == "cadastro";
+$abrir_modal_edicao = false;
+$nome_relatorio_form = "";
+$tipo_relatorio_form = "";
+$data_relatorio_form = "";
+$id_relatorio_edicao = "";
+$nome_relatorio_edicao = "";
+$tipo_relatorio_edicao = "";
+$data_relatorio_edicao = "";
+
+if (isset($_GET["editar"]) && ehAdministrador()) {
+    $id_relatorio_edicao = filter_var($_GET["editar"], FILTER_VALIDATE_INT);
+    if (!$id_relatorio_edicao || $id_relatorio_edicao <= 0) {
+        header("Location: visualizar-relatorio.php");
+        exit;
+    }
+
+    $stmt_edicao = $conexao->prepare("SELECT nome_relatorio, tipo_relatorio, data_relatorio FROM relatorio WHERE id_relatorio = ?");
+    $stmt_edicao->bind_param("i", $id_relatorio_edicao);
+    $stmt_edicao->execute();
+    $relatorio_edicao = $stmt_edicao->get_result()->fetch_assoc();
+
+    if (!$relatorio_edicao) {
+        header("Location: visualizar-relatorio.php");
+        exit;
+    }
+
+    $nome_relatorio_edicao = $relatorio_edicao["nome_relatorio"];
+    $tipo_relatorio_edicao = $relatorio_edicao["tipo_relatorio"];
+    $data_relatorio_edicao = $relatorio_edicao["data_relatorio"];
+    $abrir_modal_edicao = true;
+}
+
+if (($_GET["sucesso"] ?? "") == "cadastrado") {
+    $mensagem = "Relatório cadastrado com sucesso!";
+} elseif (($_GET["sucesso"] ?? "") == "editado") {
+    $mensagem = "Relatório editado com sucesso!";
+} elseif (($_GET["sucesso"] ?? "") == "1") {
     $mensagem = "Relatório excluído com sucesso!";
 }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $acao = $_POST["acao"] ?? "";
+
+    if ($acao == "cadastrar") {
+        $nome_relatorio_form = trim($_POST["nome_relatorio"] ?? "");
+        $tipo_relatorio_form = $_POST["tipo_relatorio"] ?? "";
+        $data_relatorio_form = $_POST["data_relatorio"] ?? "";
+        $abrir_modal = true;
+
+        if ($nome_relatorio_form == "" || $tipo_relatorio_form == "" || $data_relatorio_form == "") {
+            $mensagem = "Preencha todos os campos.";
+        } else {
+            $sql_cadastro = "INSERT INTO relatorio (nome_relatorio, tipo_relatorio, data_relatorio) VALUES (?, ?, ?)";
+            $stmt_cadastro = $conexao->prepare($sql_cadastro);
+            $stmt_cadastro->bind_param("sss", $nome_relatorio_form, $tipo_relatorio_form, $data_relatorio_form);
+
+            if ($stmt_cadastro->execute()) {
+                header("Location: visualizar-relatorio.php?sucesso=cadastrado");
+                exit;
+            }
+
+            $mensagem = "Erro ao gerar o relatório.";
+        }
+
+        $tipo_mensagem = "danger";
+    } elseif ($acao == "editar") {
+        $id_relatorio_edicao = (int) ($_POST["id_relatorio"] ?? 0);
+        $nome_relatorio_edicao = trim($_POST["nome_relatorio"] ?? "");
+        $tipo_relatorio_edicao = $_POST["tipo_relatorio"] ?? "";
+        $data_relatorio_edicao = $_POST["data_relatorio"] ?? "";
+        $abrir_modal_edicao = true;
+
+        if (!ehAdministrador()) {
+            $mensagem = "Você não tem permissão para editar relatórios.";
+        } elseif ($id_relatorio_edicao <= 0 || $nome_relatorio_edicao == "" || $tipo_relatorio_edicao == "" || $data_relatorio_edicao == "") {
+            $mensagem = "Preencha todos os campos.";
+        } else {
+            $sql_edicao = "UPDATE relatorio SET nome_relatorio = ?, tipo_relatorio = ?, data_relatorio = ? WHERE id_relatorio = ?";
+            $stmt_edicao = $conexao->prepare($sql_edicao);
+            $stmt_edicao->bind_param("sssi", $nome_relatorio_edicao, $tipo_relatorio_edicao, $data_relatorio_edicao, $id_relatorio_edicao);
+
+            if ($stmt_edicao->execute()) {
+                header("Location: visualizar-relatorio.php?sucesso=editado");
+                exit;
+            }
+
+            $mensagem = "Erro ao editar o relatório.";
+        }
+
+        $tipo_mensagem = "danger";
+    }
+}
+
 $sql = "SELECT * FROM relatorio ORDER BY id_relatorio ASC";
 $resultado = $conexao->query($sql);
 ?>
@@ -73,10 +165,11 @@ $resultado = $conexao->query($sql);
     <div class="container-fluid p-4 crud-container">
         <div class="d-flex justify-content-between align-items-center mb-4 crud-cabecalho">
             <h1 class="h3">Lista de relatórios cadastrados</h1>
-            <a href="cadastrar-relatorio.php" class="btn btn-sistema d-flex align-items-center gap-2">
+            <button type="button" class="btn btn-sistema d-flex align-items-center gap-2"
+                data-bs-toggle="modal" data-bs-target="#modalCadastroRelatorio">
                 <ion-icon name="add-circle"></ion-icon>
                 Novo relatório
-            </a>
+            </button>
         </div>
         <div class="card shadow-sm">
             <div class="card-body">
@@ -99,9 +192,14 @@ $resultado = $conexao->query($sql);
                                         <td><?= htmlspecialchars($relatorio["data_relatorio"]) ?></td>
                                         <td class="coluna-acoes">
                                             <?php if (ehAdministrador()) { ?>
-                                                <a href="editar-relatorio.php?id=<?= $relatorio["id_relatorio"] ?>" class="btn btn-editar btn-sm" title="Editar" aria-label="Editar">
+                                                <button type="button" class="btn btn-editar btn-sm" title="Editar" aria-label="Editar"
+                                                    data-bs-toggle="modal" data-bs-target="#modalEditarRelatorio"
+                                                    data-id="<?= $relatorio["id_relatorio"] ?>"
+                                                    data-nome="<?= htmlspecialchars($relatorio["nome_relatorio"], ENT_QUOTES, 'UTF-8') ?>"
+                                                    data-tipo="<?= htmlspecialchars($relatorio["tipo_relatorio"], ENT_QUOTES, 'UTF-8') ?>"
+                                                    data-data="<?= htmlspecialchars($relatorio["data_relatorio"], ENT_QUOTES, 'UTF-8') ?>">
                                                     <ion-icon name="pencil" aria-hidden="true"></ion-icon>
-                                                </a>
+                                                </button>
                                                 <button type="button" class="btn btn-danger btn-sm" title="Excluir" aria-label="Excluir" onclick="abrirAviso(<?= $relatorio['id_relatorio'] ?>, 'excluir-relatorio.php')">
                                                     <ion-icon name="trash" aria-hidden="true"></ion-icon>
                                                 </button>
@@ -120,37 +218,51 @@ $resultado = $conexao->query($sql);
             </div>
         </div>
     </div>
-    <div class="modal" id="modalExclusao" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content text-center">
-                <div class="modal-body p-4">
-                    <div style="font-size: 40px;">⚠️</div>
-                    <h4 class="fw-bold mt-2">
-                        Deseja continuar?
-                    </h4>
-                    <p class="fw-bold mb-4">
-                        Após a confirmação, não será possível reverter esta ação.
-                    </p>
-                    <div class="d-flex justify-content-center gap-5">
-                        <button type="button" class="btn btn-secondary btn-cancelar px-5" data-bs-dismiss="modal">
-                            Cancelar
-                        </button>
-                        <a id="btnConfirmarExclusao" href="#" class="btn btn-danger px-5">
-                            Excluir
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <?php if ($mensagem != "") { ?>
-        <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
+    <?php if ($mensagem != "" && !$abrir_modal && !$abrir_modal_edicao) { ?>
+        <div class="alert alert-<?= $tipo_mensagem ?> alert-dismissible fade show m-4" role="alert">
             <?= htmlspecialchars($mensagem) ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     <?php } ?>
+    <?php
+    define("RELATORIO_MODAIS", true);
+    require __DIR__ . "/cadastrar-relatorio.php";
+    require __DIR__ . "/editar-relatorio.php";
+    require __DIR__ . "/excluir-relatorio.php";
+    ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../script/crud.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            <?php if ($abrir_modal) { ?>
+                new bootstrap.Modal(document.getElementById("modalCadastroRelatorio")).show();
+            <?php } ?>
+            <?php if ($abrir_modal_edicao) { ?>
+                document.getElementById("editar_id_relatorio").value = <?= json_encode($id_relatorio_edicao) ?>;
+                document.getElementById("editar_nome_relatorio").value = <?= json_encode($nome_relatorio_edicao) ?>;
+                document.getElementById("editar_tipo_relatorio").value = <?= json_encode($tipo_relatorio_edicao) ?>;
+                document.getElementById("editar_data_relatorio").value = <?= json_encode($data_relatorio_edicao) ?>;
+                new bootstrap.Modal(document.getElementById("modalEditarRelatorio")).show();
+            <?php } ?>
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let modalEdicaoRelatorio = document.getElementById("modalEditarRelatorio");
+            if (modalEdicaoRelatorio) {
+                modalEdicaoRelatorio.addEventListener("show.bs.modal", function (event) {
+                    let botao = event.relatedTarget;
+                    if (!botao) {
+                        return;
+                    }
+
+                    document.getElementById("editar_id_relatorio").value = botao.dataset.id;
+                    document.getElementById("editar_nome_relatorio").value = botao.dataset.nome;
+                    document.getElementById("editar_tipo_relatorio").value = botao.dataset.tipo;
+                    document.getElementById("editar_data_relatorio").value = botao.dataset.data;
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
