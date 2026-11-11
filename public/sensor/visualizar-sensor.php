@@ -347,7 +347,6 @@ $resultado = $conexao->query($sql);
                         <ion-icon name="log-out-outline"></ion-icon>
                         Confirmar logout
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
                 <div class="modal-body">
                     <p class="mb-0">Tem certeza que deseja sair do sistema?</p>

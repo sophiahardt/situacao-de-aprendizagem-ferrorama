@@ -12,7 +12,7 @@ if (!defined("RELATORIO_MODAIS")) {
                     <ion-icon name="document-text-outline"></ion-icon>
                     Cadastrar novo relatório
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
             </div>
             <form method="POST" action="visualizar-relatorio.php">
                 <input type="hidden" name="acao" value="cadastrar">

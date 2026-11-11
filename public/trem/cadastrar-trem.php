@@ -13,7 +13,7 @@ if (!defined("TREM_MODAIS")) {
                     <ion-icon name="train-outline"></ion-icon>
                     Cadastrar novo trem
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
             </div>
             <form method="POST" action="visualizar-trem.php">
                 <input type="hidden" name="acao" value="cadastrar">

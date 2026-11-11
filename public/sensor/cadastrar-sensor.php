@@ -13,7 +13,6 @@ if (!defined("SENSOR_MODAIS")) {
                         <ion-icon name="hardware-chip-outline"></ion-icon>
                         Cadastrar novo sensor
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form method="POST" action="visualizar-sensor.php">
                     <input type="hidden" name="acao" value="cadastrar">

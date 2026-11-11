@@ -13,7 +13,6 @@ if (!defined("USUARIO_MODAIS")) {
                     <ion-icon name="person-add-outline"></ion-icon>
                     Cadastrar novo usuário
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form method="POST" action="visualizar-user.php" autocomplete="off" class="d-flex flex-column overflow-hidden">
                 <input type="hidden" name="acao" value="cadastrar">
