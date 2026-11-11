@@ -106,3 +106,58 @@ O ChatGPT ajudou bastante, principalmente na parte visual, dando ideias e facili
 Mesmo assim, nem todas as sugestões ficaram como a equipe esperava, sendo necessário revisar, testar e fazer algumas mudanças por conta própria. No geral, foi uma ferramenta que facilitou o desenvolvimento.
 
 ---
+
+## Responsável: Isabella Balas Rech
+
+### 1. Ferramenta ou agente de IA utilizado
+
+Claude e ChatGPT.
+
+### 2. Objetivo de cada utilização
+
+As ferramentas de IA foram utilizadas para auxiliar na escolha e implementação de APIs de clima e CEP, além de melhorar a validação e a formatação do número de telefone no cadastro de usuários.
+
+### 3. Principais instruções ou prompts fornecidos
+
+- Recomendar APIs gratuitas de clima e CEP para utilizar no projeto.
+- Criar uma justificativa para a escolha das APIs Open-Meteo e ViaCEP.
+- Restringir o campo de telefone ao padrão brasileiro, sem adicionar o código +55 automaticamente.
+- Ajustar a máscara do telefone e sua validação no JavaScript e no PHP.
+
+### 4. Trechos, arquivos ou funcionalidades produzidos com auxílio da IA
+
+A IA auxiliou na implementação e orientação das seguintes funcionalidades:
+
+- Integração com a API Open-Meteo para consultar informações climáticas.
+- Integração com a API ViaCEP para preencher automaticamente os dados de endereço.
+- Máscara de telefone brasileiro no arquivo `usuario.js`.
+- Ajustes no campo de telefone do arquivo `cadastrar-user.php`.
+- Validação do número de telefone no PHP, verificando o código do país, o DDD e a quantidade de números.
+
+### 5. Alterações realizadas pela equipe no conteúdo gerado
+
+A equipe adaptou as sugestões da IA à estrutura do projeto, ajustando os códigos aos arquivos existentes. Também foram consideradas as necessidades do sistema, como:
+
+- Permitir o preenchimento manual do telefone, sem adicionar o código +55 automaticamente.
+- Manter os campos de endereço editáveis após a consulta do CEP.
+
+### 6. Testes executados para verificar o funcionamento e a qualidade do resultado
+
+Foram considerados testes para verificar:
+
+- Consulta de CEP válido e preenchimento dos campos de endereço.
+- Tratamento de CEP inexistente e de formato inválido.
+- Consulta das informações climáticas e atualização dos dados.
+- Preenchimento de telefone fixo e celular com diferentes DDDs brasileiros.
+- Rejeição de números que não seguem o padrão brasileiro.
+
+### 7. Problemas identificados e como foram corrigidos
+
+- **Máscara removendo o código 55:** a máscara do telefone removia o código 55 digitado pelo usuário e o adicionava novamente. A correção foi feita ajustando a função `formatarTelefone` e a validação no PHP.
+- **Conflito entre máscaras:** duas máscaras de telefone poderiam entrar em conflito. Para resolver, foi orientado manter a formatação somente no arquivo `validacao.js`.
+
+### 8. Reflexão sobre as contribuições e limitações da ferramenta durante o desenvolvimento
+
+As ferramentas de IA ajudaram a encontrar soluções, recomendar APIs gratuitas e facilitar a implementação das funcionalidades. Também contribuíram para identificar possíveis erros e melhorar as validações do sistema.
+
+Porém, foi necessário analisar e adaptar as respostas ao projeto, pois os códigos sugeridos poderiam precisar de ajustes para funcionar corretamente com a estrutura existente. A IA serviu como apoio durante o desenvolvimento, mas os testes e a verificação pela equipe continuaram sendo importantes.
