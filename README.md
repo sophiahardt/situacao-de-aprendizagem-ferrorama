@@ -166,10 +166,10 @@ O Visual Studio Code é recomendado para visualizar e editar os arquivos do proj
 
 ## Integrantes da equipe
 
-- **Sophia Lara Hardt:** liderança do projeto, organização das atividades e participação nas melhorias da página inicial.
-- **Isabella Balas Rech:** participação no desenvolvimento do sistema e nas atividades da equipe.
-- **Brayan Anzini:** desenvolvimento da tela de Dashboard e participação na integração das funcionalidades.
-- **André De Quadros Goudinho:** participação nos ajustes de estilização e organização visual do sistema.
+- **Sophia Lara Hardt:** responsável pela liderança e organização do projeto, acompanhamento das atividades da equipe, planejamento das tarefas e participação no desenvolvimento e aprimoramento da Landing Page.
+- **Isabella Balas Rech:** participação no desenvolvimento do sistema, implementação de funcionalidades, colaboração na organização dos módulos e realização de melhorias durante o processo de desenvolvimento.
+- **Brayan Anzini:** responsável pelo desenvolvimento da tela de Dashboard, organização das informações de monitoramento e integração dos indicadores e funcionalidades apresentados na página inicial do sistema.
+- **André De Quadros Goudinho:** participação no desenvolvimento visual do sistema, ajustes de estilização, organização dos elementos das interfaces e melhorias na identidade visual e experiência do usuário.
 
 ## Metodologia de Desenvolvimento
 
