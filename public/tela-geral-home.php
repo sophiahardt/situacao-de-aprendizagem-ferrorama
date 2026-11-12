@@ -95,7 +95,7 @@ $nomes_nivel = [
                         </li>
                     <?php } ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="relatorio/visualizar-relatorio.php">Relatórios</a>
+                        <a class="nav-link" href="relatorio/relatorio-geral.php">Relatórios</a>
                     </li>
                 </ul>
 

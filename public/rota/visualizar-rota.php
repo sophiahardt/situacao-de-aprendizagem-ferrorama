@@ -268,7 +268,7 @@ $resultado = $conexao->query($sql);
                     <?php } ?>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="../relatorio/visualizar-relatorio.php">Relatórios</a>
+                        <a class="nav-link" href="../relatorio/relatorio-geral.php">Relatórios</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto align-items-center">
