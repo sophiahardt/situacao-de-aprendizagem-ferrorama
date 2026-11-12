@@ -78,6 +78,47 @@ O sistema busca:
 - **Open-Meteo** — API de clima exibida no dashboard
 - **ViaCEP** — API que preenche o endereço a partir do CEP no cadastro de usuários
 
+## Estrutura geral do projeto
+
+Os principais diretórios e arquivos estão organizados da seguinte forma:
+
+```text
+situacao-de-aprendizagem-ferrorama/
+├── assets/
+│   └── img/
+├── database/
+│   └── db.sql
+├── doc/
+│   ├── pesquisa-visual.md
+│   └── ...
+├── infra/
+│   ├── conexao.php
+│   └── protecao.php
+├── public/
+│   ├── gerar-senha.php
+│   ├── tela-login.php
+│   ├── tela-geral-home.php
+│   ├── trem/
+│   ├── sensor/
+│   ├── rota/
+│   ├── relatorio/
+│   └── user/
+├── script/
+├── style/
+│   └── style.css
+├── index.php
+└── README.md
+```
+
+## Perfis de acesso e permissões
+
+O sistema possui dois perfis de acesso:
+
+- **Administrador:** acesso às funcionalidades administrativas, incluindo o gerenciamento de usuários e ações que exigem permissão administrativa.
+- **Funcionário:** acesso às funcionalidades operacionais disponíveis para seu perfil, respeitando as restrições definidas pelo sistema.
+
+As permissões são verificadas durante o uso do sistema. Algumas ações também dependem dos vínculos existentes entre usuários, trens, sensores e rotas.
+
 ## Funcionalidades implementadas
 
 - **Login e controle de acesso:** login com e-mail e senha (senhas guardadas com `password_hash`), sessão por tipo de usuário e página de acesso negado. Ao sair, o usuário volta para a Landing Page.
@@ -95,6 +136,16 @@ O sistema busca:
 - Um trem não pode ser excluído enquanto estiver associado a uma rota, nem enquanto tiver sensores.
 - Ao excluir uma rota, os trens dela ficam sem rota (desde que a rota não tenha sensores).
 - Um usuário não pode ser excluído enquanto for responsável por algum trem, e o único administrador do sistema não pode ser excluído.
+
+## Requisitos necessários para execução
+
+- Computador com Windows ou outro sistema compatível com o XAMPP;
+- XAMPP instalado;
+- Apache e MySQL/MariaDB;
+- Navegador atualizado, como Google Chrome, Microsoft Edge ou Firefox;
+- Conexão com a internet para carregar bibliotecas externas e utilizar as APIs Open-Meteo e ViaCEP.
+
+O Visual Studio Code é recomendado para visualizar e editar os arquivos do projeto, mas não é obrigatório para executar a aplicação.
 
 ## Como executar o projeto
 
@@ -115,10 +166,10 @@ O sistema busca:
 
 ## Integrantes da equipe
 
-- Sophia Lara Hardt — Líder do projeto
-- Isabella Balas Rech
-- Brayan Anzini
-- André De Quadros Goudinho
+- **Sophia Lara Hardt:** liderança do projeto, organização das atividades e participação nas melhorias da página inicial.
+- **Isabella Balas Rech:** participação no desenvolvimento do sistema e nas atividades da equipe.
+- **Brayan Anzini:** desenvolvimento da tela de Dashboard e participação na integração das funcionalidades.
+- **André De Quadros Goudinho:** participação nos ajustes de estilização e organização visual do sistema.
 
 ## Metodologia de Desenvolvimento
 
@@ -143,7 +194,7 @@ A identidade visual do Sistema Ferroviário foi desenvolvida de forma colaborati
 
 Buscamos adotar um design prático, simples e intuitivo, priorizando a experiência do usuário (UX).
 
-O processo completo, com referências, justificativas, problemas encontrados e testes, está em `pesquisas/identidade-visual.md`.
+O processo completo, com referências, justificativas, problemas encontrados e testes, está em `doc/pesquisa-visual.md`.
 
 ### Resumo
 
@@ -181,4 +232,24 @@ O Ferroramas está sendo desenvolvido de forma colaborativa utilizando GitHub pa
 3. Implementação das funcionalidades em PHP;
 4. Validações e testes do sistema;
 5. Integração dos dados de monitoramento.
+
+## Imagens da versão final
+
+Esta seção será preenchida com capturas de tela das principais páginas do sistema. Os arquivos das imagens ainda não estão disponíveis no repositório; quando adicionados, poderão ser organizados em `assets/img/` com estes nomes:
+
+- Landing Page: `landing-page.png`
+- Login: `login.png`
+- Dashboard: `dashboard.png`
+- Trens: `trens.png`
+- Sensores: `sensores.png`
+- Rotas: `rotas.png`
+- Relatórios: `relatorios.png`
+
+## Limitações conhecidas
+
+- A execução do sistema depende de um servidor web e de um banco de dados configurados corretamente.
+- As informações de clima dependem da disponibilidade da API Open-Meteo e de uma conexão com a internet.
+- A consulta automática de CEP depende da disponibilidade da API ViaCEP.
+- O monitoramento depende dos dados disponíveis e registrados pelos sensores no sistema.
+- O projeto pode receber melhorias e novas funcionalidades em versões futuras.
      
