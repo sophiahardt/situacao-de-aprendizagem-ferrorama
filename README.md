@@ -234,30 +234,42 @@ O Ferroramas está sendo desenvolvido de forma colaborativa utilizando GitHub pa
 5. Integração dos dados de monitoramento.
 
 ## Imagens da versão final
+
 ### Landing Page
-![Landing Page - Parte 1](assets/img/manual/landing-page-1.png)
-![Landing Page - Parte 2](assets/img/manual/landing-page-2.png)
-![Landing Page - Parte 3](assets/img/manual/landing-page-3.png)
+![Landing Page](assets/img/landingpage.png)
 
 ### Login
-![Tela de login](assets/img/manual/login.png)
+![Tela de login](assets/img/telalogin.png)
 
 ### Dashboard
-![Dashboard](assets/img/manual/dashboard.png)
+![Dashboard - Parte 1](assets/img/dashboard1.png)
 
-### Trens
-![Listagem de trens](assets/img/manual/trens.png)
+![Dashboard - Parte 2](assets/img/dashboard2.png)
 
-### Sensores
-![Listagem de sensores](assets/img/manual/sensores.png)
+### Listagens
+![Listagem](assets/img/listagem.png)
 
-### Rotas
-![Listagem de rotas](assets/img/manual/rotas.png)
+![Listagem com erro](assets/img/listagemerro.png)
+
+### Cadastros
+![Cadastro de rota](assets/img/cadastrorota.png)
+
+![Cadastro de sensor](assets/img/cadastrosensor.png)
+
+![Cadastro de trem](assets/img/cadastrotrem.png)
+
+![Cadastro de usuário](assets/img/cadastrousuario.png)
 
 ### Relatórios
-![Relatório geral](assets/img/manual/relatorio.png)
+![Relatório geral](assets/img/relatorio.png)
 
-![Geração de relatório](assets/img/manual/relatoriogerar.png)
+![Geração de relatório](assets/img/relatoriogerar.png)
+
+### Navegação
+![Navegação do sistema](assets/img/nav.png)
+
+### Encerramento de sessão
+![Logout](assets/img/logout.png)
 
 ## Limitações conhecidas
 
