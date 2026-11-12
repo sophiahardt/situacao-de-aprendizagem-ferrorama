@@ -125,7 +125,7 @@ As permissões são verificadas durante o uso do sistema. Algumas ações també
 - **Landing Page:** apresentação do sistema, com acesso ao login.
 - **Dashboard:** clima atual da localização do usuário, atalhos para cada módulo, resumo da operação (quantidade de trens, rotas e sensores) e alertas de monitoramento.
 - **Sensores, trens, rotas e usuários:** listagem com cadastro e edição em modais (janelas sobre a própria listagem) e exclusão com confirmação.
-- **Relatórios:** listagem, cadastro, edição e exclusão.
+- **Relatórios:** - **Relatórios:** geração de relatórios do sistema com informações sobre as operações ferroviárias.
 - **Validações:** campos obrigatórios, e-mail, telefone, CEP e UF no cadastro de usuários; valores numéricos em trens e rotas; e-mail repetido não é aceito.
 - **Busca de CEP:** ao digitar o CEP no cadastro de usuário, o endereço é preenchido automaticamente.
 
@@ -234,16 +234,30 @@ O Ferroramas está sendo desenvolvido de forma colaborativa utilizando GitHub pa
 5. Integração dos dados de monitoramento.
 
 ## Imagens da versão final
+### Landing Page
+![Landing Page - Parte 1](assets/img/manual/landing-page-1.png)
+![Landing Page - Parte 2](assets/img/manual/landing-page-2.png)
+![Landing Page - Parte 3](assets/img/manual/landing-page-3.png)
 
-Esta seção será preenchida com capturas de tela das principais páginas do sistema. Os arquivos das imagens ainda não estão disponíveis no repositório; quando adicionados, poderão ser organizados em `assets/img/` com estes nomes:
+### Login
+![Tela de login](assets/img/manual/login.png)
 
-- Landing Page: `landing-page.png`
-- Login: `login.png`
-- Dashboard: `dashboard.png`
-- Trens: `trens.png`
-- Sensores: `sensores.png`
-- Rotas: `rotas.png`
-- Relatórios: `relatorios.png`
+### Dashboard
+![Dashboard](assets/img/manual/dashboard.png)
+
+### Trens
+![Listagem de trens](assets/img/manual/trens.png)
+
+### Sensores
+![Listagem de sensores](assets/img/manual/sensores.png)
+
+### Rotas
+![Listagem de rotas](assets/img/manual/rotas.png)
+
+### Relatórios
+![Relatório geral](assets/img/manual/relatorio.png)
+
+![Geração de relatório](assets/img/manual/relatoriogerar.png)
 
 ## Limitações conhecidas
 
