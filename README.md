@@ -236,7 +236,11 @@ O Ferroramas está sendo desenvolvido de forma colaborativa utilizando GitHub pa
 ## Imagens da versão final
 
 ### Landing Page
-![Landing Page](assets/img/landingpage.png)
+![Landing Page - Parte 1](assets/img/landingpage.png)
+
+![Landing Page - Parte 2](assets/img/landingpage2.png)
+
+![Landing Page - Parte 3](assets/img/landingpage3.png)
 
 ### Login
 ![Tela de login](assets/img/telalogin.png)
