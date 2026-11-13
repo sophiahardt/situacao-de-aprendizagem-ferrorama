@@ -129,14 +129,6 @@ As permissões são verificadas durante o uso do sistema. Algumas ações també
 - **Validações:** campos obrigatórios, e-mail, telefone, CEP e UF no cadastro de usuários; valores numéricos em trens e rotas; e-mail repetido não é aceito.
 - **Busca de CEP:** ao digitar o CEP no cadastro de usuário, o endereço é preenchido automaticamente.
 
-## Relação entre usuário, trem e rota
-
-- O sistema segue a ordem usuário → trem → rota: cada trem tem um usuário responsável, e cada trem anda em uma rota (uma rota pode ter vários trens).
-- O trem é cadastrado sem rota; o vínculo é feito no cadastro ou na edição da rota, escolhendo o trem que anda nela.
-- Um trem não pode ser excluído enquanto estiver associado a uma rota, nem enquanto tiver sensores.
-- Ao excluir uma rota, os trens dela ficam sem rota (desde que a rota não tenha sensores).
-- Um usuário não pode ser excluído enquanto for responsável por algum trem, e o único administrador do sistema não pode ser excluído.
-
 ## Requisitos necessários para execução
 
 - Computador com Windows ou outro sistema compatível com o XAMPP;
@@ -236,14 +228,14 @@ O Ferroramas está sendo desenvolvido de forma colaborativa utilizando GitHub pa
 ## Imagens da versão final
 
 ### Landing Page
-![Landing Page - Parte 1](assets/img/landingpage.png)
+![Landing Page - Parte 1](assets/img/landin.png)
 
 ![Landing Page - Parte 2](assets/img/landingpage2.png)
 
 ![Landing Page - Parte 3](assets/img/landingpage3.png)
 
 ### Login
-![Tela de login](assets/img/telalogin.png)
+![Tela de login](assets/img/login.png)
 
 ### Dashboard
 ![Dashboard - Parte 1](assets/img/dashboard1.png)
@@ -251,16 +243,20 @@ O Ferroramas está sendo desenvolvido de forma colaborativa utilizando GitHub pa
 ![Dashboard - Parte 2](assets/img/dashboard2.png)
 
 ### Listagens
-![Listagem](assets/img/listagem.png)
+![Listagem de sensores](assets/img/sensores.png)
 
-![Listagem com erro](assets/img/listagemerro.png)
+![Listagem de trens](assets/img/trens.png)
+
+![Listagem de rotas](assets/img/rotas.png)
+
+![Listagem de usuarios](assets/img/usuarios.png)
 
 ### Cadastros
-![Cadastro de rota](assets/img/cadastrorota.png)
-
 ![Cadastro de sensor](assets/img/cadastrosensor.png)
 
 ![Cadastro de trem](assets/img/cadastrotrem.png)
+
+![Cadastro de rota](assets/img/cadastrorota.png)
 
 ![Cadastro de usuário](assets/img/cadastrousuario.png)
 
