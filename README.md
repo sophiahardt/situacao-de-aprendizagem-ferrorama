@@ -226,9 +226,8 @@ O Ferroramas está sendo desenvolvido de forma colaborativa utilizando GitHub pa
 5. Integração dos dados de monitoramento.
 
 ## Imagens da versão final
-
 ### Landing Page
-![Landing Page - Parte 1](assets/img/landin.png)
+![Landing Page - Parte 1](assets/img/landing.png)
 
 ![Landing Page - Parte 2](assets/img/landingpage2.png)
 
@@ -243,13 +242,14 @@ O Ferroramas está sendo desenvolvido de forma colaborativa utilizando GitHub pa
 ![Dashboard - Parte 2](assets/img/dashboard2.png)
 
 ### Listagens
+
 ![Listagem de sensores](assets/img/sensores.png)
 
 ![Listagem de trens](assets/img/trens.png)
 
 ![Listagem de rotas](assets/img/rotas.png)
 
-![Listagem de usuarios](assets/img/usuarios.png)
+![Listagem de usuários](assets/img/usuarios.png)
 
 ### Cadastros
 ![Cadastro de sensor](assets/img/cadastrosensor.png)
@@ -269,7 +269,7 @@ O Ferroramas está sendo desenvolvido de forma colaborativa utilizando GitHub pa
 ![Navegação do sistema](assets/img/nav.png)
 
 ### Encerramento de sessão
-![Logout](assets/img/logout.png)
+![Logout](assets/img/logoutseção.png)
 
 ## Limitações conhecidas
 
