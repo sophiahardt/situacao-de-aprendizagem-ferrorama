@@ -125,7 +125,7 @@ As permissões são verificadas durante o uso do sistema. Algumas ações també
 - **Landing Page:** apresentação do sistema, com acesso ao login.
 - **Dashboard:** clima atual da localização do usuário, atalhos para cada módulo, resumo da operação (quantidade de trens, rotas e sensores) e alertas de monitoramento.
 - **Sensores, trens, rotas e usuários:** listagem com cadastro e edição em modais (janelas sobre a própria listagem) e exclusão com confirmação.
-- **Relatórios:** - **Relatórios:** geração de relatórios do sistema com informações sobre as operações ferroviárias.
+- **Relatórios:** - geração de relatórios do sistema com informações sobre as operações ferroviárias.
 - **Validações:** campos obrigatórios, e-mail, telefone, CEP e UF no cadastro de usuários; valores numéricos em trens e rotas; e-mail repetido não é aceito.
 - **Busca de CEP:** ao digitar o CEP no cadastro de usuário, o endereço é preenchido automaticamente.
 
@@ -169,16 +169,6 @@ Para a organização do desenvolvimento do Ferroramas, a equipe utiliza uma abor
 
 - **Scrum:** Utilizado como referência para organizar o desenvolvimento em etapas, definir prioridades e acompanhar a evolução das atividades.
 - **Kanban:** Por meio do GitHub Projects, é utilizado para visualizar e controlar o andamento das tarefas. Os cards são organizados de acordo com o status de desenvolvimento, permitindo identificar o que já foi concluído, o que está em andamento, o que está em revisão e o que ainda precisa ser desenvolvido.
-
-### Estrutura das Tarefas no Kanban
-
-Cada tarefa do Kanban deve apresentar, sempre que aplicável:
-
-- Descrição da ação
-- Responsável pela execução
-- Requisito Funcional relacionado
-- Status da atividade
-- Prioridade da tarefa
 
 ## Pesquisa Visual e Identidade do Projeto
 
@@ -227,14 +217,14 @@ O Ferroramas está sendo desenvolvido de forma colaborativa utilizando GitHub pa
 
 ## Imagens da versão final
 ### Landing Page
-![Landing Page - Parte 1](assets/img/landing.png)
+![Landing Page - Parte 1](assets/img/landingpage1.png)
 
 ![Landing Page - Parte 2](assets/img/landingpage2.png)
 
 ![Landing Page - Parte 3](assets/img/landingpage3.png)
 
 ### Login
-![Tela de login](assets/img/login.png)
+![Tela de login](assets/img/teladelogin.png)
 
 ### Dashboard
 ![Dashboard - Parte 1](assets/img/dashboard1.png)
@@ -243,13 +233,13 @@ O Ferroramas está sendo desenvolvido de forma colaborativa utilizando GitHub pa
 
 ### Listagens
 
-![Listagem de sensores](assets/img/sensores.png)
+![Listagem de sensores](assets/img/listadesensores.png)
 
-![Listagem de trens](assets/img/trens.png)
+![Listagem de trens](assets/img/listadetrens.png)
 
-![Listagem de rotas](assets/img/rotas.png)
+![Listagem de rotas](assets/img/listaderotas.png)
 
-![Listagem de usuários](assets/img/usuarios.png)
+![Listagem de usuários](assets/img/listadeusuarios.png)
 
 ### Cadastros
 ![Cadastro de sensor](assets/img/cadastrosensor.png)
@@ -269,13 +259,11 @@ O Ferroramas está sendo desenvolvido de forma colaborativa utilizando GitHub pa
 ![Navegação do sistema](assets/img/nav.png)
 
 ### Encerramento de sessão
-![Logout](assets/img/logoutseção.png)
+![Logout](assets/img/sair.png)
 
 ## Limitações conhecidas
 
 - A execução do sistema depende de um servidor web e de um banco de dados configurados corretamente.
 - As informações de clima dependem da disponibilidade da API Open-Meteo e de uma conexão com a internet.
 - A consulta automática de CEP depende da disponibilidade da API ViaCEP.
-- O monitoramento depende dos dados disponíveis e registrados pelos sensores no sistema.
-- O projeto pode receber melhorias e novas funcionalidades em versões futuras.
-     
+- O monitoramento depende dos dados disponíveis e registrados pelos sensores no sistema.     

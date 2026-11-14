@@ -28,7 +28,7 @@ Este manual tem como objetivo orientar, passo a passo, os usuários na utilizaç
 
 ![Landing Page](../assets/img/landingpage.png)
 
-> Se o sistema ainda não foi instalado, siga a seção **Como executar o projeto** do [README](README.md).
+> Se o sistema ainda não foi instalado, siga a seção **Como executar o projeto** do [README](..README.md).
 
 ---
 
