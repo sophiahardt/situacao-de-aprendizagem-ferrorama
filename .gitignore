@@ -1,0 +1,42 @@
+# Arquivos e pastas que o Git deve ignorar
+
+# ----- Arquivos criados pelo sistema operacional -----
+# Windows
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+# macOS
+.DS_Store
+# Linux
+*~
+
+# ----- Configurações pessoais de editores -----
+.vscode/
+.idea/
+*.code-workspace
+
+# ----- Logs e arquivos temporários -----
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# ----- Variáveis de ambiente e senhas -----
+.env
+.env.*
+
+# ----- Dependências instaladas por gerenciadores -----
+/vendor/
+node_modules/
+
+# ----- Arquivos gerados pelo sistema -----
+# PDFs salvos a partir do relatório geral e backups do banco de dados.
+*.pdf
+*.sql.bak
+database/backup/
+
+# ----- Arquivos compactados -----
+*.zip
+*.rar
+*.7z
