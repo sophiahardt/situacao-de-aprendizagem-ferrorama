@@ -76,7 +76,7 @@ if (!defined("ROTA_MODAIS")) {
                                 <div class="form-text">
                                     <?php if (count($trens) == 0) { ?>
                                         Nenhum trem cadastrado.
-                                        <a href="../trem/visualizar-trem.php?abrir=cadastro" target="_blank" rel="noopener noreferrer">
+                                        <a href="../trem/visualizar-trem.php?abrir=cadastro">
                                             Cadastrar trem
                                         </a>
                                     <?php } else { ?>
