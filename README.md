@@ -259,7 +259,7 @@ O Ferroramas está sendo desenvolvido de forma colaborativa utilizando GitHub pa
 ![Navegação do sistema](assets/img/nav.png)
 
 ### Encerramento de sessão
-![Logout](assets/img/sair.png)
+![Logout](assets/img/logoutsecao.png)
 
 ## Limitações conhecidas
 
