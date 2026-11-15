@@ -125,17 +125,9 @@ As permissões são verificadas durante o uso do sistema. Algumas ações també
 - **Landing Page:** apresentação do sistema, com acesso ao login.
 - **Dashboard:** clima atual da localização do usuário, atalhos para cada módulo, resumo da operação (quantidade de trens, rotas e sensores) e alertas de monitoramento.
 - **Sensores, trens, rotas e usuários:** listagem com cadastro e edição em modais (janelas sobre a própria listagem) e exclusão com confirmação.
-- **Relatórios:** listagem, cadastro, edição e exclusão.
+- **Relatórios:** - geração de relatórios do sistema com informações sobre as operações ferroviárias.
 - **Validações:** campos obrigatórios, e-mail, telefone, CEP e UF no cadastro de usuários; valores numéricos em trens e rotas; e-mail repetido não é aceito.
 - **Busca de CEP:** ao digitar o CEP no cadastro de usuário, o endereço é preenchido automaticamente.
-
-## Relação entre usuário, trem e rota
-
-- O sistema segue a ordem usuário → trem → rota: cada trem tem um usuário responsável, e cada trem anda em uma rota (uma rota pode ter vários trens).
-- O trem é cadastrado sem rota; o vínculo é feito no cadastro ou na edição da rota, escolhendo o trem que anda nela.
-- Um trem não pode ser excluído enquanto estiver associado a uma rota, nem enquanto tiver sensores.
-- Ao excluir uma rota, os trens dela ficam sem rota (desde que a rota não tenha sensores).
-- Um usuário não pode ser excluído enquanto for responsável por algum trem, e o único administrador do sistema não pode ser excluído.
 
 ## Requisitos necessários para execução
 
@@ -177,16 +169,6 @@ Para a organização do desenvolvimento do Ferroramas, a equipe utiliza uma abor
 
 - **Scrum:** Utilizado como referência para organizar o desenvolvimento em etapas, definir prioridades e acompanhar a evolução das atividades.
 - **Kanban:** Por meio do GitHub Projects, é utilizado para visualizar e controlar o andamento das tarefas. Os cards são organizados de acordo com o status de desenvolvimento, permitindo identificar o que já foi concluído, o que está em andamento, o que está em revisão e o que ainda precisa ser desenvolvido.
-
-### Estrutura das Tarefas no Kanban
-
-Cada tarefa do Kanban deve apresentar, sempre que aplicável:
-
-- Descrição da ação
-- Responsável pela execução
-- Requisito Funcional relacionado
-- Status da atividade
-- Prioridade da tarefa
 
 ## Pesquisa Visual e Identidade do Projeto
 
@@ -234,22 +216,54 @@ O Ferroramas está sendo desenvolvido de forma colaborativa utilizando GitHub pa
 5. Integração dos dados de monitoramento.
 
 ## Imagens da versão final
+### Landing Page
+![Landing Page - Parte 1](assets/img/landingpage1.png)
 
-Esta seção será preenchida com capturas de tela das principais páginas do sistema. Os arquivos das imagens ainda não estão disponíveis no repositório; quando adicionados, poderão ser organizados em `assets/img/` com estes nomes:
+![Landing Page - Parte 2](assets/img/landingpage2.png)
 
-- Landing Page: `landing-page.png`
-- Login: `login.png`
-- Dashboard: `dashboard.png`
-- Trens: `trens.png`
-- Sensores: `sensores.png`
-- Rotas: `rotas.png`
-- Relatórios: `relatorios.png`
+![Landing Page - Parte 3](assets/img/landingpage3.png)
+
+### Login
+![Tela de login](assets/img/teladelogin.png)
+
+### Dashboard
+![Dashboard - Parte 1](assets/img/dashboard1.png)
+
+![Dashboard - Parte 2](assets/img/dashboard2.png)
+
+### Listagens
+
+![Listagem de sensores](assets/img/listadesensores.png)
+
+![Listagem de trens](assets/img/listadetrens.png)
+
+![Listagem de rotas](assets/img/listaderotas.png)
+
+![Listagem de usuários](assets/img/listadeusuarios.png)
+
+### Cadastros
+![Cadastro de sensor](assets/img/cadastrosensor.png)
+
+![Cadastro de trem](assets/img/cadastrotrem.png)
+
+![Cadastro de rota](assets/img/cadastrorota.png)
+
+![Cadastro de usuário](assets/img/cadastrousuario.png)
+
+### Relatórios
+![Relatório geral](assets/img/relatorio.png)
+
+![Geração de relatório](assets/img/relatoriogerar.png)
+
+### Navegação
+![Navegação do sistema](assets/img/nav.png)
+
+### Encerramento de sessão
+![Logout](assets/img/sair.png)
 
 ## Limitações conhecidas
 
 - A execução do sistema depende de um servidor web e de um banco de dados configurados corretamente.
 - As informações de clima dependem da disponibilidade da API Open-Meteo e de uma conexão com a internet.
 - A consulta automática de CEP depende da disponibilidade da API ViaCEP.
-- O monitoramento depende dos dados disponíveis e registrados pelos sensores no sistema.
-- O projeto pode receber melhorias e novas funcionalidades em versões futuras.
-     
+- O monitoramento depende dos dados disponíveis e registrados pelos sensores no sistema.     
