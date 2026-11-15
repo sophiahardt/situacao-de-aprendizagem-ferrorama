@@ -15,13 +15,6 @@ tempo_estimado_minutos INT NOT NULL,
 data_criacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE relatorio (
-id_relatorio INT AUTO_INCREMENT PRIMARY KEY,
-nome_relatorio VARCHAR(100) NOT NULL,
-tipo_relatorio VARCHAR(45) NOT NULL,
-data_relatorio DATE NOT NULL
-);
-
 CREATE TABLE usuario (
 id_usuario INT AUTO_INCREMENT PRIMARY KEY,
 id_cargo INT NOT NULL,
@@ -42,7 +35,7 @@ id_trem INT AUTO_INCREMENT PRIMARY KEY,
 nome_trem VARCHAR(100) NOT NULL,
 velocidade_maxima DECIMAL(5,2) NOT NULL,
 tipo_trem VARCHAR(45) NOT NULL,
-id_usuario INT,
+id_usuario INT NOT NULL,
 id_rota INT NULL,
 FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
 FOREIGN KEY (id_rota) REFERENCES rota(id_rota)
@@ -55,7 +48,7 @@ tipo_sensor ENUM(
 'Velocidade',
 'Temperatura',
 'Presença'
-),
+) NOT NULL,
 localizacao VARCHAR(45),
 id_trem INT NULL,
 id_rota INT NULL,
