@@ -249,7 +249,7 @@ $nomes_nivel = [
 
 
             <div class="col-6 col-md-4 col-xl">
-                <a href="relatorio/visualizar-relatorio.php" class="card card-atalho">
+                <a href="relatorio/relatorio-geral.php" class="card card-atalho">
                     <div class="card-body">
                         <ion-icon name="document-text-outline"></ion-icon>
                         <h6 class="titulo-secao">Relatórios</h6>
