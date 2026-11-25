@@ -7,6 +7,7 @@ if (!defined("ROTA_MODAIS")) {
 }
 ?>
 <!-- MODAL DE CADASTRO -->
+
 <div class="modal fade" id="modalCadastroRota" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -28,7 +29,7 @@ if (!defined("ROTA_MODAIS")) {
                 <div class="modal-body">
 
                      <!-- Texto de orientação para o usuário -->
-                      
+
                     <p class="text-muted">
 
                         Preencha as informações para cadastrar uma nova rota no sistema.
@@ -44,6 +45,7 @@ if (!defined("ROTA_MODAIS")) {
                     <div class="row">
 
                           <!-- Primeira coluna: informações principais da rota -->
+                           
                         <div class="col-md-6">
 
                              <!-- Campo para informar o nome da rota -->
@@ -58,7 +60,7 @@ if (!defined("ROTA_MODAIS")) {
                                     value="<?= htmlspecialchars($nome_rota_form) ?>"
                                     required>
 
-                                       <!-- Campo para informar a extensão da rota em quilômetros -->
+                            <!-- Campo para informar a extensão da rota em quilômetros -->
 
                             </div>
                             <div class="mb-3">
@@ -74,6 +76,7 @@ if (!defined("ROTA_MODAIS")) {
                             </div>
                             
                             <!-- Campo para informar o tempo estimado em minutos -->
+
                             <div class="mb-3">
 
                                 <label class="form-label">Tempo estimado (Min)</label>
@@ -117,6 +120,7 @@ if (!defined("ROTA_MODAIS")) {
                                     <?php } else { ?>
 
                                      <!-- Informa que o trem pode ser transferido de outra rota -->
+                                      
                                         Se o trem já andar em outra rota, ele passa para esta.
 
                                     <?php } ?>
