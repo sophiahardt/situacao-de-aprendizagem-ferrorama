@@ -1,4 +1,6 @@
 <?php
+// Verifica se o arquivo foi acessado pela página correta. 
+
 if (!defined("ROTA_MODAIS")) {
     header("Location: visualizar-rota.php");
     exit;
@@ -15,19 +17,37 @@ if (!defined("ROTA_MODAIS")) {
                 </h5>
 
             </div>
+
+              <!-- Formulário que envia os dados para a página visualizar-rota.php -->
+
             <form method="POST" action="visualizar-rota.php">
+
+                  <!-- Informa que a ação realizada será um cadastro -->
+
                 <input type="hidden" name="acao" value="cadastrar">
                 <div class="modal-body">
+
+                     <!-- Texto de orientação para o usuário -->
+                      
                     <p class="text-muted">
+
                         Preencha as informações para cadastrar uma nova rota no sistema.
                     </p>
+
+                     <!-- Exibe uma mensagem de sucesso ou erro, quando necessário -->
+
                     <?php if ($mensagem != "" && $abrir_modal) { ?>
                         <div class="alert alert-<?= $tipo_mensagem ?>" role="alert">
                             <?= htmlspecialchars($mensagem) ?>
                         </div>
                     <?php } ?>
                     <div class="row">
+
+                          <!-- Primeira coluna: informações principais da rota -->
                         <div class="col-md-6">
+
+                             <!-- Campo para informar o nome da rota -->
+
                             <div class="mb-3">
                                 <label class="form-label">Nome da Rota</label>
                                 <input type="text"
@@ -37,6 +57,9 @@ if (!defined("ROTA_MODAIS")) {
                                     maxlength="45"
                                     value="<?= htmlspecialchars($nome_rota_form) ?>"
                                     required>
+
+                                       <!-- Campo para informar a extensão da rota em quilômetros -->
+
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Extensão (Km)</label>
@@ -49,7 +72,10 @@ if (!defined("ROTA_MODAIS")) {
                                     value="<?= htmlspecialchars($extensao_form) ?>"
                                     required>
                             </div>
+                            
+                            <!-- Campo para informar o tempo estimado em minutos -->
                             <div class="mb-3">
+
                                 <label class="form-label">Tempo estimado (Min)</label>
                                 <input type="number"
                                     name="tempo_estimado_minutos"
@@ -59,12 +85,18 @@ if (!defined("ROTA_MODAIS")) {
                                     value="<?= htmlspecialchars($tempo_estimado_form) ?>"
                                     required>
                             </div>
+                            
+                             <!-- Seleção do trem que ficará associado à rota -->
+
                             <div class="mb-3">
                                 <label class="form-label">Trem</label>
                                 <select name="id_trem" class="form-select" required>
                                     <option value="" disabled <?= $id_trem_form == "" ? "selected" : "" ?>>
                                         Selecione o trem que anda nesta rota
                                     </option>
+
+                                     <!-- Percorre os trens cadastrados para criar as opções -->
+
                                     <?php foreach ($trens as $trem) { ?>
                                         <option value="<?= $trem["id_trem"] ?>"
                                             <?= $id_trem_form == $trem["id_trem"] ? "selected" : "" ?>>
@@ -76,18 +108,30 @@ if (!defined("ROTA_MODAIS")) {
                                 <div class="form-text">
                                     <?php if (count($trens) == 0) { ?>
                                         Nenhum trem cadastrado.
+
+                                         <!-- Link para abrir a página de cadastro de trens em outra aba -->
+
                                         <a href="../trem/visualizar-trem.php?abrir=cadastro" target="_blank" rel="noopener noreferrer">
                                             Cadastrar trem
                                         </a>
                                     <?php } else { ?>
+
+                                     <!-- Informa que o trem pode ser transferido de outra rota -->
                                         Se o trem já andar em outra rota, ele passa para esta.
+
                                     <?php } ?>
                                 </div>
                             </div>
                         </div>
+
+                          <!-- Segunda coluna: descrição da rota -->
+
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Descrição</label>
+                                
+                                <!-- Campo para descrever o trajeto e outras informações da rota -->
+
                                 <textarea name="descricao"
                                     class="form-control"
                                     rows="8"
@@ -97,11 +141,20 @@ if (!defined("ROTA_MODAIS")) {
                         </div>
                     </div>
                 </div>
+
+                  <!-- Rodapé do modal com os botões de ação -->
+
                 <div class="modal-footer">
+
+                     <!-- Fecha o modal sem salvar os dados -->
+
                     <button type="button" class="btn btn-light btn-cancelar" data-bs-dismiss="modal">
                         <ion-icon name="close-outline"></ion-icon>
                         Cancelar
                     </button>
+
+                      <!-- Envia o formulário para cadastrar a rota -->
+
                     <button type="submit" class="btn btn-primary btn-login px-5">
                         <ion-icon name="save-outline"></ion-icon>
                         Salvar
