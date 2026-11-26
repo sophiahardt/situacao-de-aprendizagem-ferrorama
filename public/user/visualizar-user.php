@@ -5,6 +5,7 @@ require_once "../../infra/conexao.php";
 
 $total_colunas = ehAdministrador() ? 7 : 6;
 
+// Formata o telefone antes de salvar o usuário no banco.
 function formatarTelefone($telefone)
 {
     $numeros = preg_replace('/\D/', '', $telefone);
@@ -20,6 +21,7 @@ function formatarTelefone($telefone)
     return "+55 (" . substr($numeros, 0, 2) . ") " . substr($numeros, 2, 5) . "-" . substr($numeros, 7, 4);
 }
 
+// Deixa o CEP no formato 00000-000 antes de salvar.
 function formatarCep($cep)
 {
     if ($cep === "") {
@@ -31,6 +33,7 @@ function formatarCep($cep)
     return substr($numeros, 0, 5) . "-" . substr($numeros, 5);
 }
 
+// Valida os dados dos formulários antes de cadastrar ou editar um usuário.
 function validarUsuario($nome, $id_cargo, $email, $telefone, $cep, $uf, $senha, $senha_obrigatoria)
 {
     if ($nome == "" || $id_cargo == "" || $email == "" || $telefone == "" || ($senha_obrigatoria && $senha == "")) {
@@ -106,6 +109,7 @@ $consulta_cargos = $conexao->query("SELECT id_cargo, nome_cargo FROM cargo ORDER
 $cargos = $consulta_cargos ? $consulta_cargos->fetch_all(MYSQLI_ASSOC) : [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Recebe os dados de cadastro, incluindo telefone e endereço.
     if (($_POST["acao"] ?? "") == "cadastrar") {
         $nome_form = trim($_POST["nome"] ?? "");
         $id_cargo_form = $_POST["id_cargo"] ?? "";
@@ -196,6 +200,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $cep = formatarCep($cep_edicao);
 
             if ($nova_senha != "") {
+                // Uma nova senha é criada quando o campo é preenchido.
                 $senha_hash = password_hash($nova_senha, PASSWORD_DEFAULT);
 
                 $sql = "UPDATE usuario
@@ -356,6 +361,7 @@ $resultado = $conexao->query($sql);
                                 <th>Cargo</th>
                                 <th>Email</th>
                                 <th>Telefone</th>
+                                <!-- Essas colunas mostram os dados de endereço cadastrados. -->
                                 <th>CEP</th>
                                 <th>Endereço</th>
                                 <?php if (ehAdministrador()) { ?>

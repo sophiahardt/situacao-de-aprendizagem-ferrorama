@@ -1,4 +1,5 @@
 <?php
+// Evita que o processo de exclusão seja executado fora da tela de usuários.
 if (!defined("USUARIO_MODAIS")) {
     require_once "../../infra/conexao.php";
     require_once "../../infra/protecao.php";
@@ -28,6 +29,7 @@ if (!defined("USUARIO_MODAIS")) {
 
     if ($usuario_excluir["id_cargo"] == 1) {
 
+        // Conta os administradores para impedir que o último seja excluído.
         $sql_contagem = "SELECT COUNT(*) AS total FROM usuario WHERE id_cargo = 1";
         $resultado_contagem = $conexao->query($sql_contagem);
         $contagem = $resultado_contagem->fetch_assoc();

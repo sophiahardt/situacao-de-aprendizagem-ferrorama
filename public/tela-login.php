@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 
@@ -6,6 +5,7 @@ require_once "../infra/conexao.php";
 
 $mensagem = "";
 
+// Verifica se o formulário foi enviado e recebe email e senha.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"] ?? "";
     $senha = $_POST["senha"] ?? "";
@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($email == "" || $senha == "") {
         $mensagem = "Preencha todos os campos.";
     } else {
+        // Busca o cadastro pelo email informado.
         $sql = "SELECT * FROM usuario WHERE email = ?";
         $stmt = $conexao->prepare($sql);
         $stmt->bind_param("s", $email);
@@ -21,9 +22,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($resultado->num_rows > 0) {
             $usuario = $resultado->fetch_assoc();
+
+            // Compara a senha digitada com a senha protegida salva no banco.
             if (password_verify($senha, $usuario["senha_hash"])) {
                 session_regenerate_id(true);
 
+                // Guarda os dados necessários para controlar o acesso às páginas.
                 $_SESSION["id_usuario"] = $usuario["id_usuario"];
                 $_SESSION["nome_usuario"] = $usuario["nome"];
                 $_SESSION["id_cargo"] = $usuario["id_cargo"];
