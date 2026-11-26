@@ -1,4 +1,6 @@
 // ---------- Consulta de CEP ----------
+// Procura os campos da página usando o prefixo informado.
+// Esse prefixo permite reutilizar a função no cadastro e na edição.
 function configurarCep(prefixo) {
     const cepInput = document.getElementById(prefixo + "cep");
     const consultarButton = document.getElementById(prefixo + "consultar-cep");
@@ -36,6 +38,7 @@ function configurarCep(prefixo) {
     };
 
     const consultarCep = async () => {
+        // Remove caracteres diferentes de números antes da validação.
         const cep = cepInput.value.replace(/\D/g, "");
         if (!/^\d{8}$/.test(cep)) {
             mostrarMensagem("Informe um CEP com 8 dígitos.", "danger");
@@ -45,6 +48,7 @@ function configurarCep(prefixo) {
             return;
         }
 
+        // Cancela uma consulta anterior e inicia uma nova requisição.
         cancelarConsulta();
         const requisicaoAtual = numeroRequisicao;
         const controladorAtual = new AbortController();
@@ -150,6 +154,7 @@ function configurarCep(prefixo) {
 }
 
 // ---------- Máscara de telefone brasileiro ----------
+// Formata o telefone no padrão usado no formulário.
 function formatarTelefone(telefone) {
     const digits = telefone.replace(/\D/g, "").slice(0, 13);
 

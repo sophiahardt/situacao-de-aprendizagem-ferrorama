@@ -1,4 +1,5 @@
 (() => {
+    // Busca os elementos da tela onde as informações do clima serão exibidas.
     const localizacao = document.querySelector("#clima-local");
     const temperatura = document.querySelector("#clima-temperatura");
     const condicao = document.querySelector("#clima-condicao");
@@ -8,6 +9,7 @@
     const atualizacao = document.querySelector("#clima-atualizacao");
     const tentarNovamente = document.querySelector("#clima-tentar-novamente");
 
+    // Verifica se todos os elementos necessários foram encontrados na tela.
     if (!(localizacao instanceof HTMLElement)
         || !(temperatura instanceof HTMLElement)
         || !(condicao instanceof HTMLElement)
@@ -19,12 +21,14 @@
         return;
     }
 
+    // Define a localização padrão como Joinville, SC.
     const LOCAL_PADRAO = {
         nome: "Joinville, SC",
         latitude: -26.3044,
         longitude: -48.8461
     };
 
+    // Mapeia os códigos de condição do clima para descrições e ícones.
     const condicoes = {
         0: ["Céu limpo", "sunny"],
         1: ["Predominantemente limpo", "partly-sunny"],
@@ -56,12 +60,14 @@
         99: ["Trovoada com granizo forte", "thunderstorm"]
     };
 
+    // Exibe uma mensagem de erro na tela.
     const mostrarErro = (texto) => {
         condicao.textContent = "Clima indisponível";
         atualizacao.textContent = texto;
         tentarNovamente.classList.remove("d-none");
     };
 
+    // Obtém a posição atual do usuário ou usa a localização padrão.
     const obterPosicao = (solicitarLocalizacao = false) => new Promise((resolve, reject) => {
         if (!navigator.geolocation) {
             reject(new Error("Este navegador não oferece acesso à localização."));
@@ -98,6 +104,7 @@
         }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 });
     });
 
+    // Carrega as informações do clima para a localização atual ou padrão.
     const carregarClima = async (solicitarLocalizacao = false) => {
         tentarNovamente.classList.add("d-none");
         condicao.textContent = "Carregando clima...";

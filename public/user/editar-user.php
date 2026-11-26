@@ -1,4 +1,5 @@
 <?php
+// Impede a abertura deste modal diretamente pela URL.
 if (!defined("USUARIO_MODAIS")) {
     header("Location: visualizar-user.php");
     exit;
@@ -78,6 +79,7 @@ if (!defined("USUARIO_MODAIS")) {
                                 </select>
                             </div>
                             <div class="mb-3">
+                                <!-- Este campo recebe a máscara de telefone configurada pelo script usuario.js. -->
                                 <label for="editar_telefone" class="form-label">Telefone</label>
                                 <input type="tel"
                                     id="editar_telefone"
@@ -89,6 +91,7 @@ if (!defined("USUARIO_MODAIS")) {
                                     required>
                             </div>
                             <div class="mb-3">
+                                <!-- O CEP pode atualizar os dados de endereço do usuário selecionado. -->
                                 <label for="editar_cep" class="form-label">CEP</label>
                                 <div class="input-group">
                                     <input type="text"

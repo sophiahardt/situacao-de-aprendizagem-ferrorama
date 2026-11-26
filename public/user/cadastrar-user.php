@@ -1,4 +1,5 @@
 <?php
+// Impede a abertura deste arquivo fora da tela de usuários.
 if (!defined("USUARIO_MODAIS")) {
     header("Location: visualizar-user.php");
     exit;
@@ -78,6 +79,7 @@ if (!defined("USUARIO_MODAIS")) {
                                 </select>
                             </div>
                             <div class="mb-3">
+                                <!-- O telefone é formatado automaticamente pelo script usuario.js. -->
                                 <label for="telefone" class="form-label">Telefone</label>
                                 <input type="tel"
                                     id="telefone"
@@ -90,6 +92,7 @@ if (!defined("USUARIO_MODAIS")) {
                                     required>
                             </div>
                             <div class="mb-3">
+                                <!-- Ao informar o CEP, o sistema busca os dados de endereço e permite editá-los. -->
                                 <label for="cep" class="form-label">CEP</label>
                                 <div class="input-group">
                                     <input type="text"

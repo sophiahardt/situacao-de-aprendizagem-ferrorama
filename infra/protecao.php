@@ -6,6 +6,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
 require_once __DIR__ . "/conexao.php";
 
+// Calcula o caminho de uma página pública a partir da pasta /public/. 
+// Isso evita redirecionamentos incorretos em diferentes caminhos do projeto.
 function caminhoPublico($arquivo)
 {
     $script = $_SERVER["SCRIPT_NAME"] ?? "";
@@ -19,6 +21,7 @@ function caminhoPublico($arquivo)
     return "/public/" . $arquivo;
 }
 
+// Impede o acesso de usuários que não iniciaram sessão.
 function verificarLogin()
 {
     if (!isset($_SESSION["id_usuario"])) {
@@ -27,6 +30,7 @@ function verificarLogin()
     }
 }
 
+// Confere se o usuário possui acesso de administrador.
 function ehAdministrador()
 {
     if (!isset($_SESSION["id_cargo"])) {
