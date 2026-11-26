@@ -1,16 +1,25 @@
 <?php
+
+// Funções que controlam o login e as permissões do usuário
 require_once "../../infra/protecao.php";
+
+// Impede o acesso de pessoas que não fizeram login
 verificarLogin();
 require_once "../../infra/conexao.php";
 
+// A tabela tem uma coluna a mais para ações quando o usuário é administrador
 $total_colunas = ehAdministrador() ? 7 : 6;
 
+// Verifica se os dados da rota estão corretos
+// Retorna uma mensagem de erro ou uma string vazia
 function validarRota($nome_rota, $descricao, $extensao, $tempo_estimado)
 {
+    // Campos obrigatórios
     if ($nome_rota == "" || $descricao == "" || $extensao == "" || $tempo_estimado == "") {
         return "Preencha todos os campos.";
     }
 
+    // Extensão positiva e tempo inteiro positivo
     if (
         !is_numeric($extensao) ||
         (float) $extensao <= 0 ||
@@ -23,18 +32,22 @@ function validarRota($nome_rota, $descricao, $extensao, $tempo_estimado)
     return "";
 }
 
+// Dados usados para avisar o usuário e controlar os modais
 $mensagem = "";
 $tipo_mensagem = "success";
 $abrir_modal_edicao = false;
 
+// O modal de cadastro pode ser aberto por um link com ?abrir=cadastro
 $abrir_modal = ($_GET["abrir"] ?? "") == "cadastro";
 
+// Valores digitados no cadastro, usados para não apagar os dados após um erro
 $nome_rota_form = "";
 $descricao_form = "";
 $extensao_form = "";
 $tempo_estimado_form = "";
 $id_trem_form = "";
 
+// Valores digitados na edição, usados para preencher o modal novamente
 $id_rota_edicao = "";
 $nome_rota_edicao = "";
 $descricao_edicao = "";
@@ -42,9 +55,11 @@ $extensao_edicao = "";
 $tempo_estimado_edicao = "";
 $id_trem_edicao = "";
 
+// Recebe o resultado das páginas de cadastro, edição ou exclusão
 $sucesso = $_GET["sucesso"] ?? "";
 $erro = $_GET["erro"] ?? "";
 
+// Mensagem mostrada depois de cada operação
 if ($sucesso == "cadastrada") {
     $mensagem = "Rota cadastrada com sucesso!";
 } elseif ($sucesso == "editada") {
@@ -52,6 +67,7 @@ if ($sucesso == "cadastrada") {
 } elseif ($sucesso == "1") {
     $mensagem = "Rota excluída com sucesso!";
 } elseif ($erro == "sensores") {
+    // A rota não pode ser excluída enquanto tiver sensores associados
     $mensagem = "Não é possível excluir esta rota, pois existem sensores associados a ela.";
     $tipo_mensagem = "danger";
 } elseif ($erro == "exclusao") {
@@ -59,6 +75,7 @@ if ($sucesso == "cadastrada") {
     $tipo_mensagem = "danger";
 }
 
+// Lista os trens e verifica se cada um já possui uma rota
 $consulta_trens = $conexao->query(
     "SELECT trem.id_trem, trem.nome_trem, rota.nome_rota
      FROM trem
@@ -66,9 +83,13 @@ $consulta_trens = $conexao->query(
      ORDER BY trem.nome_trem"
 );
 
+// Os trens encontrados serão exibidos nos campos de seleção dos modais
 $trens = $consulta_trens ? $consulta_trens->fetch_all(MYSQLI_ASSOC) : [];
 
+// Verifica se o usuário enviou algum formulário
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // Cadastro de uma nova rota
     if (($_POST["acao"] ?? "") == "cadastrar") {
         $nome_rota_form = trim($_POST["nome_rota"] ?? "");
         $descricao_form = trim($_POST["descricao"] ?? "");
@@ -76,27 +97,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $tempo_estimado_form = $_POST["tempo_estimado_minutos"] ?? "";
         $id_trem_form = $_POST["id_trem"] ?? "";
 
+        // Mantém o modal aberto para corrigir os dados
         $abrir_modal = true;
 
+        // Valida os campos digitados
         $mensagem = validarRota($nome_rota_form, $descricao_form, $extensao_form, $tempo_estimado_form);
 
+        // Cada rota precisa estar ligada a um trem
         if ($mensagem == "" && $id_trem_form == "") {
             $mensagem = "Selecione o trem que anda nesta rota.";
         }
 
+        // Só salva no banco quando todos os dados estão corretos
         if ($mensagem == "") {
+            // Converte os dados para o formato usado no banco
             $extensao = (float) $extensao_form;
             $tempo_estimado_minutos = (int) $tempo_estimado_form;
             $id_trem = (int) $id_trem_form;
 
+            // Faz as duas alterações juntas: cadastrar a rota e ligar o trem
             $conexao->begin_transaction();
 
             try {
+                // Insere os dados da nova rota
                 $sql = "INSERT INTO rota (nome_rota, descricao, extensao, tempo_estimado_minutos)
                         VALUES (?, ?, ?, ?)";
 
                 $stmt = $conexao->prepare($sql);
 
+                // s = texto, d = número decimal e i = número inteiro
                 $stmt->bind_param(
                     "ssdi",
                     $nome_rota_form,
@@ -107,28 +136,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $stmt->execute();
 
+                // Guarda o ID criado para a nova rota
                 $id_rota_nova = $conexao->insert_id;
 
+                // Liga o trem selecionado à rota recém-criada
                 $sql = "UPDATE trem SET id_rota = ? WHERE id_trem = ?";
                 $stmt = $conexao->prepare($sql);
                 $stmt->bind_param("ii", $id_rota_nova, $id_trem);
                 $stmt->execute();
 
+                // Verifica se o trem escolhido existe
                 if ($stmt->affected_rows <= 0) {
                     throw new Exception("Trem não encontrado.");
                 }
 
+                // Confirma as duas operações no banco
                 $conexao->commit();
 
+                // Redireciona para evitar o reenvio do formulário
                 header("Location: visualizar-rota.php?sucesso=cadastrada");
                 exit;
             } catch (Throwable $excecao) {
+                // Cancela tudo caso alguma operação falhe
                 $conexao->rollback();
                 $mensagem = "Erro ao cadastrar a rota.";
             }
         }
 
         $tipo_mensagem = "danger";
+
+    // Edição de uma rota existente
     } elseif (($_POST["acao"] ?? "") == "editar") {
         $id_rota_edicao = (int) ($_POST["id_rota"] ?? 0);
         $nome_rota_edicao = trim($_POST["nome_rota"] ?? "");
@@ -137,8 +174,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $tempo_estimado_edicao = $_POST["tempo_estimado_minutos"] ?? "";
         $id_trem_edicao = $_POST["id_trem"] ?? "";
 
+        // Mantém o modal de edição aberto enquanto houver erro
         $abrir_modal_edicao = true;
 
+        // Verifica permissão e dados enviados
         if (!ehAdministrador()) {
             $mensagem = "Você não tem permissão para editar rotas.";
         } elseif ($id_rota_edicao <= 0) {
@@ -151,14 +190,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
+        // Atualiza os dados somente quando não existem erros
         if ($mensagem == "") {
             $extensao = (float) $extensao_edicao;
             $tempo_estimado_minutos = (int) $tempo_estimado_edicao;
             $id_trem = (int) $id_trem_edicao;
 
+            // As mudanças nos trens e na rota são feitas juntas
             $conexao->begin_transaction();
 
             try {
+                // Atualiza os dados da rota escolhida
                 $sql = "UPDATE rota
                         SET nome_rota = ?,
                             descricao = ?,
@@ -179,19 +221,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $stmt->execute();
 
-                // O trem que andava nesta rota e não foi o escolhido fica sem rota.
+                // Remove da rota os trens que não foram selecionados
                 $sql = "UPDATE trem SET id_rota = NULL WHERE id_rota = ? AND id_trem <> ?";
                 $stmt = $conexao->prepare($sql);
                 $stmt->bind_param("ii", $id_rota_edicao, $id_trem);
                 $stmt->execute();
 
-                // O trem escolhido passa a andar nesta rota.
+                // Liga o trem escolhido à rota editada
                 $sql = "UPDATE trem SET id_rota = ? WHERE id_trem = ?";
                 $stmt = $conexao->prepare($sql);
                 $stmt->bind_param("ii", $id_rota_edicao, $id_trem);
                 $stmt->execute();
 
-                // Confere se o trem escolhido existe 
+                // Confirma que o trem escolhido existe
                 $sql = "SELECT id_trem FROM trem WHERE id_trem = ?";
                 $stmt = $conexao->prepare($sql);
                 $stmt->bind_param("i", $id_trem);
@@ -206,6 +248,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: visualizar-rota.php?sucesso=editada");
                 exit;
             } catch (Throwable $excecao) {
+                // Nenhuma alteração é mantida se ocorrer um erro
                 $conexao->rollback();
             }
 
@@ -216,6 +259,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+// Busca as rotas e reúne os nomes dos trens associados a cada uma
 $sql = "SELECT rota.*,
                GROUP_CONCAT(trem.nome_trem ORDER BY trem.nome_trem SEPARATOR ', ') AS trens,
                MIN(trem.id_trem) AS id_trem
@@ -240,6 +284,7 @@ $resultado = $conexao->query($sql);
 </head>
 
 <body>
+    <!-- Menu principal do sistema -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sistema">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -289,6 +334,8 @@ $resultado = $conexao->query($sql);
             </div>
         </div>
     </nav>
+
+    <!-- Área principal da lista de rotas -->
     <div class="container-fluid p-4 crud-container">
         <div class="d-flex justify-content-between align-items-center mb-4 crud-cabecalho">
             <h1 class="h3">
@@ -306,6 +353,7 @@ $resultado = $conexao->query($sql);
                 <div class="table-responsive">
                     <table class="table table-hover mb-0">
                         <thead class="table-light">
+                            <!-- Cada coluna corresponde aos dados mostrados da rota -->
                             <tr>
                                 <th class="coluna-id">ID</th>
                                 <th>Nome</th>
@@ -319,6 +367,7 @@ $resultado = $conexao->query($sql);
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- Se existirem rotas, uma linha é criada para cada uma -->
                             <?php if ($resultado && $resultado->num_rows > 0) { ?>
                                 <?php while ($rota = $resultado->fetch_assoc()) { ?>
                                     <tr>
@@ -341,6 +390,7 @@ $resultado = $conexao->query($sql);
                                             <?= htmlspecialchars($rota["trens"] ?? "Nenhum trem") ?>
                                         </td>
                                         <?php if (ehAdministrador()) { ?>
+                                            <!-- Apenas administradores podem editar ou excluir rotas -->
                                             <td class="coluna-acoes">
                                                 <button type="button"
                                                     class="btn btn-editar btn-sm" title="Editar" aria-label="Editar"
@@ -377,6 +427,7 @@ $resultado = $conexao->query($sql);
         </div>
 
         <?php if ($mensagem != "" && !$abrir_modal && !$abrir_modal_edicao) { ?>
+            <!-- Mostra o resultado da última ação feita pelo usuário -->
             <div class="alert alert-<?= $tipo_mensagem ?> alert-dismissible fade show mt-3" role="alert">
                 <?= htmlspecialchars($mensagem) ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert"
@@ -386,15 +437,18 @@ $resultado = $conexao->query($sql);
     </div>
 
     <?php
+    // Os arquivos abaixo já incluem os formulários de cada ação.
     define("ROTA_MODAIS", true);
     require __DIR__ . "/cadastrar-rota.php";
     require __DIR__ . "/editar-rota.php";
     require __DIR__ . "/excluir-rota.php";
     ?>
 
+    <!-- Recursos necessários para os modais e para as ações da tabela -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../script/crud.js"></script>
 
+    <!-- Confirmação antes de sair do sistema -->
     <div class="modal fade" id="modalLogout" tabindex="-1" aria-labelledby="modalLogoutLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -424,6 +478,7 @@ $resultado = $conexao->query($sql);
     <!-- MODAIS DE CADASTRO E EDIÇÃO -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // Reabre o cadastro se o usuário enviou dados inválidos
             <?php if ($abrir_modal) { ?>
                 let modalCadastro = new bootstrap.Modal(
                     document.getElementById("modalCadastroRota")
@@ -432,6 +487,7 @@ $resultado = $conexao->query($sql);
             <?php } ?>
 
             <?php if ($abrir_modal_edicao) { ?>
+                // Coloca no formulário os dados digitados antes do erro
                 document.getElementById("editar_id_rota").value = <?= json_encode($id_rota_edicao) ?>;
                 document.getElementById("editar_nome_rota").value = <?= json_encode($nome_rota_edicao) ?>;
                 document.getElementById("editar_descricao").value = <?= json_encode($descricao_edicao) ?>;
