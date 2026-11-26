@@ -1,5 +1,7 @@
 <?php
+// Verifica se a constante TREM_MODAIS foi definida
 if (!defined("TREM_MODAIS")) {
+    // Redireciona o usuário para a página de visualização dos trens caso não tenha sido definida
     header("Location: visualizar-trem.php");
     exit;
 }
@@ -16,13 +18,17 @@ if (!defined("TREM_MODAIS")) {
 
             </div>
             <form method="POST" action="visualizar-trem.php">
+                <!-- Campo oculto que identifica a ação de editar -->
                 <input type="hidden" name="acao" value="editar">
+                <!-- Campo oculto que identifica o trem a ser editado -->
                 <input type="hidden" name="id_trem" id="editar_id_trem">
                 <div class="modal-body">
                     <p class="text-muted">
                         Altere as informações do trem selecionado.
                     </p>
+                    <!-- Verifica se existe uma mensagem e se o modal deve ser aberto -->
                     <?php if ($mensagem != "" && $abrir_modal_edicao) { ?>
+                    <!-- Exibe uma mensagem de sucesso ou erro (o tipo da mensagem define a cor do alerta) -->
                         <div class="alert alert-<?= $tipo_mensagem ?>" role="alert">
                             <?= htmlspecialchars($mensagem) ?>
                         </div>
@@ -57,6 +63,7 @@ if (!defined("TREM_MODAIS")) {
                                 <label for="editar_tipo_trem" class="form-label">Tipo de Trem</label>
                                 <select name="tipo_trem" id="editar_tipo_trem" class="form-select" required>
                                     <option value="" disabled>Selecione o tipo de trem</option>
+                                    <!-- Percorre o array $tipos_trem para criar uma opção para cada tipo de trem disponível -->
                                     <?php foreach ($tipos_trem as $tipo) { ?>
                                         <option value="<?= $tipo ?>"><?= $tipo ?></option>
                                     <?php } ?>
@@ -66,6 +73,7 @@ if (!defined("TREM_MODAIS")) {
                                 <label for="editar_id_usuario" class="form-label">Responsável</label>
                                 <select name="id_usuario" id="editar_id_usuario" class="form-select" required>
                                     <option value="" disabled>Selecione o responsável</option>
+                                    <!-- Percorre o array $usuarios para listar os usuários disponíveis como responsáveis -->
                                     <?php foreach ($usuarios as $usuario) { ?>
                                         <option value="<?= $usuario["id_usuario"] ?>">
                                             <?= htmlspecialchars($usuario["nome"]) ?>
